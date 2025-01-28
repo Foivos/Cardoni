@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://648jd8y3cys0"]
+
+[ext_resource type="PackedScene" uid="uid://bdlr1mjxd8tbf" path="res://testSprite.tscn" id="1_1lguy"]
+[ext_resource type="PackedScene" uid="uid://cx8sqj08dht5p" path="res://enemy.tscn" id="2_veskr"]
+[ext_resource type="Script" path="res://spwningC.cs" id="3_3et64"]
+
+[node name="MainScene" type="Node2D"]
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(-2, -173)
+
+[node name="Node2D" parent="." instance=ExtResource("1_1lguy")]
+position = Vector2(-1, -1)
+
+[node name="enemy" parent="." instance=ExtResource("2_veskr")]
+position = Vector2(-318, 10)
+
+[node name="spawnTImer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="spawn-C" type="Node" parent="."]
+script = ExtResource("3_3et64")
+enemyPreffab = ExtResource("2_veskr")
+
+[connection signal="timeout" from="spawnTImer" to="spawn-C" method="_on_spawn_timer_timeout"]
