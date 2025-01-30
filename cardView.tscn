@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://ddo4drgaqtaog"]
+
+[ext_resource type="Script" path="res://CardView.cs" id="1_qg2kn"]
+[ext_resource type="PackedScene" uid="uid://bfi22ur2d346d" path="res://card.tscn" id="2_t578a"]
+
+[node name="CardView" type="Node"]
+script = ExtResource("1_qg2kn")
+CardsScene = ExtResource("2_t578a")
