@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=6 format=3 uid="uid://nkxij81pggv7"]
 
 [ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="1_du8w1"]
 [ext_resource type="Script" path="res://gregFolder/testTargetC.cs" id="1_g7plp"]
 [ext_resource type="Texture2D" uid="uid://cqafomt12fh15" path="res://gregFolder/testTarget.png" id="2_5outl"]
+[ext_resource type="Script" path="res://gregFolder/testShooter.cs" id="4_jctje"]
+[ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="5_ffe23"]
 
 [node name="GregMainScene" type="Node2D"]
 
 [node name="BACK" type="Sprite2D" parent="."]
-position = Vector2(256, 575.46)
 scale = Vector2(2, 2)
 texture = ExtResource("1_du8w1")
 
@@ -17,5 +18,13 @@ backround = NodePath("../BACK")
 targetGraphic = NodePath("target sprite")
 
 [node name="target sprite" type="Sprite2D" parent="target C"]
+position = Vector2(65, -2)
 scale = Vector2(2, 2)
 texture = ExtResource("2_5outl")
+
+[node name="GUN" type="Node" parent="."]
+script = ExtResource("4_jctje")
+bulletPreffab = ExtResource("5_ffe23")
+speed = -1000.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
