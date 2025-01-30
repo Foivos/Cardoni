@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://nkxij81pggv7"]
+
+[ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="1_du8w1"]
+[ext_resource type="Script" path="res://gregFolder/testTargetC.cs" id="1_g7plp"]
+[ext_resource type="Texture2D" uid="uid://cqafomt12fh15" path="res://gregFolder/testTarget.png" id="2_5outl"]
+
+[node name="GregMainScene" type="Node2D"]
+
+[node name="BACK" type="Sprite2D" parent="."]
+position = Vector2(256, 575.46)
+scale = Vector2(2, 2)
+texture = ExtResource("1_du8w1")
+
+[node name="target C" type="Node" parent="." node_paths=PackedStringArray("backround", "targetGraphic")]
+script = ExtResource("1_g7plp")
+backround = NodePath("../BACK")
+targetGraphic = NodePath("target sprite")
+
+[node name="target sprite" type="Sprite2D" parent="target C"]
+scale = Vector2(2, 2)
+texture = ExtResource("2_5outl")
