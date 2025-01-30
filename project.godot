@@ -11,8 +11,14 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-config/features=PackedStringArray("4.3", "Mobile")
+run/main_scene="res://mainScene.tscn"
+config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=800
+window/size/viewport_height=1300
 
 [dotnet]
 
@@ -25,4 +31,5 @@ version_control/autoload_on_startup=true
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
