@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cnkm2wmxe83hk"]
+[gd_scene load_steps=6 format=3 uid="uid://cnkm2wmxe83hk"]
 
 [ext_resource type="PackedScene" path="res://testSprite.tscn" id="1_1lguy"]
 [ext_resource type="PackedScene" uid="uid://duco2472pg07k" path="res://enemy.tscn" id="2_veskr"]
 [ext_resource type="Script" path="res://spwningC.cs" id="3_3et64"]
 [ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="4_1k8pi"]
+[ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://cardView.tscn" id="5_h7r0l"]
 
 [node name="MainScene" type="Node2D"]
 position = Vector2(-2, -1)
@@ -28,5 +29,8 @@ enemySpeed = -300.0
 position = Vector2(400, 500)
 scale = Vector2(5, 5)
 texture = ExtResource("4_1k8pi")
+
+[node name="CardView" parent="." instance=ExtResource("5_h7r0l")]
+position = Vector2(400, 1150)
 
 [connection signal="timeout" from="spawnTImer" to="spawn-C" method="_on_spawn_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bfi22ur2d346d"]
+[gd_scene load_steps=4 format=3 uid="uid://ixpayohnt6iw"]
 
 [ext_resource type="Texture2D" uid="uid://dmya7rsh1nvkr" path="res://AncestralRecall.webp" id="1_eemn4"]
 [ext_resource type="Script" path="res://Card.cs" id="1_hx23o"]

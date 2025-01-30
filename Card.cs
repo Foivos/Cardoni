@@ -19,6 +19,7 @@ public partial class Card : Area2D
 
 	public void SetPosition() {
 		Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-		Position = new Vector2(screenSize.X * (2 * Index + 1) / 8, screenSize.Y / 2);
+		Position = new Vector2(screenSize.X * (2.0f * Index - 3.0f) / 8, 0);
+		GD.Print(Index, Position);
 	}
 }
