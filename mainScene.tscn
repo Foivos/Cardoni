@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://cnkm2wmxe83hk"]
 
-[ext_resource type="PackedScene" path="res://testSprite.tscn" id="1_1lguy"]
-[ext_resource type="PackedScene" uid="uid://duco2472pg07k" path="res://enemy.tscn" id="2_veskr"]
+[ext_resource type="PackedScene" uid="uid://bdlr1mjxd8tbf" path="res://testSprite.tscn" id="1_1lguy"]
 [ext_resource type="Script" path="res://spwningC.cs" id="3_3et64"]
+[ext_resource type="PackedScene" uid="uid://dwtrmu30gh0vs" path="res://enemy.tscn" id="3_ti32w"]
 [ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="4_1k8pi"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://cardView.tscn" id="5_h7r0l"]
 
@@ -21,8 +21,8 @@ autostart = true
 
 [node name="spawn-C" type="Node" parent="."]
 script = ExtResource("3_3et64")
-enemyPreffab = ExtResource("2_veskr")
-spawnX = 400.0
+enemyPreffab = ExtResource("3_ti32w")
+spawnX = 550.0
 enemySpeed = -300.0
 
 [node name="back" type="Sprite2D" parent="."]
