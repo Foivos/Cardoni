@@ -35,6 +35,8 @@ public partial class testTargetC : Node
 	[Export] Node2D targetGraphic;
 	[Export] Vector2 mousePos;
 	[Export] Vector2 targetPos;
+	[Export] Label targetGlobalPosLabel;
+	[Export] Label targetPosLabel;
 	public override void _Process(double delta)
 	{
 
@@ -42,6 +44,9 @@ public partial class testTargetC : Node
 
 		targetPos = gridTargetPosition(GetViewport().GetMousePosition());
 		targetGraphic.GlobalPosition = gridTargetPosition(GetViewport().GetMousePosition());
+
+        targetGlobalPosLabel.Text = "GP" + targetGraphic.GlobalPosition.ToString();
+        targetPosLabel.Text = "G" + targetGraphic.Position.ToString();
 
 
 	}
