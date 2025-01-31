@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmya7rsh1nvkr"
-path="res://.godot/imported/AncestralRecall.webp-96d63f1ecb5d46bcabed3527698a65cf.ctex"
+uid="uid://ddclef1pok1or"
+path="res://.godot/imported/AncestralRecall.webp-b0dd1b42d7063e31c9c5efaa2ecde408.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://AncestralRecall.webp"
-dest_files=["res://.godot/imported/AncestralRecall.webp-96d63f1ecb5d46bcabed3527698a65cf.ctex"]
+source_file="res://resources/AncestralRecall.webp"
+dest_files=["res://.godot/imported/AncestralRecall.webp-b0dd1b42d7063e31c9c5efaa2ecde408.ctex"]
 
 [params]
 

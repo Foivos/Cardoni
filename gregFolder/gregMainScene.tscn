@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://nkxij81pggv7"]
 
-[ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="1_du8w1"]
+[ext_resource type="Texture2D" uid="uid://b6jnxfmop3m3y" path="res://resources/back.png" id="1_du8w1"]
 [ext_resource type="Script" path="res://gregFolder/testTargetC.cs" id="1_g7plp"]
 [ext_resource type="Texture2D" uid="uid://cqafomt12fh15" path="res://gregFolder/testTarget.png" id="2_5outl"]
 [ext_resource type="Script" path="res://gregFolder/testShooter.cs" id="4_jctje"]
