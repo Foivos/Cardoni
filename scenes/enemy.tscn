@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dwtrmu30gh0vs"]
+[gd_scene load_steps=4 format=3 uid="uid://d3hpwgmnfo4hb"]
 
-[ext_resource type="Script" path="res://enemyC.cs" id="1_6alpa"]
-[ext_resource type="Texture2D" uid="uid://hdcgv2g34uap" path="res://icon.svg" id="1_nlf3i"]
+[ext_resource type="Script" path="res://scripts/enemyC.cs" id="1_6alpa"]
+[ext_resource type="Texture2D" uid="uid://sdij7nkwlb7i" path="res://resources/icon.svg" id="1_nlf3i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ykbkl"]
 radius = 100.0
@@ -9,6 +9,8 @@ radius = 100.0
 [node name="enemy" type="RigidBody2D"]
 position = Vector2(298, -105)
 script = ExtResource("1_6alpa")
+speed = null
+temorarySpeed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ykbkl")
