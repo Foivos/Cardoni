@@ -3,12 +3,13 @@
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_fx53q"]
 parameter_name = "tint"
 default_value_enabled = true
+default_value = Color(0.8, 0.8, 0.8, 1)
 
 [resource]
 code = "shader_type canvas_item;
 render_mode blend_mix;
 
-uniform vec4 tint : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
+uniform vec4 tint : source_color = vec4(0.800000, 0.800000, 0.800000, 1.000000);
 
 
 
@@ -23,7 +24,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(-314.78, -146.793)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(780, 160)

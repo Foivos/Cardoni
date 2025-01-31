@@ -1,14 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=11 format=3 uid="uid://nkxij81pggv7"]
 
 [ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="1_du8w1"]
-[ext_resource type="Script" path="res://gregFolder/testTargetC.cs" id="1_g7plp"]
+[ext_resource type="Script" path="res://gregFolder/gregC/testTargetC.cs" id="1_g7plp"]
 [ext_resource type="Texture2D" uid="uid://cqafomt12fh15" path="res://gregFolder/testTarget.png" id="2_5outl"]
-[ext_resource type="Script" path="res://gregFolder/battleEffectsC.cs" id="2_tstke"]
+[ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_tstke"]
 [ext_resource type="Material" uid="uid://m4n04ci0djkv" path="res://gregFolder/whiteMaterial.tres" id="3_dx2ly"]
 [ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/testEnemyFour.png" id="3_p3rqh"]
-[ext_resource type="Script" path="res://gregFolder/testShooter.cs" id="4_jctje"]
+[ext_resource type="Script" path="res://gregFolder/gregC/testShooter.cs" id="4_jctje"]
 [ext_resource type="Material" uid="uid://c6dvlpc3mnya8" path="res://gregFolder/blackMaterial.tres" id="4_reo8h"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="5_ffe23"]
+[ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="10_4u71e"]
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -17,15 +18,22 @@ visibility_layer = 2
 scale = Vector2(2, 2)
 texture = ExtResource("1_du8w1")
 
-[node name="EFFECTS" type="Node" parent="." node_paths=PackedStringArray("testSprite")]
+[node name="EFFECTS" type="Node" parent="." node_paths=PackedStringArray("testSprite", "backround")]
 script = ExtResource("2_tstke")
 testSprite = NodePath("test sprite")
 whiteMat = ExtResource("3_dx2ly")
 blackMat = ExtResource("4_reo8h")
 effectDelay = 0.05
+shakeSpriteDuration = 0.03
+shakeSpriteOffset = 5.0
+shakeSpriteRotation = 10.0
+backround = NodePath("../BACK")
+backroundEffectDelay = 0.02
+backroundEffeColor = Color(0.67, 0.67, 0.67, 1)
 
 [node name="test sprite" type="Sprite2D" parent="EFFECTS"]
 position = Vector2(37, -280)
+scale = Vector2(2, 2)
 texture = ExtResource("3_p3rqh")
 
 [node name="Bullet" parent="." instance=ExtResource("5_ffe23")]
@@ -50,6 +58,7 @@ bulletPreffab = ExtResource("5_ffe23")
 speed = -1000.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("10_4u71e")
 
 [node name="UI controll" type="Control" parent="."]
 layout_mode = 3
@@ -78,3 +87,16 @@ offset_right = -52.0
 offset_bottom = -288.0
 scale = Vector2(2, 2)
 text = "global p"
+
+[node name="explainer" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -157.0
+offset_top = 114.0
+offset_right = -5.0
+offset_bottom = 215.0
+scale = Vector2(2, 2)
+text = "left = flash 1 
+right = flash 2 
+down = shakeCam
+enter = shakeEnm"
+autowrap_mode = 1
