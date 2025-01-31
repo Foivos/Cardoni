@@ -13,7 +13,7 @@ public partial class CardView : Area2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		for (uint i = 0; i<4; i++) {
+		for (uint i = 0; i < 4; i++) {
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
 			cards[i] = card;

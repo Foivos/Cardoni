@@ -16,6 +16,15 @@ public class Expiring : IComparable
         GameState.Instance.AddExpiring(expiring);
     }
 
+    public static void CreateRecurring(uint duration, Action action) {
+        Action onExpire;
+        onExpire = () => {
+            action();
+            Create(duration, onExpire);
+        };
+        Create(duration, onExpire);
+    }
+
     public int CompareTo(object other) {
         return (int)End - (int)((Expiring) other).End;
     }

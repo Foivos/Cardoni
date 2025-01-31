@@ -13,6 +13,10 @@ public partial class GameState: Node
 
 	public List<ITicked> Ticked = new List<ITicked>();
 
+	public const int LanesNumber = 4;
+
+	public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
+
 	public override void _Ready()
 	{
 		Instance = this;	
@@ -24,6 +28,7 @@ public partial class GameState: Node
 		entity2.Name = "2";
 		entity3.Name = "3";
 
+		/*
 		Expiring.Create(3, new System.Action(() => {
 			GD.Print("expired1");
 			Poisoned.Apply(entity1, 10, 12);
@@ -46,6 +51,8 @@ public partial class GameState: Node
 			Poisoned.Apply(entity2, 15, 16);
 			Poisoned.Apply(entity3, 20, 12);
 		}));
+
+		*/
 	}
 	public override void _PhysicsProcess(double dt) {
 		for (int i = 0; i < Ticked.Count; i++) {

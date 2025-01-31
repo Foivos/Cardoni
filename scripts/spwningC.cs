@@ -4,8 +4,8 @@ using System;
 public partial class spwningC : Node
 {
 
-
-	[Export] public PackedScene enemyPreffab { get; set; }
+	[Export] public Area2D GameView;
+	[Export] public PackedScene EnemyPreffab { get; set; }
 	[Export] float spawnX;
 	[Export] float enemySpeed;
 
@@ -37,8 +37,8 @@ public partial class spwningC : Node
 	{
 
 
-		enemyC mob = enemyPreffab.Instantiate<enemyC>();
-
+		Enemy mob = EnemyPreffab.Instantiate<Enemy>();
+		mob.GameView = GameView;
 		// Choose a random location on Path2D.
 		//var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
 		//mobSpawnLocation.ProgressRatio = GD.Randf();

@@ -1,23 +1,23 @@
 [gd_scene load_steps=4 format=3 uid="uid://d3hpwgmnfo4hb"]
 
-[ext_resource type="Script" path="res://scripts/enemyC.cs" id="1_6alpa"]
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_cjc3v"]
 [ext_resource type="Texture2D" uid="uid://sdij7nkwlb7i" path="res://resources/icon.svg" id="1_nlf3i"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ykbkl"]
-radius = 100.0
+radius = 0.01
 
-[node name="enemy" type="RigidBody2D"]
+[node name="enemy" type="RigidBody2D" node_paths=PackedStringArray("CollisionShape")]
 position = Vector2(298, -105)
-script = ExtResource("1_6alpa")
+scale = Vector2(1, 1.0031)
+script = ExtResource("1_cjc3v")
+CollisionShape = NodePath("CollisionShape2D")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.998185, 1)
 shape = SubResource("CircleShape2D_ykbkl")
 debug_color = Color(0.3933, 0.447695, 0.69, 1)
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0.29, 0.301833, 1)
+scale = Vector2(1, 1.00532)
 texture = ExtResource("1_nlf3i")
-
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
