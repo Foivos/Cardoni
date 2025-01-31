@@ -2,8 +2,8 @@
 
 using Godot;
 
-public class Slowed: EffectCondition<SlowedEffect>, ICondition {
-    public override EffectType EffectType => EffectType.SpeedModifier;
+public class Slowed: EffectCondition<SlowedEffect> {
+    public override EffectType EffectType => EffectType.Slowed;
 
 	public uint Modifier;
 

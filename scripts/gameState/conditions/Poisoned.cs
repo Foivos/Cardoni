@@ -2,7 +2,7 @@
 
 using Godot;
 
-public class Poisoned: EffectCondition<PoisonedEffect>, ICondition {
+public class Poisoned: EffectCondition<PoisonedEffect> {
     public override EffectType EffectType => EffectType.Poisoned;
 
 	public uint Strength;

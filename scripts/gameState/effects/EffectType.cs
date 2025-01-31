@@ -1,5 +1,5 @@
 
 public enum EffectType {
 	Poisoned,
-	SpeedModifier,
+	Slowed,
 }

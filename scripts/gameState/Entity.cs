@@ -13,7 +13,7 @@ public class Entity {
 	public Effect[] Effects = new Effect[Enum.GetNames(typeof(EffectType)).Length];
 
 	public void Damage(int damage) {
-		GD.Print(Name, " damaged at: ", GameState.Instance.Tick, " currecnt health is ", Health);
 		Health -= damage;
+		GD.Print(Name, " damaged at: ", GameState.Instance.Tick, " currecnt health is ", Health);
 	}
 }

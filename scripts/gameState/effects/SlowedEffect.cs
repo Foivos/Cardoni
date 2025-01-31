@@ -1,5 +1,5 @@
 public class SlowedEffect: Effect {
-    public override EffectType EffectType => EffectType.SpeedModifier;
+    public override EffectType EffectType => EffectType.Slowed;
 
 	private uint modifier = 0;
 
