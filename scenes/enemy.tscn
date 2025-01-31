@@ -9,8 +9,6 @@ radius = 100.0
 [node name="enemy" type="RigidBody2D"]
 position = Vector2(298, -105)
 script = ExtResource("1_6alpa")
-speed = null
-temorarySpeed = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_ykbkl")

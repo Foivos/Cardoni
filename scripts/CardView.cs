@@ -32,7 +32,6 @@ public partial class CardView : Area2D
 	
 	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
 	{
-		GD.Print(GetLocalMousePosition());
 		if (@event is InputEventMouseButton eventMouseButton)
 		{	
 			if (eventMouseButton.ButtonIndex != MouseButton.Left) return;
@@ -67,9 +66,6 @@ public partial class CardView : Area2D
 				}
 			}
 		}
-
-		// Print the size of the viewport.
-		//GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size);
 	}
 
 	public void _MouseEntered() 

@@ -15,6 +15,10 @@ run/main_scene="res://scenes/mainScene.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://resources/icon.svg"
 
+[autoload]
+
+GameState="*res://scripts/GameState.cs"
+
 [display]
 
 window/size/viewport_width=800
@@ -28,6 +32,10 @@ project/assembly_name="New Game Project"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[physics]
+
+common/physics_ticks_per_second=20
 
 [rendering]
 
