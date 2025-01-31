@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=17 format=3 uid="uid://nkxij81pggv7"]
 
 [ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="1_du8w1"]
 [ext_resource type="Script" path="res://gregFolder/gregC/testTargetC.cs" id="1_g7plp"]
@@ -10,6 +10,52 @@
 [ext_resource type="Material" uid="uid://c6dvlpc3mnya8" path="res://gregFolder/blackMaterial.tres" id="4_reo8h"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="5_ffe23"]
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="10_4u71e"]
+[ext_resource type="Texture2D" uid="uid://4wtajmvyyyoa" path="res://gregFolder/testSpriteSheet.png" id="11_bq4we"]
+[ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/testEnemySpriteSheet.png" id="12_nlyjo"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Animation" id="Animation_vhblr"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_5mq22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vut0g"]
+_data = {
+"RESET": SubResource("Animation_5mq22"),
+"idle": SubResource("Animation_vhblr")
+}
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -100,3 +146,31 @@ right = flash 2
 down = shakeCam
 enter = shakeEnm"
 autowrap_mode = 1
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_oj31l")
+position = Vector2(156, -260)
+lifetime = 2.0
+draw_order = 1
+texture = ExtResource("11_bq4we")
+gravity = Vector2(0, 500)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="spriteSheetAnim" type="Sprite2D" parent="."]
+position = Vector2(-163, -3)
+texture = ExtResource("12_nlyjo")
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="spriteSheetAnim"]
+libraries = {
+"": SubResource("AnimationLibrary_vut0g")
+}
+autoplay = "idle"
+
+[node name="testSpriteSheet_SLICED" type="Sprite2D" parent="spriteSheetAnim"]
+position = Vector2(41, -151)
+texture = ExtResource("12_nlyjo")
+region_enabled = true
+region_rect = Rect2(0, 0, 48, 48)
