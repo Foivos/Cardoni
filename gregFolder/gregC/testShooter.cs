@@ -16,7 +16,7 @@ public partial class testShooter : Node
 
 	public override void _Input(InputEvent @event)
 	{
-		shoot();
+		//shoot();
 	}
 	float lastShoot;
 	float minShootDelay = 0.5f;
