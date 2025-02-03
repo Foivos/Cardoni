@@ -1,5 +1,20 @@
 using System;
 
+class Recurring {
+    Action<uint> Action;
+    uint Duration;
+
+    public Recurring(uint duration, Action<uint> action) {
+        Action = action;
+        Duration = duration;
+    }
+
+    public void OnExpire(uint tick) {
+        Action(tick);
+        Expiring.Create(Duration, OnExpire);
+    }
+}
+
 public class Expiring : IComparable
 {
     public uint End;
@@ -17,12 +32,8 @@ public class Expiring : IComparable
     }
 
     public static void CreateRecurring(uint duration, Action<uint> action) {
-        Action<uint> onExpire;
-        onExpire = (uint tick) => {
-            action(tick);
-            Create(duration, onExpire);
-        };
-        Create(duration, onExpire);
+        Recurring recurring = new Recurring(duration, action);
+        Create(duration, recurring.OnExpire);
     }
 
     public int CompareTo(object other) {

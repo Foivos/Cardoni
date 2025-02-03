@@ -30,7 +30,7 @@ autostart = true
 script = ExtResource("2_5kxkp")
 GameView = NodePath("..")
 EnemyPreffab = ExtResource("3_4767k")
-spawnX = 550.0
+spawnX = 100.0
 enemySpeed = -300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]

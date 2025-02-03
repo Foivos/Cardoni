@@ -19,7 +19,7 @@ public partial class GameState: Node
 
 	public override void _Ready()
 	{
-		Instance = this;	
+		Instance = this;
 
 		/*
 		Expiring.Create(3, new System.Action(() => {
