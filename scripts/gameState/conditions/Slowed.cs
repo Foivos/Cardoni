@@ -20,7 +20,7 @@ public class Slowed: EffectCondition<SlowedEffect> {
 		}
 	}
 
-	public void OnExpire() {
+	public void OnExpire(uint tick) {
 		Effect.Modifier -= Modifier;
 		Effect.Update();
 	}

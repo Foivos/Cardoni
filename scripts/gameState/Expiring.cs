@@ -4,22 +4,22 @@ public class Expiring : IComparable
 {
     public uint End;
 
-    public Action OnExpire;
+    public Action<uint> OnExpire;
 
-    private Expiring(uint duration, Action onExpire) {
+    private Expiring(uint duration, Action<uint> onExpire) {
         OnExpire = onExpire;
         End = GameState.Instance.Tick + duration;
     }
 
-    public static void Create(uint duration, Action onExpire) {
+    public static void Create(uint duration, Action<uint> onExpire) {
         Expiring expiring = new Expiring(duration, onExpire);
         GameState.Instance.AddExpiring(expiring);
     }
 
-    public static void CreateRecurring(uint duration, Action action) {
-        Action onExpire;
-        onExpire = () => {
-            action();
+    public static void CreateRecurring(uint duration, Action<uint> action) {
+        Action<uint> onExpire;
+        onExpire = (uint tick) => {
+            action(tick);
             Create(duration, onExpire);
         };
         Create(duration, onExpire);

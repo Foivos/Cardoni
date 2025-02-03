@@ -25,7 +25,7 @@ public class Poisoned: EffectCondition<PoisonedEffect> {
 		new Poisoned(entity, strength, duration);
 	}
 
-	public void OnExpire() {
+	public void OnExpire(uint tick) {
 		Effect.Strength -= Strength;
 		GD.Print("Poison Ended, at ", GameState.Instance.Tick," remaining stacks: ", Effect.Stacks);
 		Effect.Update();

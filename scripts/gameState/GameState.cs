@@ -21,13 +21,6 @@ public partial class GameState: Node
 	{
 		Instance = this;	
 
-		Entity entity1 = new Entity();
-		Entity entity2 = new Entity();
-		Entity entity3 = new Entity();
-		entity1.Name = "1";
-		entity2.Name = "2";
-		entity3.Name = "3";
-
 		/*
 		Expiring.Create(3, new System.Action(() => {
 			GD.Print("expired1");
@@ -51,7 +44,6 @@ public partial class GameState: Node
 			Poisoned.Apply(entity2, 15, 16);
 			Poisoned.Apply(entity3, 20, 12);
 		}));
-
 		*/
 	}
 	public override void _PhysicsProcess(double dt) {
@@ -60,7 +52,7 @@ public partial class GameState: Node
 		}
 		while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick) {
 			Expiring expiring = ExpiringQueue.Pop();
-			expiring.OnExpire();
+			expiring.OnExpire(Tick);
 		}
 
 		Tick++;
