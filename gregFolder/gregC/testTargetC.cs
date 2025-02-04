@@ -3,7 +3,58 @@ using Godot;
 
 public partial class testTargetC : Node
 {
-    // Called when the node enters the scene tree for the first time.
+
+
+
+    public enum targetTypes { NONE, line, position }//todo future MORE  //, enemy
+
+
+
+    // selection types   NONE   line , position , minionSpawnPlace  , enemy 
+    // open selection - 
+
+    // open selection
+    // cancel selection
+    // end selection - return result 
+
+    [Export] Sprite2D positionTarget, lineTarget;//, enemyTarget;
+
+
+
+    [Export] targetTypes targetNow = targetTypes.NONE;
+
+    
+
+    public void beginTargeting(targetTypes type)
+    {
+
+        targetNow = type;
+        SetProcess(true);
+
+        positionTarget.Visible = targetNow == targetTypes.position;
+        lineTarget.Visible = targetNow == targetTypes.line;
+        //enemyTarget.Visible = targetNow == targetTypes.enemy;
+
+
+
+    }
+    public void endTargeting()
+    {
+        positionTarget.Visible = false;
+        lineTarget.Visible = false;
+        SetProcess(false);
+
+    }
+    public bool targetResult(out Vector2 position ,out int line  )
+    {
+
+
+
+
+
+    }
+
+
 
 
     public static testTargetC inst;
