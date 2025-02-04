@@ -1,9 +1,8 @@
 using Godot;
 using State;
 
-public class Poisoned : EffectCondition<PoisonedEffect>
-{
-    public override EffectType EffectType => EffectType.Poisoned;
+public class Poisoned: EffectCondition<PoisonedEffect> {
+	public override EffectType EffectType => EffectType.Poisoned;
 
     public uint Strength;
 
