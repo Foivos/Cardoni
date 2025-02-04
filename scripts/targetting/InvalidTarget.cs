@@ -1,7 +1,7 @@
 
 
-public class NoneTarget: ITarget {
+public class InvalidTarget: ITarget {
 
-	public NoneTarget() {
+	public InvalidTarget() {
 	}
 }

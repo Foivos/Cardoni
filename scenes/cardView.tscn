@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/CardView.cs" id="1_qg2kn"]
 [ext_resource type="PackedScene" uid="uid://ixpayohnt6iw" path="res://scenes/card.tscn" id="2_t578a"]
-[ext_resource type="PackedScene" uid="uid://b4hdniqnhjhyt" path="res://scenes/cardArea.tscn" id="3_ff0i2"]
+[ext_resource type="PackedScene" path="res://scenes/cardArea.tscn" id="3_ff0i2"]
 
 [node name="CardView" type="Node2D"]
 position = Vector2(200, 700)

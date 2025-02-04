@@ -50,8 +50,10 @@ public partial class GameView : Area2D
         if (GameState.SelectedCard == null) return;
 
 
-        bool result = testTargetC.inst.targetResult(out Vector2 position, out int line);
+        ITarget result = testTargetC.inst.targetResult();
         testTargetC.inst.endTargeting();
+
+        
         // DestroyTargetting();
     }
 }

@@ -16,6 +16,8 @@ public partial class testTargetC : Node
 
 
 
+
+
     public override void _Ready()
     {
         inst = this;
@@ -121,10 +123,6 @@ public partial class testTargetC : Node
 
 
 
-
-
-
-
     Vector2 gridTargetPosition(Vector2 pos)
     {
         pos -= screenSize / 2;
@@ -158,5 +156,5 @@ public partial class testTargetC : Node
         return pos * screenBlock; // + Vector2.One * screenBlock / 2;
     }
 
-    //GetViewport().GetMousePosition();
+  
 }
