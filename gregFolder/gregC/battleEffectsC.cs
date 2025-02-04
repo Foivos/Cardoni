@@ -5,37 +5,28 @@ using Godot;
 public partial class battleEffectsC : Node
 {
     public static battleEffectsC inst;
+    public override void _Ready() { inst = this; }
 
-    public override void _Ready()
-    {
-        inst = this;
-    }
+
 
     [ExportGroup("test group ")]
-    [Export]
-    Sprite2D testSprite;
+    [Export] Sprite2D testSprite;
 
-    [Export]
-    Material whiteMat,
-        blackMat;
 
-    [Export]
-    public float effectDelay;
+    [Export] Material whiteMat, blackMat;
 
-    //%"../UI controll/target pos label";
 
+    [Export] public float effectDelay;
 
 
     [ExportGroup("test camera shake")]
-    [Export]
-    public float shakeCameraDuration = 0.08f;
+    [Export] public float shakeCameraDuration = 0.08f;
 
-    [Export]
-    public float shakeCameraStrenght = 10;
+    [Export] public float shakeCameraStrenght = 10;
 
     public override void _Process(double delta)
     {
-        _ProcessEffects();
+        _ProcessSpriteEffects();
     }
 
     public override void _Input(InputEvent @event)
@@ -55,23 +46,28 @@ public partial class battleEffectsC : Node
             doShake(testSprite);
     }
 
-    void _ProcessEffects()
+
+    #region  SPRITE EFFECTS
+
+    List<spriteEffect> _spriteEffect = new List<spriteEffect>();
+
+    void _ProcessSpriteEffects()
     {
-        if (effects.Count == 0)
+        if (_spriteEffect.Count == 0)
             return;
         float time = Time.GetTicksMsec();
 
-        for (int i = effects.Count - 1; i >= 0; i--)
+        for (int i = _spriteEffect.Count - 1; i >= 0; i--)
         {
-            if (effects[i].untill > time)
+            if (_spriteEffect[i].untill > time)
                 continue;
-            effects[i].update(time, out bool removeMe);
+            _spriteEffect[i].update(time, out bool removeMe);
             if (removeMe)
-                effects.RemoveAt(i);
+                _spriteEffect.RemoveAt(i);
         }
     }
 
-    List<spriteEffect> effects = new List<spriteEffect>();
+
 
     class spriteEffect //? origin
     {
@@ -125,30 +121,22 @@ public partial class battleEffectsC : Node
             counter++;
             untill = time + inst.effectDelay * 1000;
 
-            if (counter == 1)
-            {
-                sprite.Material = inst.blackMat;
-            }
-            else if (counter == 2)
-            {
-                sprite.Material = inst.whiteMat;
-            }
-            else
-            {
-                sprite.Material = null;
-                removeMe = true;
-            }
+            if (counter == 1) sprite.Modulate = new Color(0.2f, 0.2f, 0.2f);
+            else if (counter == 2) sprite.Modulate = new Color(1f, 1f, 1f);
+            else removeMe = true;
+
+
         }
     }
 
     public void addHitOne(Sprite2D sprite)
     {
-        effects.Add(new hitOne() { sprite = sprite });
+        _spriteEffect.Add(new hitOne() { sprite = sprite });
     }
 
     public void addHitTwo(Sprite2D sprite)
     {
-        effects.Add(new hitTwo() { sprite = sprite });
+        _spriteEffect.Add(new hitTwo() { sprite = sprite });
     }
 
     class shakeSprite : spriteEffect
@@ -168,14 +156,10 @@ public partial class battleEffectsC : Node
     }
 
     [ExportGroup("shake sprite effec")]
-    [Export]
-    public float shakeSpriteDuration = 0.08f;
+    [Export] public float shakeSpriteDuration = 0.08f;
 
-    [Export]
-    public float shakeSpriteOffset = 2f;
-
-    [Export]
-    public float shakeSpriteRotation = 5f;
+    [Export] public float shakeSpriteOffset = 2f;
+    [Export] public float shakeSpriteRotation = 5f;
 
     private Vector2 GetRandomDirection()
     {
@@ -189,7 +173,7 @@ public partial class battleEffectsC : Node
         return new Vector2(x, y).Normalized();
     }
 
-    void doShake(Sprite2D sprite)
+    public void doShake(Sprite2D sprite)
     {
         sprite.Offset = GetRandomDirection() * shakeSpriteOffset;
         if (GD.Randi() % 2 == 0)
@@ -197,7 +181,7 @@ public partial class battleEffectsC : Node
         else
             sprite.RotationDegrees = -shakeSpriteRotation;
 
-        effects.Add(
+        _spriteEffect.Add(
             new shakeSprite()
             {
                 sprite = sprite,
@@ -205,6 +189,13 @@ public partial class battleEffectsC : Node
             }
         );
     }
+
+
+
+    #endregion
+
+
+    #region  BACKROUND FLASH
 
     class backroundFlassEffect : spriteEffect
     {
@@ -222,20 +213,15 @@ public partial class battleEffectsC : Node
     }
 
     [ExportGroup("flash backround")]
-    [Export]
-    Sprite2D backround;
-
-    [Export]
-    float backroundEffectDelay;
-
-    [Export]
-    Color backroundEffeColor;
+    [Export] Sprite2D backround;
+    [Export] float backroundEffectDelay;
+    [Export] Color backroundEffeColor;
 
     void doBackroundFlash()
     {
         backround.Modulate = backroundEffeColor;
 
-        effects.Add(
+        _spriteEffect.Add(
             new backroundFlassEffect()
             {
                 sprite = backround,
@@ -243,4 +229,8 @@ public partial class battleEffectsC : Node
             }
         );
     }
+
+
+    #endregion
+
 }
