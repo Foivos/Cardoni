@@ -1,6 +1,6 @@
-using System;
+
 using Godot;
-using State;
+
 
 public partial class CardView : Node2D
 {
@@ -18,7 +18,7 @@ public partial class CardView : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		inst = this;
+		
 
 		for (int i = 0; i < 4; i++)
 		{
