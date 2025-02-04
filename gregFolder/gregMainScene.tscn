@@ -142,9 +142,9 @@ texture = ExtResource("8_vn7a2")
 position = Vector2(-346, -275)
 gravity_scale = 0.0
 
-[node name="target C" type="Node" parent="." node_paths=PackedStringArray("backround", "targetGraphic", "targetGlobalPosLabel", "targetPosLabel")]
+[node name="target C" type="Node" parent="." node_paths=PackedStringArray("positionTarget", "targetGraphic", "targetGlobalPosLabel", "targetPosLabel")]
 script = ExtResource("1_g7plp")
-backround = NodePath("../BACK")
+positionTarget = NodePath("target sprite")
 targetGraphic = NodePath("target sprite")
 targetGlobalPosLabel = NodePath("../UI controll/target pos global")
 targetPosLabel = NodePath("../UI controll/target pos label")

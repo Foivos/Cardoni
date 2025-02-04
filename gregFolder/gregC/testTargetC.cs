@@ -5,25 +5,26 @@ public partial class testTargetC : Node
 {
 
 
+    public static testTargetC inst;
+    public enum targetTypes { None, Line, Position }//todo future MORE  //, enemy
 
-    public enum targetTypes { NONE, line, position }//todo future MORE  //, enemy
 
+    [ExportGroup("PROPERTIES")]
 
-
-    // selection types   NONE   line , position , minionSpawnPlace  , enemy 
-    // open selection - 
-
-    // open selection
-    // cancel selection
-    // end selection - return result 
-
-    [Export] Sprite2D positionTarget, lineTarget;//, enemyTarget;
+    [Export] Sprite2D positionTarget, lineTarget;
+    [Export] targetTypes targetNow = targetTypes.None;
 
 
 
-    [Export] targetTypes targetNow = targetTypes.NONE;
+    public override void _Ready()
+    {
+        inst = this;
+        screenSize = GetViewport().GetVisibleRect().Size;
 
-    
+        //backround.GlobalPosition = new Vector2(screenSize.X / 2f, screenSize.Y / 2f);
+        screenBlock = screenSize.X / 4;
+    }
+
 
     public void beginTargeting(targetTypes type)
     {
@@ -31,8 +32,8 @@ public partial class testTargetC : Node
         targetNow = type;
         SetProcess(true);
 
-        positionTarget.Visible = targetNow == targetTypes.position;
-        lineTarget.Visible = targetNow == targetTypes.line;
+        positionTarget.Visible = targetNow == targetTypes.Position;
+        lineTarget.Visible = targetNow == targetTypes.Line;
         //enemyTarget.Visible = targetNow == targetTypes.enemy;
 
 
@@ -45,9 +46,40 @@ public partial class testTargetC : Node
         SetProcess(false);
 
     }
-    public bool targetResult(out Vector2 position ,out int line  )
+    public ITarget targetResult()
     {
 
+        if(targetNow == targetTypes.Position)
+        {
+            return new PositionTarget(positionTarget.GlobalPosition);
+        }
+        else if(targetNow == targetTypes.Line)
+        {
+            return new LineTarget(0);
+        }
+
+
+      
+        return new InvalidTarget();
+
+    }
+
+
+    void processGraphics()
+    {
+
+        if (targetNow == targetTypes.None)return;
+
+        if (targetNow == targetTypes.Position)
+        {
+            positionTarget.GlobalPosition = targetPos;
+        }
+        else if (targetNow == targetTypes.Line)
+        {
+            //lineTarget.GlobalPosition = targetPos;
+            //lineTarget.Rotation = (float)Math.Atan2(targetPos.Y, targetPos.X);
+            //lineTarget.Scale = new Vector2(targetPos.Length(), 1);
+        }
 
 
 
@@ -56,60 +88,42 @@ public partial class testTargetC : Node
 
 
 
+    [ExportGroup("DEBUG THINGS")]
+    [Export] Vector2 screenSize;
+    [Export] float screenBlock;
 
-    public static testTargetC inst;
+    [Export] Vector2 mousePos;
+    [Export] Vector2 targetPos;
+    [Export] Label targetGlobalPosLabel;
+    [Export] Label targetPosLabel;
 
-    public override void _Ready()
-    {
-        inst = this;
-        screenSize = GetViewport().GetVisibleRect().Size;
-
-        //backround.GlobalPosition = new Vector2(screenSize.X / 2f, screenSize.Y / 2f);
-        screenBlock = screenSize.X / 4;
-    }
-
-    [Export]
-    Vector2 screenSize;
-
-    [Export]
-    float screenBlock;
-
-    public static Vector2 getMouseWorldScreen()
-    {
-        if (inst == null)
-            return Vector2.Zero;
-
-        return inst.GetViewport().GetMousePosition() - inst.GetViewport().GetVisibleRect().Size / 2;
-    }
-
-    [Export]
-    Node2D backround;
-
-    [Export]
-    Node2D targetGraphic;
-
-    [Export]
-    Vector2 mousePos;
-
-    [Export]
-    Vector2 targetPos;
-
-    [Export]
-    Label targetGlobalPosLabel;
-
-    [Export]
-    Label targetPosLabel;
 
     public override void _Process(double delta)
     {
         mousePos = GetViewport().GetMousePosition();
-
         targetPos = gridTargetPosition(GetViewport().GetMousePosition());
-        targetGraphic.GlobalPosition = gridTargetPosition(GetViewport().GetMousePosition());
+        //targetGraphic.GlobalPosition = gridTargetPosition(GetViewport().GetMousePosition());
 
-        targetGlobalPosLabel.Text = "GP" + targetGraphic.GlobalPosition.ToString();
-        targetPosLabel.Text = "G" + targetGraphic.Position.ToString();
+        //targetGlobalPosLabel.Text = "GP" + targetGraphic.GlobalPosition.ToString();
+        //targetPosLabel.Text = "G" + targetGraphic.Position.ToString();
     }
+
+
+
+
+    public static Vector2 getMouseWorldScreen()
+    {
+        if (inst == null) return Vector2.Zero;
+
+
+        return inst.GetViewport().GetMousePosition() - inst.GetViewport().GetVisibleRect().Size / 2;
+    }
+
+
+
+
+
+
 
     Vector2 gridTargetPosition(Vector2 pos)
     {

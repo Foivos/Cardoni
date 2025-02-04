@@ -26,7 +26,8 @@ public partial class GameView : Area2D
             )
                 return;
         }
-        else if (@event is InputEventMouseMotion eventMouseMotion) { 
+        else if (@event is InputEventMouseMotion eventMouseMotion)
+        {
             if (
                 GameState.SelectedCard == null
             )
@@ -35,16 +36,22 @@ public partial class GameView : Area2D
         }
     }
 
-    public void _MouseEntered() { 
-        if ( GameState.SelectedCard == null ) return;
+    public void _MouseEntered()
+    {
+        if (GameState.SelectedCard == null) return;
 
+        testTargetC.inst.beginTargeting(testTargetC.targetTypes.None);//! CHOOSE TYPE
         // CreateTargetting();
     }
 
-    public void _MouseExited() { 
-        
-        if ( GameState.SelectedCard == null ) return;
+    public void _MouseExited()
+    {
 
+        if (GameState.SelectedCard == null) return;
+
+
+        bool result = testTargetC.inst.targetResult(out Vector2 position, out int line);
+        testTargetC.inst.endTargeting();
         // DestroyTargetting();
     }
 }
