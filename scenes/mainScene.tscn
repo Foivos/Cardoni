@@ -8,12 +8,11 @@ size = Vector2(400, 600)
 
 [node name="MainScene" type="Node2D"]
 
-[node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
-position = Vector2(200, 700)
-
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(200, 300)
 script = ExtResource("2_kstpq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]
 shape = SubResource("RectangleShape2D_edew2")
+
+[node name="CardView" parent="." instance=ExtResource("5_hkg8d")]

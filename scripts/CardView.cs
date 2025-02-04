@@ -2,34 +2,34 @@ using System;
 using Godot;
 using State;
 
-public partial class CardView : Area2D
+public partial class CardView : Node2D
 {
-
-
 	#region  GREG TESTS
 
-
-
 	static CardView inst;
-	[Export] Node2D[] cardFathers;
-	[Export] Area2D[] CardAreas;
 
+	[Export]
+	Node2D[] cardFathers;
 
+	[Export]
+	Area2D[] CardAreas;
 
 	public static void displayCard(Card card)
 	{
-
-		if (inst == null) { GD.Print("why null sir"); return; }
+		if (inst == null)
+		{
+			GD.Print("why null sir");
+			return;
+		}
 		//card.GetNode<Sprite2D>("Sprite").Visible = true;//!
 
-		if (card.GetParent() != null) card.GetParent().RemoveChild(card);
+		if (card.GetParent() != null)
+			card.GetParent().RemoveChild(card);
 		inst.cardFathers[card.Index].AddChild(card);
-		card.Position = Vector2.Zero;// inst.cardPositionsArray[card.Index];
+		card.Position = Vector2.Zero; // inst.cardPositionsArray[card.Index];
 
 		card.mySprite.Visible = true;
 		card.myText.Text = card.manaCost + "_" + card.description;
-
-
 
 		//inst.cardsLabels[card.Index].GetParent().RemoveChild(inst.cardsLabels[card.Index]);
 		//card.AddChild(inst.cardsLabels[card.Index]);
@@ -37,22 +37,23 @@ public partial class CardView : Area2D
 
 		//card.AddChild(inst.cardsLabels[card.Index]);
 		//inst.cardsLabels[card.Index].Position = inst.labelOffset;
-
-
 	}
-	public static void hideCard(Card card)//todo
-	{
-		if (inst == null) { GD.Print("why null sir"); return; }
 
-		if (card.GetParent() != null) card.GetParent().RemoveChild(card);
+	public static void hideCard(Card card) //todo
+	{
+		if (inst == null)
+		{
+			GD.Print("why null sir");
+			return;
+		}
+
+		if (card.GetParent() != null)
+			card.GetParent().RemoveChild(card);
 		card.mySprite.Visible = false;
 		card.myText.Text = "disabled";
-		
+
 		card.Position = new Vector2(-1000, -1000);
-		
-
 	}
-
 
 	void startCloseTemplates()
 	{
@@ -60,24 +61,12 @@ public partial class CardView : Area2D
 		for (int i = 0; i < cardFathers.Length; i++)
 		{
 			img = cardFathers[i].GetNode<Sprite2D>("template");
-			if (img != null) img.Visible = false;
-
-
+			if (img != null)
+				img.Visible = false;
 		}
-
-
 	}
 
-
-
-
-
-
 	#endregion
-
-
-
-
 
 	[Export]
 	public PackedScene CardsScene { get; set; }
@@ -88,12 +77,7 @@ public partial class CardView : Area2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-
-
-
 		inst = this;
-		startCloseTemplates();
-    	Card[] cards = new Card[4];
 
 		for (uint i = 0; i < 4; i++)
 		{
@@ -102,23 +86,19 @@ public partial class CardView : Area2D
 			card.description = "Card " + i;
 			cards[i] = card;
 
-			//AddChild(card);//? needed ???????
-
-			AddChild(card);//.SetPosition();
+			CardAreas[i].AddChild(card);
 		}
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	public override void _Process(double delta) { }
 
 	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
 		{
-			if (eventMouseButton.ButtonIndex != MouseButton.Left) return;
+			if (eventMouseButton.ButtonIndex != MouseButton.Left)
+				return;
 
 			if (eventMouseButton.Pressed)
 			{
@@ -152,9 +132,7 @@ public partial class CardView : Area2D
 		}
 	}
 
-	public void _MouseEntered()
-	{
-	}
+	public void _MouseEntered() { }
 
 	public void _MouseExited()
 	{
@@ -163,12 +141,4 @@ public partial class CardView : Area2D
 			cards[SelectedCardIndex].SetPosition();
 		}
 	}
-
-
-
-
-
-
-
-
 }
