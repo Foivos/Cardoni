@@ -36,10 +36,15 @@ public partial class GameView : Area2D
     }
 
     public void _MouseEntered() { 
-        // Ask Greg to create targetting
+        if ( GameState.SelectedCard == null ) return;
+
+        // CreateTargetting();
     }
 
     public void _MouseExited() { 
-        // Ask Greg to destroy targetting
+        
+        if ( GameState.SelectedCard == null ) return;
+
+        // DestroyTargetting();
     }
 }
