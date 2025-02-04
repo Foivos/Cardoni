@@ -19,7 +19,7 @@ public partial class CardDetails : Node2D
 		bool cardOnRight = card.Index > 1;
 
 
-		inst.myText.Text = card.description;
+		inst.myText.Text = card.Description;
 		inst.Visible = true;
 	}
 

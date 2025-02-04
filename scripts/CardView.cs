@@ -24,7 +24,7 @@ public partial class CardView : Node2D
 		{
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
-			card.description = "Card " + i;
+			card.Description = "Card " + i;
 			Cards[i] = card;
 
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
