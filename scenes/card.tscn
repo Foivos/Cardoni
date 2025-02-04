@@ -3,8 +3,10 @@
 [ext_resource type="Script" path="res://scripts/Card.cs" id="1_hx23o"]
 [ext_resource type="Texture2D" uid="uid://digqxd7ktw20m" path="res://gregFolder/testCardP.png" id="2_tdbqd"]
 
-[node name="Card" type="Node2D"]
+[node name="Card" type="Node2D" node_paths=PackedStringArray("mySprite", "myText")]
 script = ExtResource("1_hx23o")
+mySprite = NodePath("Sprite2D")
+myText = NodePath("RichTextLabel")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
