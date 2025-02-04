@@ -11,14 +11,21 @@ config_version=5
 [application]
 
 config/name="New Game Project"
-run/main_scene="res://scenes/mainScene.tscn"
+run/main_scene="res://gregFolder/gregMainScene.tscn"
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://resources/icon.svg"
 
+[autoload]
+
+GameState="*res://scripts/gameState/GameState.cs"
+
 [display]
 
-window/size/viewport_width=800
-window/size/viewport_height=1300
+window/size/viewport_width=400
+window/size/viewport_height=800
+window/stretch/aspect="expand"
+window/stretch/scale=0.78
+window/handheld/orientation=1
 
 [dotnet]
 
@@ -28,6 +35,16 @@ project/assembly_name="New Game Project"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[physics]
+
+common/physics_ticks_per_second=20
+
+[layer_names]
+
+2d_render/layer_2="backround"
+2d_physics/layer_1="enemies"
+2d_physics/layer_2="bullets"
 
 [rendering]
 

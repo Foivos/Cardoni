@@ -1,36 +1,62 @@
 [gd_scene load_steps=6 format=3 uid="uid://qtgg1a57jfes"]
 
-[ext_resource type="PackedScene" uid="uid://bdlr1mjxd8tbf" path="res://scenes/testSprite.tscn" id="1_15vok"]
 [ext_resource type="Script" path="res://scripts/spwningC.cs" id="2_5kxkp"]
 [ext_resource type="PackedScene" uid="uid://d3hpwgmnfo4hb" path="res://scenes/enemy.tscn" id="3_4767k"]
 [ext_resource type="Texture2D" uid="uid://b6jnxfmop3m3y" path="res://resources/back.png" id="4_41qn1"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
+size = Vector2(800, 1000)
+
 [node name="MainScene" type="Node2D"]
 position = Vector2(-2, -1)
 
-[node name="Marker2D" type="Marker2D" parent="."]
+[node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
+position = Vector2(400, 1150)
+scale = Vector2(0.993832, 1.01554)
+
+[node name="GameView" type="Area2D" parent="."]
+position = Vector2(400, 500)
+scale = Vector2(0.997706, 0.981821)
+
+[node name="Marker2D" type="Marker2D" parent="GameView"]
 position = Vector2(-2, -173)
 
-[node name="Node2D" parent="." instance=ExtResource("1_15vok")]
-position = Vector2(-1, -1)
-
-[node name="spawnTImer" type="Timer" parent="."]
+[node name="spawnTImer" type="Timer" parent="GameView"]
 wait_time = 2.0
 autostart = true
 
-[node name="spawn-C" type="Node" parent="."]
+[node name="spawn-C" type="Node" parent="GameView" node_paths=PackedStringArray("GameView")]
 script = ExtResource("2_5kxkp")
-enemyPreffab = ExtResource("3_4767k")
-spawnX = 550.0
+GameView = NodePath("..")
+EnemyPreffab = ExtResource("3_4767k")
+spawnX = 100.0
 enemySpeed = -300.0
 
-[node name="back" type="Sprite2D" parent="."]
-position = Vector2(400, 500)
-scale = Vector2(5, 5)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]
+scale = Vector2(0.993188, 0.991234)
+shape = SubResource("RectangleShape2D_edew2")
+
+[node name="Node" type="Node2D" parent="GameView"]
+
+[node name="back0" type="Sprite2D" parent="GameView/Node"]
+position = Vector2(-300, 0)
+scale = Vector2(4, 5)
 texture = ExtResource("4_41qn1")
 
-[node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
-position = Vector2(400, 1150)
+[node name="back2" type="Sprite2D" parent="GameView/Node"]
+position = Vector2(-100, 0)
+scale = Vector2(4, 5)
+texture = ExtResource("4_41qn1")
 
-[connection signal="timeout" from="spawnTImer" to="spawn-C" method="_on_spawn_timer_timeout"]
+[node name="back3" type="Sprite2D" parent="GameView/Node"]
+position = Vector2(100, 0)
+scale = Vector2(4, 5)
+texture = ExtResource("4_41qn1")
+
+[node name="back4" type="Sprite2D" parent="GameView/Node"]
+position = Vector2(300, 0)
+scale = Vector2(4, 5)
+texture = ExtResource("4_41qn1")
+
+[connection signal="timeout" from="GameView/spawnTImer" to="GameView/spawn-C" method="_on_spawn_timer_timeout"]

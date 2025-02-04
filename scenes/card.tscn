@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ixpayohnt6iw"]
 
-[ext_resource type="Texture2D" path="res://resources/AncestralRecall.webp" id="1_eemn4"]
+[ext_resource type="Texture2D" uid="uid://ddclef1pok1or" path="res://resources/AncestralRecall.webp" id="1_eemn4"]
 [ext_resource type="Script" path="res://scripts/Card.cs" id="1_hx23o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fembh"]

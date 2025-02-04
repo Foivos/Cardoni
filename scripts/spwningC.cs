@@ -4,8 +4,8 @@ using System;
 public partial class spwningC : Node
 {
 
-
-	[Export] public PackedScene enemyPreffab { get; set; }
+	[Export] public Area2D GameView;
+	[Export] public PackedScene EnemyPreffab { get; set; }
 	[Export] float spawnX;
 	[Export] float enemySpeed;
 
@@ -23,34 +23,26 @@ public partial class spwningC : Node
 	// GetNode<Timer>("MobTimer").Start();
 	// GetNode<Timer>("ScoreTimer").Start();
 
-	private void _on_spawn_timer_timeout()
+	public override void _Ready()
 	{
-
-
-		spawnEnemy();
-		GD.Print("spawned");
+		new Expiring(20, new System.Action<uint>((uint tick) => {
+			SpawnEnemy(0);
+			new Expiring(40, new System.Action<uint>((uint tick) => {
+				uint[] lanes = {0, 2, 1, 3};
+				uint lane = lanes[((tick - 20) / 40) % 4];
+				SpawnEnemy(lane);
+			}), 3);
+		}));
 	}
 
 
 
-	void spawnEnemy()
+	void SpawnEnemy(uint lane)
 	{
+		Enemy mob = EnemyPreffab.Instantiate<Enemy>();
+		mob.GameView = GameView;
 
-
-		enemyC mob = enemyPreffab.Instantiate<enemyC>();
-
-		// Choose a random location on Path2D.
-		//var mobSpawnLocation = GetNode<PathFollow2D>("MobPath/MobSpawnLocation");
-		//mobSpawnLocation.ProgressRatio = GD.Randf();
-
-		// Set the mob's direction perpendicular to the path direction.
-		//float direction = mobSpawnLocation.Rotation + Mathf.Pi / 2;
-
-
-
-		// Set the mob's position to a random location.
-		//mob.Position = mobSpawnLocation.Position;
-		mob.Position = new Vector2(spawnX, 50);
+		mob.Position = new Vector2(spawnX * (2 * lane + 1), 50);
 
 		// Add some randomness to the direction.
 		//direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);

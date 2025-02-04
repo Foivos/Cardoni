@@ -13,7 +13,7 @@ public partial class CardView : Area2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		for (uint i = 0; i<4; i++) {
+		for (uint i = 0; i < 4; i++) {
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
 			cards[i] = card;
@@ -32,7 +32,6 @@ public partial class CardView : Area2D
 	
 	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
 	{
-		GD.Print(GetLocalMousePosition());
 		if (@event is InputEventMouseButton eventMouseButton)
 		{	
 			if (eventMouseButton.ButtonIndex != MouseButton.Left) return;
@@ -67,9 +66,6 @@ public partial class CardView : Area2D
 				}
 			}
 		}
-
-		// Print the size of the viewport.
-		//GD.Print("Viewport Resolution is: ", GetViewport().GetVisibleRect().Size);
 	}
 
 	public void _MouseEntered() 
