@@ -1,6 +1,5 @@
-[gd_scene load_steps=21 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=20 format=3 uid="uid://nkxij81pggv7"]
 
-[ext_resource type="Texture2D" uid="uid://bbp2qbdfbjerh" path="res://back.png" id="1_du8w1"]
 [ext_resource type="Script" path="res://gregFolder/gregC/testTargetC.cs" id="1_g7plp"]
 [ext_resource type="Texture2D" uid="uid://cqafomt12fh15" path="res://gregFolder/testTarget.png" id="2_5outl"]
 [ext_resource type="Texture2D" uid="uid://c15jr41ptjpo" path="res://gregFolder/skyBackround.png" id="2_j41jb"]
@@ -110,7 +109,6 @@ autowrap_mode = 1
 [node name="BACK" type="Sprite2D" parent="."]
 visibility_layer = 2
 scale = Vector2(2, 2)
-texture = ExtResource("1_du8w1")
 
 [node name="BACK sky" type="Sprite2D" parent="."]
 scale = Vector2(2.57, 2.57)
