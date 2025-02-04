@@ -1,46 +1,48 @@
-
+using System;
 using Godot;
-
+using State;
 
 public partial class CardView : Node2D
 {
-	
+	static CardView inst;
 
-
-	[Export] Area2D[] CardAreas;
-
-
-
-
-
-
+	[Export]
+	public PackedScene CardAreaScene { get; set; }
 
 	[Export]
 	public PackedScene CardsScene { get; set; }
-	public int SelectedCardIndex = -1;
 
-	Card[] cards = new Card[4];
+	Card[] Cards = new Card[4];
+	CardArea[] CardAreas = new CardArea[4];
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		
+		inst = this;
 
-		for (uint i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
 			card.description = "Card " + i;
-			cards[i] = card;
+			Cards[i] = card;
 
-			CardAreas[i].AddChild(card);
+			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
+			cardArea.CardView = this;
+			cardArea.Index = i;
+			cardArea.Position = new Vector2(100 * (int) i - 150, 0);
+
+			cardArea.AddChild(card);
+
+			CardAreas[i] = cardArea;
+			AddChild(cardArea);
 		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta) { }
 
-	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
+	public void EventInput(int index, InputEvent @event)
 	{
 		if (@event is InputEventMouseButton eventMouseButton)
 		{
@@ -48,33 +50,14 @@ public partial class CardView : Node2D
 				return;
 
 			if (eventMouseButton.Pressed)
-			{
-				Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-				SelectedCardIndex = (int)(eventMouseButton.Position.X * 4 / screenSize.X);
-				cards[SelectedCardIndex].Position = GetLocalMousePosition();
+			{	
+				GD.Print(index);
+				GameState.SelectedCard = Cards[index];
 			}
 			else
 			{
-				if (SelectedCardIndex > -1)
-				{
-					cards[SelectedCardIndex].SetPosition();
-					SelectedCardIndex = -1;
-				}
-			}
-		}
-		else if (@event is InputEventMouseMotion eventMouseMotion)
-		{
-			if (SelectedCardIndex > -1)
-			{
-				if (Input.IsMouseButtonPressed(MouseButton.Left))
-				{
-					cards[SelectedCardIndex].Position = GetLocalMousePosition();
-				}
-				else
-				{
-					cards[SelectedCardIndex].SetPosition();
-					SelectedCardIndex = -1;
-				}
+				GD.Print(index);
+				GameState.SelectedCard = null;
 			}
 		}
 	}
@@ -83,9 +66,5 @@ public partial class CardView : Node2D
 
 	public void _MouseExited()
 	{
-		if (SelectedCardIndex > -1)
-		{
-			cards[SelectedCardIndex].SetPosition();
-		}
 	}
 }

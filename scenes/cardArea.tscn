@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4hdniqnhjhyt"]
+
+[ext_resource type="Script" path="res://scripts/CardArea.cs" id="1_28be4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v3vlu"]
+size = Vector2(100, 200)
+
+[node name="CardArea" type="Area2D"]
+script = ExtResource("1_28be4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.00544, 1)
+shape = SubResource("RectangleShape2D_v3vlu")
