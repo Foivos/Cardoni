@@ -8,7 +8,7 @@ public class Poisoned: EffectCondition<PoisonedEffect> {
 	public uint Strength;
 
 	private Poisoned(Entity entity, uint strength, uint duration) {
-		Expiring.Create(duration, OnExpire);
+		new Expiring(duration, OnExpire, 1);
 
 		Entity = entity;
 		Strength = strength;

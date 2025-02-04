@@ -25,13 +25,13 @@ public partial class spwningC : Node
 
 	public override void _Ready()
 	{
-		Expiring.Create(20, new System.Action<uint>((uint tick) => {
+		new Expiring(20, new System.Action<uint>((uint tick) => {
 			SpawnEnemy(0);
-			Expiring.CreateRecurring(40, new System.Action<uint>((uint tick) => {
+			new Expiring(40, new System.Action<uint>((uint tick) => {
 				uint[] lanes = {0, 2, 1, 3};
 				uint lane = lanes[((tick - 20) / 40) % 4];
 				SpawnEnemy(lane);
-			}));
+			}), 3);
 		}));
 	}
 

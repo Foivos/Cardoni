@@ -8,7 +8,7 @@ public class Slowed: EffectCondition<SlowedEffect> {
 	public uint Modifier;
 
 	private Slowed(Entity entity, uint modifier, uint duration) {
-        Expiring.Create(duration, OnExpire);
+        new Expiring(duration, OnExpire);
         
 		Entity = entity;
 		Modifier = modifier;

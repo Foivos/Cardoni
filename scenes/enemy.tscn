@@ -6,11 +6,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ykbkl"]
 radius = 0.01
 
-[node name="enemy" type="RigidBody2D" node_paths=PackedStringArray("CollisionShape")]
+[node name="enemy" type="RigidBody2D" node_paths=PackedStringArray("CollisionShape", "Health")]
 position = Vector2(298, -105)
 scale = Vector2(1, 1.0031)
 script = ExtResource("1_cjc3v")
 CollisionShape = NodePath("CollisionShape2D")
+Health = NodePath("ProgressBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.998185, 1)
@@ -21,3 +22,11 @@ debug_color = Color(0.3933, 0.447695, 0.69, 1)
 modulate = Color(1, 0.29, 0.301833, 1)
 scale = Vector2(1, 1.00532)
 texture = ExtResource("1_nlf3i")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -65.0
+offset_top = -89.0
+offset_right = 63.0
+offset_bottom = -62.0
+step = 1.0
+value = 100.0
