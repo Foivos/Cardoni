@@ -1,5 +1,6 @@
-[gd_scene load_steps=20 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=22 format=3 uid="uid://nkxij81pggv7"]
 
+[ext_resource type="Texture2D" path="res://back.png" id="1_du8w1"]
 [ext_resource type="Script" path="res://gregFolder/gregC/testTargetC.cs" id="1_g7plp"]
 [ext_resource type="Texture2D" uid="uid://cqafomt12fh15" path="res://gregFolder/testTarget.png" id="2_5outl"]
 [ext_resource type="Texture2D" uid="uid://c15jr41ptjpo" path="res://gregFolder/skyBackround.png" id="2_j41jb"]
@@ -9,6 +10,7 @@
 [ext_resource type="Script" path="res://gregFolder/gregC/testShooter.cs" id="4_jctje"]
 [ext_resource type="Material" uid="uid://c6dvlpc3mnya8" path="res://gregFolder/blackMaterial.tres" id="4_reo8h"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="5_ffe23"]
+[ext_resource type="Texture2D" uid="uid://dy0om6hy1yfsl" path="res://gregFolder/testEnemyThree.png" id="8_vn7a2"]
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="10_4u71e"]
 [ext_resource type="Texture2D" uid="uid://4wtajmvyyyoa" path="res://gregFolder/testSpriteSheet.png" id="11_bq4we"]
 [ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/testEnemySpriteSheet.png" id="12_nlyjo"]
@@ -109,6 +111,7 @@ autowrap_mode = 1
 [node name="BACK" type="Sprite2D" parent="."]
 visibility_layer = 2
 scale = Vector2(2, 2)
+texture = ExtResource("1_du8w1")
 
 [node name="BACK sky" type="Sprite2D" parent="."]
 scale = Vector2(2.57, 2.57)
@@ -128,9 +131,14 @@ backroundEffectDelay = 0.02
 backroundEffeColor = Color(0.67, 0.67, 0.67, 1)
 
 [node name="test sprite" type="Sprite2D" parent="EFFECTS"]
-position = Vector2(441, -316)
+position = Vector2(-73, -351)
 scale = Vector2(2, 2)
 texture = ExtResource("3_p3rqh")
+
+[node name="Sprite2D" type="Sprite2D" parent="EFFECTS/test sprite"]
+position = Vector2(18.5, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("8_vn7a2")
 
 [node name="Bullet" parent="." instance=ExtResource("5_ffe23")]
 position = Vector2(-346, -275)
@@ -189,7 +197,7 @@ region_enabled = true
 region_rect = Rect2(0, 0, 40, 40)
 
 [node name="emojy big" type="Sprite2D" parent="."]
-position = Vector2(-547, -434)
+position = Vector2(-494, -472)
 scale = Vector2(2.55, 2.55)
 texture = ExtResource("15_k1qae")
 
