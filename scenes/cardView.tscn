@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw54ppij0q66r"]
+[gd_scene load_steps=4 format=3 uid="uid://bw54ppij0q66r"]
 
 [ext_resource type="Script" path="res://scripts/CardView.cs" id="1_qg2kn"]
 [ext_resource type="PackedScene" uid="uid://ixpayohnt6iw" path="res://scenes/card.tscn" id="2_t578a"]
-[ext_resource type="Texture2D" uid="uid://ddclef1pok1or" path="res://resources/AncestralRecall.webp" id="3_hfcrx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpymc"]
 size = Vector2(100, 200)
@@ -38,6 +37,3 @@ position = Vector2(150, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea3"]
 shape = SubResource("RectangleShape2D_bpymc")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("3_hfcrx")

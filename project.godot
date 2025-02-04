@@ -25,7 +25,7 @@ window/size/viewport_width=400
 window/size/viewport_height=800
 window/size/resizable=false
 window/stretch/aspect="expand"
-window/stretch/scale=0.78
+window/stretch/scale=1
 window/handheld/orientation=1
 
 [dotnet]
