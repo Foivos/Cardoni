@@ -11,18 +11,14 @@ public partial class Card : Area2D
 	[Export] public Sprite2D mySprite;
 	[Export] public RichTextLabel myText;
 
-	//public override void _Ready() { SetPosition(); }
+	public override void _Ready() { SetPosition(); }
 
 
 
 	public void SetPosition()
 	{
-
-		//CardView.displayCard(this);
-
-
-		// Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-		// Position = new Vector2(screenSize.X * (2.0f * Index - 3.0f) / 8, 0);
+		Vector2 screenSize = GetViewport().GetVisibleRect().Size;
+		Position = new Vector2(screenSize.X * (2.0f * Index - 3.0f) / 8, 0);
 	}
 
 

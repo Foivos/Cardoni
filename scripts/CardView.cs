@@ -12,6 +12,7 @@ public partial class CardView : Area2D
 
 	static CardView inst;
 	[Export] Node2D[] cardFathers;
+	[Export] Area2D[] CardAreas;
 
 
 
@@ -92,8 +93,9 @@ public partial class CardView : Area2D
 
 		inst = this;
 		startCloseTemplates();
+    	Card[] cards = new Card[4];
 
-		for (uint i = 0; i < 3; i++)
+		for (uint i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
@@ -102,10 +104,10 @@ public partial class CardView : Area2D
 
 			//AddChild(card);//? needed ???????
 
-			displayCard(card);//.SetPosition();
+			AddChild(card);//.SetPosition();
 		}
 
-    Card[] cards = new Card[4];
+	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)

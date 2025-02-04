@@ -25,8 +25,6 @@ public partial class GameView : Area2D
                 || GameState.SelectedCard == null
             )
                 return;
-
-            GameState.SelectedCard.OnPlay(eventMouseButton.Position);
         }
         else if (@event is InputEventMouseMotion eventMouseMotion) { }
     }
