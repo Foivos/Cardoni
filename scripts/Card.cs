@@ -4,7 +4,7 @@ using State;
 
 public partial class Card : Node2D
 {
-    public uint Index;
+    public int Index;
     public bool selected;
     public string description;
     public int manaCost;

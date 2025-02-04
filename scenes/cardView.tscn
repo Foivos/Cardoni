@@ -2,38 +2,10 @@
 
 [ext_resource type="Script" path="res://scripts/CardView.cs" id="1_qg2kn"]
 [ext_resource type="PackedScene" uid="uid://ixpayohnt6iw" path="res://scenes/card.tscn" id="2_t578a"]
+[ext_resource type="PackedScene" uid="uid://b4hdniqnhjhyt" path="res://scenes/cardArea.tscn" id="3_ff0i2"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpymc"]
-size = Vector2(100, 200)
-
-[node name="CardView" type="Node2D" node_paths=PackedStringArray("cardFathers", "CardAreas")]
+[node name="CardView" type="Node2D"]
 position = Vector2(200, 700)
 script = ExtResource("1_qg2kn")
-cardFathers = []
-CardAreas = [NodePath("CardArea0"), NodePath("CardArea1"), NodePath("CardArea2"), NodePath("CardArea3")]
+CardAreaScene = ExtResource("3_ff0i2")
 CardsScene = ExtResource("2_t578a")
-
-[node name="CardArea0" type="Area2D" parent="."]
-position = Vector2(-150, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea0"]
-scale = Vector2(1.00544, 1)
-shape = SubResource("RectangleShape2D_bpymc")
-
-[node name="CardArea1" type="Area2D" parent="."]
-position = Vector2(-50, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea1"]
-shape = SubResource("RectangleShape2D_bpymc")
-
-[node name="CardArea2" type="Area2D" parent="."]
-position = Vector2(50, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea2"]
-shape = SubResource("RectangleShape2D_bpymc")
-
-[node name="CardArea3" type="Area2D" parent="."]
-position = Vector2(150, 0)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea3"]
-shape = SubResource("RectangleShape2D_bpymc")

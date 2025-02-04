@@ -26,10 +26,20 @@ public partial class GameView : Area2D
             )
                 return;
         }
-        else if (@event is InputEventMouseMotion eventMouseMotion) { }
+        else if (@event is InputEventMouseMotion eventMouseMotion) { 
+            if (
+                GameState.SelectedCard == null
+            )
+                return;
+            GD.Print(GameState.SelectedCard.Index);
+        }
     }
 
-    public void _MouseEntered() { }
+    public void _MouseEntered() { 
+        // Ask Greg to create targetting
+    }
 
-    public void _MouseExited() { }
+    public void _MouseExited() { 
+        // Ask Greg to destroy targetting
+    }
 }
