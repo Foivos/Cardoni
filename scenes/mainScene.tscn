@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=7 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Script" path="res://scripts/spwningC.cs" id="2_5kxkp"]
+[ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="PackedScene" uid="uid://d3hpwgmnfo4hb" path="res://scenes/enemy.tscn" id="3_4767k"]
 [ext_resource type="Texture2D" uid="uid://b6jnxfmop3m3y" path="res://resources/back.png" id="4_41qn1"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
@@ -9,15 +10,13 @@
 size = Vector2(800, 1000)
 
 [node name="MainScene" type="Node2D"]
-position = Vector2(-2, -1)
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
 position = Vector2(400, 1150)
-scale = Vector2(0.993832, 1.01554)
 
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(400, 500)
-scale = Vector2(0.997706, 0.981821)
+script = ExtResource("2_kstpq")
 
 [node name="Marker2D" type="Marker2D" parent="GameView"]
 position = Vector2(-2, -173)
@@ -41,22 +40,18 @@ shape = SubResource("RectangleShape2D_edew2")
 
 [node name="back0" type="Sprite2D" parent="GameView/Node"]
 position = Vector2(-300, 0)
-scale = Vector2(4, 5)
 texture = ExtResource("4_41qn1")
 
 [node name="back2" type="Sprite2D" parent="GameView/Node"]
 position = Vector2(-100, 0)
-scale = Vector2(4, 5)
 texture = ExtResource("4_41qn1")
 
 [node name="back3" type="Sprite2D" parent="GameView/Node"]
 position = Vector2(100, 0)
-scale = Vector2(4, 5)
 texture = ExtResource("4_41qn1")
 
 [node name="back4" type="Sprite2D" parent="GameView/Node"]
 position = Vector2(300, 0)
-scale = Vector2(4, 5)
 texture = ExtResource("4_41qn1")
 
 [connection signal="timeout" from="GameView/spawnTImer" to="GameView/spawn-C" method="_on_spawn_timer_timeout"]

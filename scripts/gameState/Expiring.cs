@@ -9,7 +9,8 @@ public class Expiring : IComparable
     public uint Repeat;
     public uint Duration;
 
-    public Expiring(uint duration, Action<uint> onExpire, uint repeat) {
+    public Expiring(uint duration, Action<uint> onExpire, uint repeat)
+    {
         OnExpire = onExpire;
         End = GameState.Instance.Tick + duration;
         Repeat = repeat;
@@ -17,10 +18,11 @@ public class Expiring : IComparable
         GameState.Instance.AddExpiring(this);
     }
 
-    public Expiring(uint duration, Action<uint> onExpire): this(duration, onExpire, 1) {
-    }
+    public Expiring(uint duration, Action<uint> onExpire)
+        : this(duration, onExpire, 1) { }
 
-    public int CompareTo(object other) {
-        return (int)End - (int)((Expiring) other).End;
+    public int CompareTo(object other)
+    {
+        return (int)End - (int)((Expiring)other).End;
     }
 }

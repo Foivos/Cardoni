@@ -1,5 +1,5 @@
-
-public enum EffectType {
-	Poisoned,
-	Slowed,
+public enum EffectType
+{
+    Poisoned,
+    Slowed,
 }

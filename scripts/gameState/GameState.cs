@@ -1,79 +1,90 @@
-using Godot;
 using System.Collections.Generic;
+using Godot;
 
-public partial class GameState: Node
+public partial class GameState : Node
 {
-	public static GameState Instance { get; private set; }
-	public uint Tick;
+    public static GameState Instance { get; private set; }
+    public uint Tick;
 
-	public const uint TicksPerSecond = 20;
-	public const double secondsPerTick = 1.0 / TicksPerSecond;
+    public const uint TicksPerSecond = 20;
+    public const double secondsPerTick = 1.0 / TicksPerSecond;
 
-	public PriorityQueue<Expiring> ExpiringQueue = new PriorityQueue<Expiring>();
+    public PriorityQueue<Expiring> ExpiringQueue = new PriorityQueue<Expiring>();
 
-	public List<ITicked> Ticked = new List<ITicked>();
+    public List<ITicked> Ticked = new List<ITicked>();
 
-	public const int LanesNumber = 4;
+    public const int LanesNumber = 4;
 
-	public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
+    public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
 
-	public override void _Ready()
-	{
-		Instance = this;
+    CardState CardState = new CardState();
 
-		/*
-		Expiring.Create(3, new System.Action(() => {
-			GD.Print("expired1");
-			Poisoned.Apply(entity1, 10, 12);
-			Poisoned.Apply(entity2, 10, 12);
-			Poisoned.Apply(entity3, 10, 12);
-		}));
+    public static Card SelectedCard
+    {
+        get { return Instance.CardState.Selected; }
+        set { Instance.CardState.Selected = value; }
+    }
 
+    public int Mana
+    {
+        get { return (int)(ManaStacks / StacksPerMana); }
+        set { ManaStacks = (int)(ManaStacks % StacksPerMana + (value * StacksPerMana)); }
+    }
 
-		Expiring.Create(8, new System.Action(() => {
-			GD.Print("expired2");
-			Poisoned.Apply(entity1, 2, 120);
-			Poisoned.Apply(entity2, 3, 80);
-			Poisoned.Apply(entity3, 4, 60);
-		}));
+    public int ManaStacks = 0;
 
+    public const uint StacksPerMana = 1200;
 
-		Expiring.Create(18, new System.Action(() => {
-			GD.Print("expired3");
-			Poisoned.Apply(entity1, 12, 20);
-			Poisoned.Apply(entity2, 15, 16);
-			Poisoned.Apply(entity3, 20, 12);
-		}));
-		*/
-	}
-	public override void _PhysicsProcess(double dt) {
-		for (int i = 0; i < Ticked.Count; i++) {
-			Ticked[i].Tick(Tick);
-		}
-		while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick) {
-			Expiring expiring = ExpiringQueue.Pop();
-			expiring.OnExpire(Tick);
-			if (expiring.Repeat != 1) {
-				if ( expiring.Repeat > 1 ) {
-					expiring.Repeat--;
-				}
-				expiring.End += expiring.Duration;
-				AddExpiring(expiring);
-			}
-		}
+    public int StacksPerTick = 60;
 
-		Tick++;
-	}
+    public override void _Ready()
+    {
+        Instance = this;
 
-	public void AddTicked(ITicked ticked) {
-		Ticked.Add(ticked);
-	}
+        new Ticked(
+            (uint tick) =>
+            {
+                ManaStacks += StacksPerTick;
+            }
+        );
+    }
 
-	public void RemoveTicked(ITicked ticked) {
-		Ticked.Remove(ticked);
-	}
+    public override void _PhysicsProcess(double dt)
+    {
+        for (int i = 0; i < Ticked.Count; i++)
+        {
+            Ticked[i].Tick(Tick);
+        }
+        while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick)
+        {
+            Expiring expiring = ExpiringQueue.Pop();
+            expiring.OnExpire(Tick);
+            if (expiring.Repeat != 1)
+            {
+                if (expiring.Repeat > 1)
+                {
+                    expiring.Repeat--;
+                }
+                expiring.End += expiring.Duration;
+                AddExpiring(expiring);
+            }
+        }
 
-	public void AddExpiring(Expiring expiring) {
-		ExpiringQueue.Push(expiring);
-	}
+        Tick++;
+    }
+
+    public void AddTicked(ITicked ticked)
+    {
+        Ticked.Add(ticked);
+    }
+
+    public void RemoveTicked(ITicked ticked)
+    {
+        Ticked.Remove(ticked);
+    }
+
+    public void AddExpiring(Expiring expiring)
+    {
+        ExpiringQueue.Push(expiring);
+    }
 }

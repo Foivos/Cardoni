@@ -1,5 +1,3 @@
-
 using System;
 
-public interface ICondition {
-}
+public interface ICondition { }

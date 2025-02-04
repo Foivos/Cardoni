@@ -1,82 +1,86 @@
-using Godot;
 using System;
+using Godot;
 
 public partial class CardView : Area2D
 {
-	
-	[Export]
-	public PackedScene CardsScene { get; set; }
-	public int SelectedCardIndex = - 1;
-	
-	Card[] cards = new Card[4];
-	
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		for (uint i = 0; i < 4; i++) {
-			Card card = CardsScene.Instantiate<Card>();
-			card.Index = i;
-			cards[i] = card;
-			AddChild(card);
-		}
+    [Export]
+    public PackedScene CardsScene { get; set; }
+    public int SelectedCardIndex = -1;
 
-		InputEvent += _Input;
-		MouseExited += _MouseExited;
-		MouseEntered += _MouseEntered;
-	}
+    Card[] cards = new Card[4];
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-	
-	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
-	{
-		if (@event is InputEventMouseButton eventMouseButton)
-		{	
-			if (eventMouseButton.ButtonIndex != MouseButton.Left) return;
-			
-			if (eventMouseButton.Pressed)
-			{
-				Vector2 screenSize = GetViewport().GetVisibleRect().Size;
-				SelectedCardIndex = (int)(eventMouseButton.Position.X * 4 / screenSize.X);
-				cards[SelectedCardIndex].Position = GetLocalMousePosition();
-			} 
-			else 
-			{
-				if (SelectedCardIndex > -1)
-				{
-					cards[SelectedCardIndex].SetPosition();
-					SelectedCardIndex = -1;
-				}
-			}
-		}
-		else if (@event is InputEventMouseMotion eventMouseMotion)
-		{
-			if (SelectedCardIndex > -1)
-			{
-				if (Input.IsMouseButtonPressed(MouseButton.Left))
-				{
-					cards[SelectedCardIndex].Position = GetLocalMousePosition();
-				}
-				else 
-				{
-					cards[SelectedCardIndex].SetPosition();
-					SelectedCardIndex = -1;
-				}
-			}
-		}
-	}
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
+    {
+        for (uint i = 0; i < 4; i++)
+        {
+            Card card = CardsScene.Instantiate<Card>();
+            card.Index = i;
+            cards[i] = card;
+            cards[i].OnPlay = (Vector2 position) =>
+            {
+                GD.Print(position, GameState.SelectedCard.Index);
+                GameState.Instance.Mana -= 1;
+            };
+            AddChild(card);
+        }
 
-	public void _MouseEntered() 
-	{
-	}
+        InputEvent += _Input;
+        MouseExited += _MouseExited;
+        MouseEntered += _MouseEntered;
+    }
 
-	public void _MouseExited() 
-	{
-		if( SelectedCardIndex > -1) 
-		{
-			cards[SelectedCardIndex].SetPosition();
-		}
-	}
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta) { }
+
+    public void _Input(Node viewport, InputEvent @event, long shapeIdx)
+    {
+        if (@event is InputEventMouseButton eventMouseButton)
+        {
+            if (eventMouseButton.ButtonIndex != MouseButton.Left)
+                return;
+
+            if (eventMouseButton.Pressed)
+            {
+                Vector2 screenSize = GetViewport().GetVisibleRect().Size;
+                SelectedCardIndex = (int)(eventMouseButton.Position.X * 4 / screenSize.X);
+                cards[SelectedCardIndex].Position = GetLocalMousePosition();
+                GameState.SelectedCard = cards[SelectedCardIndex];
+            }
+            else
+            {
+                if (SelectedCardIndex > -1)
+                {
+                    cards[SelectedCardIndex].SetPosition();
+                    SelectedCardIndex = -1;
+                    GameState.SelectedCard = null;
+                }
+            }
+        }
+        else if (@event is InputEventMouseMotion eventMouseMotion)
+        {
+            if (SelectedCardIndex > -1)
+            {
+                if (Input.IsMouseButtonPressed(MouseButton.Left))
+                {
+                    cards[SelectedCardIndex].Position = GetLocalMousePosition();
+                }
+                else
+                {
+                    cards[SelectedCardIndex].SetPosition();
+                    SelectedCardIndex = -1;
+                }
+            }
+        }
+    }
+
+    public void _MouseEntered() { }
+
+    public void _MouseExited()
+    {
+        if (SelectedCardIndex > -1)
+        {
+            cards[SelectedCardIndex].SetPosition();
+        }
+    }
 }

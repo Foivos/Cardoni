@@ -1,3 +1,4 @@
-public interface ITicked {
+public interface ITicked
+{
     public void Tick(uint tick);
 }
