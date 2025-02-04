@@ -1,3 +1,5 @@
+using State;
+
 public class PoisonedEffect : Effect, ITicked
 {
     public override EffectType EffectType => EffectType.Poisoned;

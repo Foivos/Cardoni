@@ -1,90 +1,93 @@
 using System.Collections.Generic;
 using Godot;
 
-public partial class GameState : Node
+namespace State
 {
-    public static GameState Instance { get; private set; }
-    public uint Tick;
-
-    public const uint TicksPerSecond = 20;
-    public const double secondsPerTick = 1.0 / TicksPerSecond;
-
-    public PriorityQueue<Expiring> ExpiringQueue = new PriorityQueue<Expiring>();
-
-    public List<ITicked> Ticked = new List<ITicked>();
-
-    public const int LanesNumber = 4;
-
-    public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
-
-    CardState CardState = new CardState();
-
-    public static Card SelectedCard
+    public partial class GameState : Node
     {
-        get { return Instance.CardState.Selected; }
-        set { Instance.CardState.Selected = value; }
-    }
+        public static GameState Instance { get; private set; }
+        public uint Tick;
 
-    public int Mana
-    {
-        get { return (int)(ManaStacks / StacksPerMana); }
-        set { ManaStacks = (int)(ManaStacks % StacksPerMana + (value * StacksPerMana)); }
-    }
+        public const uint TicksPerSecond = 20;
+        public const double secondsPerTick = 1.0 / TicksPerSecond;
 
-    public int ManaStacks = 0;
+        public PriorityQueue<Expiring> ExpiringQueue = new PriorityQueue<Expiring>();
 
-    public const uint StacksPerMana = 1200;
+        public List<ITicked> Ticked = new List<ITicked>();
 
-    public int StacksPerTick = 60;
+        public const int LanesNumber = 4;
 
-    public override void _Ready()
-    {
-        Instance = this;
+        public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
 
-        new Ticked(
-            (uint tick) =>
-            {
-                ManaStacks += StacksPerTick;
-            }
-        );
-    }
+        CardState CardState = new CardState();
 
-    public override void _PhysicsProcess(double dt)
-    {
-        for (int i = 0; i < Ticked.Count; i++)
+        public static Card SelectedCard
         {
-            Ticked[i].Tick(Tick);
+            get { return Instance.CardState.Selected; }
+            set { Instance.CardState.Selected = value; }
         }
-        while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick)
+
+        public int Mana
         {
-            Expiring expiring = ExpiringQueue.Pop();
-            expiring.OnExpire(Tick);
-            if (expiring.Repeat != 1)
-            {
-                if (expiring.Repeat > 1)
+            get { return (int)(ManaStacks / StacksPerMana); }
+            set { ManaStacks = (int)(ManaStacks % StacksPerMana + (value * StacksPerMana)); }
+        }
+
+        public int ManaStacks = 0;
+
+        public const uint StacksPerMana = 1200;
+
+        public int StacksPerTick = 60;
+
+        public override void _Ready()
+        {
+            Instance = this;
+
+            new Ticked(
+                (uint tick) =>
                 {
-                    expiring.Repeat--;
+                    ManaStacks += StacksPerTick;
                 }
-                expiring.End += expiring.Duration;
-                AddExpiring(expiring);
-            }
+            );
         }
 
-        Tick++;
-    }
+        public override void _PhysicsProcess(double dt)
+        {
+            for (int i = 0; i < Ticked.Count; i++)
+            {
+                Ticked[i].Tick(Tick);
+            }
+            while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick)
+            {
+                Expiring expiring = ExpiringQueue.Pop();
+                expiring.OnExpire(Tick);
+                if (expiring.Repeat != 1)
+                {
+                    if (expiring.Repeat > 1)
+                    {
+                        expiring.Repeat--;
+                    }
+                    expiring.End += expiring.Duration;
+                    AddExpiring(expiring);
+                }
+            }
 
-    public void AddTicked(ITicked ticked)
-    {
-        Ticked.Add(ticked);
-    }
+            Tick++;
+        }
 
-    public void RemoveTicked(ITicked ticked)
-    {
-        Ticked.Remove(ticked);
-    }
+        public void AddTicked(ITicked ticked)
+        {
+            Ticked.Add(ticked);
+        }
 
-    public void AddExpiring(Expiring expiring)
-    {
-        ExpiringQueue.Push(expiring);
+        public void RemoveTicked(ITicked ticked)
+        {
+            Ticked.Remove(ticked);
+        }
+
+        public void AddExpiring(Expiring expiring)
+        {
+            ExpiringQueue.Push(expiring);
+        }
     }
 }

@@ -1,4 +1,5 @@
 using Godot;
+using State;
 
 public class Poisoned : EffectCondition<PoisonedEffect>
 {

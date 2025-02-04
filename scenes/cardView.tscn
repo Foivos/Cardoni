@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ixpayohnt6iw" path="res://scenes/card.tscn" id="2_t578a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpymc"]
-size = Vector2(800, 300)
+size = Vector2(400, 200)
 
 [node name="CardView" type="Area2D"]
 script = ExtResource("1_qg2kn")

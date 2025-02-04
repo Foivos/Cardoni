@@ -1,4 +1,8 @@
-public class CardState
+namespace State
 {
-    public Card Selected;
+    public class CardState 
+    {
+        public Card Selected { get; set; }
+
+    }
 }
