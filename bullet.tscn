@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bnhis7qjnnksd"]
+
+[node name="Bullet" type="CharacterBody2D"]
+motion_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]

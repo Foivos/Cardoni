@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlip1ar3mxj54"]
+
+[ext_resource type="Texture2D" uid="uid://cbvdeetchq6c" path="res://gregFolder/skyParalax.png" id="1_l263q"]
+
+[node name="paralax sky" type="Node"]
+
+[node name="small clouds PX" type="Parallax2D" parent="."]
+scroll_offset = Vector2(-113, 124)
+repeat_size = Vector2(400, 0)
+autoscroll = Vector2(1, 0)
+repeat_times = 2
+
+[node name="small clouds" type="Sprite2D" parent="small clouds PX"]
+position = Vector2(244, 8)
+scale = Vector2(2, 2)
+texture = ExtResource("1_l263q")
+region_enabled = true
+region_rect = Rect2(0, 0, 192, 72)
+
+[node name="middle PX" type="Parallax2D" parent="."]
+scroll_offset = Vector2(-113, 229)
+repeat_size = Vector2(400, 0)
+autoscroll = Vector2(2, 0)
+repeat_times = 3
+
+[node name="middle" type="Sprite2D" parent="middle PX"]
+position = Vector2(244, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("1_l263q")
+region_enabled = true
+region_rect = Rect2(0, 149, 200, 91)
+
+[node name="bottom PX" type="Parallax2D" parent="."]
+scroll_offset = Vector2(-111, 285)
+repeat_size = Vector2(400, 0)
+autoscroll = Vector2(5, 0)
+repeat_times = 3
+
+[node name="bottom" type="Sprite2D" parent="bottom PX"]
+position = Vector2(244, 0)
+scale = Vector2(2, 2)
+texture = ExtResource("1_l263q")
+region_enabled = true
+region_rect = Rect2(0, 304, 200, 56)
