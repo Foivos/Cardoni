@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw54ppij0q66r"]
+[gd_scene load_steps=6 format=3 uid="uid://bw54ppij0q66r"]
 
 [ext_resource type="Script" path="res://scripts/CardView.cs" id="1_qg2kn"]
 [ext_resource type="PackedScene" uid="uid://ixpayohnt6iw" path="res://scenes/card.tscn" id="2_t578a"]
+[ext_resource type="PackedScene" uid="uid://dnmad5wsk5ar2" path="res://gregFolder/cardDetails.tscn" id="3_g5447"]
+[ext_resource type="Script" path="res://gregFolder/CardDetails.cs" id="4_5fi2u"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpymc"]
 size = Vector2(100, 200)
 
-[node name="CardView" type="Node2D" node_paths=PackedStringArray("cardFathers", "CardAreas")]
+[node name="CardView" type="Node2D" node_paths=PackedStringArray("CardAreas")]
 position = Vector2(200, 700)
 script = ExtResource("1_qg2kn")
-cardFathers = []
 CardAreas = [NodePath("CardArea0"), NodePath("CardArea1"), NodePath("CardArea2"), NodePath("CardArea3")]
 CardsScene = ExtResource("2_t578a")
 
@@ -37,3 +38,6 @@ position = Vector2(150, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CardArea3"]
 shape = SubResource("RectangleShape2D_bpymc")
+
+[node name="card details" parent="." instance=ExtResource("3_g5447")]
+script = ExtResource("4_5fi2u")
