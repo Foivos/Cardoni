@@ -23,12 +23,12 @@ public partial class testTargetC : Node
         inst = this;
         screenSize = GetViewport().GetVisibleRect().Size;
 
-        //backround.GlobalPosition = new Vector2(screenSize.X / 2f, screenSize.Y / 2f);
-        screenBlock = screenSize.X / 4;
+
+        //lineTarget.
     }
 
 
-    public void beginTargeting(targetTypes type)
+    public void beginTargeting(targetTypes type)//! MAIN FUNCTION
     {
 
         targetNow = type;
@@ -41,50 +41,61 @@ public partial class testTargetC : Node
 
 
     }
-    public void endTargeting()
+    public void endTargeting()//! MAIN FUNCTION
     {
         positionTarget.Visible = false;
         lineTarget.Visible = false;
+
         SetProcess(false);
 
     }
-    public ITarget targetResult()
+    public ITarget targetResult()//! MAIN FUNCTION
     {
 
-        if(targetNow == targetTypes.Position)
-        {
+        if (targetNow == targetTypes.Position)
             return new PositionTarget(positionTarget.GlobalPosition);
-        }
-        else if(targetNow == targetTypes.Line)
-        {
-            return new LineTarget(0);
-        }
+
+        else if (targetNow == targetTypes.Line) return new LineTarget(getSelectedLine());
 
 
-      
+
+
         return new InvalidTarget();
 
     }
 
 
-    void processGraphics()
+
+
+    void processGraphics()//? GRAGHICS HERE - like line posision
     {
 
-        if (targetNow == targetTypes.None)return;
+        if (targetNow == targetTypes.None) return;
 
         if (targetNow == targetTypes.Position)
         {
-            positionTarget.GlobalPosition = targetPos;
+            positionTarget.Position = positionToGrid(mouseWorldPos);
         }
         else if (targetNow == targetTypes.Line)
         {
-            //lineTarget.GlobalPosition = targetPos;
-            //lineTarget.Rotation = (float)Math.Atan2(targetPos.Y, targetPos.X);
-            //lineTarget.Scale = new Vector2(targetPos.Length(), 1);
+
+
+            tempLine = getSelectedLine();
+            lineTarget.Position = new Vector2((-1.5f + tempLine) * lineLenght, lineTarget.Position.Y);
+
         }
 
 
 
+
+    }
+    int getSelectedLine()
+    {
+
+        if (mouseWorldPos.X < -lineLenght) return 0;
+        else if (mouseWorldPos.X < 0) return 1;
+        else if (mouseWorldPos.X < lineLenght) return 2;
+        else return 3;
 
     }
 
@@ -92,28 +103,32 @@ public partial class testTargetC : Node
 
     [ExportGroup("DEBUG THINGS")]
     [Export] Vector2 screenSize;
-    [Export] float screenBlock;
+    [Export] float lineLenght;
+    [Export] int tempLine = 0;
 
-    [Export] Vector2 mousePos;
-    [Export] Vector2 targetPos;
-    [Export] Label targetGlobalPosLabel;
-    [Export] Label targetPosLabel;
+    [Export] Vector2 mousePos, mouseWorldPos;
+
 
 
     public override void _Process(double delta)
     {
         mousePos = GetViewport().GetMousePosition();
-        targetPos = gridTargetPosition(GetViewport().GetMousePosition());
-        //targetGraphic.GlobalPosition = gridTargetPosition(GetViewport().GetMousePosition());
+        mouseWorldPos = mousePosCenterZero();
 
-        //targetGlobalPosLabel.Text = "GP" + targetGraphic.GlobalPosition.ToString();
-        //targetPosLabel.Text = "G" + targetGraphic.Position.ToString();
+        processGraphics();
+
+
+
+    }
+    public override void _Input(InputEvent @event)//? EDIT ONLY
+    {
+        if (@event.IsActionPressed("ui_accept")) beginTargeting(targetNow);
+
     }
 
 
 
-
-    public static Vector2 getMouseWorldScreen()
+    Vector2 mousePosCenterZero()
     {
         if (inst == null) return Vector2.Zero;
 
@@ -121,40 +136,41 @@ public partial class testTargetC : Node
         return inst.GetViewport().GetMousePosition() - inst.GetViewport().GetVisibleRect().Size / 2;
     }
 
-
-
-    Vector2 gridTargetPosition(Vector2 pos)
+    Vector2 positionToGrid(Vector2 pos)
     {
-        pos -= screenSize / 2;
+        //pos -= screenSize / 2;
 
         // new Vector2(pos.X / screenBlock, pos.Y / screenBlock);
 
-        if (pos.X < -screenBlock)
-            pos.X = -1.5f;
+        if (pos.X < -lineLenght)
+            pos.X = -1.5f * lineLenght;
         else if (pos.X < 0)
-            pos.X = -0.5f;
-        else if (pos.X < screenBlock)
-            pos.X = 0.5f;
+            pos.X = -0.5f * lineLenght;
+        else if (pos.X < lineLenght)
+            pos.X = 0.5f * lineLenght;
         else
-            pos.X = 1.5f;
-
-        pos.Y /= (screenBlock / 4);
-
-        //float remainer = pos.Y % 4;
-        pos.Y = (float)Math.Round(pos.Y);
-        pos.Y /= 4;
-        // if (remainer > 0.25f)
-        // {
-        // 	if(pos.Y > 0) pos.Y += 0.5f;
-        // 	else pos.Y -= 0.5f;
-
-        // }
+            pos.X = 1.5f * lineLenght;
 
 
+        float remainder = pos.Y % lineLenght;
+        int yBlockCount = (int)MathF.Round(pos.Y / lineLenght);
 
 
-        return pos * screenBlock; // + Vector2.One * screenBlock / 2;
+        if (remainder < 0.125f * lineLenght) remainder = 0;
+        else if (remainder < 0.375 * lineLenght) remainder = 0.25f * lineLenght;
+        else if (remainder < 0.625 * lineLenght) remainder = 0.5f * lineLenght;
+        else if (remainder < 0.875 * lineLenght) remainder = 0.75f * lineLenght;
+        else remainder = lineLenght;
+
+        pos.Y = (yBlockCount * lineLenght) + remainder;
+
+
+
+        return pos;
     }
 
-  
+
+
+
+
 }

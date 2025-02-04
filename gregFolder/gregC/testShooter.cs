@@ -25,7 +25,7 @@ public partial class testShooter : Node
 
         testBullet bull = bulletPreffab.Instantiate<testBullet>();
 
-        bull.Position = testTargetC.getMouseWorldScreen();
+       // bull.Position = testTargetC.mousePosCenterZero();
 
         bull.LinearVelocity = new Vector2(0, speed);
         bull.GravityScale = 0;

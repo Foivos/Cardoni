@@ -142,11 +142,9 @@ texture = ExtResource("8_vn7a2")
 position = Vector2(-346, -275)
 gravity_scale = 0.0
 
-[node name="target C" type="Node" parent="." node_paths=PackedStringArray("positionTarget", "targetGlobalPosLabel", "targetPosLabel")]
+[node name="target C" type="Node" parent="." node_paths=PackedStringArray("positionTarget")]
 script = ExtResource("1_g7plp")
 positionTarget = NodePath("target sprite")
-targetGlobalPosLabel = NodePath("../UI controll/target pos global")
-targetPosLabel = NodePath("../UI controll/target pos label")
 
 [node name="target sprite" type="Sprite2D" parent="target C"]
 position = Vector2(65, -315)
@@ -194,8 +192,10 @@ region_enabled = true
 region_rect = Rect2(0, 0, 40, 40)
 
 [node name="emojy big" type="Sprite2D" parent="."]
-position = Vector2(-494, -472)
+position = Vector2(153, -137)
 scale = Vector2(2.55, 2.55)
 texture = ExtResource("15_k1qae")
+region_enabled = true
+region_rect = Rect2(0, 0, 48, 48)
 
 [node name="paralax sky" parent="." instance=ExtResource("16_mhv3v")]
