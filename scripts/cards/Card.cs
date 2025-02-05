@@ -11,8 +11,11 @@ public partial class Card : Node2D
 
 	public CardTarget[] CardTargets { get; set; }
 
-	[Export] public Sprite2D mySprite { get; set; }
-	[Export] public RichTextLabel myText { get; set; }
+	[Export]
+	public Sprite2D mySprite { get; set; }
+
+	[Export]
+	public RichTextLabel myText { get; set; }
 
 	public override void _Ready()
 	{

@@ -27,11 +27,13 @@ public partial class CardView : Node2D
 			card.Index = i;
 			card.Description = "Card " + i;
 			Cards[i] = card;
+			card.CardTargets = new CardTarget[1];
+			card.CardTargets[0] = new LineTarget();
 
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
 			cardArea.CardView = this;
 			cardArea.Index = i;
-			cardArea.Position = new Vector2(100 * (int) i - 150, 0);
+			cardArea.Position = new Vector2(100 * (int)i - 150, 0);
 
 			cardArea.AddChild(card);
 
@@ -51,7 +53,7 @@ public partial class CardView : Node2D
 				return;
 
 			if (eventMouseButton.Pressed)
-			{	
+			{
 				GD.Print(index);
 				GameState.SelectedCard = Cards[index];
 			}
@@ -65,7 +67,5 @@ public partial class CardView : Node2D
 
 	public void _MouseEntered() { }
 
-	public void _MouseExited()
-	{
-	}
+	public void _MouseExited() { }
 }
