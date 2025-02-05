@@ -1,28 +1,16 @@
 namespace Cardoni;
 
-using Godot;
 using System;
+using Godot;
 
 public partial class gregEditTests : Node
 {
+	[Export]
+	enemyC enemy;
 
-
-
-	[Export] enemyC enemy;
-
-
-
-	public override void _Input(InputEvent @event)//? EDIT ONLY
+	public override void _Input(InputEvent @event) //? EDIT ONLY
 	{
-		if (@event.IsActionPressed("ui_accept")) enemy.onDamage(5);
-
+		if (@event.IsActionPressed("ui_accept"))
+			enemy.onDamage(5);
 	}
-
-
-
-
-
-
-
-
 }

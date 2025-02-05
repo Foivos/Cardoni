@@ -1,9 +1,13 @@
 namespace Cardoni;
 
-public class LineTarget: CardTarget {
-    int Lane { get; set; }
+public class LineTarget : EntityTarget
+{
+	int Line => testTargetC.inst.Line;
 
-    public LineTarget(int lane) {
-        Lane = lane;
-    }
+	public LineTarget() { }
+
+	public override Entity[] Targets()
+	{
+		return new Entity[0];
+	}
 }

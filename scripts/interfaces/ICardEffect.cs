@@ -1,5 +1,3 @@
 namespace Cardoni;
 
-public interface ICardEffect {
-    
-}
+public interface ICardEffect { }

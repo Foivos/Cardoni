@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
-[ext_resource type="PackedScene" uid="uid://mi4m2q3ij3tx" path="res://scenes/targetView.tscn" id="3_tbob3"]
+[ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
@@ -20,5 +20,3 @@ shape = SubResource("RectangleShape2D_edew2")
 
 [node name="targetView" parent="." instance=ExtResource("3_tbob3")]
 position = Vector2(200, 400)
-targetNow = 1
-lineLenght = 100.0

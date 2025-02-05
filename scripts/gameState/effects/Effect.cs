@@ -2,15 +2,15 @@ namespace Cardoni;
 
 public abstract class Effect
 {
-    public Entity Entity;
+	public Entity Entity;
 
-    public abstract EffectType EffectType { get; }
+	public abstract EffectType EffectType { get; }
 
-    public Effect RefEffect
-    {
-        get { return Entity.Effects[(int)EffectType]; }
-        set { Entity.Effects[(int)EffectType] = value; }
-    }
+	public Effect RefEffect
+	{
+		get { return Entity.Effects[(int)EffectType]; }
+		set { Entity.Effects[(int)EffectType] = value; }
+	}
 
-    public virtual void Update() { }
+	public virtual void Update() { }
 }
