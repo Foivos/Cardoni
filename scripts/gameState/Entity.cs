@@ -6,7 +6,6 @@ using Godot;
 public class Entity
 {
 	public int Health = 100;
-
 	public int BaseSpeed = 10;
 	public int Speed = 10;
 

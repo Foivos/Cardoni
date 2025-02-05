@@ -64,7 +64,7 @@ public partial class testTargetC : Node
 
 		if (positionTarget.Visible)
 		{
-			positionTarget.Position = positionToGrid(mouseWorldPos);
+			positionTarget.Position = Position;
 		}
 		if (lineTarget.Visible)
 		{

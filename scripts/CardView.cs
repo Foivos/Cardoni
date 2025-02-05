@@ -26,9 +26,12 @@ public partial class CardView : Node2D
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
 			card.Description = "Card " + i;
+
+			card.CardTargets = new CardTarget[2];
+			card.CardTargets[0] = new PositionTarget();
+			card.CardTargets[1] = new LineTarget();
+
 			Cards[i] = card;
-			card.CardTargets = new CardTarget[1];
-			card.CardTargets[0] = new LineTarget();
 
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
 			cardArea.CardView = this;
