@@ -1,6 +1,7 @@
+namespace Cardoni;
+
 using System;
 using Godot;
-using State;
 
 public partial class Card : Node2D
 {
@@ -8,8 +9,7 @@ public partial class Card : Node2D
 	public string Description { get; set; }
 	public int ManaCost { get; set; }
 
-	public testTargetC.targetTypes CardTarget { get; set; }
-
+	public CardTarget[] CardTargets { get; set; }
 
 	[Export] public Sprite2D mySprite { get; set; }
 	[Export] public RichTextLabel myText { get; set; }
@@ -17,10 +17,5 @@ public partial class Card : Node2D
 	public override void _Ready()
 	{
 		myText.Text = ManaCost + "_" + Description;
-		SetPosition();
 	}
-
-	public void SetPosition() { }
-
-
 }

@@ -1,3 +1,5 @@
+namespace Cardoni;
+
 using Godot;
 
 public partial class CardArea: Area2D {

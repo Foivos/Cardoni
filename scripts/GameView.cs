@@ -1,6 +1,7 @@
+namespace Cardoni;
+
 using System;
 using Godot;
-using State;
 
 public partial class GameView : Area2D
 {
@@ -25,6 +26,10 @@ public partial class GameView : Area2D
                 || GameState.SelectedCard == null
             )
                 return;
+            
+            CardTarget result = testTargetC.inst.targetResult();
+            GD.Print(result);
+            GameState.SelectedCard = null;
         }
         else if (@event is InputEventMouseMotion eventMouseMotion)
         {
@@ -39,9 +44,23 @@ public partial class GameView : Area2D
     public void _MouseEntered()
     {
         if (GameState.SelectedCard == null) return;
+        testTargetC.targetTypes targetType = testTargetC.targetTypes.None;
+        switch (GameState.SelectedCard.Index) {
+            case 0: {
+                targetType = testTargetC.targetTypes.Position;
+                break;
+            }
+            case 1: {
+                targetType = testTargetC.targetTypes.Line;
+                break;
+            }
+            case 2: {
+                targetType = testTargetC.targetTypes.None;
+                break;
+            }
+        }
 
-        testTargetC.inst.beginTargeting(testTargetC.targetTypes.None);//! CHOOSE TYPE
-        // CreateTargetting();
+        testTargetC.inst.beginTargeting(targetType);//! CHOOSE TYPE
     }
 
     public void _MouseExited()
@@ -49,11 +68,6 @@ public partial class GameView : Area2D
 
         if (GameState.SelectedCard == null) return;
 
-
-        ITarget result = testTargetC.inst.targetResult();
         testTargetC.inst.endTargeting();
-
-        
-        // DestroyTargetting();
     }
 }

@@ -1,3 +1,5 @@
+namespace Cardoni;
+
 public abstract class Effect
 {
     public Entity Entity;

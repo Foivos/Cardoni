@@ -1,3 +1,5 @@
+namespace Cardoni;
+
 public abstract class EffectCondition<T> : ICondition
     where T : Effect
 {

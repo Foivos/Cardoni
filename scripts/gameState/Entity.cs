@@ -1,6 +1,7 @@
+namespace Cardoni;
+
 using System;
 using Godot;
-using State;
 
 public class Entity
 {

@@ -1,3 +1,5 @@
+namespace Cardoni;
+
 public class SlowedEffect : Effect
 {
     public override EffectType EffectType => EffectType.Slowed;

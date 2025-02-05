@@ -1,18 +1,13 @@
+namespace Cardoni;
+
 using System;
 using Godot;
 
 public partial class enemyC : RigidBody2D
 {
-
-
-
     public override void _Ready()
     {
-
         setUpHealthBar();
-
-
-
     }
 
 

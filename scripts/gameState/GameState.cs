@@ -1,93 +1,92 @@
+namespace Cardoni;
+
 using System.Collections.Generic;
 using Godot;
 
-namespace State
+public partial class GameState : Node
 {
-    public partial class GameState : Node
-    {
-        public static GameState Instance { get; private set; }
-        public uint Tick;
+	public static GameState Instance { get; private set; }
+	public uint Tick;
 
-        public const uint TicksPerSecond = 20;
-        public const double secondsPerTick = 1.0 / TicksPerSecond;
+	public const uint TicksPerSecond = 20;
+	public const double secondsPerTick = 1.0 / TicksPerSecond;
 
-        public PriorityQueue<Expiring> ExpiringQueue = new PriorityQueue<Expiring>();
+	public PriorityQueue<Expiring, uint> ExpiringQueue = new PriorityQueue<Expiring, uint>();
 
-        public List<ITicked> Ticked = new List<ITicked>();
+	public List<ITicked> Ticked = new List<ITicked>();
 
-        public const int LanesNumber = 4;
+	public const int LanesNumber = 4;
 
-        public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
+	public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
 
-        CardState CardState = new CardState();
+	CardState CardState = new CardState();
 
-        public static Card SelectedCard
-        {
-            get { return Instance.CardState.Selected; }
-            set { Instance.CardState.Selected = value; }
-        }
+	public static Card SelectedCard
+	{
+		get { return Instance.CardState.Selected; }
+		set { Instance.CardState.Selected = value; }
+	}
 
-        public int Mana
-        {
-            get { return (int)(ManaStacks / StacksPerMana); }
-            set { ManaStacks = (int)(ManaStacks % StacksPerMana + (value * StacksPerMana)); }
-        }
+	public int Mana
+	{
+		get { return (int)(ManaStacks / StacksPerMana); }
+		set { ManaStacks = (int)(ManaStacks % StacksPerMana + (value * StacksPerMana)); }
+	}
 
-        public int ManaStacks = 0;
+	public int ManaStacks = 0;
 
-        public const uint StacksPerMana = 1200;
+	public const uint StacksPerMana = 1200;
 
-        public int StacksPerTick = 60;
+	public int StacksPerTick = 60;
 
-        public override void _Ready()
-        {
-            Instance = this;
+	public override void _Ready()
+	{
+		Instance = this;
 
-            new Ticked(
-                (uint tick) =>
-                {
-                    ManaStacks += StacksPerTick;
-                }
-            );
-        }
+		new Ticked(
+			(uint tick) =>
+			{
+				ManaStacks += StacksPerTick;
+			}
+		);
+	}
 
-        public override void _PhysicsProcess(double dt)
-        {
-            for (int i = 0; i < Ticked.Count; i++)
-            {
-                Ticked[i].Tick(Tick);
-            }
-            while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick)
-            {
-                Expiring expiring = ExpiringQueue.Pop();
-                expiring.OnExpire(Tick);
-                if (expiring.Repeat != 1)
-                {
-                    if (expiring.Repeat > 1)
-                    {
-                        expiring.Repeat--;
-                    }
-                    expiring.End += expiring.Duration;
-                    AddExpiring(expiring);
-                }
-            }
+	public override void _PhysicsProcess(double dt)
+	{
+		for (int i = 0; i < Ticked.Count; i++)
+		{
+			Ticked[i].Tick(Tick);
+		}
+		while (ExpiringQueue.Count > 0 && ExpiringQueue.Peek().End <= Tick)
+		{
+			Expiring expiring = ExpiringQueue.Dequeue();
+			expiring.OnExpire(Tick);
+			if (expiring.Repeat != 1)
+			{
+				if (expiring.Repeat > 1)
+				{
+					expiring.Repeat--;
+				}
+				expiring.End += expiring.Duration;
+				AddExpiring(expiring);
+			}
+		}
 
-            Tick++;
-        }
+		Tick++;
+	}
 
-        public void AddTicked(ITicked ticked)
-        {
-            Ticked.Add(ticked);
-        }
+	public void AddTicked(ITicked ticked)
+	{
+		Ticked.Add(ticked);
+	}
 
-        public void RemoveTicked(ITicked ticked)
-        {
-            Ticked.Remove(ticked);
-        }
+	public void RemoveTicked(ITicked ticked)
+	{
+		Ticked.Remove(ticked);
+	}
 
-        public void AddExpiring(Expiring expiring)
-        {
-            ExpiringQueue.Push(expiring);
-        }
-    }
+	public void AddExpiring(Expiring expiring)
+	{
+		ExpiringQueue.Enqueue(expiring, expiring.End);
+	}
 }

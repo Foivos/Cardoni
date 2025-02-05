@@ -1,4 +1,4 @@
-using State;
+namespace Cardoni;
 
 public class PoisonedEffect : Effect, ITicked
 {

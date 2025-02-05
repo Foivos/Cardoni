@@ -1,3 +1,5 @@
+namespace Cardoni;
+
 using System;
 using Godot;
 
@@ -49,7 +51,7 @@ public partial class testTargetC : Node
         SetProcess(false);
 
     }
-    public ITarget targetResult()//! MAIN FUNCTION
+    public CardTarget targetResult()//! MAIN FUNCTION
     {
 
         if (targetNow == targetTypes.Position)

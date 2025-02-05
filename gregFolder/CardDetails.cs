@@ -1,3 +1,5 @@
+namespace Cardoni;
+
 using Godot;
 using System;
 

@@ -1,6 +1,6 @@
+namespace Cardoni;
 
-
-public class InvalidTarget: ITarget {
+public class InvalidTarget: CardTarget {
 
 	public InvalidTarget() {
 	}
