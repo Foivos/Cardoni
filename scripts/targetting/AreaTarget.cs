@@ -4,7 +4,7 @@ using Godot;
 
 public class AreaTarget : EntityTarget
 {
-	Vector2 Position { get; set; }
+	Vector2 Position => testTargetC.inst.Position;
 	double Radius { get; set; }
 
 	public AreaTarget(double radius)
