@@ -5,7 +5,17 @@ using Godot;
 public partial class battleEffectsC : Node
 {
     public static battleEffectsC inst;
-    public override void _Ready() { inst = this; }
+    public override void _Ready()
+    {
+
+        GD.Print("adwwdwa");
+        GD.Print("adwwdwa");
+        GD.Print("adwwdwa");
+        GD.Print("adwwdwa");
+        GD.Print("adwwdwa");
+
+        inst = this;
+    }
 
 
 
