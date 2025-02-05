@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=25 format=3 uid="uid://nkxij81pggv7"]
 
 [ext_resource type="Texture2D" uid="uid://c15jr41ptjpo" path="res://gregFolder/skyBackround.png" id="2_j41jb"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_tstke"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bwcryr3ahpnkq" path="res://scenes/newEnemy.tscn" id="12_sy57r"]
 [ext_resource type="Texture2D" uid="uid://bnsktbdg2spo5" path="res://gregFolder/testEmojys.png" id="14_ps0fu"]
 [ext_resource type="Script" path="res://gregFolder/gregC/gregEditTests.cs" id="15_qn0by"]
+[ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="16_2pg6y"]
 [ext_resource type="PackedScene" uid="uid://dlip1ar3mxj54" path="res://gregFolder/paralax_sky.tscn" id="16_mhv3v"]
 [ext_resource type="Texture2D" uid="uid://cd8elcihy6m2k" path="res://gregFolder/testStrike.png" id="17_ih7e7"]
 [ext_resource type="Script" path="res://gregFolder/gregC/testPlayer.cs" id="18_ld8t7"]
@@ -147,7 +148,7 @@ anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="spriteSheetAnim" type="Sprite2D" parent="STUFF"]
-position = Vector2(97, -196)
+position = Vector2(-80, -468)
 texture = ExtResource("12_nlyjo")
 hframes = 2
 vframes = 2
@@ -216,7 +217,7 @@ backroundEffectDelay = 0.02
 backroundEffeColor = Color(0.67, 0.67, 0.67, 1)
 
 [node name="test sprite" type="Sprite2D" parent="EFFECTS"]
-position = Vector2(-73, -351)
+position = Vector2(-192, -460)
 scale = Vector2(2, 2)
 texture = ExtResource("3_p3rqh")
 
@@ -232,11 +233,8 @@ texture = ExtResource("14_ps0fu")
 region_enabled = true
 region_rect = Rect2(0, 0, 40, 40)
 
-[node name="newEnemy" parent="." instance=ExtResource("12_sy57r")]
-
-[node name="EDIT" type="Node" parent="." node_paths=PackedStringArray("enemy")]
+[node name="EDIT" type="Node" parent="."]
 script = ExtResource("15_qn0by")
-enemy = NodePath("")
 
 [node name="strike" type="Sprite2D" parent="."]
 position = Vector2(-83, -164)
@@ -254,3 +252,10 @@ speed_scale = 5.0
 
 [node name="PLAYER" type="Node2D" parent="."]
 script = ExtResource("18_ld8t7")
+
+[node name="newEnemy" parent="." instance=ExtResource("12_sy57r")]
+position = Vector2(52, -396)
+speed = 50.0
+
+[node name="Bullet" parent="." instance=ExtResource("16_2pg6y")]
+position = Vector2(57, -247)

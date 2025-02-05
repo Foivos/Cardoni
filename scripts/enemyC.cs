@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class enemyC : Node2D
+public partial class enemyC : Area2D
 {
 
 
@@ -9,7 +9,11 @@ public partial class enemyC : Node2D
 
 
 	[Export] Sprite2D sprite;
-	public override void _Ready() { setUpHealthBar(); }
+	public override void _Ready()
+	{
+		setUpHealthBar();
+		displayShord();
+	}
 	//public void _Process(float delta) { processMovement(); }
 
 
@@ -17,12 +21,12 @@ public partial class enemyC : Node2D
 
 	public override void _Process(double delta)
 	{
-		processMovement( delta);
+		processMovement(delta);
 		// 	displayHealthBar();
 
 		//GD.Print("enemyC _Process");
 	}
-	
+
 
 
 
@@ -74,6 +78,43 @@ public partial class enemyC : Node2D
 
 
 	}
+
+
+
+	#endregion
+
+
+	#region  shord that dynamicaly changes with atack damage
+
+	[ExportGroup("shord dmg assumed 1-10")]
+
+	[Export]uint _atackDamage;
+	
+	uint atackDamage
+	{ // ? the fact that im here i mean this >> { << is a gift to you foivos ( if this is not the case sorry my formatter changed it .. )
+
+
+		get { return _atackDamage; }
+		set
+		{
+			_atackDamage = value;
+			displayShord();
+		}
+	}
+
+
+	[Export] Sprite2D shord;
+	[Export] Vector2 sizes;
+
+	void displayShord()
+	{
+		if (shord == null) return;
+		if (_atackDamage == 0) { shord.Visible = false; return; }
+
+		shord.Scale = Vector2.One * Mathf.Lerp(sizes.X, sizes.Y, _atackDamage / 10f);
+	}
+
+
 
 
 

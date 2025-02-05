@@ -5,8 +5,8 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rq6fe"]
 
-[node name="Bullet" type="RigidBody2D"]
-collision_layer = 2
+[node name="Bullet" type="Area2D"]
+collision_layer = 0
 script = ExtResource("1_che5c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -17,3 +17,5 @@ shape = SubResource("CircleShape2D_rq6fe")
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.25, 0.5)
 texture = ExtResource("2_db30r")
+
+[connection signal="area_entered" from="." to="." method="OnBodyEntered"]

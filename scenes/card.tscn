@@ -3,10 +3,12 @@
 [ext_resource type="Script" path="res://scripts/Card.cs" id="1_hx23o"]
 [ext_resource type="Texture2D" uid="uid://digqxd7ktw20m" path="res://gregFolder/testCardP.png" id="2_tdbqd"]
 
-[node name="Card" type="Node2D" node_paths=PackedStringArray("mySprite", "myText")]
+[node name="Card" type="Node2D" node_paths=PackedStringArray("mySprite", "myText", "manaLabel")]
 script = ExtResource("1_hx23o")
+_ManaCost = 3
 mySprite = NodePath("Sprite2D")
-myText = NodePath("RichTextLabel")
+myText = NodePath("rich desciption text")
+manaLabel = NodePath("rich mana text")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 light_mask = 2
@@ -14,12 +16,32 @@ visibility_layer = 2
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_tdbqd")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-offset_left = -32.0
-offset_top = -58.0
-offset_right = 49.0
-offset_bottom = 45.0
+[node name="rich desciption text" type="RichTextLabel" parent="."]
+offset_left = -27.0
+offset_top = -59.0
+offset_right = 45.0
+offset_bottom = 41.0
 scale = Vector2(0.782488, 1.06834)
 mouse_filter = 2
-theme_override_font_sizes/normal_font_size = 32
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/line_separation = -12
+theme_override_font_sizes/normal_font_size = 24
 text = "test tich"
+scroll_active = false
+
+[node name="rich mana text" type="RichTextLabel" parent="."]
+self_modulate = Color(0, 1, 1, 1)
+offset_left = 1.0
+offset_top = -90.0
+offset_right = 50.0
+offset_bottom = -32.0
+scale = Vector2(0.782488, 1.06834)
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/line_separation = -12
+theme_override_font_sizes/normal_font_size = 42
+text = "N"
+scroll_active = false
+text_direction = 2
