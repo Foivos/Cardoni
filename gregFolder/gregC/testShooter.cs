@@ -29,8 +29,8 @@ public partial class testShooter : Node
 
 		// bull.Position = testTargetC.mousePosCenterZero();
 
-		bull.LinearVelocity = new Vector2(0, speed);
-		bull.GravityScale = 0;
+		// bull.LinearVelocity = new Vector2(0, speed);
+		// bull.GravityScale = 0;
 
 		// Spawn the mob by adding it to the Main scene.
 		AddChild(bull);

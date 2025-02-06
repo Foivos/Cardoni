@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="10_4u71e"]
 [ext_resource type="Texture2D" uid="uid://4wtajmvyyyoa" path="res://gregFolder/testSpriteSheet.png" id="11_bq4we"]
 [ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/testEnemySpriteSheet.png" id="12_nlyjo"]
-[ext_resource type="PackedScene" uid="uid://bwcryr3ahpnkq" path="res://scenes/newEnemy.tscn" id="12_sy57r"]
+[ext_resource type="PackedScene" path="res://scenes/newEnemy.tscn" id="12_sy57r"]
 [ext_resource type="Texture2D" uid="uid://bnsktbdg2spo5" path="res://gregFolder/testEmojys.png" id="14_ps0fu"]
 [ext_resource type="Script" path="res://gregFolder/gregC/gregEditTests.cs" id="15_qn0by"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="16_2pg6y"]

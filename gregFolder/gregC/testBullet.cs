@@ -3,7 +3,7 @@ namespace Cardoni;
 using System;
 using Godot;
 
-public partial class testBullet : RigidBody2D
+public partial class testBullet : Area2D
 {
 	public override void _Ready()
 	{
