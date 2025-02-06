@@ -1,13 +1,15 @@
 namespace Cardoni;
 
+using System.Collections.Generic;
+
 public class LineTarget : EntityTarget
 {
-	int Line => testTargetC.inst.Line;
+	int Line => TargetView.Instance.Line;
 
 	public LineTarget() { }
 
-	public override Entity[] Targets()
+	public override List<Entity> Targets()
 	{
-		return new Entity[0];
+		return new List<Entity>();
 	}
 }

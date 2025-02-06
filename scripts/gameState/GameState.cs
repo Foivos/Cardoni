@@ -17,7 +17,7 @@ public partial class GameState : Node
 
 	public const int LanesNumber = 4;
 
-	public List<Entity>[] Lanes = new List<Entity>[LanesNumber];
+	public List<Entity> Entities = new List<Entity>();
 
 	CardState CardState = new CardState();
 

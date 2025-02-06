@@ -27,9 +27,10 @@ public partial class CardView : Node2D
 			card.Index = i;
 			card.Description = "Card " + i;
 
-			card.CardTargets = new CardTarget[2];
-			card.CardTargets[0] = new PositionTarget();
-			card.CardTargets[1] = new LineTarget();
+			card.CardTargets = new CardTarget[1];
+			card.CardTargets[0] = new PatternTarget(new string[] { "XXX", "XXX", "XXX" }, false);
+
+			card.CardTargets[0].CardEffects = new Affecting[]{ new AffectingDamage(1) };
 
 			Cards[i] = card;
 
@@ -57,12 +58,10 @@ public partial class CardView : Node2D
 
 			if (eventMouseButton.Pressed)
 			{
-				GD.Print(index);
 				GameState.SelectedCard = Cards[index];
 			}
 			else
 			{
-				GD.Print(index);
 				GameState.SelectedCard = null;
 			}
 		}

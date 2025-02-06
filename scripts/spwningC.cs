@@ -39,7 +39,7 @@ public partial class spwningC : Node
 				{
 					SpawnEnemy(0);
 					new Expiring(
-						40,
+						30,
 						new System.Action<uint>(
 							(uint tick) =>
 							{
@@ -48,7 +48,7 @@ public partial class spwningC : Node
 								SpawnEnemy(lane);
 							}
 						),
-						3
+						0
 					);
 				}
 			)
@@ -57,10 +57,9 @@ public partial class spwningC : Node
 
 	void SpawnEnemy(uint lane)
 	{
-		Enemy mob = EnemyPreffab.Instantiate<Enemy>();
-		mob.GameView = GameView;
-		
-		mob.Position = new Vector2(spawnX * (2 * lane + 1), 50);
+		enemyC mob = EnemyPreffab.Instantiate<enemyC>();
+
+		mob.Position = new Vector2(spawnX * (2 * (int)lane - 3), -300);
 
 		// Add some randomness to the direction.
 		//direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);
@@ -69,8 +68,6 @@ public partial class spwningC : Node
 
 		// Choose the velocity.
 		//var velocity = new Vector2(0, -enemySpeed);//(float)GD.RandRange(2.0, 2.0)
-		mob.LinearVelocity = new Vector2(0, -enemySpeed);
-		mob.GravityScale = 0;
 
 		// Spawn the mob by adding it to the Main scene.
 		AddChild(mob);

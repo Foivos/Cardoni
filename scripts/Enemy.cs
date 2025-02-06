@@ -20,12 +20,10 @@ public partial class Enemy : RigidBody2D
 
 	public void _BodyExited(Node body)
 	{
-		GD.Print(body);
 		if (body != this)
 		{
 			return;
 		}
-		GD.Print("Exited");
 		QueueFree();
 	}
 

@@ -27,8 +27,11 @@ public partial class GameView : Area2D
 			)
 				return;
 
-			testTargetC.inst.endTargeting();
-			GD.Print(testTargetC.inst);
+			foreach (CardTarget target in GameState.SelectedCard.CardTargets)
+			{
+				target.Activate();
+			}
+			TargetView.EndTargeting();
 			GameState.SelectedCard = null;
 		}
 		else if (@event is InputEventMouseMotion eventMouseMotion)
@@ -43,7 +46,7 @@ public partial class GameView : Area2D
 		if (GameState.SelectedCard == null)
 			return;
 
-		testTargetC.inst.beginTargeting(); //! CHOOSE TYPE
+		TargetView.BeginTargeting(); //! CHOOSE TYPE
 	}
 
 	public void _MouseExited()
@@ -51,6 +54,6 @@ public partial class GameView : Area2D
 		if (GameState.SelectedCard == null)
 			return;
 
-		testTargetC.inst.endTargeting();
+		TargetView.EndTargeting();
 	}
 }

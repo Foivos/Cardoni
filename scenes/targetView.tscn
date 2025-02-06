@@ -1,23 +1,26 @@
 [gd_scene load_steps=3 format=3 uid="uid://bl0ml2mcw66dl"]
 
-[ext_resource type="Script" path="res://gregFolder/gregC/testTargetC.cs" id="1_e4y4w"]
+[ext_resource type="Script" path="res://scripts/TargetView.cs" id="1_17rt2"]
 [ext_resource type="Texture2D" uid="uid://bhoc5yopses6y" path="res://gregFolder/square.png" id="2_6bnm2"]
 
-[node name="targetView" type="Node2D" node_paths=PackedStringArray("positionTarget", "lineTarget")]
-script = ExtResource("1_e4y4w")
-positionTarget = NodePath("pos target")
-lineTarget = NodePath("line target")
-lineLength = 100.0
+[node name="TargetView" type="Node2D" node_paths=PackedStringArray("PositionTarget", "LineTarget", "PatternTarget")]
+script = ExtResource("1_17rt2")
+PositionTarget = NodePath("PositionTarget")
+LineTarget = NodePath("LineTarget")
+PatternTarget = NodePath("PatternTarget")
+LineLength = 100.0
 
-[node name="pos target" type="Sprite2D" parent="."]
+[node name="PositionTarget" type="Sprite2D" parent="."]
 self_modulate = Color(0, 1, 1, 0.215686)
-position = Vector2(-71, -2)
 texture = ExtResource("2_6bnm2")
+region_enabled = true
+region_rect = Rect2(0, 0, 100, 100)
 
-[node name="line target" type="Sprite2D" parent="."]
+[node name="LineTarget" type="Sprite2D" parent="."]
 self_modulate = Color(0, 1, 1, 0.215686)
 texture_repeat = 2
-position = Vector2(0, -100)
 texture = ExtResource("2_6bnm2")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 600)
+
+[node name="PatternTarget" type="Node2D" parent="."]

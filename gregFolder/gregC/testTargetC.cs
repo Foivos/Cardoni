@@ -32,10 +32,8 @@ public partial class testTargetC : Node
 		SetProcess(true);
 		foreach (CardTarget target in GameState.SelectedCard.CardTargets)
 		{
-			GD.Print(target.GetType());
 			if (target is LineTarget)
 			{
-				GD.Print("Line");
 				lineTarget.Visible = true;
 			}
 			else if (target is PositionTarget)

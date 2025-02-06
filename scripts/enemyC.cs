@@ -3,19 +3,28 @@ namespace Cardoni;
 using System;
 using Godot;
 
-public partial class enemyC : Area2D
+public partial class enemyC : Entity
 {
 	//[Export] RigidBody2D rb;
 	[Export]
-	TextureProgressBar hpBar;
+	TextureProgressBar HealthBar;
 
 	[Export]
-	Sprite2D sprite;
+	Sprite2D Sprite;
 
 	public override void _Ready()
 	{
+		Health = 5;
 		setUpHealthBar();
 		displayShord();
+		GameState.Instance.Entities.Add(this);
+		foreach (Node child in GetChildren())
+		{
+			if (child is CollisionShape2D)
+			{
+				Shape = ((CollisionShape2D)child).Shape;
+			}
+		}
 	}
 
 	//public void _Process(float delta) { processMovement(); }
@@ -33,44 +42,36 @@ public partial class enemyC : Area2D
 
 	#region  TAKE DAMAGE + HEALTH BAR
 
-	[Export]
-	int hp;
-
-	public void onDamage(int amount)
+	public override void Damage(int amount)
 	{
-		hp -= amount;
+		base.Damage(amount);
+		if (HealthBar != null)
+			HealthBar.Value = Health;
+		if (battleEffectsC.inst != null) {
 
-		if (hp <= 0)
-			QueueFree();
-		else
-		{
-			if (hpBar != null)
-				hpBar.Value = hp;
-			battleEffectsC.inst.addHitTwo(sprite);
-			battleEffectsC.inst.doShake(sprite);
+			battleEffectsC.inst.addHitTwo(Sprite);
+			battleEffectsC.inst.doShake(Sprite);
 		}
-
-		GD.Print("dmg: " + amount + " HP: " + hp);
 	}
 
 	void setUpHealthBar()
 	{
-		if (hpBar != null)
+		if (HealthBar != null)
 		{
-			hpBar.MaxValue = hp;
-			hpBar.Value = hp;
-			hpBar.MinValue = 0;
+			HealthBar.MaxValue = Health;
+			HealthBar.Value = Health;
+			HealthBar.MinValue = 0;
 		}
 	}
 
 	void displayHealthBar()
 	{
-		if (hpBar == null)
+		if (HealthBar == null)
 			return;
 
-		hpBar.Value = Math.Clamp(hp, 5, hpBar.Value - 5);
+		HealthBar.Value = Math.Clamp(Health, 5, HealthBar.Value - 5);
 
-		hpBar.Visible = true;
+		HealthBar.Visible = true;
 	}
 
 	#endregion
@@ -127,7 +128,7 @@ public partial class enemyC : Area2D
 	[Export]
 	float speed;
 
-	const float downLimit = 200; // after that die and deal damage for now
+	const float downLimit = 300; // after that die and deal damage for now
 
 	public void processMovement(double delta) // every frame called
 	{
@@ -140,6 +141,7 @@ public partial class enemyC : Area2D
 			return;
 
 		testPlayer.damage(1);
+		GameState.Instance.Entities.Remove(this);
 		QueueFree();
 	}
 

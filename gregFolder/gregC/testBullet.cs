@@ -24,7 +24,7 @@ public partial class testBullet : Area2D
 
 		if (body is enemyC enemy)
 		{
-			enemy.onDamage(1);
+			enemy.Damage(1);
 		}
 		else
 		{

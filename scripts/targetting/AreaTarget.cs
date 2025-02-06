@@ -1,10 +1,11 @@
 namespace Cardoni;
 
+using System.Collections.Generic;
 using Godot;
 
 public class AreaTarget : EntityTarget
 {
-	Vector2 Position => testTargetC.inst.Position;
+	Vector2 Position => TargetView.Instance.Position;
 	double Radius { get; set; }
 
 	public AreaTarget(double radius)
@@ -12,8 +13,8 @@ public class AreaTarget : EntityTarget
 		Radius = radius;
 	}
 
-	public override Entity[] Targets()
+	public override List<Entity> Targets()
 	{
-		return new Entity[0];
+		return new List<Entity>();
 	}
 }

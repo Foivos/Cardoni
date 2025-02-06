@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwcryr3ahpnkq"]
+[gd_scene load_steps=7 format=3 uid="uid://b5bq885l6aov0"]
 
 [ext_resource type="Script" path="res://scripts/enemyC.cs" id="1_5wafk"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="2_nnhdo"]
@@ -7,13 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/shord.png" id="5_j4acw"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
+radius = 50.0
 
-[node name="newEnemy" type="Area2D" node_paths=PackedStringArray("sprite", "hpBar", "shord")]
+[node name="newEnemy" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "shord")]
 collision_mask = 0
 script = ExtResource("1_5wafk")
-sprite = NodePath("emojy big")
-hpBar = NodePath("emojy big/TextureProgressBar")
-hp = 100
+HealthBar = NodePath("emojy big/TextureProgressBar")
+Sprite = NodePath("emojy big")
 _atackDamage = 1
 shord = NodePath("emojy big/shord")
 sizes = Vector2(1, 3)
@@ -49,5 +49,4 @@ position = Vector2(15.2941, 7.05882)
 texture = ExtResource("5_j4acw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(5, 5)
 shape = SubResource("CircleShape2D_kt6g3")
