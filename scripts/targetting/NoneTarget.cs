@@ -1,7 +1,6 @@
+namespace Cardoni;
 
-
-public class NoneTarget: ITarget {
-
-	public NoneTarget() {
-	}
+public class NoneTarget : CardTarget
+{
+	public NoneTarget() { }
 }

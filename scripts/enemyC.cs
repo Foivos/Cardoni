@@ -1,12 +1,32 @@
+namespace Cardoni;
+
 using System;
 using Godot;
 
 public partial class enemyC : Area2D
 {
+	public override void _Ready()
+	{
+		setUpHealthBar();
+	}
+
+	//[Export] RigidBody2D rb;
+	[Export]
+	TextureProgressBar hpBar;
+
+	[Export]
+	Sprite2D sprite;
 
 
-
-
+		if (hp <= 0)
+			QueueFree();
+		else
+		{
+			if (hpBar != null)
+				hpBar.Value = hp;
+			battleEffectsC.inst.addHitTwo(sprite);
+			battleEffectsC.inst.doShake(sprite);
+		}
 
 	[Export] Sprite2D sprite;
 	public override void _Ready()

@@ -1,9 +1,10 @@
+namespace Cardoni;
+
 using Godot;
 
-public class PositionTarget: ITarget {
-    Vector2 Position { get; set; }
+public class PositionTarget : CardTarget
+{
+	Vector2 Position => testTargetC.inst.Position;
 
-    public PositionTarget(Vector2 positions) {
-        Position = positions;
-    }
+	public PositionTarget() { }
 }

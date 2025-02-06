@@ -1,6 +1,7 @@
+namespace Cardoni;
+
 using System;
 using Godot;
-using State;
 
 public partial class Card : Node2D
 {
@@ -22,8 +23,10 @@ public partial class Card : Node2D
 	void displayMana() { manaLabel.Text = _ManaCost.ToString(); }
 
 
-	public testTargetC.targetTypes CardTarget { get; set; }
+	public CardTarget[] CardTargets { get; set; }
 
+	[Export]
+	public Sprite2D mySprite { get; set; }
 
 	[Export] public Sprite2D mySprite { get; set; }
 	[Export] public RichTextLabel myText { get; set; }
@@ -39,8 +42,4 @@ public partial class Card : Node2D
 
 		myText.Text = ManaCost + "_" + Description;
 	}
-
-
-
-
 }

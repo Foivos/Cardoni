@@ -1,7 +1,13 @@
-public class LineTarget: ITarget {
-    int Lane { get; set; }
+namespace Cardoni;
 
-    public LineTarget(int lane) {
-        Lane = lane;
-    }
+public class LineTarget : EntityTarget
+{
+	int Line => testTargetC.inst.Line;
+
+	public LineTarget() { }
+
+	public override Entity[] Targets()
+	{
+		return new Entity[0];
+	}
 }

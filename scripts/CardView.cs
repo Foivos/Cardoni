@@ -1,6 +1,7 @@
+namespace Cardoni;
+
 using System;
 using Godot;
-using State;
 
 public partial class CardView : Node2D
 {
@@ -25,12 +26,17 @@ public partial class CardView : Node2D
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
 			card.Description = "Card " + i;
+
+			card.CardTargets = new CardTarget[2];
+			card.CardTargets[0] = new PositionTarget();
+			card.CardTargets[1] = new LineTarget();
+
 			Cards[i] = card;
 
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
 			cardArea.CardView = this;
 			cardArea.Index = i;
-			cardArea.Position = new Vector2(100 * (int) i - 150, 0);
+			cardArea.Position = new Vector2(100 * (int)i - 150, 0);
 
 			cardArea.AddChild(card);
 
@@ -50,7 +56,7 @@ public partial class CardView : Node2D
 				return;
 
 			if (eventMouseButton.Pressed)
-			{	
+			{
 				GD.Print(index);
 				GameState.SelectedCard = Cards[index];
 			}
@@ -64,7 +70,5 @@ public partial class CardView : Node2D
 
 	public void _MouseEntered() { }
 
-	public void _MouseExited()
-	{
-	}
+	public void _MouseExited() { }
 }
