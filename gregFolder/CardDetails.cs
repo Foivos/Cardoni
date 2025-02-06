@@ -10,6 +10,11 @@ public partial class CardDetails : Node2D
 	[Export]
 	RichTextLabel myText;
 
+	public override void _Ready()
+	{
+		inst = this;
+	}
+
 	public static void openDetails(Card card)
 	{
 		//todo set right or left depending on card index

@@ -8,8 +8,8 @@ public partial class Card : Node2D
 	public int Index { get; set; }
 	public string Description { get; set; }
 
-
-	[Export] int _ManaCost;
+	[Export]
+	int _ManaCost;
 	public int ManaCost
 	{
 		get { return _ManaCost; }
@@ -20,23 +20,24 @@ public partial class Card : Node2D
 		}
 	}
 
-	void displayMana() { manaLabel.Text = _ManaCost.ToString(); }
-
+	void displayMana()
+	{
+		manaLabel.Text = _ManaCost.ToString();
+	}
 
 	public CardTarget[] CardTargets { get; set; }
 
 	[Export]
 	public Sprite2D mySprite { get; set; }
 
-	[Export] public Sprite2D mySprite { get; set; }
-	[Export] public RichTextLabel myText { get; set; }
-	[Export] RichTextLabel manaLabel;
+	[Export]
+	public RichTextLabel myText { get; set; }
+
+	[Export]
+	RichTextLabel manaLabel;
 
 	public override void _Ready()
 	{
-
-
-
 		_ManaCost = ManaCost;
 		displayMana();
 
