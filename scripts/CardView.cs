@@ -28,9 +28,9 @@ public partial class CardView : Node2D
 			card.Description = "Card " + i;
 
 			card.CardTargets = new CardTarget[1];
-			card.CardTargets[0] = new PatternTarget(new string[] { "XXX", "XXX", "XXX" }, false);
+			card.CardTargets[0] = new PatternTarget(new string[] { " X ", "XXX" }, false);
 
-			card.CardTargets[0].CardEffects = new Affecting[]{ new AffectingDamage(1) };
+			card.CardTargets[0].CardEffects = new Affecting[]{ new AffectingPoison(100, 60) };
 
 			Cards[i] = card;
 
