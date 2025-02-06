@@ -3,8 +3,10 @@ namespace Cardoni;
 using System;
 using Godot;
 
-public partial class testBullet : Area2D
+public partial class testBullet : RigidBody2D
 {
+
+	[Export] uint damage;
 	public override void _Ready()
 	{
 		//var area = GetNode<Area2D>("Area2D");
@@ -22,9 +24,9 @@ public partial class testBullet : Area2D
 
 		//if (body.IsInGroup("enemies") == false) { GD.Print("not enemy group"); return; }
 
-		if (body is enemyC enemy)
+		if (body is Enemy enemy)
 		{
-			enemy.onDamage(1);
+			enemy.onDamage(damage);
 		}
 		else
 		{
@@ -42,4 +44,8 @@ public partial class testBullet : Area2D
 
 		//enemy.QueueFree();
 	}
+
+
+
+
 }

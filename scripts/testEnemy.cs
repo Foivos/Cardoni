@@ -3,14 +3,14 @@ namespace Cardoni;
 using System;
 using Godot;
 
-public partial class enemyC : Area2D
+public partial class testEnemy : Area2D
 {
 	//[Export] RigidBody2D rb;
-	[Export]
-	TextureProgressBar hpBar;
+	[Export]TextureProgressBar hpBar;
+	
 
-	[Export]
-	Sprite2D sprite;
+	[Export]Sprite2D sprite;
+	
 
 	public override void _Ready()
 	{
@@ -34,9 +34,9 @@ public partial class enemyC : Area2D
 	#region  TAKE DAMAGE + HEALTH BAR
 
 	[Export]
-	int hp;
+	uint hp;
 
-	public void onDamage(int amount)
+	public void onDamage(uint amount)
 	{
 		hp -= amount;
 
@@ -142,6 +142,8 @@ public partial class enemyC : Area2D
 		testPlayer.damage(1);
 		QueueFree();
 	}
+
+
 
 	#endregion
 

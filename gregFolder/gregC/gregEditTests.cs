@@ -6,7 +6,7 @@ using Godot;
 public partial class gregEditTests : Node
 {
 	[Export]
-	enemyC enemy;
+	testEnemy enemy;
 
 	public override void _Input(InputEvent @event) //? EDIT ONLY
 	{

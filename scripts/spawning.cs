@@ -1,12 +1,16 @@
 namespace Cardoni;
 
 using System;
+using System.Collections.Generic;
 using Godot;
 
-public partial class spwningC : Node
+public partial class spawning : Node
 {
-	[Export]
-	public Area2D GameView;
+	//[Export]public Area2D GameView;
+
+
+	static spawning inst;
+
 
 	[Export]
 	public PackedScene EnemyPreffab { get; set; }
@@ -14,6 +18,8 @@ public partial class spwningC : Node
 	[Export]
 	float spawnX;
 
+
+	[Export] bool overrideEnemySpeed;
 	[Export]
 	float enemySpeed;
 
@@ -32,6 +38,8 @@ public partial class spwningC : Node
 
 	public override void _Ready()
 	{
+
+		inst = this;
 		new Expiring(
 			20,
 			new System.Action<uint>(
@@ -55,12 +63,27 @@ public partial class spwningC : Node
 		);
 	}
 
+
+	List<Enemy> enemies = new List<Enemy>();
+	public static void enemyDied(Enemy enm)
+	{
+		if (inst == null)return;
+		inst.enemies.Remove(enm);
+
+
+	}
 	void SpawnEnemy(uint lane)
 	{
+
 		Enemy mob = EnemyPreffab.Instantiate<Enemy>();
-		mob.GameView = GameView;
-		
+		//mob.GameView = GameView;
+
 		mob.Position = new Vector2(spawnX * (2 * lane + 1), 50);
+		mob.lane = lane;
+
+		if (overrideEnemySpeed) mob.speed = enemySpeed;
+		AddChild(mob);
+		enemies.Add(mob);
 
 		// Add some randomness to the direction.
 		//direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);
@@ -69,10 +92,16 @@ public partial class spwningC : Node
 
 		// Choose the velocity.
 		//var velocity = new Vector2(0, -enemySpeed);//(float)GD.RandRange(2.0, 2.0)
-		mob.LinearVelocity = new Vector2(0, -enemySpeed);
-		mob.GravityScale = 0;
+
+		// mob.LinearVelocity = new Vector2(0, -enemySpeed);
+		// mob.GravityScale = 0;
 
 		// Spawn the mob by adding it to the Main scene.
-		AddChild(mob);
+
+
 	}
+
+
+
+
 }

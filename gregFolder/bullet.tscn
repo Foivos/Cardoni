@@ -1,21 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://ds8yxhhu1phvs"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/testBullet.cs" id="1_che5c"]
-[ext_resource type="Texture2D" uid="uid://sdij7nkwlb7i" path="res://resources/icon.svg" id="2_db30r"]
+[ext_resource type="Texture2D" uid="uid://cxi2ciepbb1oa" path="res://gregFolder/testBullet.png" id="2_27mi1"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rq6fe"]
 
 [node name="Bullet" type="Area2D"]
+scale = Vector2(3, 3)
 collision_layer = 0
 script = ExtResource("1_che5c")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_rq6fe")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 1)
-scale = Vector2(0.25, 0.5)
-texture = ExtResource("2_db30r")
+texture = ExtResource("2_27mi1")
 
 [connection signal="area_entered" from="." to="." method="OnBodyEntered"]
