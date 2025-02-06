@@ -59,7 +59,7 @@ public partial class spwningC : Node
 	{
 		Enemy mob = EnemyPreffab.Instantiate<Enemy>();
 		mob.GameView = GameView;
-
+		
 		mob.Position = new Vector2(spawnX * (2 * lane + 1), 50);
 
 		// Add some randomness to the direction.
