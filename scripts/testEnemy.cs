@@ -131,16 +131,16 @@ public partial class testEnemy : Area2D
 
 	public void processMovement(double delta) // every frame called
 	{
-		if (stopMoving)
-			return;
+		// if (stopMoving || )
+		// 	return;
 
-		Position += new Vector2(0, speed) * (float)delta;
+		// Position += new Vector2(0, speed) * (float)delta;
 
-		if (Position.Y < downLimit)
-			return;
+		// if (Position.Y < downLimit)
+		// 	return;
 
-		testPlayer.damage(1);
-		QueueFree();
+		// testPlayer.damage(1);
+		// QueueFree();
 	}
 
 

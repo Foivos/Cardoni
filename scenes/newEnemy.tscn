@@ -9,22 +9,25 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
 
 [node name="newEnemy" type="Area2D" node_paths=PackedStringArray("sprite", "healthBar", "shord")]
+collision_layer = 7
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_lp7uk")
+stopMoving = false
+speed = 100.0
 sprite = NodePath("sprite 2d")
 healthBar = NodePath("sprite 2d/TextureProgressBar")
 _hp = 50
-_attackDamage = 3
+_attackDamage = 5
 shord = NodePath("sprite 2d/shord")
-stopMoving = false
-speed = 20.0
+_atackRange = 50.0
+atackCooldown = 1.0
 
 [node name="sprite 2d" type="Sprite2D" parent="."]
 scale = Vector2(2.55, 2.55)
 texture = ExtResource("2_nnhdo")
 region_enabled = true
-region_rect = Rect2(0, 0, 48, 48)
+region_rect = Rect2(96, 0, 48, 48)
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="sprite 2d"]
 show_behind_parent = true

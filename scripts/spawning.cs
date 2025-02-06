@@ -12,11 +12,13 @@ public partial class spawning : Node
 	static spawning inst;
 
 
-	[Export]
-	public PackedScene EnemyPreffab { get; set; }
+	[Export] public PackedScene EnemyPreffab { get; set; }
+	[Export] public PackedScene minionPreffab { get; set; }
+
 
 	[Export]
 	float spawnX;
+	[Export] float minionY;
 
 
 	[Export] bool overrideEnemySpeed;
@@ -38,6 +40,11 @@ public partial class spawning : Node
 
 	public override void _Ready()
 	{
+
+
+
+		new Expiring(10, calculateAtacksAndTraffic, 999);
+
 
 		inst = this;
 		new Expiring(
@@ -61,29 +68,46 @@ public partial class spawning : Node
 				}
 			)
 		);
+
+		for (uint i = 0; i < 4; i++)
+		{
+			enemies[i] = new List<Enemy>();
+			minions[i] = new List<monsterBase>();
+		}
+
+
+		spawnMinion(0);
+		spawnMinion(3);
 	}
 
 
-	List<Enemy> enemies = new List<Enemy>();
-	public static void enemyDied(Enemy enm)
+	List<Enemy>[] enemies = new List<Enemy>[4];
+	List<monsterBase>[] minions = new List<monsterBase>[4];
+	public static void monsterDied(monsterBase monster)
 	{
-		if (inst == null)return;
-		inst.enemies.Remove(enm);
+		if (inst == null) return;
+
+		if (monster is Enemy) inst.enemies[monster.lane].Remove((Enemy)monster);
+		else inst.minions[monster.lane].Remove(monster);
+
 
 
 	}
+
+
 	void SpawnEnemy(uint lane)
 	{
 
-		Enemy mob = EnemyPreffab.Instantiate<Enemy>();
+		Enemy enm = EnemyPreffab.Instantiate<Enemy>();
 		//mob.GameView = GameView;
 
-		mob.Position = new Vector2(spawnX * (2 * lane + 1), 50);
-		mob.lane = lane;
+		enm.Position = new Vector2(spawnX * (2 * lane + 1), 50);
+		enm.lane = lane;
 
-		if (overrideEnemySpeed) mob.speed = enemySpeed;
-		AddChild(mob);
-		enemies.Add(mob);
+		if (overrideEnemySpeed) enm.speed = enemySpeed;
+		AddChild(enm);
+		if (enemies[lane] == null) enemies[lane] = new List<Enemy>();
+		enemies[enm.lane].Add(enm);
 
 		// Add some randomness to the direction.
 		//direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);
@@ -100,6 +124,125 @@ public partial class spawning : Node
 
 
 	}
+
+
+	void spawnMinion(uint lane)
+	{
+		monsterBase minion = minionPreffab.Instantiate<monsterBase>();
+
+
+		minion.Position = new Vector2(spawnX * (2 * lane + 1), minionY);
+		minion.lane = lane;
+
+
+		AddChild(minion);
+		//
+		if (minions[lane] == null) minions[lane] = new List<monsterBase>();
+		//GD.Print("is null ==" +(minions[lane] == null));
+		//GD.Print("minion null ==" +minion == null);
+		minions[lane].Add(minion);
+
+	}
+
+
+
+	[Export] int atackRange;
+	[Export] int atackPlayerRange;
+	
+
+	void calculateAtacksAndTraffic(uint useless)
+	{
+
+
+		void calculateEnemyTraffic(uint lane)
+		{
+			if (enemies[lane] == null) return;
+			if (enemies[lane].Count < 2) return;
+
+			for (int i = enemies[lane].Count - 1; i >= 1; i--)
+			{
+				enemies[lane][i].stopMoving = enemies[lane][i].Position.Y < enemies[lane][i - 1].Position.Y - atackRange;
+
+			}
+
+
+		}
+
+		void calculateAtacking(uint lane)
+		{
+
+			if (enemies[lane] == null) return;
+			if (enemies[lane].Count == 0) return;
+			// { if (minions[lane].Count != 0) minions[lane][0].isAtacking = false; }
+
+			bool atack;
+
+			if (minions[lane].Count == 0) enemies[lane][0].isAtacking = enemies[lane][0].Position.Y > atackPlayerRange;
+			else
+			{
+				atack = enemies[lane][0].Position.Y > minions[lane][0].Position.Y - atackRange;
+
+				enemies[lane][0].isAtacking = atack;
+				minions[lane][0].isAtacking = atack;
+
+				if (atack)
+				{
+					enemies[lane][0].target = minions[lane][0];
+					minions[lane][0].target = enemies[lane][0];
+				}
+
+			}
+
+
+
+		}
+
+		void checkEnemyAtackPlayer(monsterBase enm)
+		{
+
+			// if (enm.Position.Y > player.Position.Y - enm.atackRange)
+			// {
+			// 	enm.isAtacking = true;
+			// 	enm.target = player;
+			// }
+			// else enm.isAtacking = false;
+
+
+
+		}
+
+
+
+		void calculateAtackingNew(uint lane)
+		{
+
+
+			for (int i = 0; i < enemies[lane].Count; i++) { enemies[lane][i].rangeCalulations(); }
+			for (int i = 0; i < minions[lane].Count; i++) { minions[lane][i].rangeCalulations(); }
+
+
+
+		}
+
+
+		for (uint i = 0; i < 4; i++)
+		{
+
+			//calculateEnemyTraffic(i);
+			calculateAtackingNew(i);
+
+
+
+
+		}
+
+
+
+
+
+	}
+
+
 
 
 
