@@ -6,12 +6,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_ykbkl"]
 radius = 0.01
 
-[node name="enemy" type="RigidBody2D" node_paths=PackedStringArray("CollisionShape", "Health")]
+[node name="enemy" type="RigidBody2D" node_paths=PackedStringArray("sprite", "healthBar")]
 position = Vector2(298, -105)
 scale = Vector2(1, 1.0031)
 script = ExtResource("1_cjc3v")
-CollisionShape = NodePath("CollisionShape2D")
-Health = NodePath("ProgressBar")
+sprite = NodePath("Sprite2D")
+healthBar = NodePath("ProgressBar")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.998185, 1)
@@ -30,3 +30,5 @@ offset_right = 63.0
 offset_bottom = -62.0
 step = 1.0
 value = 100.0
+
+[node name="Area2D" type="Area2D" parent="."]

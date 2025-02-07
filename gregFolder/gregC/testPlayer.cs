@@ -1,25 +1,19 @@
 using System;
 using Godot;
 
-public partial class testPlayer : Node2D
+public partial class testPlayer : minnionBase
 {
-	static testPlayer inst;
-	int damageTaken;
+	uint damageTaken;
 
-	public override void _Ready()
+
+	public override void onDamage(uint amount)
 	{
-		inst = this;
+		damageTaken += amount;
+		GD.Print("Damage taken: " + damageTaken);
 	}
 
-	public static void damage(int damage)
-	{
-		if (inst == null)
-		{
-			GD.Print("no player inscene ");
-			return;
-		}
+	
 
-		inst.damageTaken += damage;
-		GD.Print("Damage taken: " + inst.damageTaken);
-	}
+
+	
 }

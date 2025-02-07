@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b5bq885l6aov0"]
 
-[ext_resource type="Script" path="res://scripts/enemyC.cs" id="1_5wafk"]
+[ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_lp7uk"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="2_nnhdo"]
 [ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/healthBack.png" id="3_32dvr"]
 [ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/healthBar.png" id="4_dlm2d"]
@@ -18,15 +18,22 @@ _atackDamage = 1
 shord = NodePath("emojy big/shord")
 sizes = Vector2(1, 3)
 stopMoving = false
-speed = 80.0
+speed = 100.0
+sprite = NodePath("sprite 2d")
+healthBar = NodePath("sprite 2d/TextureProgressBar")
+_hp = 50
+_attackDamage = 5
+shord = NodePath("sprite 2d/shord")
+_atackRange = 50.0
+atackCooldown = 1.0
 
-[node name="emojy big" type="Sprite2D" parent="."]
+[node name="sprite 2d" type="Sprite2D" parent="."]
 scale = Vector2(2.55, 2.55)
 texture = ExtResource("2_nnhdo")
 region_enabled = true
-region_rect = Rect2(0, 0, 48, 48)
+region_rect = Rect2(96, 0, 48, 48)
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="emojy big"]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="sprite 2d"]
 show_behind_parent = true
 texture_repeat = 2
 offset_left = -18.0
@@ -44,7 +51,7 @@ stretch_margin_bottom = 4
 texture_under = ExtResource("3_32dvr")
 texture_progress = ExtResource("4_dlm2d")
 
-[node name="shord" type="Sprite2D" parent="emojy big"]
+[node name="shord" type="Sprite2D" parent="sprite 2d"]
 position = Vector2(15.2941, 7.05882)
 texture = ExtResource("5_j4acw")
 

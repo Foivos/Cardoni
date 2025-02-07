@@ -41,7 +41,7 @@ version_control/autoload_on_startup=true
 
 2d_render/layer_2="backround"
 2d_physics/layer_1="enemies"
-2d_physics/layer_2="bullets"
+2d_physics/layer_2="minions"
 
 [physics]
 

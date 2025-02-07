@@ -3,7 +3,7 @@ namespace Cardoni;
 using System;
 using Godot;
 
-public partial class enemyC : Entity
+public partial class testEnemy : Entity
 {
 	//[Export] RigidBody2D rb;
 	[Export]
@@ -132,18 +132,19 @@ public partial class enemyC : Entity
 
 	public void processMovement(double delta) // every frame called
 	{
-		if (stopMoving)
-			return;
+		// if (stopMoving || )
+		// 	return;
 
-		Position += new Vector2(0, speed) * (float)delta;
+		// Position += new Vector2(0, speed) * (float)delta;
 
-		if (Position.Y < downLimit)
-			return;
+		// if (Position.Y < downLimit)
+		// 	return;
 
-		testPlayer.damage(1);
-		GameState.Instance.Entities.Remove(this);
-		QueueFree();
+		// testPlayer.damage(1);
+		// QueueFree();
 	}
+
+
 
 	#endregion
 

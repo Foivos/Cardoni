@@ -5,11 +5,11 @@ using Godot;
 
 public partial class testShooter : Node
 {
-	[Export]
-	PackedScene bulletPreffab;
+	[Export] PackedScene bulletPreffab;
 
-	[Export]
-	float speed;
+
+	[Export] float speed;
+
 
 	public override void _Input(InputEvent @event)
 	{
@@ -21,11 +21,16 @@ public partial class testShooter : Node
 
 	void shoot()
 	{
-		if (Time.GetTicksMsec() - lastShoot < minShootDelay * 1000)
-			return;
-		lastShoot = Time.GetTicksMsec();
+		//if (Time.GetTicksMsec() - lastShoot < minShootDelay * 1000)
+		//	return;
+		//lastShoot = Time.GetTicksMsec();
 
 		testBullet bull = bulletPreffab.Instantiate<testBullet>();
+		bull.LinearVelocity = Vector2.Down * speed;
+		AddChild(bull);
+
+		
+
 
 		// bull.Position = testTargetC.mousePosCenterZero();
 
@@ -33,6 +38,6 @@ public partial class testShooter : Node
 		// bull.GravityScale = 0;
 
 		// Spawn the mob by adding it to the Main scene.
-		AddChild(bull);
+
 	}
 }
