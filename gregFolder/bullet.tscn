@@ -10,7 +10,6 @@ scale = Vector2(3, 3)
 collision_layer = 0
 collision_mask = 0
 script = ExtResource("1_che5c")
-damage = 10
 speed = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

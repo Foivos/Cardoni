@@ -61,46 +61,9 @@ public partial class Enemy : monsterBase
 
 
 
-	public override void rangeCalulations()
-	{
-		var minion = targetDetection(Position, Position + Vector2.Up * atackRange, entityType.player);
-		if(minion == null && minion is minnionBase)
-		{
-			isAtacking = true;
-			target = minion;
-		}
-		else 	isAtacking = false;
-	
-	}
 
 
 
-
-	#region //? DEPRICATED 
-
-	// public void _BodyExited(Node body)
-	// {
-	// 	GD.Print(body);
-	// 	if (body != this)
-	// 	{
-	// 		return;
-	// 	}
-	// 	GD.Print("Exited");
-	// 	QueueFree();
-	// }
-
-	// public void _BodyEntered(Node body)
-	// {
-	// 	GD.Print(body);
-	// 	if (body != this)
-	// 	{
-	// 		return;
-	// 	}
-	// 	GD.Print("Entered");
-	// }
-
-
-	#endregion
 
 
 }

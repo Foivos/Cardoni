@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=14 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="1_i7mp6"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="6_mvgse"]
 [ext_resource type="Script" path="res://scripts/testShooter.cs" id="9_7gwky"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="10_hq3y8"]
+[ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/spaceBack.png" id="11_jt3d2"]
+[ext_resource type="Texture2D" uid="uid://cobchr6b7nulx" path="res://gregFolder/grid.png" id="12_ms5la"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
@@ -50,3 +52,24 @@ script = ExtResource("1_i7mp6")
 [node name="shooting" type="Node" parent="."]
 script = ExtResource("9_7gwky")
 bulletPreffab = ExtResource("10_hq3y8")
+
+[node name="backround" type="Sprite2D" parent="."]
+visibility_layer = 16
+position = Vector2(209.5, 397.222)
+scale = Vector2(2.61667, 2.61667)
+texture = ExtResource("11_jt3d2")
+
+[node name="grid" type="TextureRect" parent="backround"]
+self_modulate = Color(0, 0, 0, 0.188235)
+anchors_preset = -1
+anchor_left = -0.034
+anchor_top = -0.084
+anchor_right = -0.034
+anchor_bottom = -0.084
+offset_left = -85.7908
+offset_top = -160.084
+offset_right = 272.209
+offset_bottom = 532.916
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("12_ms5la")
+stretch_mode = 1
