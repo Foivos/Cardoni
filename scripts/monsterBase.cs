@@ -120,7 +120,7 @@ public partial class monsterBase : Node2D
 	public bool isAtacking;
 	[Export] bool isRanged;
 	[Export] float _atackRange;
-	const float defaultMeeleRange = 100;
+	const int defaultMeeleRange = 100;
 	public float atackRange
 	{
 		get { if (isRanged == false) return defaultMeeleRange; return _atackRange; }
@@ -143,60 +143,17 @@ public partial class monsterBase : Node2D
 		atackTimer = 0;
 
 
-		if (target != null && target.hp > 0) target.onDamage(attackDamage);
-
-
-	}
-
-
-
-
-	public virtual void rangeCalulations() { }
-
-	public enum entityType { player, enemy, all }
-	public monsterBase targetDetection(Vector2 startPos, Vector2 endPos, entityType type)
-	{
-		GD.Print("RAY");
-
-		// Function that performs a raycast and returns the first object hit in a given direction
-		// public Node2D PerformDirectRaycast(Vector2 startPosition, Vector2 direction, float length)
-		// {
-		// Get the space state for performing physics queries
-		var spaceState = GetWorld2D().DirectSpaceState;
-
-
-		// Perform the raycast and store the result in a dictionary
-		PhysicsRayQueryParameters2D par = new PhysicsRayQueryParameters2D();
-		par.From = startPos;
-		par.To = endPos;
-
-		if (type == entityType.player) par.CollisionMask = 2;
-		else if (type == entityType.enemy) par.CollisionMask = 1;
-
-		var result = spaceState.IntersectRay(par);
-
-		// Check if the ray hit anything
-		if (result.Count > 0)
+		if (isRanged)
 		{
-
-
-			// Get the collider (the object hit by the ray)
-			Node2D hitObject = (Node2D)result["collider"];
-			if (hitObject is monsterBase) return (monsterBase)hitObject;
-			else GD.Print("NULL hitObject");
+			if (this is Enemy) testShooter.shootMinions(Position, (int)attackDamage);
+			else testShooter.shootEnemies(Position, (int)attackDamage);
 
 		}
-		else GD.Print("o results");
-
-
-
-		return null;
-
-
-
+		else if (target != null && target.hp > 0) target.onDamage(attackDamage);
 
 
 	}
+
 
 
 

@@ -9,7 +9,6 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
 
 [node name="newEnemy" type="Area2D" node_paths=PackedStringArray("sprite", "healthBar", "shord")]
-collision_layer = 7
 collision_mask = 0
 monitoring = false
 script = ExtResource("1_lp7uk")
@@ -20,7 +19,9 @@ healthBar = NodePath("sprite 2d/TextureProgressBar")
 _hp = 50
 _attackDamage = 5
 shord = NodePath("sprite 2d/shord")
-_atackRange = 50.0
+sizes = Vector2(1, 5)
+isRanged = true
+_atackRange = 400.0
 atackCooldown = 1.0
 
 [node name="sprite 2d" type="Sprite2D" parent="."]

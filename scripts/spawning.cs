@@ -21,29 +21,17 @@ public partial class spawning : Node
 	[Export] float minionY;
 
 
-	[Export] bool overrideEnemySpeed;
-	[Export]
-	float enemySpeed;
 
-	// public void NewGame()
-	// {
-	// _score = 0;
 
-	// var player = GetNode<Player>("Player");
-	// var startPosition = GetNode<Marker2D>("StartPosition");
-	// player.Start(startPosition.Position);
 
-	//GetNode<Timer>("StartTimer").Start();
-	//}
-	// GetNode<Timer>("MobTimer").Start();
-	// GetNode<Timer>("ScoreTimer").Start();
 
 	public override void _Ready()
 	{
 
 
 
-		new Expiring(10, calculateAtacksAndTraffic, 999);
+		new Expiring(5, calculateAtacksAndTraffic, 0);
+
 
 
 		inst = this;
@@ -72,7 +60,7 @@ public partial class spawning : Node
 		for (uint i = 0; i < 4; i++)
 		{
 			enemies[i] = new List<Enemy>();
-			minions[i] = new List<monsterBase>();
+			minions[i] = new List<minnionBase>();
 		}
 
 
@@ -82,13 +70,13 @@ public partial class spawning : Node
 
 
 	List<Enemy>[] enemies = new List<Enemy>[4];
-	List<monsterBase>[] minions = new List<monsterBase>[4];
+	List<minnionBase>[] minions = new List<minnionBase>[4];
 	public static void monsterDied(monsterBase monster)
 	{
 		if (inst == null) return;
 
 		if (monster is Enemy) inst.enemies[monster.lane].Remove((Enemy)monster);
-		else inst.minions[monster.lane].Remove(monster);
+		else inst.minions[monster.lane].Remove((minnionBase)monster);
 
 
 
@@ -104,7 +92,6 @@ public partial class spawning : Node
 		enm.Position = new Vector2(spawnX * (2 * lane + 1), 50);
 		enm.lane = lane;
 
-		if (overrideEnemySpeed) enm.speed = enemySpeed;
 		AddChild(enm);
 		if (enemies[lane] == null) enemies[lane] = new List<Enemy>();
 		enemies[enm.lane].Add(enm);
@@ -128,7 +115,7 @@ public partial class spawning : Node
 
 	void spawnMinion(uint lane)
 	{
-		monsterBase minion = minionPreffab.Instantiate<monsterBase>();
+		minnionBase minion = minionPreffab.Instantiate<minnionBase>();
 
 
 		minion.Position = new Vector2(spawnX * (2 * lane + 1), minionY);
@@ -137,7 +124,7 @@ public partial class spawning : Node
 
 		AddChild(minion);
 		//
-		if (minions[lane] == null) minions[lane] = new List<monsterBase>();
+		if (minions[lane] == null) minions[lane] = new List<minnionBase>();
 		//GD.Print("is null ==" +(minions[lane] == null));
 		//GD.Print("minion null ==" +minion == null);
 		minions[lane].Add(minion);
@@ -146,79 +133,81 @@ public partial class spawning : Node
 
 
 
-	[Export] int atackRange;
-	[Export] int atackPlayerRange;
-	
 
+	[Export] int atackPlayerRange;
+
+	[Export] minnionBase player;
 	void calculateAtacksAndTraffic(uint useless)
 	{
 
 
-		void calculateEnemyTraffic(uint lane)
+		// calculates wich enemies are in range and should atack assigns targets to them
+		void calculateEnemiesAtacking(uint lane)//! doesnt yet acount for possibility of minion to be spawned above enemy .. 
 		{
-			if (enemies[lane] == null) return;
-			if (enemies[lane].Count < 2) return;
 
-			for (int i = enemies[lane].Count - 1; i >= 1; i--)
+			//bool enemies;
+			bool minionAlive = minions[lane].Count > 0;
+			int topMinion = (int)player.Position.Y;
+
+			for (int i = 0; i < minions[lane].Count; i++)
 			{
-				enemies[lane][i].stopMoving = enemies[lane][i].Position.Y < enemies[lane][i - 1].Position.Y - atackRange;
-
+				if (minions[lane][i].Position.Y < topMinion) topMinion = (int)minions[lane][i].Position.Y;
 			}
 
 
-		}
-
-		void calculateAtacking(uint lane)
-		{
-
-			if (enemies[lane] == null) return;
-			if (enemies[lane].Count == 0) return;
-			// { if (minions[lane].Count != 0) minions[lane][0].isAtacking = false; }
-
-			bool atack;
-
-			if (minions[lane].Count == 0) enemies[lane][0].isAtacking = enemies[lane][0].Position.Y > atackPlayerRange;
-			else
+			for (int i = 0; i < enemies[lane].Count; i++)
 			{
-				atack = enemies[lane][0].Position.Y > minions[lane][0].Position.Y - atackRange;
 
-				enemies[lane][0].isAtacking = atack;
-				minions[lane][0].isAtacking = atack;
-
-				if (atack)
+				if (enemies[lane][i].Position.Y > topMinion - enemies[lane][i].atackRange)
 				{
-					enemies[lane][0].target = minions[lane][0];
-					minions[lane][0].target = enemies[lane][0];
+					enemies[lane][i].isAtacking = true;
+					if (minionAlive) enemies[lane][i].target = minions[lane][0];
+					else enemies[lane][i].target = player;
+
 				}
+				else enemies[lane][i].isAtacking = false;
+
 
 			}
 
 
 
-		}
 
-		void checkEnemyAtackPlayer(monsterBase enm)
-		{
-
-			// if (enm.Position.Y > player.Position.Y - enm.atackRange)
-			// {
-			// 	enm.isAtacking = true;
-			// 	enm.target = player;
-			// }
-			// else enm.isAtacking = false;
 
 
 
 		}
 
-
-
-		void calculateAtackingNew(uint lane)
+		void calculateMinionsAtacking(uint lane)
 		{
 
+			bool enemiesAlive = enemies[lane].Count > 0;
+			int bottomEnemy = -200;
 
-			for (int i = 0; i < enemies[lane].Count; i++) { enemies[lane][i].rangeCalulations(); }
-			for (int i = 0; i < minions[lane].Count; i++) { minions[lane][i].rangeCalulations(); }
+			for (int i = 0; i < enemies[lane].Count; i++)
+			{
+				if (enemies[lane][i].Position.Y > bottomEnemy) bottomEnemy = (int)enemies[lane][i].Position.Y;
+			}
+
+
+			for (int i = 0; i < minions[lane].Count; i++)
+			{
+
+				if (enemiesAlive == false) { minions[lane][i].isAtacking = false; minions[lane][i].target = null; continue; }
+
+				if (minions[lane][i].Position.Y < 	 + minions[lane][i].atackRange)
+				{
+
+					//GD.Print("minion atacking");
+					minions[lane][i].isAtacking = true;
+					minions[lane][i].target = enemies[lane][0];
+
+
+				}
+				else { minions[lane][i].isAtacking = false; }//GD.Print("minion NOT");
+
+
+			}
 
 
 
@@ -228,9 +217,9 @@ public partial class spawning : Node
 		for (uint i = 0; i < 4; i++)
 		{
 
-			//calculateEnemyTraffic(i);
-			calculateAtackingNew(i);
 
+			calculateEnemiesAtacking(i);
+			calculateMinionsAtacking(i);
 
 
 

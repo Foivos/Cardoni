@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=12 format=3 uid="uid://qtgg1a57jfes"]
 
-[ext_resource type="Script" path="res://gregFolder/gregC/testPlayer.cs" id="1_i7mp6"]
+[ext_resource type="Script" path="res://scripts/testPlayer.cs" id="1_i7mp6"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="PackedScene" uid="uid://mi4m2q3ij3tx" path="res://scenes/targetView.tscn" id="3_tbob3"]
 [ext_resource type="Script" path="res://scripts/spawning.cs" id="4_cbna1"]
@@ -8,6 +8,8 @@
 [ext_resource type="PackedScene" uid="uid://bwcryr3ahpnkq" path="res://scenes/newEnemy.tscn" id="5_mk08k"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="6_hm1sd"]
 [ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="6_mvgse"]
+[ext_resource type="Script" path="res://scripts/testShooter.cs" id="9_7gwky"]
+[ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="10_hq3y8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
@@ -17,6 +19,8 @@ script = ExtResource("1_i7mp6")
 
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(200, 300)
+collision_layer = 0
+collision_mask = 0
 script = ExtResource("2_kstpq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]
@@ -27,17 +31,22 @@ shape = SubResource("RectangleShape2D_edew2")
 [node name="targetView" parent="." instance=ExtResource("3_tbob3")]
 position = Vector2(200, 400)
 
-[node name="spawning" type="Node" parent="."]
+[node name="spawning" type="Node" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("4_cbna1")
 EnemyPreffab = ExtResource("5_mk08k")
 minionPreffab = ExtResource("6_mvgse")
 spawnX = 50.0
 minionY = 600.0
-atackRange = 200
 atackPlayerRange = 500
+player = NodePath("../player")
 
 [node name="battleEffects" type="Node" parent="."]
 script = ExtResource("6_hm1sd")
 
 [node name="player" type="Node2D" parent="."]
+position = Vector2(196, 770)
 script = ExtResource("1_i7mp6")
+
+[node name="shooting" type="Node" parent="."]
+script = ExtResource("9_7gwky")
+bulletPreffab = ExtResource("10_hq3y8")
