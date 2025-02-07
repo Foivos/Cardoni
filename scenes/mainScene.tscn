@@ -1,20 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=7 format=3 uid="uid://qtgg1a57jfes"]
 
-[ext_resource type="Script" path="res://gregFolder/gregC/testPlayer.cs" id="1_i7mp6"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
 [ext_resource type="PackedScene" uid="uid://b5bq885l6aov0" path="res://scenes/newEnemy.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
-[ext_resource type="PackedScene" uid="uid://bwcryr3ahpnkq" path="res://scenes/newEnemy.tscn" id="5_mk08k"]
-[ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="6_hm1sd"]
-[ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="6_mvgse"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
 
 [node name="MainScene" type="Node2D"]
-script = ExtResource("1_i7mp6")
 
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(200, 300)
@@ -25,20 +20,10 @@ shape = SubResource("RectangleShape2D_edew2")
 
 [node name="TargetView" parent="GameView" instance=ExtResource("3_tbob3")]
 
-[node name="targetView" parent="." instance=ExtResource("3_tbob3")]
-position = Vector2(200, 400)
-
-[node name="spawning" type="Node" parent="."]
-script = ExtResource("4_cbna1")
-EnemyPreffab = ExtResource("5_mk08k")
-minionPreffab = ExtResource("6_mvgse")
+[node name="SpawnManager" type="Node2D" parent="GameView" node_paths=PackedStringArray("GameView")]
+script = ExtResource("3_enjjy")
+GameView = NodePath("..")
+EnemyPreffab = ExtResource("5_fxrmd")
 spawnX = 50.0
-minionY = 600.0
-atackRange = 200
-atackPlayerRange = 500
 
-[node name="battleEffects" type="Node" parent="."]
-script = ExtResource("6_hm1sd")
-
-[node name="player" type="Node2D" parent="."]
-script = ExtResource("1_i7mp6")
+[node name="CardView" parent="." instance=ExtResource("5_hkg8d")]

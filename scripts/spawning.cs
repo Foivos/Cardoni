@@ -43,30 +43,26 @@ public partial class spawning : Node
 
 
 
-		new Expiring(10, calculateAtacksAndTraffic, 999);
+		new Expiring(10, calculateAtacksAndTraffic, 0);
 
 
 		inst = this;
 		new Expiring(
 			20,
-			new System.Action<uint>(
-				(uint tick) =>
-				{
-					SpawnEnemy(0);
-					new Expiring(
-						40,
-						new System.Action<uint>(
-							(uint tick) =>
-							{
-								uint[] lanes = { 0, 2, 1, 3 };
-								uint lane = lanes[((tick - 20) / 40) % 4];
-								SpawnEnemy(lane);
-							}
-						),
-						3
-					);
-				}
-			)
+			new Action(() =>
+			{
+				SpawnEnemy(0);
+				new Expiring(
+					40,
+					new Action(() =>
+					{
+						uint[] lanes = { 0, 2, 1, 3 };
+						uint lane = lanes[(GameState.Instance.Tick - 20 / 40) % 4];
+						SpawnEnemy(lane);
+					}),
+					0
+				);
+			})
 		);
 
 		for (uint i = 0; i < 4; i++)
@@ -150,7 +146,7 @@ public partial class spawning : Node
 	[Export] int atackPlayerRange;
 	
 
-	void calculateAtacksAndTraffic(uint useless)
+	void calculateAtacksAndTraffic()
 	{
 
 

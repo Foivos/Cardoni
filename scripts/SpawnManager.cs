@@ -57,7 +57,7 @@ public partial class SpawnManager : Node
 
 	void SpawnEnemy(uint lane)
 	{
-		enemyC mob = EnemyPreffab.Instantiate<enemyC>();
+		testEnemy mob = EnemyPreffab.Instantiate<testEnemy>();
 
 		mob.Position = new Vector2(spawnX * (2 * (int)lane - 3), -300);
 
