@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
+[ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
-[ext_resource type="Script" path="res://scripts/spwningC.cs" id="4_cbna1"]
 [ext_resource type="PackedScene" uid="uid://b5bq885l6aov0" path="res://scenes/newEnemy.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 
@@ -20,11 +20,10 @@ shape = SubResource("RectangleShape2D_edew2")
 
 [node name="TargetView" parent="GameView" instance=ExtResource("3_tbob3")]
 
-[node name="Spawning" type="Node2D" parent="GameView" node_paths=PackedStringArray("GameView")]
-script = ExtResource("4_cbna1")
+[node name="SpawnManager" type="Node2D" parent="GameView" node_paths=PackedStringArray("GameView")]
+script = ExtResource("3_enjjy")
 GameView = NodePath("..")
 EnemyPreffab = ExtResource("5_fxrmd")
 spawnX = 50.0
-enemySpeed = -100.0
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]

@@ -3,7 +3,7 @@ namespace Cardoni;
 using System;
 using Godot;
 
-public partial class spwningC : Node
+public partial class SpawnManager : Node
 {
 	[Export]
 	public Area2D GameView;
@@ -34,17 +34,17 @@ public partial class spwningC : Node
 	{
 		new Expiring(
 			20,
-			new System.Action<uint>(
-				(uint tick) =>
+			new Action(
+				() =>
 				{
 					SpawnEnemy(0);
 					new Expiring(
 						30,
-						new System.Action<uint>(
-							(uint tick) =>
+						new Action(
+							() =>
 							{
 								uint[] lanes = { 0, 2, 1, 3 };
-								uint lane = lanes[((tick - 20) / 40) % 4];
+								uint lane = lanes[(GameState.Instance.Tick - 20) / 40 % 4];
 								SpawnEnemy(lane);
 							}
 						),

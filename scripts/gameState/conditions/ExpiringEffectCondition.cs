@@ -10,6 +10,8 @@ public abstract class ExpiringEffectCondition<T> : EffectCondition<T>
 	public override void End()
 	{
 		base.End();
-		GameState.Instance.RemoveExpiring(Expiring);
+        if (Expiring != null) {
+		    GameState.Instance.RemoveExpiring(Expiring);
+        }
 	}
 }

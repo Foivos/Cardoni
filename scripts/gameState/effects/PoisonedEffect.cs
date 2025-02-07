@@ -6,8 +6,17 @@ public class PoisonedEffect : Effect, ITicked
 
 	public const uint StacksPerHealth = 1200;
 
-	public uint Strength = 0;
-	public uint Stacks = 0;
+	uint strength;
+	public uint Strength
+	{
+		get { return strength; }
+		set
+		{
+			strength = value;
+			Update();
+		}
+	}
+	public uint Stacks { get; set; }
 
 	public bool Ticking = false;
 
@@ -26,7 +35,7 @@ public class PoisonedEffect : Effect, ITicked
 		if (Stacks >= StacksPerHealth)
 		{
 			int damage = (int)(Stacks / StacksPerHealth);
-			Stacks = Stacks % StacksPerHealth;
+			Stacks %= StacksPerHealth;
 			Entity.Damage(damage);
 		}
 	}

@@ -25,7 +25,7 @@ public class Slowed : ExpiringEffectCondition<SlowedEffect>
 		}
 	}
 
-	public void OnExpire(uint tick)
+	public void OnExpire()
 	{
 		Effect.Modifier -= Modifier;
 		Effect.Update();

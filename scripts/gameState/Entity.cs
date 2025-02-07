@@ -10,8 +10,6 @@ public partial class Entity : Area2D
 	public int BaseSpeed = 10;
 	public int Speed = 10;
 
-	public string Name;
-
 	public Effect[] Effects = new Effect[Enum.GetNames(typeof(EffectType)).Length];
 	public List<ICondition> Conditions = new List<ICondition>();
 

@@ -61,7 +61,7 @@ public partial class GameState : Node
 		while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick)
 		{
 			Expiring expiring = ExpiringQueue.Pop();
-			expiring.OnExpire(Tick);
+			expiring.OnExpire();
 			if (expiring.Repeat != 1)
 			{
 				if (expiring.Repeat > 1)

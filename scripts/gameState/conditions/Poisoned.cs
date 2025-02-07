@@ -10,7 +10,7 @@ public class Poisoned : ExpiringEffectCondition<PoisonedEffect>
 
 	private Poisoned(Entity entity, uint strength, uint duration)
 	{
-		Expiring = new Expiring(duration, OnExpire, 1);
+		if (duration != 0) Expiring = new Expiring(duration, OnExpire);
 
 		Entity = entity;
 		Strength = strength;
@@ -30,10 +30,15 @@ public class Poisoned : ExpiringEffectCondition<PoisonedEffect>
 		new Poisoned(entity, strength, duration);
 	}
 
-	public void OnExpire(uint tick)
+	public void OnExpire()
 	{
 		Effect.Strength -= Strength;
 		GD.Print("Poison Ended, at ", GameState.Instance.Tick, " remaining stacks: ", Effect.Stacks);
-		Effect.Update();
+	}
+
+	public override void End()
+	{
+		base.End();
+		OnExpire();
 	}
 }
