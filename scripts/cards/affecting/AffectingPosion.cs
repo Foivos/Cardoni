@@ -5,7 +5,8 @@ public class AffectingPoison : Affecting
 	public uint Duration { get; set; }
 	public uint Strength { get; set; }
 
-	public AffectingPoison(uint duration, uint strength) {
+	public AffectingPoison(uint duration, uint strength)
+	{
 		Duration = duration;
 		Strength = strength;
 	}

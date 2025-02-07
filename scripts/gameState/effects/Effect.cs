@@ -13,4 +13,6 @@ public abstract class Effect
 	}
 
 	public virtual void Update() { }
+
+	public virtual void End() { }
 }

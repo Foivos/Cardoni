@@ -11,7 +11,7 @@ public partial class GameState : Node
 	public const uint TicksPerSecond = 20;
 	public const double secondsPerTick = 1.0 / TicksPerSecond;
 
-	public PriorityQueue<Expiring, uint> ExpiringQueue = new PriorityQueue<Expiring, uint>();
+	public Cardonio.PriorityQueue<Expiring> ExpiringQueue = new Cardonio.PriorityQueue<Expiring>();
 
 	public List<ITicked> Ticked = new List<ITicked>();
 
@@ -57,9 +57,10 @@ public partial class GameState : Node
 		{
 			Ticked[i].Tick(Tick);
 		}
-		while (ExpiringQueue.Count > 0 && ExpiringQueue.Peek().End <= Tick)
+
+		while (ExpiringQueue.Count > 0 && ExpiringQueue.Top.End <= Tick)
 		{
-			Expiring expiring = ExpiringQueue.Dequeue();
+			Expiring expiring = ExpiringQueue.Pop();
 			expiring.OnExpire(Tick);
 			if (expiring.Repeat != 1)
 			{
@@ -67,7 +68,7 @@ public partial class GameState : Node
 				{
 					expiring.Repeat--;
 				}
-				expiring.End += expiring.Duration;
+				expiring.End = Tick + expiring.Duration;
 				AddExpiring(expiring);
 			}
 		}
@@ -87,6 +88,11 @@ public partial class GameState : Node
 
 	public void AddExpiring(Expiring expiring)
 	{
-		ExpiringQueue.Enqueue(expiring, expiring.End);
+		ExpiringQueue.Push(expiring);
+	}
+
+	public void RemoveExpiring(Expiring expiring)
+	{
+		ExpiringQueue.Remove(expiring);
 	}
 }

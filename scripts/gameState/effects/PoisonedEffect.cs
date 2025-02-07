@@ -33,6 +33,7 @@ public class PoisonedEffect : Effect, ITicked
 
 	public override void Update()
 	{
+		base.Update();
 		if (Ticking && Strength == 0)
 		{
 			Ticking = false;
@@ -42,6 +43,16 @@ public class PoisonedEffect : Effect, ITicked
 		{
 			Ticking = true;
 			GameState.Instance.AddTicked(this);
+		}
+	}
+
+	public override void End()
+	{
+		base.End();
+
+		if (Ticking)
+		{
+			GameState.Instance.RemoveTicked(this);
 		}
 	}
 }

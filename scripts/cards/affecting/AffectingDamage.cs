@@ -4,7 +4,8 @@ public class AffectingDamage : Affecting
 {
 	public int Damage { get; set; }
 
-	public AffectingDamage(int damage) {
+	public AffectingDamage(int damage)
+	{
 		Damage = damage;
 	}
 

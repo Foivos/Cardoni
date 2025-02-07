@@ -2,7 +2,7 @@ namespace Cardoni;
 
 using Godot;
 
-public class Poisoned : EffectCondition<PoisonedEffect>
+public class Poisoned : ExpiringEffectCondition<PoisonedEffect>
 {
 	public override EffectType EffectType => EffectType.Poisoned;
 
@@ -10,7 +10,7 @@ public class Poisoned : EffectCondition<PoisonedEffect>
 
 	private Poisoned(Entity entity, uint strength, uint duration)
 	{
-		new Expiring(duration, OnExpire, 1);
+		Expiring = new Expiring(duration, OnExpire, 1);
 
 		Entity = entity;
 		Strength = strength;

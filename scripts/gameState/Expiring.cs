@@ -2,7 +2,7 @@ namespace Cardoni;
 
 using System;
 
-public class Expiring : IComparable
+public class Expiring : IComparable, IEquatable<Expiring>
 {
 	public uint End;
 
@@ -26,5 +26,10 @@ public class Expiring : IComparable
 	public int CompareTo(object other)
 	{
 		return (int)End - (int)((Expiring)other).End;
+	}
+
+	public bool Equals(Expiring other)
+	{
+		return this == other;
 	}
 }

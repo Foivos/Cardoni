@@ -12,4 +12,6 @@ public abstract class EffectCondition<T> : ICondition
 		get { return (T)Entity.Effects[(int)EffectType]; }
 		set { Entity.Effects[(int)EffectType] = value; }
 	}
+
+	public virtual void End() { }
 }

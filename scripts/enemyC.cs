@@ -47,8 +47,8 @@ public partial class enemyC : Entity
 		base.Damage(amount);
 		if (HealthBar != null)
 			HealthBar.Value = Health;
-		if (battleEffectsC.inst != null) {
-
+		if (battleEffectsC.inst != null)
+		{
 			battleEffectsC.inst.addHitTwo(Sprite);
 			battleEffectsC.inst.doShake(Sprite);
 		}

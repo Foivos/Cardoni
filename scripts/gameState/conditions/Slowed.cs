@@ -2,7 +2,7 @@ namespace Cardoni;
 
 using Godot;
 
-public class Slowed : EffectCondition<SlowedEffect>
+public class Slowed : ExpiringEffectCondition<SlowedEffect>
 {
 	public override EffectType EffectType => EffectType.Slowed;
 
@@ -10,7 +10,7 @@ public class Slowed : EffectCondition<SlowedEffect>
 
 	private Slowed(Entity entity, uint modifier, uint duration)
 	{
-		new Expiring(duration, OnExpire);
+		Expiring = new Expiring(duration, OnExpire);
 
 		Entity = entity;
 		Modifier = modifier;
