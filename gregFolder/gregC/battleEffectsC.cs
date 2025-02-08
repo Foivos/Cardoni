@@ -227,8 +227,9 @@ public partial class battleEffectsC : Node
 
 	void doBackroundFlash()
 	{
-		if(backround == null)	return;
-		
+		if (backround == null)
+			return;
+
 		backround.Modulate = backroundEffeColor;
 
 		_spriteEffect.Add(

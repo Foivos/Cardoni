@@ -1,4 +1,4 @@
-namespace Cardonio;
+namespace Cardoni;
 
 using System;
 using System.Collections.Generic;

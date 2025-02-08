@@ -16,16 +16,12 @@ public partial class Enemy : monsterBase
 
 	public override void _Process(double delta)
 	{
-
 		base._Process(delta);
 		processMovement(delta);
 		// 	displayHealthBar();
 
 		//GD.Print("enemyC _Process");
 	}
-
-
-
 
 	#region  MOVEMENT
 
@@ -55,8 +51,6 @@ public partial class Enemy : monsterBase
 		// QueueFree();
 	}
 
-
-
 	#endregion
 
 
@@ -64,19 +58,16 @@ public partial class Enemy : monsterBase
 	public override void rangeCalulations()
 	{
 		var minion = targetDetection(Position, Position + Vector2.Up * atackRange, entityType.player);
-		if(minion == null && minion is minnionBase)
+		if (minion == null && minion is minnionBase)
 		{
 			isAtacking = true;
 			target = minion;
 		}
-		else 	isAtacking = false;
-	
+		else
+			isAtacking = false;
 	}
 
-
-
-
-	#region //? DEPRICATED 
+	#region //? DEPRICATED
 
 	// public void _BodyExited(Node body)
 	// {
@@ -101,6 +92,4 @@ public partial class Enemy : monsterBase
 
 
 	#endregion
-
-
 }

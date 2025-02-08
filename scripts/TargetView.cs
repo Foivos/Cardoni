@@ -57,7 +57,7 @@ public partial class TargetView : Node2D
 	public List<Entity> GetPatternEntities()
 	{
 		List<Entity> list = new List<Entity>();
-		foreach (Entity entity in GameState.Instance.Entities)
+		foreach (Entity entity in GameState.Entities)
 		{
 			foreach (Sprite2D sprite in PatternTarget.GetChildren())
 			{

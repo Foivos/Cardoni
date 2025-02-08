@@ -1,15 +1,9 @@
+using System;
 using Cardoni;
 using Godot;
-using System;
 
 public partial class minnionBase : monsterBase
 {
-
-
-
-
-
-
 	public override void rangeCalulations()
 	{
 		var enemy = targetDetection(Position, Position + Vector2.Up * atackRange, entityType.enemy);
@@ -18,11 +12,7 @@ public partial class minnionBase : monsterBase
 			isAtacking = true;
 			target = enemy;
 		}
-		else isAtacking = false;
+		else
+			isAtacking = false;
 	}
-
-
-
-
-
 }

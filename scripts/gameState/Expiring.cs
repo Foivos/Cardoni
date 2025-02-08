@@ -14,10 +14,10 @@ public class Expiring : IComparable, IEquatable<Expiring>
 	public Expiring(uint duration, Action onExpire, uint repeat)
 	{
 		OnExpire = onExpire;
-		End = GameState.Instance.Tick + duration;
+		End = GameState.Tick + duration;
 		Repeat = repeat;
 		Duration = duration;
-		GameState.Instance.AddExpiring(this);
+		GameState.AddExpiring(this);
 	}
 
 	public Expiring(uint duration, Action onExpire)

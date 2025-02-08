@@ -28,7 +28,4 @@ public partial class CardDetails : Node2D
 	{
 		inst.Visible = false;
 	}
-
-
-
 }

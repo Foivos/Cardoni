@@ -1,6 +1,6 @@
 namespace Cardoni;
 
-public class PoisonedEffect : Effect, ITicked
+public class PoisonedEffect : Effect
 {
 	public override EffectType EffectType => EffectType.Poisoned;
 
@@ -29,7 +29,7 @@ public class PoisonedEffect : Effect, ITicked
 		Update();
 	}
 
-	public void Tick(uint tick)
+	public void Tick()
 	{
 		Stacks += Strength;
 		if (Stacks >= StacksPerHealth)
@@ -46,12 +46,12 @@ public class PoisonedEffect : Effect, ITicked
 		if (Ticking && Strength == 0)
 		{
 			Ticking = false;
-			GameState.Instance.RemoveTicked(this);
+			GameState.RemoveTicked(Tick);
 		}
 		else if (!Ticking && Strength > 0)
 		{
 			Ticking = true;
-			GameState.Instance.AddTicked(this);
+			GameState.AddTicked(Tick);
 		}
 	}
 
@@ -61,7 +61,7 @@ public class PoisonedEffect : Effect, ITicked
 
 		if (Ticking)
 		{
-			GameState.Instance.RemoveTicked(this);
+			GameState.RemoveTicked(Tick);
 		}
 	}
 }

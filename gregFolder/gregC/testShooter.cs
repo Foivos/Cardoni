@@ -5,11 +5,11 @@ using Godot;
 
 public partial class testShooter : Node
 {
-	[Export] PackedScene bulletPreffab;
+	[Export]
+	PackedScene bulletPreffab;
 
-
-	[Export] float speed;
-
+	[Export]
+	float speed;
 
 	public override void _Input(InputEvent @event)
 	{
@@ -29,15 +29,11 @@ public partial class testShooter : Node
 		bull.LinearVelocity = Vector2.Down * speed;
 		AddChild(bull);
 
-		
-
-
 		// bull.Position = testTargetC.mousePosCenterZero();
 
 		// bull.LinearVelocity = new Vector2(0, speed);
 		// bull.GravityScale = 0;
 
 		// Spawn the mob by adding it to the Main scene.
-
 	}
 }

@@ -11,55 +11,57 @@ public partial class SpawnManager : Node
 	[Export]
 	public PackedScene EnemyPreffab { get; set; }
 
-	[Export]
-	float spawnX;
-
-	[Export]
-	float enemySpeed;
-
-	// public void NewGame()
-	// {
-	// _score = 0;
-
-	// var player = GetNode<Player>("Player");
-	// var startPosition = GetNode<Marker2D>("StartPosition");
-	// player.Start(startPosition.Position);
-
-	//GetNode<Timer>("StartTimer").Start();
-	//}
-	// GetNode<Timer>("MobTimer").Start();
-	// GetNode<Timer>("ScoreTimer").Start();
-
 	public override void _Ready()
 	{
-		new Expiring(
-			20,
-			new Action(
-				() =>
-				{
-					SpawnEnemy(0);
-					new Expiring(
-						30,
-						new Action(
-							() =>
-							{
-								uint[] lanes = { 0, 2, 1, 3 };
-								uint lane = lanes[(GameState.Instance.Tick - 20) / 40 % 4];
-								SpawnEnemy(lane);
-							}
-						),
-						0
-					);
-				}
-			)
-		);
+
+		var mob1 = Spawn<testEnemy>();
+		mob1.Position = new Vector2(Constants.GridWidth * ((int)1 - 1.5f), -300);
+		mob1.Y = 0;
+		mob1.Mask = 1;
+		mob1.TargetMask = 2;
+		mob1.Name = "Mob 1";
+		mob1.MovementSpeed = 60;
+		mob1.OccupyingLanes = 2;
+		mob1.AttackSpeed = 30;
+		mob1.Height = Constants.GridTicks / 2;
+		mob1.Range = (uint)Constants.GridTicks / 2;
+		mob1.AttackDamage = 1;
+
+
+		var mob2 = Spawn<testEnemy>();
+		mob2.Position = new Vector2(Constants.GridWidth * ((int)1 - 1.5f), -300);
+		mob2.Y = Constants.TicksPerLane;
+		mob2.Mask = 2;
+		mob2.TargetMask = 1;
+		mob2.Name = "Mob 2";
+		mob2.MovementSpeed = 60;
+		mob2.OccupyingLanes = 2;
+		mob2.AttackSpeed = 30;
+		mob2.Height = Constants.GridTicks / 2;
+		mob2.Range = (uint)Constants.GridTicks / 2 * 4;
+		mob2.AttackDamage = 1;
+	}
+
+	public T Spawn<T>() where T: Entity{
+
+		EntityParent parent = EnemyPreffab.Instantiate<EntityParent>();
+		T entity = Activator.CreateInstance<T>();
+
+		entity.Parent = parent;
+
+		entity.Spawn();
+
+		parent.AddChild(entity);
+		AddChild(parent);
+
+		return entity;
 	}
 
 	void SpawnEnemy(uint lane)
 	{
 		testEnemy mob = EnemyPreffab.Instantiate<testEnemy>();
 
-		mob.Position = new Vector2(spawnX * (2 * (int)lane - 3), -300);
+		mob.Position = new Vector2(Constants.GridWidth * ((int)lane - 1.5f), -300);
 
 		// Add some randomness to the direction.
 		//direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);

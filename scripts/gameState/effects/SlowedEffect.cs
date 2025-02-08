@@ -12,7 +12,7 @@ public class SlowedEffect : Effect
 		set
 		{
 			modifier = value;
-			Entity.Speed = Entity.BaseSpeed - (int)modifier;
+			//Entity.Speed = Entity.BaseSpeed - (int)modifier;
 		}
 	}
 

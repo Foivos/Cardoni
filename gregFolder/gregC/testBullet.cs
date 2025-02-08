@@ -5,8 +5,9 @@ using Godot;
 
 public partial class testBullet : RigidBody2D
 {
+	[Export]
+	uint damage;
 
-	[Export] uint damage;
 	public override void _Ready()
 	{
 		//var area = GetNode<Area2D>("Area2D");
@@ -44,8 +45,4 @@ public partial class testBullet : RigidBody2D
 
 		//enemy.QueueFree();
 	}
-
-
-
-
 }
