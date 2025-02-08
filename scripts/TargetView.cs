@@ -6,7 +6,7 @@ using Godot;
 
 public partial class TargetView : Node2D
 {
-	public static TargetView Instance;
+	public static TargetView Instance { get; set; }
 
 	[ExportGroup("Game Objects")]
 	[Export]
@@ -27,7 +27,7 @@ public partial class TargetView : Node2D
 
 	[Export]
 	public Vector2 MousePosition { get; set; }
-	public int Line { get; set; }
+	public int Line => GetSelectedLine(MousePosition);
 
 	Vector2 PatternOffset;
 
@@ -41,7 +41,26 @@ public partial class TargetView : Node2D
 
 	public override void _Process(double delta)
 	{
+		if (GameState.SelectedCard == null || GameState.SelectedCard.CardTargets == null)
+			return;
 		ProcessGraphics();
+		ProcessTargets();
+	}
+
+	private void ProcessTargets()
+	{
+		foreach (CardTarget target in GameState.SelectedCard.CardTargets)
+		{
+			if (target is LineTarget) { }
+			else if (target is PositionTarget) { }
+			else if (target is PatternTarget patternTarget)
+			{
+				foreach (Entity entity in patternTarget.Targets())
+				{
+					// You can do something to each target here.
+				}
+			}
+		}
 	}
 
 	public static void BeginTargeting()
@@ -54,25 +73,6 @@ public partial class TargetView : Node2D
 		Instance._EndTargeting();
 	}
 
-	public List<Entity> GetPatternEntities()
-	{
-		List<Entity> list = new List<Entity>();
-		foreach (Entity entity in GameState.Entities)
-		{
-			foreach (Sprite2D sprite in PatternTarget.GetChildren())
-			{
-				RectangleShape2D rectShape = new RectangleShape2D();
-				rectShape.Size = sprite.RegionRect.Size;
-				if (rectShape.Collide(sprite.GlobalTransform, entity.Shape, entity.GlobalTransform))
-				{
-					list.Add(entity);
-					break;
-				}
-			}
-		}
-		return list;
-	}
-
 	void _BeginTargeting() //! MAIN FUNCTION
 	{
 		if (GameState.SelectedCard == null || GameState.SelectedCard.CardTargets == null)
@@ -80,27 +80,24 @@ public partial class TargetView : Node2D
 		SetProcess(true);
 		foreach (CardTarget target in GameState.SelectedCard.CardTargets)
 		{
-			GD.Print(target.GetType());
 			if (target is LineTarget)
 			{
-				GD.Print("Line");
 				LineTarget.Visible = true;
 			}
 			else if (target is PositionTarget)
 			{
 				PositionTarget.Visible = true;
 			}
-			else if (target is PatternTarget)
+			else if (target is PatternTarget patternTarget)
 			{
 				PatternTarget.Visible = true;
-				PatternTarget patternTarget = (PatternTarget)target;
 				PatternOffset = patternTarget.Offset;
 				foreach (Vector2I item in patternTarget.Pattern)
 				{
 					Sprite2D sprite = (Sprite2D)PositionTarget.Duplicate();
 					PatternTarget.AddChild(sprite);
 					sprite.Visible = true;
-					sprite.Position = ((Vector2)(item)) * LineLength;
+					sprite.Position = ((Vector2)item) * LineLength;
 				}
 			}
 		}
@@ -122,13 +119,11 @@ public partial class TargetView : Node2D
 
 	void ProcessGraphics() //? GRAGHICS HERE - like line posision
 	{
-		Vector2 MousePosition = GetLocalMousePosition();
-
-		Line = GetSelectedLine(MousePosition);
+		MousePosition = GetLocalMousePosition();
 
 		if (PositionTarget.Visible)
 		{
-			PositionTarget.Position = PositionToGrid(MousePosition);
+			PositionTarget.Position = PositionToGrid();
 		}
 		if (LineTarget.Visible)
 		{
@@ -136,7 +131,7 @@ public partial class TargetView : Node2D
 		}
 		if (PatternTarget.Visible)
 		{
-			PatternTarget.Position = PositionToGrid(MousePosition, PatternOffset);
+			PatternTarget.Position = PositionToGrid(PatternOffset);
 		}
 	}
 
@@ -145,18 +140,25 @@ public partial class TargetView : Node2D
 		return (int)Math.Floor(MouseWorldPos.X / LineLength) + 2;
 	}
 
+	public Vector2I GetCurrentOffset(Vector2 offset)
+	{
+		int x = (int)Math.Floor(MousePosition.X / LineLength + offset.X) + Constants.NumberOfLanes / 2;
+		int y = (int)Math.Floor(MousePosition.Y / LineLength + offset.Y) + Constants.NumberOfRows / 2;
+		return new(x, y);
+	}
+
 	float ToGrid(float coord, float offset)
 	{
 		return ((float)Math.Floor(coord / LineLength + offset) + 0.5f) * LineLength;
 	}
 
-	Vector2 PositionToGrid(Vector2 pos, Vector2 offset)
+	public Vector2 PositionToGrid(Vector2 offset)
 	{
-		return new Vector2(ToGrid(pos.X, offset.X), ToGrid(pos.Y, offset.Y));
+		return new Vector2(ToGrid(MousePosition.X, offset.X), ToGrid(MousePosition.Y, offset.Y));
 	}
 
-	Vector2 PositionToGrid(Vector2 pos)
+	public Vector2 PositionToGrid()
 	{
-		return PositionToGrid(pos, new Vector2());
+		return PositionToGrid(new Vector2());
 	}
 }

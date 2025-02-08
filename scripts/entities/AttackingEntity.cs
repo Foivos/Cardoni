@@ -25,9 +25,10 @@ public abstract partial class AttackingEntity : Entity
 	{
 		if (Target == null || !IsValidTarget(Target))
 		{
-            if (Attacking) {
-                StopAttack();
-            }
+			if (Attacking)
+			{
+				StopAttack();
+			}
 			Target = FindClosestTarget();
 			if (Target == null)
 				return;

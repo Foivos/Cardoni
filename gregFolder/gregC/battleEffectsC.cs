@@ -38,9 +38,8 @@ public partial class battleEffectsC : Node
 
 	public override void _Input(InputEvent @event)
 	{
-
-		if (testSprite == null) return;
-
+		if (testSprite == null)
+			return;
 
 		if (@event.IsActionPressed("ui_right"))
 			addHitOne(testSprite);
@@ -188,8 +187,8 @@ public partial class battleEffectsC : Node
 
 	public void doShake(Sprite2D sprite)
 	{
-
-		if (sprite == null) return;
+		if (sprite == null)
+			return;
 
 		sprite.Offset = GetRandomDirection() * shakeSpriteOffset;
 		if (GD.Randi() % 2 == 0)
@@ -234,7 +233,8 @@ public partial class battleEffectsC : Node
 
 	void doBackroundFlash()
 	{
-		if (backround == null) return;
+		if (backround == null)
+			return;
 
 		backround.Modulate = backroundEffeColor;
 

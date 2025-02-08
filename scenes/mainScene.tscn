@@ -1,6 +1,5 @@
-[gd_scene load_steps=14 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=7 format=3 uid="uid://qtgg1a57jfes"]
 
-[ext_resource type="Script" path="res://scripts/testPlayer.cs" id="1_i7mp6"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
@@ -14,7 +13,6 @@ size = Vector2(400, 600)
 
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(200, 300)
-collision_layer = 0
 collision_mask = 0
 script = ExtResource("2_kstpq")
 

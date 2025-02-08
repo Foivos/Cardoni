@@ -12,15 +12,25 @@ public partial class Entity : Node2D
 	public Sprite2D Sprite => Parent.Sprite;
 
 	uint maxHealth;
-	public virtual uint MaxHealth { get { return maxHealth; } set {
-		maxHealth = value;
-		HealthBar.MaxValue = value;
-	} }
+	public virtual uint MaxHealth
+	{
+		get { return maxHealth; }
+		set
+		{
+			maxHealth = value;
+			HealthBar.MaxValue = value;
+		}
+	}
 	int health;
-	public virtual int Health { get {return health; } set {
-		health = value;
-		HealthBar.Value = value;
-	} }
+	public virtual int Health
+	{
+		get { return health; }
+		set
+		{
+			health = value;
+			HealthBar.Value = value;
+		}
+	}
 
 	public int MovementSpeed { get; set; }
 
@@ -45,7 +55,7 @@ public partial class Entity : Node2D
 	public virtual void Damage(int damage)
 	{
 		Health -= damage;
-		GD.Print(this, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
+		GD.Print(Name, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
 
 		if (Health <= 0)
 		{

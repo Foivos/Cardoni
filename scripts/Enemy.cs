@@ -52,12 +52,4 @@ public partial class Enemy : monsterBase
 	}
 
 	#endregion
-
-
-
-
-
-
-
-
 }

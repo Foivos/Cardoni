@@ -42,6 +42,22 @@ public class PatternTarget : EntityTarget
 
 	public override List<Entity> Targets()
 	{
-		return TargetView.Instance.GetPatternEntities();
+		List<Entity> list = new List<Entity>();
+		Vector2I offset = TargetView.Instance.GetCurrentOffset(Offset);
+		foreach (Entity entity in GameState.Entities)
+		{
+			foreach (Vector2I patternSquare in Pattern)
+			{
+				Vector2I square = patternSquare + offset;
+				if ((entity.OccupyingLanes & 1 << square.X) == 0)
+					continue;
+				if (Math.Abs(entity.Y - square.Y * Constants.GridTicks) >= entity.Height + Constants.GridTicks)
+					continue;
+
+				list.Add(entity);
+				break;
+			}
+		}
+		return list;
 	}
 }

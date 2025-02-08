@@ -13,9 +13,8 @@ public partial class SpawnManager : Node
 
 	public override void _Ready()
 	{
-
 		var mob1 = Spawn<testEnemy>();
-		mob1.Position = new Vector2(Constants.GridWidth * ((int)1 - 1.5f), -300);
+		mob1.Parent.Position = new Vector2(Constants.GridWidth * (-0.5f), -300);
 		mob1.Y = 0;
 		mob1.Mask = 1;
 		mob1.TargetMask = 2;
@@ -27,9 +26,8 @@ public partial class SpawnManager : Node
 		mob1.Range = (uint)Constants.GridTicks / 2;
 		mob1.AttackDamage = 1;
 
-
 		var mob2 = Spawn<testEnemy>();
-		mob2.Position = new Vector2(Constants.GridWidth * ((int)1 - 1.5f), -300);
+		mob2.Parent.Position = new Vector2(Constants.GridWidth * (-0.5f), -300);
 		mob2.Y = Constants.TicksPerLane;
 		mob2.Mask = 2;
 		mob2.TargetMask = 1;
@@ -42,8 +40,9 @@ public partial class SpawnManager : Node
 		mob2.AttackDamage = 1;
 	}
 
-	public T Spawn<T>() where T: Entity{
-
+	public T Spawn<T>()
+		where T : Entity
+	{
 		EntityParent parent = EnemyPreffab.Instantiate<EntityParent>();
 		T entity = Activator.CreateInstance<T>();
 

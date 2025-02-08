@@ -116,8 +116,12 @@ public partial class monsterBase : Node2D
 
 
 	public bool isAtacking;
-	[Export] bool isRanged;
-	[Export] float _atackRange;
+
+	[Export]
+	bool isRanged;
+
+	[Export]
+	float _atackRange;
 	const int defaultMeeleRange = 100;
 	public float atackRange
 	{
@@ -145,22 +149,16 @@ public partial class monsterBase : Node2D
 			return;
 		atackTimer = 0;
 
-
 		if (isRanged)
 		{
-			if (this is Enemy) testShooter.shootMinions(Position, (int)attackDamage);
-			else testShooter.shootEnemies(Position, (int)attackDamage);
-
+			if (this is Enemy)
+				testShooter.shootMinions(Position, (int)attackDamage);
+			else
+				testShooter.shootEnemies(Position, (int)attackDamage);
 		}
-		else if (target != null && target.hp > 0) target.onDamage(attackDamage);
-
-
+		else if (target != null && target.hp > 0)
+			target.onDamage(attackDamage);
 	}
-
-
-
-
-
 
 	#endregion
 }
