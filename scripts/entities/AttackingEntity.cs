@@ -85,7 +85,7 @@ public abstract partial class AttackingEntity : Entity
 		return closest;
 	}
 
-	private bool IsValidTarget(Entity entity)
+	protected virtual bool IsValidTarget(Entity entity)
 	{
 		return entity != this
 			&& entity.IsAlive

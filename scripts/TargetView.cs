@@ -51,7 +51,12 @@ public partial class TargetView : Node2D
 	{
 		foreach (CardTarget target in GameState.SelectedCard.CardTargets)
 		{
-			if (target is LineTarget) { }
+			if (target is LineTarget lineTarget) { 
+				foreach (Entity entity in lineTarget.Targets())
+				{
+					// You can do something to each target here.
+				}
+			}
 			else if (target is PositionTarget) { }
 			else if (target is PatternTarget patternTarget)
 			{
