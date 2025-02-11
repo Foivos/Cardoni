@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=29 format=3 uid="uid://nkxij81pggv7"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_tstke"]
 [ext_resource type="Material" uid="uid://m4n04ci0djkv" path="res://gregFolder/whiteMaterial.tres" id="3_dx2ly"]
@@ -9,15 +9,17 @@
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="10_4u71e"]
 [ext_resource type="Texture2D" uid="uid://4wtajmvyyyoa" path="res://gregFolder/testSpriteSheet.png" id="11_bq4we"]
 [ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/testEnemySpriteSheet.png" id="12_nlyjo"]
-[ext_resource type="PackedScene" uid="uid://bwcryr3ahpnkq" path="res://scenes/newEnemy.tscn" id="12_sy57r"]
+[ext_resource type="PackedScene" uid="uid://ouhsto7m0jbo" path="res://scenes/newEnemy.tscn" id="12_sy57r"]
 [ext_resource type="Texture2D" uid="uid://bnsktbdg2spo5" path="res://gregFolder/testEmojys.png" id="14_ps0fu"]
 [ext_resource type="Script" path="res://gregFolder/gregC/gregEditTests.cs" id="15_qn0by"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="16_2pg6y"]
 [ext_resource type="Script" path="res://scripts/spawning.cs" id="17_6q0yh"]
+[ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="17_e0oim"]
 [ext_resource type="Texture2D" uid="uid://cd8elcihy6m2k" path="res://gregFolder/testStrike.png" id="17_ih7e7"]
-[ext_resource type="Script" path="res://gregFolder/gregC/testGreg.cs" id="18_hyc56"]
+[ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="18_k2hcx"]
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="18_ld8t7"]
-[ext_resource type="Texture2D" uid="uid://bhoc5yopses6y" path="res://gregFolder/square.png" id="19_7v84x"]
+[ext_resource type="PackedScene" uid="uid://bf2j5cot5xt25" path="res://gregFolder/falling_item.tscn" id="19_rgq0d"]
+[ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="20_pbexy"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -128,8 +130,6 @@ _data = {
 "idle": SubResource("Animation_edm30"),
 "strike animation": SubResource("Animation_gtr5i")
 }
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_2yp1k"]
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -256,38 +256,25 @@ speed_scale = 5.0
 script = ExtResource("18_ld8t7")
 
 [node name="newEnemy" parent="." instance=ExtResource("12_sy57r")]
-position = Vector2(-91, -132)
+position = Vector2(-91, -258)
 speed = 5.0
 
 [node name="Bullet" parent="." instance=ExtResource("16_2pg6y")]
 position = Vector2(-10, -149)
 
-[node name="spawning" type="Node2D" parent="."]
+[node name="spawning" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("17_6q0yh")
+EnemyPreffab = ExtResource("12_sy57r")
+minionPreffab = ExtResource("17_e0oim")
+spawnX = 10.0
+player = NodePath("../PLAYER")
 
-[node name="test raycast" type="Node2D" parent="." node_paths=PackedStringArray("testTarget")]
-position = Vector2(136, 75)
-script = ExtResource("18_hyc56")
-raycastCooldown = 2.0
-testTarget = NodePath("../RigidBody2D")
+[node name="falling shord" type="Node" parent="." node_paths=PackedStringArray("testSprite")]
+script = ExtResource("18_k2hcx")
+testSprite = NodePath("../test sprite")
+fallingItemPreffab = ExtResource("19_rgq0d")
 
-[node name="Sprite2D" type="Sprite2D" parent="test raycast"]
-texture = ExtResource("19_7v84x")
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(137, -348)
+[node name="test sprite" type="Sprite2D" parent="."]
+position = Vector2(29, -330)
 scale = Vector2(4, 4)
-collision_layer = 7
-collision_mask = 7
-gravity_scale = 0.0
-
-[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
-modulate = Color(1, 1, 1, 0.545098)
-texture = ExtResource("19_7v84x")
-
-[node name="Area2D" type="Area2D" parent="RigidBody2D"]
-collision_layer = 7
-collision_mask = 7
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("CircleShape2D_2yp1k")
+texture = ExtResource("20_pbexy")

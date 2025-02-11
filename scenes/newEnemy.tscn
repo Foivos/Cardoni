@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bwcryr3ahpnkq"]
+[gd_scene load_steps=7 format=3 uid="uid://ouhsto7m0jbo"]
 
 [ext_resource type="Script" path="res://scripts/Enemy.cs" id="1_lp7uk"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="2_nnhdo"]

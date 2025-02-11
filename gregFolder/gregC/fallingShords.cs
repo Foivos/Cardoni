@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class fallingShords : Node
 {
@@ -9,20 +10,80 @@ public partial class fallingShords : Node
 	public override void _Ready() { inst = this; }
 
 
-
 	[Export] Sprite2D testSprite;
+	[Export] PackedScene fallingItemPreffab;
+	List<fallingShordItem> fallingItems;
+	fallingShordItem getFallingItem()
+	{
+
+		if (fallingItems == null) fallingItems = new List<fallingShordItem>();
+
+		for (int i = 0; i < fallingItems.Count; i++)
+		{
+			if (fallingItems[i].Visible == false) return fallingItems[i];
+
+		}
 
 
-	[Export] PackedScene fallingPreffab;
-	[Export] int rotation;
-	[Export] float gravity;
-	[Export] float speed;
-	[Export] float sizeAdjust;
+
+		fallingShordItem spawn5More()
+		{
+
+			GD.Print("spawn5More");
+			GD.Print("spawn5More");
+			GD.Print("spawn5More");
+
+			fallingShordItem tempItem = null;
+			for (int i = 0; i < 5; i++)
+			{
+				tempItem = fallingItemPreffab.Instantiate<fallingShordItem>();
+				tempItem.closeMe();
+
+				fallingItems.Add(tempItem);
+
+				AddChild(tempItem);
+			}
+
+			return tempItem;
+
+		}
+		return spawn5More();
 
 
+	}
+
+	public override void _Process(double delta)
+	{
+
+
+		if (fallingItems == null) return;
+
+		for (int i = 0; i < fallingItems.Count; i++)
+		{
+			if (fallingItems[i].Visible == false) continue;
+			fallingItems[i].processMe((float)delta);
+
+		}
+
+
+
+
+	}
+
+
+
+	//[Export] PackedScene fallingPreffab;
+
+
+	ulong lastInput;
 	public override void _Input(InputEvent @event)
 	{
 		//return;
+
+		if (Time.GetTicksMsec() - lastInput < 200) return;
+		lastInput = Time.GetTicksMsec();
+
+
 		if (@event is InputEventMouseButton == false) return;
 		throwItem(testSprite);
 
@@ -38,23 +99,23 @@ public partial class fallingShords : Node
 	{
 
 
-		fallingShordItem item = fallingPreffab.Instantiate<fallingShordItem>();
-		AddChild(item);
+		//fallingShordItem item = fallingPreffab.Instantiate<fallingShordItem>();
+		//AddChild(item);
 
-		item.sprite.Texture = thatOne.Texture;
-		item.Position = thatOne.GlobalPosition;
-		item.Scale = thatOne.Scale * sizeAdjust;
-		//item.Scale = thatOne.GlobalTransform.Scale;
+		getFallingItem().useMe(thatOne.GlobalPosition, thatOne.Scale.X, thatOne.Texture);
+
+		// resetSpeed();
+		// testFallingShord.Visible = true;
+		// testFallingShord.Texture = thatOne.Texture;
+		// testFallingShord.Position = thatOne.GlobalPosition;
+		// testFallingShord.Scale = thatOne.Scale * sizeAdjust;
+
+
 
 		GD.Print(thatOne.GlobalPosition + "__" + thatOne.Scale);
-		//+ "__" + thatOne.GlobalTransform.Scale + "__" + thatOne.Texture);
 
 
-		item.GravityScale = gravity;
-		item.LinearVelocity = new Vector2(0.5f, -0.5f) * speed;
-		item.AngularVelocity = rotation;
 
-		
 
 
 
