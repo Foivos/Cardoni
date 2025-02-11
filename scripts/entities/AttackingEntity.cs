@@ -7,8 +7,6 @@ public abstract partial class AttackingEntity : Entity
 {
 	public const uint StacksPerAttack = 1200;
 
-	public uint AttackSpeed { get; set; }
-
 	uint attackStacks;
 
 	uint startingStacks = 600;
@@ -17,56 +15,65 @@ public abstract partial class AttackingEntity : Entity
 
 	public Entity Target { get; set; }
 
-	public uint TargetMask { get; set; }
+	public EntityMask TargetMask { get; set; }
 
 	public bool Attacking { get; set; }
 
 	void Tick()
 	{
-		if (Target == null || !IsValidTarget(Target))
-		{
-			if (Attacking)
-			{
-				StopAttack();
+		if (Attacking) {
+			if (Target != null && IsValidTarget(Target) && InRange(Target)) {
+				ContinueAttack();
+			} else {
+				FinishAttack();
 			}
+		} else {
 			Target = FindClosestTarget();
 			if (Target == null)
-				return;
-			Direction = Target.Y > Y ? 1 : -1;
-		}
-
-		if (VerticalDistance(Target) <= Range)
-		{
-			if (Attacking)
 			{
-				ContinueAttack();
+				Direction = 0;
+				return;
 			}
-			else
+			if (InRange(Target))
 			{
 				StartAttack();
 			}
-		}
-		else if (Attacking)
-		{
-			StopAttack();
+			else
+			{
+				Direction = Target.Y > Y ? 1 : -1;
+			}
 		}
 	}
 
-	private void StartAttack()
+	protected virtual void FinishAttack()
+	{
+		attackStacks += AttackSpeed;
+		if (attackStacks >= startingStacks) {
+			StopAttack();
+			attackStacks = startingStacks;
+		}
+	}
+
+	protected virtual bool InRange(Entity target)
+	{
+		return VerticalDistance(target) <= Range;
+	}
+
+	protected virtual void StartAttack()
 	{
 		Attacking = true;
-		GD.Print(Name, " starting attack against ", Target.Name);
+		GD.Print(Name, " starting attack against ", Target.Name, " ", MovementSpeedModifier);
 		Direction = 0;
 		attackStacks = startingStacks;
 	}
 
-	private void StopAttack()
+	protected virtual void StopAttack()
 	{
 		Attacking = false;
 		GD.Print(Name, " stopping attack");
 	}
 
-	private Entity FindClosestTarget()
+	protected virtual Entity FindClosestTarget()
 	{
 		Entity closest = null;
 		int minDistance = Constants.TicksPerLane + 1;
@@ -90,10 +97,10 @@ public abstract partial class AttackingEntity : Entity
 		return entity != this
 			&& entity.IsAlive
 			&& (entity.OccupyingLanes & OccupyingLanes) != 0
-			&& (entity.Mask & TargetMask) != 0;
+			&& TargetMask.Matches(entity.Mask);
 	}
 
-	private void ContinueAttack()
+	protected virtual void ContinueAttack()
 	{
 		attackStacks += AttackSpeed;
 		while (attackStacks >= StacksPerAttack)

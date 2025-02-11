@@ -20,9 +20,17 @@ public partial class GameState : Node
 
 	public const int LanesNumber = 4;
 
-	public List<Entity> entities = new();
+	List<Entity> entities = new();
 
 	public static List<Entity> Entities => Instance.entities;
+
+	List<Entity> dying = new();
+
+	public static List<Entity> Dying => Instance.dying;
+
+	List<Entity> spawning = new();
+
+	public static List<Entity> Spawning => Instance.spawning;
 
 	readonly CardState CardState = new();
 
@@ -58,6 +66,14 @@ public partial class GameState : Node
 
 	public override void _PhysicsProcess(double dt)
 	{
+		foreach (Entity entity in spawning)
+		{
+			entity.Spawn();
+			entities.Add(entity);
+			Events.InvokeSpawn(entity);
+		}
+		spawning = new();
+
 		foreach (Entity entity in Entities)
 		{
 			entity.Move();
@@ -82,6 +98,14 @@ public partial class GameState : Node
 				AddExpiring(expiring);
 			}
 		}
+
+		foreach (Entity entity in dying)
+		{
+			GD.Print(entity.Name);
+			entity.Kill();
+			entities.Remove(entity);
+		}
+		dying = new();
 
 		tick++;
 		lastTick = Time.GetTicksMsec();
@@ -114,5 +138,10 @@ public partial class GameState : Node
 	public static void RemoveExpiring(Expiring expiring)
 	{
 		Instance.expiringQueue.Remove(expiring);
+	}
+
+	public static void Kill(Entity entity)
+	{
+		Instance.dying.Add(entity);
 	}
 }

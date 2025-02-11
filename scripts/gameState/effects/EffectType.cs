@@ -4,4 +4,5 @@ public enum EffectType
 {
 	Poisoned,
 	Slowed,
+	Hasted,
 }

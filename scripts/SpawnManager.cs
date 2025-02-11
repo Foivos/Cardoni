@@ -11,66 +11,34 @@ public partial class SpawnManager : Node
 	[Export]
 	public PackedScene EnemyPreffab { get; set; }
 
+	public static SpawnManager Instance;
+
 	public override void _Ready()
 	{
-		var mob1 = Spawn<testEnemy>();
-		mob1.Parent.Position = new Vector2(Constants.GridWidth * (-0.5f), -300);
-		mob1.Y = 0;
-		mob1.Mask = 1;
-		mob1.TargetMask = 2;
-		mob1.Name = "Mob 1";
-		mob1.MovementSpeed = 60;
-		mob1.OccupyingLanes = 2;
-		mob1.AttackSpeed = 30;
-		mob1.Height = Constants.GridTicks / 2;
-		mob1.Range = (uint)Constants.GridTicks / 2;
-		mob1.AttackDamage = 1;
+		Instance = this;
 
-		var mob2 = Spawn<testEnemy>();
-		mob2.Parent.Position = new Vector2(Constants.GridWidth * (-0.5f), -300);
-		mob2.Y = Constants.TicksPerLane;
-		mob2.Mask = 2;
-		mob2.TargetMask = 1;
-		mob2.Name = "Mob 2";
-		mob2.MovementSpeed = 60;
-		mob2.OccupyingLanes = 2;
-		mob2.AttackSpeed = 30;
-		mob2.Height = Constants.GridTicks / 2;
-		mob2.Range = (uint)Constants.GridTicks / 2 * 4;
-		mob2.AttackDamage = 1;
+		var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
+		{
+			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
+			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
+		};
+		var friend2 = new GoblinShaman(1, Constants.TicksPerLane)
+		{
+			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
+			EffectMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
+		};
+		var enemy1 = new GoblinSummoner(1);
+		var enemy2 = new GoblinRanged(1);
 	}
 
-	public T Spawn<T>()
-		where T : Entity
+	public static void Spawn(Entity entity)
 	{
-		EntityParent parent = EnemyPreffab.Instantiate<EntityParent>();
-		T entity = Activator.CreateInstance<T>();
+		EntityParent parent = Instance.EnemyPreffab.Instantiate<EntityParent>();
 
 		entity.Parent = parent;
 
-		entity.Spawn();
+		Instance.AddChild(parent);
 
-		parent.AddChild(entity);
-		AddChild(parent);
-
-		return entity;
-	}
-
-	void SpawnEnemy(uint lane)
-	{
-		testEnemy mob = EnemyPreffab.Instantiate<testEnemy>();
-
-		mob.Position = new Vector2(Constants.GridWidth * ((int)lane - 1.5f), -300);
-
-		// Add some randomness to the direction.
-		//direction += (float)GD.RandRange(-Mathf.Pi / 4, Mathf.Pi / 4);
-		//float direction = GD.RandRange(-45, 45);
-		//mob.Rotation = direction;
-
-		// Choose the velocity.
-		//var velocity = new Vector2(0, -enemySpeed);//(float)GD.RandRange(2.0, 2.0)
-
-		// Spawn the mob by adding it to the Main scene.
-		AddChild(mob);
+		GameState.Spawning.Add(entity);
 	}
 }

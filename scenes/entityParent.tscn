@@ -33,14 +33,11 @@ stretch_margin_bottom = 4
 texture_under = ExtResource("3_32dvr")
 texture_progress = ExtResource("4_dlm2d")
 
-[node name="Sprite" type="Sprite2D" parent="." node_paths=PackedStringArray("HealthBar", "Sprite")]
+[node name="Sprite" type="Sprite2D" parent="."]
 scale = Vector2(2.55, 2.55)
 texture = ExtResource("2_nnhdo")
 region_enabled = true
 region_rect = Rect2(0, 0, 48, 48)
-script = ExtResource("1_8mn4u")
-HealthBar = NodePath("../HealthBar")
-Sprite = NodePath(".")
 
 [node name="Weapon" type="Sprite2D" parent="."]
 position = Vector2(39, 18)

@@ -4,8 +4,9 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-public partial class Entity : Node2D
-{
+public partial class Entity
+{	
+	public string Name { get; set; }
 	public EntityParent Parent { set; get; }
 	public TextureProgressBar HealthBar => Parent.HealthBar;
 
@@ -32,7 +33,14 @@ public partial class Entity : Node2D
 		}
 	}
 
-	public int MovementSpeed { get; set; }
+	public uint BaseMovementSpeed { get; set; }
+	public float MovementSpeedModifier { get; set; } = 1;
+	public uint MovementSpeed => (uint)Math.Floor(BaseMovementSpeed * MovementSpeedModifier);
+
+
+	public uint BaseAttackSpeed { get; set; }
+	public float AttackSpeedModifier { get; set; } = 1;
+	public uint AttackSpeed => (uint)Math.Floor(BaseAttackSpeed * AttackSpeedModifier);
 
 	public int Direction { get; set; }
 
@@ -43,14 +51,65 @@ public partial class Entity : Node2D
 
 	public bool IsAlive => Health > 0;
 
-	public uint OccupyingLanes { get; set; }
+	uint occupyingLanes;
+	public uint OccupyingLanes
+	{
+		get => occupyingLanes;
+		set
+		{
+			occupyingLanes = value;
+			float total = 0;
+			uint count = 0;
+			for (int i = 0; i < Constants.NumberOfLanes; i++)
+			{
+				if (((1 << i) & occupyingLanes) != 0)
+				{
+					total += i;
+					count++;
+				}
+			}
+			Parent.Position = Parent.Position with { X = ((float)total / count - 1.5f) * Constants.GridWidth };
+		}
+	}
+	public List<uint> Lanes
+	{
+		get
+		{
+			List<uint> lanes = new();
+			for (uint i = 0; i < Constants.NumberOfLanes; i++)
+			{
+				if (((1 << (int)i) & occupyingLanes) != 0)
+				{
+					lanes.Add(i);
+				}
+			}
+			return lanes;
+		}
+	}
 
 	public int Height { get; set; }
 	public int Width { get; set; }
 
-	public int Y { get; set; }
+	int y;
+	public int Y
+	{
+		get => y;
+		set
+		{
+			y = value;
+			Parent.Position = Parent.Position with
+			{
+				Y = (value - Constants.TicksPerLane / 2) * Constants.GridHeight / Constants.GridTicks,
+			};
+		}
+	}
 
-	public uint Mask { get; set; }
+	public EntityMask Mask { get; set; }
+
+	protected Entity()
+	{
+		SpawnManager.Spawn(this);
+	}
 
 	public virtual void Damage(int damage)
 	{
@@ -59,13 +118,13 @@ public partial class Entity : Node2D
 
 		if (Health <= 0)
 		{
-			Kill();
+			GameState.Kill(this);
 		}
 	}
 
 	public virtual void Move()
 	{
-		int dx = MovementSpeed * Direction;
+		int dx = (int)MovementSpeed * Direction;
 		if (dx == 0)
 			return;
 		Y += dx;
@@ -73,7 +132,7 @@ public partial class Entity : Node2D
 
 	public virtual void UpdatePosition(float dt)
 	{
-		int dx = MovementSpeed * Direction;
+		int dx = (int)MovementSpeed * Direction;
 		if (dx == 0)
 			return;
 
@@ -96,7 +155,6 @@ public partial class Entity : Node2D
 		{
 			condiiton.End();
 		}
-		GameState.Entities.Remove(this);
 		Parent.QueueFree();
 	}
 
