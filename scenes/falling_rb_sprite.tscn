@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwn67rct7bxfi"]
+
+[ext_resource type="Script" path="res://gregFolder/gregC/fallingShordItem.cs" id="1_mv314"]
+[ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/shord.png" id="2_h37ly"]
+
+[node name="falling rb sprite" type="RigidBody2D" node_paths=PackedStringArray("sprite")]
+position = Vector2(88, 103)
+scale = Vector2(3, 3)
+script = ExtResource("1_mv314")
+sprite = NodePath("tets shord")
+
+[node name="tets shord" type="Sprite2D" parent="."]
+texture = ExtResource("2_h37ly")

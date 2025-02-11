@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=17 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="1_i7mp6"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
@@ -12,6 +12,9 @@
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="10_hq3y8"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/spaceBack.png" id="11_jt3d2"]
 [ext_resource type="Texture2D" uid="uid://cobchr6b7nulx" path="res://gregFolder/grid.png" id="12_ms5la"]
+[ext_resource type="PackedScene" uid="uid://cwn67rct7bxfi" path="res://scenes/falling_rb_sprite.tscn" id="13_48hbj"]
+[ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="13_urxys"]
+[ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/testEnemyFour.png" id="15_f5128"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
@@ -73,3 +76,21 @@ offset_bottom = 532.916
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("12_ms5la")
 stretch_mode = 1
+
+[node name="falling rb sprite" parent="." instance=ExtResource("13_48hbj")]
+position = Vector2(77, 103)
+gravity_scale = 0.0
+
+[node name="test sprite" type="Sprite2D" parent="."]
+position = Vector2(324, 95)
+scale = Vector2(2, 2)
+texture = ExtResource("15_f5128")
+
+[node name="fallingShords" type="Node" parent="." node_paths=PackedStringArray("testSprite")]
+script = ExtResource("13_urxys")
+testSprite = NodePath("../test sprite")
+fallingPreffab = ExtResource("13_48hbj")
+rotation = 100
+gravity = 1.0
+speed = 1.0
+sizeAdjust = 2.0
