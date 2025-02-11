@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=28 format=3 uid="uid://nkxij81pggv7"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_tstke"]
 [ext_resource type="Material" uid="uid://m4n04ci0djkv" path="res://gregFolder/whiteMaterial.tres" id="3_dx2ly"]
@@ -18,8 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://cd8elcihy6m2k" path="res://gregFolder/testStrike.png" id="17_ih7e7"]
 [ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="18_k2hcx"]
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="18_ld8t7"]
-[ext_resource type="PackedScene" uid="uid://bf2j5cot5xt25" path="res://gregFolder/falling_item.tscn" id="19_rgq0d"]
-[ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="20_pbexy"]
+[ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/shord.png" id="19_yexge"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -272,9 +271,8 @@ player = NodePath("../PLAYER")
 [node name="falling shord" type="Node" parent="." node_paths=PackedStringArray("testSprite")]
 script = ExtResource("18_k2hcx")
 testSprite = NodePath("../test sprite")
-fallingItemPreffab = ExtResource("19_rgq0d")
 
 [node name="test sprite" type="Sprite2D" parent="."]
 position = Vector2(29, -330)
 scale = Vector2(4, 4)
-texture = ExtResource("20_pbexy")
+texture = ExtResource("19_yexge")

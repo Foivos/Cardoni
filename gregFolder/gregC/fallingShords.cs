@@ -11,7 +11,7 @@ public partial class fallingShords : Node
 
 
 	[Export] Sprite2D testSprite;
-	[Export] PackedScene fallingItemPreffab;
+	//[Export] PackedScene fallingItemPreffab;
 	List<fallingShordItem> fallingItems;
 	fallingShordItem getFallingItem()
 	{
@@ -26,28 +26,23 @@ public partial class fallingShords : Node
 
 
 
-		fallingShordItem spawn5More()
+
+
+		//? HERE SPAWNS MORE
+		fallingShordItem tempItem = null;
+		for (int i = 0; i < 5; i++)
 		{
+			tempItem = new fallingShordItem();
+			//tempItem = fallingItemPreffab.Instantiate<fallingShordItem>();
+			tempItem.closeMe();
 
-			GD.Print("spawn5More");
-			GD.Print("spawn5More");
-			GD.Print("spawn5More");
+			fallingItems.Add(tempItem);
 
-			fallingShordItem tempItem = null;
-			for (int i = 0; i < 5; i++)
-			{
-				tempItem = fallingItemPreffab.Instantiate<fallingShordItem>();
-				tempItem.closeMe();
-
-				fallingItems.Add(tempItem);
-
-				AddChild(tempItem);
-			}
-
-			return tempItem;
-
+			AddChild(tempItem);
 		}
-		return spawn5More();
+
+		return tempItem;
+
 
 
 	}
@@ -102,7 +97,8 @@ public partial class fallingShords : Node
 		//fallingShordItem item = fallingPreffab.Instantiate<fallingShordItem>();
 		//AddChild(item);
 
-		getFallingItem().useMe(thatOne.GlobalPosition, thatOne.Scale.X, thatOne.Texture);
+		getFallingItem().useMe(thatOne.GlobalPosition, thatOne.Scale.X, thatOne.Texture
+		, default);
 
 		// resetSpeed();
 		// testFallingShord.Visible = true;
