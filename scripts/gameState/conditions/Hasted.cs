@@ -16,19 +16,19 @@ public class Hasted : ExpiringEffectCondition<HasteEffect>
 		Entity = entity;
 
 		Effect ??= new HasteEffect(Entity);
-        
-        Effect.Count += 1;
+
+		Effect.Count += 1;
 	}
 
 	public void OnExpire()
 	{
-        End();
+		End();
 		Effect.Count -= 1;
 	}
 
 	public override void End()
 	{
 		base.End();
-        Effect.Count -= 1;
+		Effect.Count -= 1;
 	}
 }

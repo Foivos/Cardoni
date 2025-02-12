@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Godot;
 
 public partial class Entity
-{	
+{
 	public string Name { get; set; }
 	public EntityParent Parent { set; get; }
 	public TextureProgressBar HealthBar => Parent.HealthBar;
@@ -37,7 +37,6 @@ public partial class Entity
 	public float MovementSpeedModifier { get; set; } = 1;
 	public uint MovementSpeed => (uint)Math.Floor(BaseMovementSpeed * MovementSpeedModifier);
 
-
 	public uint BaseAttackSpeed { get; set; }
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Floor(BaseAttackSpeed * AttackSpeedModifier);
@@ -51,39 +50,14 @@ public partial class Entity
 
 	public bool IsAlive => Health > 0;
 
-	uint occupyingLanes;
-	public uint OccupyingLanes
+	OccupyingLanes occupyingLanes;
+	public OccupyingLanes OccupyingLanes
 	{
 		get => occupyingLanes;
 		set
 		{
 			occupyingLanes = value;
-			float total = 0;
-			uint count = 0;
-			for (int i = 0; i < Constants.NumberOfLanes; i++)
-			{
-				if (((1 << i) & occupyingLanes) != 0)
-				{
-					total += i;
-					count++;
-				}
-			}
-			Parent.Position = Parent.Position with { X = ((float)total / count - 1.5f) * Constants.GridWidth };
-		}
-	}
-	public List<uint> Lanes
-	{
-		get
-		{
-			List<uint> lanes = new();
-			for (uint i = 0; i < Constants.NumberOfLanes; i++)
-			{
-				if (((1 << (int)i) & occupyingLanes) != 0)
-				{
-					lanes.Add(i);
-				}
-			}
-			return lanes;
+			Parent.Position = Parent.Position with { X = ((value.To + value.From) / 2f - 1.5f) * Constants.GridWidth };
 		}
 	}
 

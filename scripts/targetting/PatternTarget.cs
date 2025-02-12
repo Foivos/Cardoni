@@ -49,7 +49,7 @@ public class PatternTarget : EntityTarget
 			foreach (Vector2I patternSquare in Pattern)
 			{
 				Vector2I square = patternSquare + offset;
-				if ((entity.OccupyingLanes & 1 << square.X) == 0)
+				if (!entity.OccupyingLanes.IsIn((uint)square.X))
 					continue;
 				if (Math.Abs(entity.Y - square.Y * Constants.GridTicks) >= entity.Height + Constants.GridTicks)
 					continue;

@@ -7,7 +7,7 @@ public partial class GoblinRanged : DamagingEntity
 	public GoblinRanged(uint lane, int y = 0, uint health = 3, int damage = 2)
 		: base()
 	{
-		OccupyingLanes = (uint)(1 << (int)lane);
+		OccupyingLanes = new OccupyingLanes(lane);
 		Y = y;
 		MaxHealth = health;
 		Health = (int)health;
@@ -20,7 +20,7 @@ public partial class GoblinRanged : DamagingEntity
 		BaseAttackSpeed = 40;
 		Height = Constants.GridTicks / 2;
 		Range = (uint)Constants.GridTicks / 2 * 4;
-        Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/EnemySpriteSheet1.png");
-        Parent.Sprite.RegionRect = new Rect2(new Vector2(128,0), new Vector2(32, 32));
+		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/EnemySpriteSheet1.png");
+		Parent.Sprite.RegionRect = new Rect2(new Vector2(128, 0), new Vector2(32, 32));
 	}
 }

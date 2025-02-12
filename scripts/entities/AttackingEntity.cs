@@ -21,13 +21,19 @@ public abstract partial class AttackingEntity : Entity
 
 	void Tick()
 	{
-		if (Attacking) {
-			if (Target != null && IsValidTarget(Target) && InRange(Target)) {
+		if (Attacking)
+		{
+			if (Target != null && IsValidTarget(Target) && InRange(Target))
+			{
 				ContinueAttack();
-			} else {
+			}
+			else
+			{
 				FinishAttack();
 			}
-		} else {
+		}
+		else
+		{
 			Target = FindClosestTarget();
 			if (Target == null)
 			{
@@ -48,7 +54,8 @@ public abstract partial class AttackingEntity : Entity
 	protected virtual void FinishAttack()
 	{
 		attackStacks += AttackSpeed;
-		if (attackStacks >= startingStacks) {
+		if (attackStacks >= startingStacks)
+		{
 			StopAttack();
 			attackStacks = startingStacks;
 		}
@@ -96,7 +103,7 @@ public abstract partial class AttackingEntity : Entity
 	{
 		return entity != this
 			&& entity.IsAlive
-			&& (entity.OccupyingLanes & OccupyingLanes) != 0
+			&& OccupyingLanes.Intersects(entity.OccupyingLanes)
 			&& TargetMask.Matches(entity.Mask);
 	}
 
