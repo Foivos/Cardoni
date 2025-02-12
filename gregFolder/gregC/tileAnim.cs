@@ -1,0 +1,31 @@
+using Godot;
+using System;
+using System.Collections.Generic;
+
+public partial class tileAnim : TextureRect
+{
+
+
+
+
+	[Export] int frame;
+	[Export] float cooldown;
+	double timer;
+	[Export] Texture2D[] framesArray;
+
+
+	public override void _Process(double delta)
+	{
+		timer += delta;
+		if(timer < cooldown)return;
+		{
+			timer = 0;
+			
+			frame++;
+			if(frame >= framesArray.Length) frame = 0;
+			Texture = framesArray[frame];
+		}
+	}
+
+
+}

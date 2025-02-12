@@ -1,0 +1,58 @@
+[gd_resource type="SpriteFrames" load_steps=8 format=3 uid="uid://x28aoy8h4tf"]
+
+[ext_resource type="Texture2D" uid="uid://d2uvsujjudbbc" path="res://gregFolder/strikeGlow.png" id="1_le75c"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5pcj"]
+atlas = ExtResource("1_le75c")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhwqw"]
+atlas = ExtResource("1_le75c")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3o23"]
+atlas = ExtResource("1_le75c")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07tog"]
+atlas = ExtResource("1_le75c")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42u37"]
+atlas = ExtResource("1_le75c")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bf6l"]
+atlas = ExtResource("1_le75c")
+region = Rect2(0, 64, 64, 32)
+
+[resource]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5pcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhwqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3o23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07tog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42u37")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bf6l")
+}],
+"loop": false,
+"name": &"strike glow anim",
+"speed": 15.0
+}]

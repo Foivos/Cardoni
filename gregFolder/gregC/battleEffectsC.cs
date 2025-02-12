@@ -57,6 +57,8 @@ public partial class battleEffectsC : Node
 			doShake(testSprite);
 	}
 
+
+
 	#region  SPRITE EFFECTS
 
 	List<spriteEffect> _spriteEffect = new List<spriteEffect>();
@@ -137,6 +139,8 @@ public partial class battleEffectsC : Node
 				removeMe = true;
 		}
 	}
+
+    
 
 	public void addHitOne(Sprite2D sprite)
 	{
