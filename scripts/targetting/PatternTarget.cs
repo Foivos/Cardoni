@@ -42,10 +42,13 @@ public class PatternTarget : EntityTarget
 
 	public override List<Entity> Targets()
 	{
-		List<Entity> list = new List<Entity>();
+		List<Entity> list = new();
 		Vector2I offset = TargetView.Instance.GetCurrentOffset(Offset);
 		foreach (Entity entity in GameState.Entities)
 		{
+			if (!EntityMask.Matches(entity.Mask)) {
+				continue;
+			}
 			foreach (Vector2I patternSquare in Pattern)
 			{
 				Vector2I square = patternSquare + offset;

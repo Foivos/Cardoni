@@ -1,17 +1,17 @@
 namespace Cardoni;
 
-public class AffectingPoison : Affecting
+public class CardEffectPoison : EntityActive
 {
 	public uint Duration { get; set; }
 	public uint Strength { get; set; }
 
-	public AffectingPoison(uint duration, uint strength)
+	public CardEffectPoison(uint duration, uint strength)
 	{
 		Duration = duration;
 		Strength = strength;
 	}
-
-	public override void Affect(Entity entity)
+	
+	public override void Activate(Entity entity)
 	{
 		Poisoned.Apply(entity, Duration, Strength);
 	}

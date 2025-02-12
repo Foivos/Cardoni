@@ -13,6 +13,9 @@ public class EntityMask
 {
 	public uint Mask { get; set; }
 
+
+	public EntityMask() {}
+	
 	public EntityMask(EntityMasks[] masks)
 	{
 		foreach (EntityMasks mask in masks)
@@ -23,6 +26,6 @@ public class EntityMask
 
 	public bool Matches(EntityMask other)
 	{
-		return (Mask & other.Mask) != 0;
+		return (Mask & other.Mask) == Mask;
 	}
 }

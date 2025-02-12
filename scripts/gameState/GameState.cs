@@ -32,6 +32,18 @@ public partial class GameState : Node
 
 	public static List<Entity> Spawning => Instance.spawning;
 
+	List<Projectile> projectiles = new();
+
+	public static List<Projectile> Projectiles => Instance.projectiles;
+
+	List<Projectile> spawningProjectiles = new();
+
+	public static List<Projectile> SpawningProjectiles => Instance.spawningProjectiles;
+
+	List<Projectile> dyingProjectiles = new();
+
+	public static List<Projectile> DyingProjectiles => Instance.dyingProjectiles;
+
 	readonly CardState CardState = new();
 
 	ulong lastTick;
@@ -66,46 +78,19 @@ public partial class GameState : Node
 
 	public override void _PhysicsProcess(double dt)
 	{
-		foreach (Entity entity in spawning)
-		{
-			entity.Spawn();
-			entities.Add(entity);
-			Events.InvokeSpawn(entity);
-		}
-		spawning = new();
+		SpawnEntities();
 
-		foreach (Entity entity in Entities)
-		{
-			entity.Move();
-		}
+		MoveEntities();
 
-		for (int i = 0; i < ticked.Count; i++)
-		{
-			ticked[i]();
-		}
+		ProcessTicked();
 
-		while (expiringQueue.Count > 0 && expiringQueue.Top.End <= Tick)
-		{
-			Expiring expiring = expiringQueue.Pop();
-			expiring.OnExpire();
-			if (expiring.Repeat != 1)
-			{
-				if (expiring.Repeat > 1)
-				{
-					expiring.Repeat--;
-				}
-				expiring.End = Tick + expiring.Duration;
-				AddExpiring(expiring);
-			}
-		}
+		SpawnProjectiles();
+		ProcessProjectiles();
+		KillProjectiles();
 
-		foreach (Entity entity in dying)
-		{
-			GD.Print(entity.Name);
-			entity.Kill();
-			entities.Remove(entity);
-		}
-		dying = new();
+		ProcessExpiring();
+
+		KillEntities();
 
 		tick++;
 		lastTick = Time.GetTicksMsec();
@@ -143,5 +128,83 @@ public partial class GameState : Node
 	public static void Kill(Entity entity)
 	{
 		Instance.dying.Add(entity);
+	}
+
+	private void SpawnEntities()
+	{
+		foreach (Entity entity in spawning)
+		{
+			entity.Spawn();
+			entities.Add(entity);
+			Events.InvokeSpawn(entity);
+		}
+		spawning = new();
+	}
+
+	private void MoveEntities()
+	{
+		foreach (Entity entity in Entities)
+		{
+			entity.Move();
+		}
+	}
+
+	private void ProcessTicked()
+	{
+		for (int i = 0; i < ticked.Count; i++)
+		{
+			ticked[i]();
+		}
+	}
+
+	private void ProcessExpiring()
+	{
+		while (expiringQueue.Count > 0 && expiringQueue.Top.End <= Tick)
+		{
+			Expiring expiring = expiringQueue.Pop();
+			expiring.OnExpire();
+			if (expiring.Repeat != 1)
+			{
+				if (expiring.Repeat > 1)
+				{
+					expiring.Repeat--;
+				}
+				expiring.End = Tick + expiring.Duration;
+				AddExpiring(expiring);
+			}
+		}
+	}
+
+	private void KillEntities()
+	{
+		foreach (Entity entity in dying)
+		{
+			GD.Print("Killing ", entity.Name, " ", entities.Count);
+			entity.Kill();
+			entities.Remove(entity);
+		}
+		dying = new();
+	}
+
+	private void ProcessProjectiles() {
+		foreach(Projectile projectile in projectiles) {
+			projectile.Move();
+			Entity entity;
+			while((entity = projectile.Colliding()) != null) {
+				projectile.Hit(entity);
+			}
+		}
+	}
+	private void SpawnProjectiles() {
+		foreach(Projectile projectile in spawningProjectiles) {
+			projectiles.Add(projectile);
+		}
+		spawningProjectiles = new();
+	}
+	private void KillProjectiles() {
+		foreach(Projectile projectile in dyingProjectiles) {
+			projectiles.Remove(projectile);
+		}
+		dyingProjectiles = new();
 	}
 }

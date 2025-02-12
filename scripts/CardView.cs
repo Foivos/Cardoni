@@ -1,10 +1,11 @@
 namespace Cardoni;
 
+using System.Linq;
 using Godot;
 
 public partial class CardView : Node2D
 {
-	static CardView inst;
+	static CardView Instance;
 
 	[Export]
 	public PackedScene CardAreaScene { get; set; }
@@ -18,7 +19,7 @@ public partial class CardView : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		inst = this;
+		Instance = this;
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -26,10 +27,11 @@ public partial class CardView : Node2D
 			card.Index = i;
 			card.Description = "Card " + i;
 
-			card.CardTargets = new CardTarget[1];
-			card.CardTargets[0] = new PatternTarget(new string[] { " X ", "XXX" }, false);
-
-			card.CardTargets[0].CardEffects = new Affecting[] { new AffectingPoison(100, 60) };
+			card.CardResults = new CardResult[1];
+			//var target = new PatternTarget(new string[] { " X ", "XXX" }, false);
+			//var effect = new CardEffectPoison(100, 60);
+			//card.CardResults[0] = new EffectResult(new EntityTarget[]{target}.ToList(), new EntityActive[]{effect}.ToList());
+			card.CardResults[0] = new TestProjectileResult();
 
 			Cards[i] = card;
 

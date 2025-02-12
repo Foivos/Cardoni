@@ -41,7 +41,7 @@ public partial class TargetView : Node2D
 
 	public override void _Process(double delta)
 	{
-		if (GameState.SelectedCard == null || GameState.SelectedCard.CardTargets == null)
+		if (GameState.SelectedCard == null || GameState.SelectedCard.CardResults == null)
 			return;
 		ProcessGraphics();
 		ProcessTargets();
@@ -49,19 +49,11 @@ public partial class TargetView : Node2D
 
 	private void ProcessTargets()
 	{
-		foreach (CardTarget target in GameState.SelectedCard.CardTargets)
+		foreach (CardResult result in GameState.SelectedCard.CardResults)
 		{
-			if (target is LineTarget lineTarget)
+			if (result is EffectResult effectResult)
 			{
-				foreach (Entity entity in lineTarget.Targets())
-				{
-					// You can do something to each target here.
-				}
-			}
-			else if (target is PositionTarget) { }
-			else if (target is PatternTarget patternTarget)
-			{
-				foreach (Entity entity in patternTarget.Targets())
+				foreach (Entity entity in effectResult.GetTargets())
 				{
 					// You can do something to each target here.
 				}
@@ -81,29 +73,32 @@ public partial class TargetView : Node2D
 
 	void _BeginTargeting() //! MAIN FUNCTION
 	{
-		if (GameState.SelectedCard == null || GameState.SelectedCard.CardTargets == null)
+		if (GameState.SelectedCard == null || GameState.SelectedCard.CardResults == null)
 			return;
 		SetProcess(true);
-		foreach (CardTarget target in GameState.SelectedCard.CardTargets)
+		foreach (CardResult result in GameState.SelectedCard.CardResults)
 		{
-			if (target is LineTarget)
-			{
-				LineTarget.Visible = true;
-			}
-			else if (target is PositionTarget)
-			{
-				PositionTarget.Visible = true;
-			}
-			else if (target is PatternTarget patternTarget)
-			{
-				PatternTarget.Visible = true;
-				PatternOffset = patternTarget.Offset;
-				foreach (Vector2I item in patternTarget.Pattern)
+			if (result.Targets == null) continue;
+			foreach(CardTarget target in result.Targets) {
+				if (target is LineTarget)
 				{
-					Sprite2D sprite = (Sprite2D)PositionTarget.Duplicate();
-					PatternTarget.AddChild(sprite);
-					sprite.Visible = true;
-					sprite.Position = ((Vector2)item) * LineLength;
+					LineTarget.Visible = true;
+				}
+				else if (target is PositionTarget)
+				{
+					PositionTarget.Visible = true;
+				}
+				else if (target is PatternTarget patternTarget)
+				{
+					PatternTarget.Visible = true;
+					PatternOffset = patternTarget.Offset;
+					foreach (Vector2I item in patternTarget.Pattern)
+					{
+						Sprite2D sprite = (Sprite2D)PositionTarget.Duplicate();
+						PatternTarget.AddChild(sprite);
+						sprite.Visible = true;
+						sprite.Position = ((Vector2)item) * LineLength;
+					}
 				}
 			}
 		}

@@ -4,7 +4,7 @@ using Godot;
 
 public class Hasted : ExpiringEffectCondition<HasteEffect>
 {
-	public override EffectType EffectType => EffectType.Slowed;
+	public override EffectType EffectType => EffectType.Hasted;
 
 	public uint Modifier;
 

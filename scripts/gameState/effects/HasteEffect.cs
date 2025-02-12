@@ -5,7 +5,7 @@ public class HasteEffect : Effect
 	public uint Count { get; set; }
 	bool active;
 
-	public override EffectType EffectType => EffectType.Poisoned;
+	public override EffectType EffectType => EffectType.Hasted;
 
 	public HasteEffect(Entity entity)
 	{
