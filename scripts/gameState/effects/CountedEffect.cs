@@ -18,17 +18,14 @@ public abstract class CountedEffect : Effect
 			{
 				count = value;
 			}
+            Update();
 		}
 	}
 	public bool Active { get; set; }
 
-	public CountedEffect(Entity entity)
+	public CountedEffect(Entity entity): base(entity)
 	{
-		Entity = entity;
-		Count = 1;
-		Update();
-
-		RefEffect = this;
+		Count = 0;
 	}
 
 	public override bool Affected()

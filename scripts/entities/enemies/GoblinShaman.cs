@@ -1,6 +1,5 @@
 namespace Cardoni;
 
-using System.Collections.Generic;
 using Godot;
 
 public partial class GoblinShaman : EffectEntity
@@ -23,6 +22,6 @@ public partial class GoblinShaman : EffectEntity
 
 	public override void ApplyEffect(Entity entity)
 	{
-		ActiveConditions.Add(new Hasted(entity, 0));
+		ActiveConditions.Add(new Haste(entity, 0));
 	}
 }

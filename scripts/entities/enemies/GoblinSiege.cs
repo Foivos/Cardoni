@@ -2,7 +2,7 @@ namespace Cardoni;
 
 using Godot;
 
-public partial class GoblinSiege : DamagingEntity
+public partial class GoblinSiege : Entity
 {
 	public GoblinSiege(uint leftLane, int y = 0, uint health = 15, int damage = 3)
 		: base()
@@ -11,7 +11,7 @@ public partial class GoblinSiege : DamagingEntity
 		Y = y;
 		MaxHealth = health;
 		Health = (int)health;
-		AttackDamage = damage;
+		Attack = new DamagingAttack(this, damage, (uint)Constants.GridTicks / 2);
 
 		Mask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy, EntityMasks.Mobile });
 		TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly, EntityMasks.Structure });
@@ -19,7 +19,6 @@ public partial class GoblinSiege : DamagingEntity
 		BaseMovementSpeed = 40;
 		BaseAttackSpeed = 20;
 		Height = Constants.GridTicks / 2;
-		Range = (uint)Constants.GridTicks / 2;
 
 		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/batteringRam.png");
 		Parent.Sprite.RegionRect = new Rect2(new Vector2(0, 0), new Vector2(348, 265));

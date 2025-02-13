@@ -20,7 +20,7 @@
 - Electrified: Τρώει διπλο damage απο thunder και τελειώνει. Μαζί με wet γινεται stunned.
 - Bleeding: Damage over time. Τελεώνει με heal.
 - Slowed: Μισό speed και attack speed.
-- Hasted: +50% speed και attack speed.
+- Haste: +50% speed και attack speed.
 - Restricted: Movement speed μηδέν.
 - Confused: Επιτίθεται σε όλους.
 - Mind Control: Ενας εχθρος πολεμάει για σενα.

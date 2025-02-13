@@ -1,9 +1,8 @@
 using System;
-using Godot;
 
 namespace Cardoni;
 
-public abstract partial class ActivatingEntity : Entity
+public class Cooldown
 {
 	public const uint StacksPerCharge = 1200;
 
@@ -11,28 +10,34 @@ public abstract partial class ActivatingEntity : Entity
 
 	uint startingStacks = 0;
 
+	public Entity Entity { get; set; }
+
+	protected Action Action;
+
+	public Cooldown(Entity entity, Action action)
+	{
+		Entity = entity;
+		Action = action;
+	}
+
 	void Tick()
 	{
-		activateStacks += AttackSpeed;
+		activateStacks += Entity.AttackSpeed;
 		while (activateStacks >= StacksPerCharge)
 		{
-			Activate();
+			Action();
 			activateStacks -= StacksPerCharge;
 		}
 	}
 
-	protected abstract void Activate();
-
-	public override void Spawn()
+	public void Start()
 	{
-		base.Spawn();
 		GameState.AddTicked(Tick);
 		activateStacks = startingStacks;
 	}
 
-	public override void Kill()
+	public void End()
 	{
-		base.Kill();
 		GameState.RemoveTicked(Tick);
 	}
 }

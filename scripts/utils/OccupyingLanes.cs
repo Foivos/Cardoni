@@ -23,7 +23,7 @@ public class OccupyingLanes
 
 	public bool Intersects(OccupyingLanes other)
 	{
-		return !(From > other.To && To < other.From);
+		return !(From > other.To || To < other.From);
 	}
 
 	public bool IsIn(uint lane)

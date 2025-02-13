@@ -21,13 +21,9 @@ public class BleedingEffect : Effect
 
 	public bool Ticking = false;
 
-	public BleedingEffect(Entity entity, uint strength)
+	public BleedingEffect(Entity entity): base(entity)
 	{
-		Strength = strength;
-		Entity = entity;
-
-		RefEffect = this;
-		Update();
+		Strength = 0;
 	}
 
 	public override bool Affected()

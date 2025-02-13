@@ -13,6 +13,6 @@ public class CardEffectPoison : EntityActive
 
 	public override void Activate(Entity entity)
 	{
-		Poisoned.Apply(entity, Duration, Strength);
+		new Poisoned(entity, Duration, Strength);
 	}
 }

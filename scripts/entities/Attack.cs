@@ -3,7 +3,7 @@ using Godot;
 
 namespace Cardoni;
 
-public abstract partial class AttackingEntity : Entity
+public abstract class Attack
 {
 	public const uint StacksPerAttack = 1200;
 
@@ -14,8 +14,15 @@ public abstract partial class AttackingEntity : Entity
 	public uint Range { get; set; }
 
 	public Entity Target { get; set; }
+	public Entity Entity { get; set; }
 
 	public bool Attacking { get; set; }
+
+	public Attack(Entity entity, uint range)
+	{
+		Entity = entity;
+		Range = range;
+	}
 
 	void Tick()
 	{
@@ -35,7 +42,7 @@ public abstract partial class AttackingEntity : Entity
 			Target = FindClosestTarget();
 			if (Target == null)
 			{
-				Direction = 0;
+				Entity.Direction = 0;
 				return;
 			}
 			if (InRange(Target))
@@ -44,14 +51,14 @@ public abstract partial class AttackingEntity : Entity
 			}
 			else
 			{
-				Direction = Target.Y > Y ? 1 : -1;
+				Entity.Direction = Target.Y > Entity.Y ? 1 : -1;
 			}
 		}
 	}
 
 	protected virtual void FinishAttack()
 	{
-		attackStacks += AttackSpeed;
+		attackStacks += Entity.AttackSpeed;
 		if (attackStacks >= startingStacks)
 		{
 			StopAttack();
@@ -61,21 +68,20 @@ public abstract partial class AttackingEntity : Entity
 
 	protected virtual bool InRange(Entity target)
 	{
-		return VerticalDistance(target) <= Range;
+		return Entity.VerticalDistance(target) <= Range;
 	}
 
 	protected virtual void StartAttack()
 	{
+		GD.Print(Entity.Name, " ", Entity.AttackSpeedModifier);
 		Attacking = true;
-		GD.Print(Name, " starting attack against ", Target.Name, " ", MovementSpeedModifier);
-		Direction = 0;
+		Entity.Direction = 0;
 		attackStacks = startingStacks;
 	}
 
 	protected virtual void StopAttack()
 	{
 		Attacking = false;
-		GD.Print(Name, " stopping attack");
 	}
 
 	protected virtual Entity FindClosestTarget()
@@ -87,7 +93,7 @@ public abstract partial class AttackingEntity : Entity
 			if (!IsValidTarget(entity))
 				continue;
 
-			int distance = VerticalDistance(entity);
+			int distance = Entity.VerticalDistance(entity);
 			if (distance < minDistance)
 			{
 				minDistance = distance;
@@ -99,33 +105,31 @@ public abstract partial class AttackingEntity : Entity
 
 	protected virtual bool IsValidTarget(Entity entity)
 	{
-		return entity != this
+		return entity != Entity
 			&& entity.IsAlive
-			&& OccupyingLanes.Intersects(entity.OccupyingLanes)
-			&& TargetMask.Matches(entity.Mask);
+			&& Entity.OccupyingLanes.Intersects(entity.OccupyingLanes)
+			&& Entity.TargetMask.Matches(entity.Mask);
 	}
 
 	protected virtual void ContinueAttack()
 	{
-		attackStacks += AttackSpeed;
+		attackStacks += Entity.AttackSpeed;
 		while (attackStacks >= StacksPerAttack)
 		{
-			Attack();
+			Activate();
 			attackStacks -= StacksPerAttack;
 		}
 	}
 
-	protected abstract void Attack();
+	protected abstract void Activate();
 
-	public override void Spawn()
+	public void Start()
 	{
-		base.Spawn();
 		GameState.AddTicked(Tick);
 	}
 
-	public override void Kill()
+	public void End()
 	{
-		base.Kill();
 		GameState.RemoveTicked(Tick);
 	}
 }

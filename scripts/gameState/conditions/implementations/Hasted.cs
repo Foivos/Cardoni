@@ -1,9 +1,9 @@
 namespace Cardoni;
 
-public class Hasted : CountingExpiringEffectCondition<HasteEffect>
+public class Haste : CountingExpiringEffectCondition<HasteEffect>
 {
-	public override EffectType EffectType => EffectType.Hasted;
+	public override EffectType EffectType => EffectType.Haste;
 
-	public Hasted(Entity entity, uint duration) : base(entity, duration)
-	{}
+	public Haste(Entity entity, uint duration)
+		: base(entity, duration) { }
 }

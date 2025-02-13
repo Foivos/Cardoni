@@ -8,7 +8,8 @@ public class Poisoned : ExpiringEffectCondition<PoisonedEffect>
 
 	public uint Strength;
 
-	public Poisoned(Entity entity, uint strength, uint duration) : base(entity)
+	public Poisoned(Entity entity, uint strength, uint duration)
+		: base(entity)
 	{
 		if (duration != 0)
 			Expiring = new Expiring(duration, End);

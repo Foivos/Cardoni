@@ -1,5 +1,6 @@
 namespace Cardoni;
 
+using System;
 using System.Collections.Generic;
 
 public abstract class Effect
@@ -15,6 +16,28 @@ public abstract class Effect
 	}
 
 	public List<ICondition> Conditions { get; set; } = new();
+
+	public static Type[] EffectTypes = new Type[]{
+		typeof(WetEffect),
+		typeof(FrozenEffect),
+		typeof(StunnedEffect),
+		typeof(PoisonedEffect),
+		typeof(ElectrifiedEffect),
+		typeof(BleedingEffect),
+		typeof(SlowedEffect),
+		typeof(HasteEffect),
+		typeof(RestrictedEffect),
+		typeof(ConfusedEffect),
+		typeof(MindControlledEffect),
+	};
+
+	public Effect(Entity entity) {
+		Entity = entity;
+		RefEffect = this;
+
+		Update();
+
+	}
 
 	public virtual bool Affected()
 	{

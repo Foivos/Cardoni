@@ -43,7 +43,7 @@ public partial class Entity
 
 	public int Direction { get; set; }
 
-	public Effect[] Effects = new Effect[Enum.GetNames(typeof(EffectType)).Length];
+	public Effect[] Effects = new Effect[Enum.GetNames<EffectType>().Length];
 	public List<ICondition> Conditions = new List<ICondition>();
 
 	public Shape2D Shape { get; set; }
@@ -82,9 +82,16 @@ public partial class Entity
 
 	public EntityMask TargetMask { get; set; }
 
+	public List<Cooldown> Cooldowns { get; set; } = new();
+
+	public Attack Attack { get; set; }
+
 	protected Entity()
 	{
 		SpawnManager.Spawn(this);
+		foreach (EffectType effectType in Enum.GetValues<EffectType>()) {
+			Effect.EffectTypes[(int) effectType].GetConstructor(new Type[]{typeof(Entity)}).Invoke(new object[]{this});
+		}
 	}
 
 	public virtual void Damage(int damage)
@@ -124,6 +131,7 @@ public partial class Entity
 
 	public virtual void Kill()
 	{
+		Attack?.End();
 		foreach (Effect effect in Effects)
 		{
 			if (effect == null)
@@ -136,10 +144,22 @@ public partial class Entity
 		{
 			condiiton.End();
 		}
+		foreach (Cooldown cooldown in Cooldowns)
+		{
+			cooldown.Start();
+		}
 		Parent.QueueFree();
 	}
 
-	public virtual void Spawn() { }
+	public virtual void Spawn()
+	{
+		Attack?.Start();
+
+		foreach (Cooldown cooldown in Cooldowns)
+		{
+			cooldown.Start();
+		}
+	}
 
 	public int VerticalDistance(Entity target)
 	{

@@ -21,13 +21,9 @@ public class PoisonedEffect : Effect
 
 	public bool Ticking = false;
 
-	public PoisonedEffect(Entity entity, uint strength)
+	public PoisonedEffect(Entity entity): base(entity)
 	{
-		Strength = strength;
-		Entity = entity;
-
-		RefEffect = this;
-		Update();
+		Strength = 0;
 	}
 
 	public override bool Affected()
