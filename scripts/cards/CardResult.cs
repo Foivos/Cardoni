@@ -1,11 +1,15 @@
 namespace Cardoni;
 
-using System.Collections.Generic;
+using Godot;
 
-public abstract class CardResult
+[GlobalClass]
+public abstract partial class CardResult : Resource
 {
-	public List<CardTarget> Targets { get; set; }
-	public List<IActive> Effects { get; set; }
+	[Export]
+	public CardTarget[] Targets { get; set; }
+
+	[Export]
+	public Active[] Effects { get; set; }
 
 	public abstract void Activate();
 }

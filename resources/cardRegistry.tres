@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="CardRegistry" load_steps=2 format=3 uid="uid://dscy6ttx32cur"]
+
+[ext_resource type="Script" path="res://scripts/registries/CardRegistry.cs" id="1_2dxkn"]
+
+[resource]
+script = ExtResource("1_2dxkn")
+Cards = {}
+Masks = 5
+Masks2 = 5

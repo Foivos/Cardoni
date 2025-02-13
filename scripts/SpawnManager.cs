@@ -17,7 +17,9 @@ public partial class SpawnManager : Node
 	{
 		Instance = this;
 
-		new Player(50);
+		Player player = new Player(50);
+
+		GD.Print(player.Health);
 
 		var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
 		{

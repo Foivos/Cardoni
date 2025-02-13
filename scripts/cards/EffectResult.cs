@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-public class EffectResult : CardResult
+[GlobalClass]
+public partial class EffectResult : CardResult
 {
 	public EffectResult(List<EntityTarget> targets, List<EntityActive> effects)
 	{
-		Targets = targets.Cast<CardTarget>().ToList();
-		Effects = effects.Cast<IActive>().ToList();
+		Targets = targets.Cast<CardTarget>().ToArray();
+		Effects = effects.Cast<Active>().ToArray();
 	}
 
 	public virtual bool Affects(Entity entity)
@@ -19,7 +20,7 @@ public class EffectResult : CardResult
 
 	public virtual void Affect(Entity entity)
 	{
-		foreach (IActive effect in Effects)
+		foreach (Active effect in Effects)
 		{
 			((EntityActive)effect).Activate(entity);
 		}

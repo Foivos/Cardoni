@@ -1,15 +1,17 @@
 namespace Cardoni;
 
-using System;
 using Godot;
 
 public partial class Card : Node2D
 {
 	public int Index { get; set; }
-	public string Description { get; set; }
 
 	[Export]
+	public string Description { get; set; }
+
 	int manaCost;
+
+	[Export]
 	public int ManaCost
 	{
 		get { return manaCost; }
@@ -20,6 +22,7 @@ public partial class Card : Node2D
 		}
 	}
 
+	[Export]
 	public CardResult[] CardResults { get; set; }
 
 	[Export]

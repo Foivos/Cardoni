@@ -1,7 +1,6 @@
-using System;
-using System.Collections.Generic;
-
 namespace Cardoni;
+
+using System;
 
 public enum DamageTypes
 {
@@ -72,7 +71,7 @@ public class DamageType
 		if (entity.Affected(EffectType.Wet))
 		{
 			entity.GetEffect<WetEffect>().Conditions[0].End();
-			// todo: add frozen condition.
+			new Frozen(entity, 40);
 		}
 	}
 
@@ -92,7 +91,7 @@ public class DamageType
 		if (entity.Affected(EffectType.Wet))
 		{
 			entity.GetEffect<WetEffect>().Conditions[0].End();
-			// todo: add stunned effect
+			new Stunned(entity, 40);
 		}
 		if (entity.Affected(EffectType.Wet))
 		{

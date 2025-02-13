@@ -2,7 +2,8 @@ namespace Cardoni;
 
 using Godot;
 
-public class PositionTarget : CardTarget
+[GlobalClass]
+public partial class PositionTarget : CardTarget
 {
 	Vector2 Position => TargetView.Instance.Position;
 

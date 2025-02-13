@@ -10,11 +10,11 @@ public class RestrictedEffect : CountedEffect
 
 	protected override void Apply()
 	{
-		Entity.AttackSpeedModifier -= 1.5f;
+		Entity.MovementSpeedModifier -= 1.5f;
 	}
 
 	protected override void Remove()
 	{
-		Entity.AttackSpeedModifier += 1.5f;
+		Entity.MovementSpeedModifier += 1.5f;
 	}
 }

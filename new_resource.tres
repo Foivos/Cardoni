@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="CardResource" load_steps=13 format=3 uid="uid://cl60e7pwcqhv3"]
+
+[ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="1_3yfqu"]
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectDamage.cs" id="1_5e64c"]
+[ext_resource type="Script" path="res://scripts/registries/CardResource.cs" id="1_xvm0l"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="2_j3ady"]
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectPoison.cs" id="2_qgb8d"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="3_2vubu"]
+[ext_resource type="Texture2D" uid="uid://digqxd7ktw20m" path="res://gregFolder/images/testCardP.png" id="3_jkanb"]
+
+[sub_resource type="Resource" id="Resource_h44tw"]
+script = ExtResource("1_5e64c")
+Damage = 3
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_fkt0o"]
+script = ExtResource("2_qgb8d")
+Duration = 30
+Strength = 40
+
+[sub_resource type="Resource" id="Resource_0x7ki"]
+script = ExtResource("3_2vubu")
+Masks = 0
+
+[sub_resource type="Resource" id="Resource_5pjk1"]
+script = ExtResource("1_3yfqu")
+Clip = false
+StringPattern = PackedStringArray("XO", "OX")
+EntityMask = SubResource("Resource_0x7ki")
+
+[sub_resource type="Resource" id="Resource_y8gvd"]
+script = ExtResource("2_j3ady")
+Targets = Array[Resource]([SubResource("Resource_5pjk1")])
+Effects = Array[Object]([SubResource("Resource_h44tw"), SubResource("Resource_fkt0o")])
+
+[resource]
+script = ExtResource("1_xvm0l")
+Name = "Card"
+Description = "A Test Card"
+ManaCost = 2
+CardResults = Array[Object]([SubResource("Resource_y8gvd")])
+Sprite = ExtResource("3_jkanb")

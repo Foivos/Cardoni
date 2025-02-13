@@ -16,11 +16,11 @@ public class MindControlledEffect : CountedEffect
 
 	protected override void Apply()
 	{
-		Entity.Mask.Mask = Entity.Mask.Mask ^ MindControlMask.Mask;
+		Entity.TargetMask.Mask = Entity.TargetMask.Mask ^ MindControlMask.Mask;
 	}
 
 	protected override void Remove()
 	{
-		Entity.Mask.Mask = Entity.Mask.Mask ^ MindControlMask.Mask;
+		Entity.TargetMask.Mask = Entity.TargetMask.Mask ^ MindControlMask.Mask;
 	}
 }

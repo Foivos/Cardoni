@@ -16,6 +16,7 @@ public abstract class EffectCondition<T> : ICondition
 	public EffectCondition(Entity entity)
 	{
 		Entity = entity;
+		Effect.Conditions.Add(this);
 	}
 
 	public virtual void End() { }

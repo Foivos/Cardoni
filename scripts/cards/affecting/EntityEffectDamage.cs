@@ -1,11 +1,19 @@
 namespace Cardoni;
 
-public class CardEffectDamage : EntityActive
+using Godot;
+
+[GlobalClass]
+public partial class EntityEffectDamage : EntityActive
 {
+	[Export]
 	public int Damage { get; set; }
+
+	[Export]
 	public DamageTypes DamageType { get; set; }
 
-	public CardEffectDamage(DamageTypes damageType, int damage)
+	public EntityEffectDamage() { }
+
+	public EntityEffectDamage(DamageTypes damageType, int damage)
 	{
 		Damage = damage;
 		DamageType = damageType;

@@ -80,6 +80,11 @@ public class PriorityQueue<T>
 		int index = elements.FindIndex((a) => a.Equals(item));
 		if (index == -1)
 			return false;
+		if (index == elements.Count - 1)
+		{
+			elements.RemoveAt(index);
+			return true;
+		}
 
 		int last = elements.Count - 1;
 		item = elements[last];

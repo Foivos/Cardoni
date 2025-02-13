@@ -1,8 +1,10 @@
 namespace Cardoni;
 
 using System.Collections.Generic;
+using Godot;
 
-public class LineTarget : EntityTarget
+[GlobalClass]
+public partial class LineTarget : EntityTarget
 {
 	int Line => TargetView.Instance.Line;
 

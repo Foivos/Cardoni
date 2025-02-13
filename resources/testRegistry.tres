@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="TestRegistry" load_steps=2 format=3 uid="uid://cc87nnryl7na8"]
+
+[ext_resource type="Script" path="res://scripts/registries/TestRegistry.cs" id="1_wbps6"]
+
+[resource]
+script = ExtResource("1_wbps6")
+Registry = null

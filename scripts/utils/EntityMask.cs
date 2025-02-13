@@ -1,25 +1,38 @@
 namespace Cardoni;
 
+using System;
+using System.Collections.Generic;
+using Godot;
+
+[Flags]
 public enum EntityMasks
 {
-	Mobile,
-	Structure,
-	Enemy,
-	Friendly,
-	Boss,
+	Enemy = 1 << 0,
+	Friendly = 1 << 1,
+	Mobile = 1 << 2,
+	Structure = 1 << 3,
+	Boss = 1 << 4,
 }
 
-public class EntityMask
+public partial class EntityMask : Resource
 {
 	public uint Mask { get; set; }
+
+	[Export]
+	public EntityMasks Masks
+	{
+		get => (EntityMasks)Mask;
+		set { Mask = (uint)value; }
+	}
 
 	public EntityMask() { }
 
 	public EntityMask(EntityMasks[] masks)
 	{
+		Mask = 0;
 		foreach (EntityMasks mask in masks)
 		{
-			Mask |= (uint)(1 << (int)mask);
+			Mask |= (uint)mask;
 		}
 	}
 
