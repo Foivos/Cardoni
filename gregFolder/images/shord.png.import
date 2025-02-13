@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbvdeetchq6c"
-path="res://.godot/imported/skyParalax.png-26b0947dc96290db5147ed960d3cbdcd.ctex"
+uid="uid://b4fsfc12l0hka"
+path="res://.godot/imported/shord.png-e1eb0d1c5cef4386da034a09d1c8b1f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/skyParalax.png"
-dest_files=["res://.godot/imported/skyParalax.png-26b0947dc96290db5147ed960d3cbdcd.ctex"]
+source_file="res://gregFolder/images/shord.png"
+dest_files=["res://.godot/imported/shord.png-e1eb0d1c5cef4386da034a09d1c8b1f9.ctex"]
 
 [params]
 

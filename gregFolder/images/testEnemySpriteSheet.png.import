@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhoc5yopses6y"
-path="res://.godot/imported/square.png-b8374532f39bf02c03147b8e552a2f04.ctex"
+uid="uid://cf278venq0udt"
+path="res://.godot/imported/testEnemySpriteSheet.png-3a1bc1f6421a4cdd99673644a21cdec6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/square.png"
-dest_files=["res://.godot/imported/square.png-b8374532f39bf02c03147b8e552a2f04.ctex"]
+source_file="res://gregFolder/images/testEnemySpriteSheet.png"
+dest_files=["res://.godot/imported/testEnemySpriteSheet.png-3a1bc1f6421a4cdd99673644a21cdec6.ctex"]
 
 [params]
 

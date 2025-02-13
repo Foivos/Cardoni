@@ -1,3 +1,4 @@
+using Cardoni;
 using Godot;
 using System;
 
@@ -22,40 +23,51 @@ public partial class atackAnimation : Node
 
 
 
-	public static void doAtackAnim(Sprite2D entity, Sprite2D weapon)
+	public static void doAtackAnim(AttackingEntity attacker)
 	{
-		if (inst == null || entity == null || weapon == null) return;
-		inst.atackAnim(entity, weapon);
+		if (inst == null) return;
+		if (attacker.Parent.Sprite == null || attacker.Parent.Sprite == null) return;
+		inst.attackAnim(attacker);
 	}
-	public async void atackAnim(Sprite2D entity, Sprite2D weapon)
+	public async void attackAnim(AttackingEntity attacker)
 	{
 
 
-		//targetDamage();
+		bool problemDetection() { return attacker == null || attacker.IsAlive == false; }
 
 
-		entity.RotationDegrees = -atackerRotation;
+		Sprite2D sprite = attacker.Parent.Sprite;
+		Sprite2D weapon = attacker.Parent.Weapon;
+		float shordStartRotation = weapon.RotationDegrees;
+
+
+		sprite.RotationDegrees = -atackerRotation;
 		weapon.Material = redOutline;
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
+		if (problemDetection()) return;
 
-		entity.RotationDegrees = 0;
-		entity.Offset = new Vector2(0, atackerOffset);
+		sprite.RotationDegrees = 0;
+		sprite.Offset = new Vector2(0, atackerOffset) * attacker.Direction;
 		weapon.ZIndex = 5;
-		weapon.Offset = shordOffset;
-		weapon.RotationDegrees = shordRotation;
+		weapon.Offset = new Vector2(shordOffset.X, attacker.Direction * shordOffset.Y);
+
+
+		weapon.RotationDegrees = shordStartRotation +  shordRotation * attacker.Direction;
 
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
+		if (problemDetection()) return;
 
-		entity.Offset = Vector2.Zero;
+		sprite.Offset = Vector2.Zero;
 
 
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
+		if (problemDetection()) return;
 
 		weapon.ZIndex = 0;
-		weapon.RotationDegrees = 0;
+		weapon.RotationDegrees = shordStartRotation;
 		weapon.Offset = Vector2.Zero;
 		weapon.Material = null;
 		//shord.TopLevel = false;

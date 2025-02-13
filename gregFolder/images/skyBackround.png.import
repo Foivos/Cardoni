@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://4wtajmvyyyoa"
-path="res://.godot/imported/testSpriteSheet.png-d4451d3b5ae0b6efd4138f6b3f7ef125.ctex"
+uid="uid://c15jr41ptjpo"
+path="res://.godot/imported/skyBackround.png-57e546e4e12d2ea3cdc2d31abb1d6014.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/testSpriteSheet.png"
-dest_files=["res://.godot/imported/testSpriteSheet.png-d4451d3b5ae0b6efd4138f6b3f7ef125.ctex"]
+source_file="res://gregFolder/images/skyBackround.png"
+dest_files=["res://.godot/imported/skyBackround.png-57e546e4e12d2ea3cdc2d31abb1d6014.ctex"]
 
 [params]
 

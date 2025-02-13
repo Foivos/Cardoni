@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://c4k7jgrdlhjtu"]
+[gd_scene load_steps=6 format=3 uid="uid://dsfsps4n187ti"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="1_40t6c"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]
 [ext_resource type="Script" path="res://gregFolder/gregC/atackAnimation.cs" id="3_8ktg1"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="4_iljim"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4ghb"]
+shader = ExtResource("4_iljim")
+shader_parameter/width = 1
+shader_parameter/outline_color = Color(1, 0, 0, 1)
 
 [node name="Effects" type="Node"]
 
@@ -28,8 +34,9 @@ scale = Vector2(0.5, 0.5)
 
 [node name="atackAnimation" type="Node" parent="."]
 script = ExtResource("3_8ktg1")
+redOutline = SubResource("ShaderMaterial_y4ghb")
 atackerRotation = 10.0
 atackerOffset = 5.0
-shordRotation = 10.0
+shordRotation = 40.0
 shordOffset = Vector2(-5, 10)
 delay = 0.05

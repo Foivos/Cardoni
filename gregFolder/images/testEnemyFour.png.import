@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7jfxb4nb7xj"
-path="res://.godot/imported/testBigEmojys.png-02dfc66d9b64ea6f3b48db490af0ace4.ctex"
+uid="uid://dmgke6vatacy8"
+path="res://.godot/imported/testEnemyFour.png-d7ed1aa7234ed41211964a1fa15a61b4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/testBigEmojys.png"
-dest_files=["res://.godot/imported/testBigEmojys.png-02dfc66d9b64ea6f3b48db490af0ace4.ctex"]
+source_file="res://gregFolder/images/testEnemyFour.png"
+dest_files=["res://.godot/imported/testEnemyFour.png-d7ed1aa7234ed41211964a1fa15a61b4.ctex"]
 
 [params]
 

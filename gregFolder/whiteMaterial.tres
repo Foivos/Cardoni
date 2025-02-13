@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://m4n04ci0djkv"]
-
-[ext_resource type="Shader" uid="uid://g3ax3sgf75xc" path="res://gregFolder/whiteShader.tres" id="1_q0bda"]
-
-[resource]
-shader = ExtResource("1_q0bda")
-shader_parameter/tint = Color(0.9, 0.9, 0.9, 1)

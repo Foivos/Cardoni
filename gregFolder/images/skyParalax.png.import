@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bnsktbdg2spo5"
-path="res://.godot/imported/testEmojys.png-b27d95d411eff4985777bd9fd57eb7db.ctex"
+uid="uid://cbvdeetchq6c"
+path="res://.godot/imported/skyParalax.png-1a997a44c03878e83c6818a9176766f9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/testEmojys.png"
-dest_files=["res://.godot/imported/testEmojys.png-b27d95d411eff4985777bd9fd57eb7db.ctex"]
+source_file="res://gregFolder/images/skyParalax.png"
+dest_files=["res://.godot/imported/skyParalax.png-1a997a44c03878e83c6818a9176766f9.ctex"]
 
 [params]
 

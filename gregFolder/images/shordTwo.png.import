@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cd8elcihy6m2k"
-path="res://.godot/imported/testStrike.png-02f0027e4dbd8371392bbc7ff156f487.ctex"
+uid="uid://d1ts0gduggbgo"
+path="res://.godot/imported/shordTwo.png-9df7f5546340b8454cc55110f25a0e9e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/testStrike.png"
-dest_files=["res://.godot/imported/testStrike.png-02f0027e4dbd8371392bbc7ff156f487.ctex"]
+source_file="res://gregFolder/images/shordTwo.png"
+dest_files=["res://.godot/imported/shordTwo.png-9df7f5546340b8454cc55110f25a0e9e.ctex"]
 
 [params]
 

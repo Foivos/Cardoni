@@ -7,9 +7,10 @@ public abstract partial class AttackingEntity : Entity
 {
 	public const uint StacksPerAttack = 1200;
 
-	uint attackStacks;
-
 	uint startingStacks = 600;
+	uint attackStacks;
+	
+
 
 	public uint Range { get; set; }
 
@@ -67,7 +68,6 @@ public abstract partial class AttackingEntity : Entity
 	protected virtual void StartAttack()
 	{
 
-		atackAnimation.doAtackAnim(Parent.Sprite,Parent.Weapon );
 
 		Attacking = true;
 		GD.Print(Name, " starting attack against ", Target.Name, " ", MovementSpeedModifier);
@@ -113,11 +113,12 @@ public abstract partial class AttackingEntity : Entity
 		attackStacks += AttackSpeed;
 		while (attackStacks >= StacksPerAttack)
 		{
+			atackAnimation.doAtackAnim(this);
 			Attack();
 			attackStacks -= StacksPerAttack;
 		}
 	}
-
+     
 	protected abstract void Attack();
 
 	public override void Spawn()

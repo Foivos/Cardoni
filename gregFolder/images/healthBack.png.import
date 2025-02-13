@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c15jr41ptjpo"
-path="res://.godot/imported/skyBackround.png-4ec5fedade4717ceb15288babc6ffab4.ctex"
+uid="uid://b7ctatsm3h7nv"
+path="res://.godot/imported/healthBack.png-f561f9d781a9743b28d72978b96f7941.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/skyBackround.png"
-dest_files=["res://.godot/imported/skyBackround.png-4ec5fedade4717ceb15288babc6ffab4.ctex"]
+source_file="res://gregFolder/images/healthBack.png"
+dest_files=["res://.godot/imported/healthBack.png-f561f9d781a9743b28d72978b96f7941.ctex"]
 
 [params]
 

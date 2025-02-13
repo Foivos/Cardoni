@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7ctatsm3h7nv"
-path="res://.godot/imported/healthBack.png-6581632fc96390605507415d51f666cb.ctex"
+uid="uid://caoycu3w67514"
+path="res://.godot/imported/testLady.png-b05138ce5235f80c7d1b81c2308f024d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/healthBack.png"
-dest_files=["res://.godot/imported/healthBack.png-6581632fc96390605507415d51f666cb.ctex"]
+source_file="res://gregFolder/images/testLady.png"
+dest_files=["res://.godot/imported/testLady.png-b05138ce5235f80c7d1b81c2308f024d.ctex"]
 
 [params]
 

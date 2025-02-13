@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://caoycu3w67514"
-path="res://.godot/imported/testLady.png-3b463a576f45bafffccda39948794bbc.ctex"
+uid="uid://c7jfxb4nb7xj"
+path="res://.godot/imported/testBigEmojys.png-6a120c2ae8eb8c1eb04cafc73961b6d8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/testLady.png"
-dest_files=["res://.godot/imported/testLady.png-3b463a576f45bafffccda39948794bbc.ctex"]
+source_file="res://gregFolder/images/testBigEmojys.png"
+dest_files=["res://.godot/imported/testBigEmojys.png-6a120c2ae8eb8c1eb04cafc73961b6d8.ctex"]
 
 [params]
 

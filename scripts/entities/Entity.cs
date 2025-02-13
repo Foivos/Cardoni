@@ -41,7 +41,28 @@ public partial class Entity
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
-	public int Direction { get; set; }
+	int direction;
+	public int Direction
+	{
+		get { return direction; }
+		set
+		{
+			direction = value;
+
+			if (Parent != null && Parent.Weapon != null)
+			{
+
+
+
+				if (value == 1) Parent.Weapon.RotationDegrees = -145;
+
+				else Parent.Weapon.RotationDegrees = -45;
+
+
+			}
+		}
+	}
+
 
 	public Effect[] Effects = new Effect[Enum.GetNames(typeof(EffectType)).Length];
 	public List<ICondition> Conditions = new List<ICondition>();

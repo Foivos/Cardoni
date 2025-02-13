@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dy0om6hy1yfsl"
-path="res://.godot/imported/testEnemyThree.png-1ab2d62a4267cca6919b57b2a736d7ef.ctex"
+uid="uid://egxkw6t7yeby"
+path="res://.godot/imported/healthBar.png-6b365293d8782fdbfcd387e7065fa40a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/testEnemyThree.png"
-dest_files=["res://.godot/imported/testEnemyThree.png-1ab2d62a4267cca6919b57b2a736d7ef.ctex"]
+source_file="res://gregFolder/images/healthBar.png"
+dest_files=["res://.godot/imported/healthBar.png-6b365293d8782fdbfcd387e7065fa40a.ctex"]
 
 [params]
 

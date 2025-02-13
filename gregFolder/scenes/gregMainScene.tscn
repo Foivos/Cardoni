@@ -1,0 +1,164 @@
+[gd_scene load_steps=12 format=3 uid="uid://gfu73gc2fpwh"]
+
+[ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_stp0o"]
+[ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="2_0o2b7"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="3_rt1l3"]
+[ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="4_ahft0"]
+[ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/images/testEnemyFour.png" id="5_ph6ep"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Animation" id="Animation_5mq22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vhblr"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vut0g"]
+_data = {
+"RESET": SubResource("Animation_5mq22"),
+"idle": SubResource("Animation_vhblr")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cq2j5"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_34wtk"]
+shader = ExtResource("3_rt1l3")
+shader_parameter/width = 1
+shader_parameter/outline_color = Color(0, 0.8, 1, 1)
+
+[node name="GregMainScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_stp0o")
+
+[node name="STUFF" type="Node" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="STUFF"]
+visible = false
+material = SubResource("CanvasItemMaterial_oj31l")
+position = Vector2(569, -475)
+lifetime = 2.0
+draw_order = 1
+gravity = Vector2(0, 500)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="spriteSheetAnim" type="Sprite2D" parent="STUFF"]
+position = Vector2(-80, -468)
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="STUFF/spriteSheetAnim"]
+libraries = {
+"": SubResource("AnimationLibrary_vut0g")
+}
+autoplay = "idle"
+
+[node name="UI controll" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="target pos label" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -146.0
+offset_top = -371.0
+offset_right = -53.0
+offset_bottom = -348.0
+scale = Vector2(2, 2)
+text = "p"
+
+[node name="target pos global" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -145.0
+offset_top = -311.0
+offset_right = -52.0
+offset_bottom = -288.0
+scale = Vector2(2, 2)
+text = "global p"
+
+[node name="explainer" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -157.0
+offset_top = 114.0
+offset_right = -5.0
+offset_bottom = 215.0
+scale = Vector2(2, 2)
+text = "left = flash 1 
+right = flash 2 
+down = shakeCam
+enter = shakeEnm"
+autowrap_mode = 1
+
+[node name="BACK sky" type="Sprite2D" parent="."]
+scale = Vector2(2.57, 2.57)
+texture = ExtResource("2_0o2b7")
+
+[node name="BLOOD" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_cq2j5")
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angle_min = -50.0
+angle_max = 50.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="shord OUTLINE" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_34wtk")
+position = Vector2(68, -324)
+scale = Vector2(4, 4)
+texture = ExtResource("4_ahft0")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-7, -127)
+rotation = -0.817296
+texture = ExtResource("5_ph6ep")

@@ -1,16 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=9 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
-[ext_resource type="PackedScene" uid="uid://b6qe4xt00nrba" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
+[ext_resource type="PackedScene" uid="uid://bib401hmbony5" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
-[ext_resource type="PackedScene" uid="uid://c4k7jgrdlhjtu" path="res://scenes/effects.tscn" id="6_h4557"]
+[ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
+[ext_resource type="PackedScene" uid="uid://dsfsps4n187ti" path="res://scenes/effects.tscn" id="6_h4557"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
 
 [node name="MainScene" type="Node2D"]
+
+[node name="backround" type="Sprite2D" parent="."]
+position = Vector2(200, 400)
+scale = Vector2(3, 3)
+texture = ExtResource("5_mxxi8")
 
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(200, 300)
