@@ -13,13 +13,8 @@ public partial class battleEffectsC : Node
 		inst = this;
 	}
 
-	[ExportGroup("test group ")]
-	[Export]
-	Sprite2D testSprite;
 
-	[Export]
-	Material whiteMat,
-		blackMat;
+
 
 	[Export]
 	public float effectDelay;
@@ -36,25 +31,27 @@ public partial class battleEffectsC : Node
 		_ProcessSpriteEffects();
 	}
 
-	public override void _Input(InputEvent @event)
+	public override void _Input(InputEvent @event)// for testing only
 	{
-		if (testSprite == null)
-			return;
+		// if (testSprite == null)
+		// 	return;
 
-		if (@event.IsActionPressed("ui_right"))
-			addHitOne(testSprite);
-		if (@event.IsActionPressed("ui_left"))
-			addHitTwo(testSprite);
+		// if (@event.IsActionPressed("ui_right"))
+		// 	addHitOne(testSprite);
+		// if (@event.IsActionPressed("ui_left"))
+		// 	addHitTwo(testSprite);
 
-		if (@event.IsActionPressed("ui_up"))
-			cameraShake.StartShake(shakeCameraDuration, shakeCameraStrenght);
+		// if (@event.IsActionPressed("ui_up"))
+		// 	cameraShake.StartShake(shakeCameraDuration, shakeCameraStrenght);
 
-		if (@event.IsActionPressed("ui_down"))
-			doBackroundFlash();
+		// if (@event.IsActionPressed("ui_down"))
+		// 	doBackroundFlash();
 
-		if (@event.IsActionPressed("ui_accept"))
-			doShake(testSprite);
+		// if (@event.IsActionPressed("ui_accept"))
+		// 	doShake(testSprite);
 	}
+
+
 
 	#region  SPRITE EFFECTS
 
@@ -76,7 +73,7 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	class spriteEffect //? origin
+	public class spriteEffect //? origin
 	{
 		public Sprite2D sprite;
 		public int counter;
@@ -114,8 +111,18 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	class hitTwo : spriteEffect
+	public class hitDmg : spriteEffect
 	{
+		public hitDmg(Sprite2D _sprite)
+		{
+
+			if (inst == null || _sprite == null)
+				return;
+
+				sprite = _sprite;
+				inst._spriteEffect.Add(this);
+
+		}
 		public override void update(float time, out bool removeMe)
 		{
 			if (sprite == null)
@@ -142,10 +149,7 @@ public partial class battleEffectsC : Node
 		_spriteEffect.Add(new hitOne() { sprite = sprite });
 	}
 
-	public void addHitTwo(Sprite2D sprite)
-	{
-		_spriteEffect.Add(new hitTwo() { sprite = sprite });
-	}
+
 
 	class shakeSprite : spriteEffect
 	{

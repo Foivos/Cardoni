@@ -20,17 +20,18 @@ public partial class fallingShords : Node
 	[Export] float sizeAdjust;
 
 
-	public override void _Input(InputEvent @event)
-	{
-		//return;
-		if (@event is InputEventMouseButton == false) return;
-		throwItem(testSprite);
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	//return;
+	// 	if (@event is InputEventMouseButton == false) return;
+	// 	throwItem(testSprite);
 
-	}
+	// }
 
 
 
-	public static void throwItem(Sprite2D thatOne) { if (inst == null) return; inst.throwItemLocal(thatOne); }
+	public static void throwItem(Sprite2D thatOne)
+	{ if (inst == null|| thatOne == null ) return; inst.throwItemLocal(thatOne); }
 
 
 
@@ -54,7 +55,7 @@ public partial class fallingShords : Node
 		item.LinearVelocity = new Vector2(0.5f, -0.5f) * speed;
 		item.AngularVelocity = rotation;
 
-		
+
 
 
 

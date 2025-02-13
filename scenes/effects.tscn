@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://csbjck7132u02"]
+
+[ext_resource type="Script" path="res://gregFolder/gregC/fallingItems.cs" id="1_40t6c"]
+[ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]
+[ext_resource type="Texture2D" path="res://gregFolder/images/testEnemyFour.png" id="5_tlgg3"]
+[ext_resource type="Texture2D" path="res://gregFolder/images/testEnemyThree.png" id="6_e0ous"]
+
+[node name="Effects" type="Node"]
+
+[node name="falling shord" type="Node" parent="."]
+script = ExtResource("1_40t6c")
+testSprite = null
+
+[node name="EFFECTS" type="Node" parent="."]
+script = ExtResource("2_v5wef")
+effectDelay = 0.05
+shakeSpriteDuration = 0.03
+shakeSpriteOffset = 5.0
+shakeSpriteRotation = 10.0
+backroundEffectDelay = 0.02
+backroundEffeColor = Color(0.67, 0.67, 0.67, 1)
+
+[node name="test sprite" type="Sprite2D" parent="EFFECTS"]
+position = Vector2(-192, -460)
+scale = Vector2(2, 2)
+texture = ExtResource("5_tlgg3")
+
+[node name="Sprite2D" type="Sprite2D" parent="EFFECTS/test sprite"]
+position = Vector2(18.5, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("6_e0ous")

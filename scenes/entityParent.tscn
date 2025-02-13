@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b5bq885l6aov0"]
+[gd_scene load_steps=7 format=3 uid="uid://glpl5iwje24t"]
 
 [ext_resource type="Script" path="res://scripts/EntityParent.cs" id="1_8mn4u"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="2_nnhdo"]

@@ -59,7 +59,7 @@ public partial class monsterBase : Node2D
 			onDeath();
 		else
 		{
-			battleEffectsC.inst.addHitTwo(sprite);
+			new battleEffectsC.hitDmg(sprite);
 			battleEffectsC.inst.doShake(sprite);
 
 			GD.Print("dmg: " + amount + " HP: " + hp);

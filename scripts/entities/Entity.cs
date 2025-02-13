@@ -94,8 +94,11 @@ public partial class Entity
 
 		if (Health <= 0)
 		{
+			fallingShords.throwItem(Parent.Weapon);
 			GameState.Kill(this);
 		}
+		else new battleEffectsC.hitDmg(Parent.Sprite);
+
 	}
 
 	public virtual void Move()
