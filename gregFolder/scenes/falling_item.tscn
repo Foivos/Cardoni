@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bf2j5cot5xt25"]
+
+[ext_resource type="Texture2D" uid="uid://dy0om6hy1yfsl" path="res://gregFolder/images/testEnemyThree.png" id="1_n5stj"]
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/fallingShordItem.cs" id="2_6o0op"]
+
+[node name="falling item" type="Sprite2D"]
+position = Vector2(5, -351)
+texture = ExtResource("1_n5stj")
+script = ExtResource("2_6o0op")
