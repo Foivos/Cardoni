@@ -116,9 +116,14 @@ public partial class Entity
 		if (Health <= 0)
 		{
 			fallingShords.throwItem(Parent.Weapon);
+			textEffects.displayDmgText(this, 999);
 			GameState.Kill(this);
 		}
-		else new battleEffectsC.hitDmg(Parent.Sprite);
+		else
+		{
+			new battleEffectsC.hitDmg(Parent.Sprite);
+			textEffects.displayDmgText(this, damage);
+		}
 
 	}
 

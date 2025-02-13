@@ -19,7 +19,7 @@ public partial class testGreg : Node2D
 
 
 		// if (testAnim) playAnim();
-		// if (testBlood) spawnParticleThere(GetGlobalMousePosition(), 4);
+		if (testBlood) spawnParticleThere(GetGlobalMousePosition(), 4);
 
 
 		// if (testAtack && doingEffect == false) atackAnim();
@@ -123,7 +123,7 @@ public partial class testGreg : Node2D
 	}
 	public async void atackAnim(Sprite2D entity, Sprite2D weapon)
 	{
-		
+
 
 		//targetDamage();
 

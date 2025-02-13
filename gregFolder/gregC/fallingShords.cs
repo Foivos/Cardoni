@@ -76,12 +76,12 @@ public partial class fallingShords : Node
 	{
 		//return;
 
-		if (Time.GetTicksMsec() - lastInput < 200) return;
-		lastInput = Time.GetTicksMsec();
+		// if (Time.GetTicksMsec() - lastInput < 200) return;
+		// lastInput = Time.GetTicksMsec();
 
 
-		if (@event is InputEventMouseButton == false) return;
-		throwItem(testSprite);
+		// if (@event is InputEventMouseButton == false) return;
+		// throwItem(testSprite);
 
 	}
 

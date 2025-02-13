@@ -6,30 +6,10 @@ using Godot;
 
 public partial class battleEffectsC : Node
 {
+
+	#region  BASICS
 	public static battleEffectsC inst;
-
-	public override void _Ready()
-	{
-		inst = this;
-	}
-
-
-
-
-	[Export]
-	public float effectDelay;
-
-	[ExportGroup("test camera shake")]
-	[Export]
-	public float shakeCameraDuration = 0.08f;
-
-	[Export]
-	public float shakeCameraStrenght = 10;
-
-	public override void _Process(double delta)
-	{
-		_ProcessSpriteEffects();
-	}
+	public override void _Ready() { inst = this; }
 
 	public override void _Input(InputEvent @event)// for testing only
 	{
@@ -53,9 +33,21 @@ public partial class battleEffectsC : Node
 
 
 
+	public override void _Process(double delta) { _ProcessSpriteEffects(); }
+
+
+
+
+
+
+	#endregion
+
+
+
+
 	#region  SPRITE EFFECTS
 
-	List<spriteEffect> _spriteEffect = new List<spriteEffect>();
+	List<effect> _spriteEffect = new List<effect>();
 
 	void _ProcessSpriteEffects()
 	{
@@ -73,19 +65,60 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	public class spriteEffect //? origin
+	public class effect //? ORIGIN
 	{
-		public Sprite2D sprite;
+
 		public int counter;
 		public float untill;
-
 		public virtual void update(float time, out bool removeMe)
 		{
 			removeMe = false;
 		}
+
+	}
+	
+	
+	
+
+	public class invisibleLater : effect
+	{
+
+		Node2D theNode;
+
+		public invisibleLater(Node2D _node, float delay)
+		{
+
+			if (inst == null || _node == null) return;
+
+			untill = Time.GetTicksMsec() + delay * 1000;
+			theNode = _node;
+			inst._spriteEffect.Add(this);
+
+		}
+
+		public override void update(float time, out bool removeMe)
+		{
+
+			removeMe = true;
+			if (theNode != null) theNode.Visible = false;
+
+
+		}
 	}
 
-	class hitOne : spriteEffect
+
+	
+	
+	public class spriteEffect : effect //? origin
+	{
+		public Sprite2D sprite;
+
+
+
+	}
+
+
+	class hitWithInvisbleNotNice : spriteEffect
 	{
 		public override void update(float time, out bool removeMe)
 		{
@@ -113,14 +146,16 @@ public partial class battleEffectsC : Node
 
 	public class hitDmg : spriteEffect
 	{
+
+		const float hitDmgDelay = 0.05f;
 		public hitDmg(Sprite2D _sprite)
 		{
 
 			if (inst == null || _sprite == null)
 				return;
 
-				sprite = _sprite;
-				inst._spriteEffect.Add(this);
+			sprite = _sprite;
+			inst._spriteEffect.Add(this);
 
 		}
 		public override void update(float time, out bool removeMe)
@@ -133,7 +168,7 @@ public partial class battleEffectsC : Node
 
 			removeMe = false;
 			counter++;
-			untill = time + inst.effectDelay * 1000;
+			untill = time + hitDmgDelay * 1000;
 
 			if (counter == 1)
 				sprite.Modulate = new Color(0.2f, 0.2f, 0.2f);
@@ -146,7 +181,7 @@ public partial class battleEffectsC : Node
 
 	public void addHitOne(Sprite2D sprite)
 	{
-		_spriteEffect.Add(new hitOne() { sprite = sprite });
+		_spriteEffect.Add(new hitWithInvisbleNotNice() { sprite = sprite });
 	}
 
 
@@ -252,4 +287,8 @@ public partial class battleEffectsC : Node
 	}
 
 	#endregion
+
+
+
+
 }

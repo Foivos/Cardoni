@@ -1,10 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://gfu73gc2fpwh"]
+[gd_scene load_steps=15 format=3 uid="uid://gfu73gc2fpwh"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_stp0o"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="2_0o2b7"]
 [ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="3_rt1l3"]
+[ext_resource type="PackedScene" uid="uid://dsfsps4n187ti" path="res://scenes/effects.tscn" id="3_skox6"]
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="4_ahft0"]
 [ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/images/testEnemyFour.png" id="5_ph6ep"]
+[ext_resource type="Script" path="res://gregFolder/gregC/textEffects.cs" id="7_450mq"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -60,6 +62,8 @@ particles_anim_loop = false
 shader = ExtResource("3_rt1l3")
 shader_parameter/width = 1
 shader_parameter/outline_color = Color(0, 0.8, 1, 1)
+
+[sub_resource type="Theme" id="Theme_ypwe8"]
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -152,6 +156,8 @@ scale_amount_max = 5.0
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
+[node name="Effects" parent="." instance=ExtResource("3_skox6")]
+
 [node name="shord OUTLINE" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_34wtk")
 position = Vector2(68, -324)
@@ -162,3 +168,57 @@ texture = ExtResource("4_ahft0")
 position = Vector2(-7, -127)
 rotation = -0.817296
 texture = ExtResource("5_ph6ep")
+
+[node name="Node" type="Node2D" parent="."]
+script = ExtResource("7_450mq")
+col = Color(0.92, 0, 0, 1)
+duration = 0.2
+size = 2.0
+
+[node name="Node2D" type="Node2D" parent="Node"]
+position = Vector2(0, 1)
+scale = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="Node/Node2D"]
+layout_direction = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = -2.5
+offset_right = 81.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+text = "3333awdadwd"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="Node/Node2D"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -37.0
+offset_top = -11.5
+offset_right = 37.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "3333333dawdw"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Node/Node2D"]
+offset_left = 9.0
+offset_top = -52.5
+offset_right = 49.0
+offset_bottom = -12.5
+theme = SubResource("Theme_ypwe8")
+bbcode_enabled = true
+text = "33"
