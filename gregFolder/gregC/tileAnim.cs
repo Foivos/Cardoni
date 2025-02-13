@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class tileAnim : TextureRect
 {
 
-
+	//! KEEP IN MIND THE TILE ANIM MATERIAL IS WORKING 
 
 
 	[Export] int frame;
@@ -17,12 +17,12 @@ public partial class tileAnim : TextureRect
 	public override void _Process(double delta)
 	{
 		timer += delta;
-		if(timer < cooldown)return;
+		if (timer < cooldown) return;
 		{
 			timer = 0;
-			
+
 			frame++;
-			if(frame >= framesArray.Length) frame = 0;
+			if (frame >= framesArray.Length) frame = 0;
 			Texture = framesArray[frame];
 		}
 	}

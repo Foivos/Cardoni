@@ -11,11 +11,9 @@
 [ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/testEnemySpriteSheet.png" id="12_nlyjo"]
 [ext_resource type="PackedScene" uid="uid://ouhsto7m0jbo" path="res://scenes/newEnemy.tscn" id="12_sy57r"]
 [ext_resource type="Texture2D" uid="uid://bnsktbdg2spo5" path="res://gregFolder/testEmojys.png" id="14_ps0fu"]
-[ext_resource type="Script" path="res://gregFolder/gregC/gregEditTests.cs" id="15_qn0by"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="16_2pg6y"]
 [ext_resource type="Script" path="res://scripts/spawning.cs" id="17_6q0yh"]
 [ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="17_e0oim"]
-[ext_resource type="Texture2D" uid="uid://cd8elcihy6m2k" path="res://gregFolder/testStrike.png" id="17_ih7e7"]
 [ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="18_k2hcx"]
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="18_ld8t7"]
 [ext_resource type="Material" uid="uid://f8nshqg1fw1w" path="res://gregFolder/outlineMat.tres" id="19_u2kss"]
@@ -28,6 +26,11 @@
 [ext_resource type="Texture2D" uid="uid://cq1u71kvspybs" path="res://gregFolder/testFolder/testTileTwo.png" id="24_tv0ef"]
 [ext_resource type="Texture2D" uid="uid://bt2rhm4ixsjso" path="res://gregFolder/targetingMotivo.png" id="25_7tdlq"]
 [ext_resource type="Script" path="res://gregFolder/gregC/tileAnim.cs" id="28_ocysd"]
+[ext_resource type="Texture2D" uid="uid://c7sf3aigrjj73" path="res://gregFolder/testFolder/testTileSimpleOne.png" id="29_4pw7p"]
+[ext_resource type="Texture2D" uid="uid://dg2u3x3d0qpj3" path="res://gregFolder/testFolder/testTileSimpleTwo.png" id="30_4ep6t"]
+[ext_resource type="Texture2D" uid="uid://mwwb6kewllg6" path="res://gregFolder/testFolder/testTileSimpleThree.png" id="31_gh3r2"]
+[ext_resource type="Texture2D" uid="uid://dxwv5qkb37wcr" path="res://gregFolder/testFolder/testTileSimpleFour.png" id="32_klukw"]
+[ext_resource type="Shader" path="res://gregFolder/gregC/tileShader.gdshader" id="33_16y4k"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -44,18 +47,6 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../strike:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -83,60 +74,6 @@ tracks/0/keys = {
 _data = {
 "RESET": SubResource("Animation_5mq22"),
 "idle": SubResource("Animation_vhblr")
-}
-
-[sub_resource type="Animation" id="Animation_28uwy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_edm30"]
-resource_name = "idle"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2, 0.3, 0.4, 0.566667, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 0, 1, 2, 3, 4, 5, 6]
-}
-
-[sub_resource type="Animation" id="Animation_gtr5i"]
-resource_name = "strike animation"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.0666667, 0.1, 0.2, 0.3, 0.4, 0.566667, 0.733333),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 0, 1, 2, 3, 4, 5, 6]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ahsoi"]
-_data = {
-"RESET": SubResource("Animation_28uwy"),
-"idle": SubResource("Animation_edm30"),
-"strike animation": SubResource("Animation_gtr5i")
 }
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cq2j5"]
@@ -203,6 +140,10 @@ animations = [{
 "speed": 30.0
 }]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pcl74"]
+shader = ExtResource("33_16y4k")
+shader_parameter/scroll_speed = Vector2(0, 1)
+
 [node name="GregMainScene" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
@@ -235,8 +176,6 @@ autoplay = "idle"
 
 [node name="UI controll" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 5
-anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -20.0
 offset_right = 20.0
@@ -307,32 +246,15 @@ texture = ExtResource("14_ps0fu")
 region_enabled = true
 region_rect = Rect2(0, 0, 40, 40)
 
-[node name="EDIT" type="Node" parent="."]
-script = ExtResource("15_qn0by")
-
-[node name="strike" type="Sprite2D" parent="."]
-position = Vector2(-83, -164)
-texture = ExtResource("17_ih7e7")
-hframes = 7
-frame = 1
-region_rect = Rect2(0, 0, 24, 32)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="strike"]
-libraries = {
-"": SubResource("AnimationLibrary_ahsoi")
-}
-autoplay = "strike animation"
-speed_scale = 5.0
-
 [node name="PLAYER" type="Node2D" parent="."]
 script = ExtResource("18_ld8t7")
 
 [node name="newEnemy" parent="." instance=ExtResource("12_sy57r")]
-position = Vector2(-91, -258)
+position = Vector2(331, -316)
 speed = 5.0
 
 [node name="Bullet" parent="." instance=ExtResource("16_2pg6y")]
-position = Vector2(-10, -149)
+position = Vector2(320, -158)
 
 [node name="spawning" type="Node2D" parent="." node_paths=PackedStringArray("player")]
 script = ExtResource("17_6q0yh")
@@ -381,7 +303,7 @@ texture = ExtResource("19_yexge")
 [node name="TEST GREG" type="Node2D" parent="." node_paths=PackedStringArray("tiledRect", "particles", "anim", "atacker", "shord", "target")]
 script = ExtResource("20_58ier")
 testTiledAnim = true
-tiledRect = NodePath("../TextureRect anim test")
+tiledRect = NodePath("")
 tiledFrame0 = ExtResource("23_voav4")
 tiledFrame1 = ExtResource("24_tv0ef")
 particles = NodePath("../BLOOD")
@@ -439,13 +361,24 @@ vframes = 2
 region_enabled = true
 region_rect = Rect2(0, 0, 32, 32)
 
-[node name="TextureRect anim test" type="TextureRect" parent="."]
-offset_left = -19.0
-offset_top = -67.0
-offset_right = 110.0
-offset_bottom = 108.0
-texture = ExtResource("23_voav4")
+[node name="TextureRect anim test2" type="TextureRect" parent="."]
+self_modulate = Color(1, 0.337, 0.22, 0.231373)
+offset_left = 53.0
+offset_top = -166.0
+offset_right = 90.38
+offset_bottom = 9.0
+scale = Vector2(2, 2)
+texture = ExtResource("29_4pw7p")
 stretch_mode = 1
 script = ExtResource("28_ocysd")
-cooldown = 1.0
-framesArray = Array[Texture2D]([ExtResource("23_voav4"), ExtResource("24_tv0ef")])
+cooldown = 0.05
+framesArray = Array[Texture2D]([ExtResource("29_4pw7p"), ExtResource("30_4ep6t"), ExtResource("31_gh3r2"), ExtResource("32_klukw")])
+
+[node name="MATERIAL TILE WORKED" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_pcl74")
+offset_left = -53.0
+offset_top = -180.0
+offset_right = -12.0
+offset_bottom = 199.0
+texture = ExtResource("25_7tdlq")
+stretch_mode = 1

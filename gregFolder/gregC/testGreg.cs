@@ -28,7 +28,8 @@ public partial class testGreg : Node2D
 
 	#region  tiled animation    
 
-
+	//! KEEP IN MIND THE TILE ANIM MATERIAL IS WORKING 
+	
 	//! made tileAnim c# that does it well enough 
 	//worked through c# changing the texture
 
