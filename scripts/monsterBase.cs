@@ -71,7 +71,7 @@ public partial class monsterBase : Node2D
 
 
 		fallingShords.throwItem(shord);
-		spawning.monsterDied(this);
+		// spawning.monsterDied(this);
 		QueueFree();
 	}
 
