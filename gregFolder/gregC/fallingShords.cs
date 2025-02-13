@@ -31,7 +31,13 @@ public partial class fallingShords : Node
 
 
 	public static void throwItem(Sprite2D thatOne)
-	{ if (inst == null|| thatOne == null ) return; inst.throwItemLocal(thatOne); }
+	{
+		GD.Print("throwItem " + thatOne == null);
+		GD.Print("throwItem");
+		GD.Print("throwItem");
+		GD.Print("throwItem");
+		if (inst == null || thatOne == null) return; inst.throwItemLocal(thatOne);
+	}
 
 
 
