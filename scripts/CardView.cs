@@ -31,7 +31,7 @@ public partial class CardView : Node2D
 			//var target = new PatternTarget(new string[] { " X ", "XXX" }, false);
 			//var effect = new CardEffectPoison(100, 60);
 			//card.CardResults[0] = new EffectResult(new EntityTarget[]{target}.ToList(), new EntityActive[]{effect}.ToList());
-			card.CardResults[0] = new TestProjectileResult();
+			card.CardResults[0] = new BaseProjectileResult(new EntityActive[]{new CardEffectPoison(30, 40)}){Piercing = 2};
 
 			Cards[i] = card;
 

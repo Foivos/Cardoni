@@ -35,6 +35,7 @@ public partial class Projectile {
 
     public Projectile() {
         GameView.Instance.AddChild(Sprite);
+        GameState.SpawningProjectiles.Add(this);
     }
 
     public void Move() {
