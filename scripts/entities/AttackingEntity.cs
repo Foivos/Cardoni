@@ -66,6 +66,9 @@ public abstract partial class AttackingEntity : Entity
 
 	protected virtual void StartAttack()
 	{
+
+		atackAnimation.doAtackAnim(Parent.Sprite,Parent.Weapon );
+
 		Attacking = true;
 		GD.Print(Name, " starting attack against ", Target.Name, " ", MovementSpeedModifier);
 		Direction = 0;

@@ -1,28 +1,10 @@
-[gd_scene load_steps=38 format=3 uid="uid://b7c7sotxd4cmi"]
+[gd_scene load_steps=20 format=3 uid="uid://dqbibemk68ede"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_stp0o"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/testSpriteSheet.png" id="2_lbdgj"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/testEnemySpriteSheet.png" id="3_l21cm"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/spaceBack.png" id="4_qoaw3"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/testEnemyFour.png" id="8_e36pa"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/testEmojys.png" id="10_17y8y"]
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="11_0gx20"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="12_ltb07"]
-[ext_resource type="Texture2D" path="res://gregFolder/gregC/redBlood.png" id="13_1xx5h"]
-[ext_resource type="Material" path="res://gregFolder/gregC/outlineMat.tres" id="15_eko4s"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/shord.png" id="16_y2h27"]
 [ext_resource type="Script" path="res://gregFolder/gregC/testGreg.cs" id="17_2ling"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/testEnemyOne.png" id="18_8sogd"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/strikeGlow.png" id="19_fy7hq"]
-[ext_resource type="Texture2D" path="res://gregFolder/images/targetingMotivo.png" id="20_qlnnc"]
-[ext_resource type="Texture2D" path="res://gregFolder/testFolder/testTileSimpleOne.png" id="21_57kip"]
-[ext_resource type="Script" path="res://gregFolder/gregC/tileAnim.cs" id="22_qx80o"]
-[ext_resource type="Texture2D" path="res://gregFolder/testFolder/testTileSimpleTwo.png" id="23_0ctb3"]
-[ext_resource type="PackedScene" uid="uid://csbjck7132u02" path="res://scenes/effects.tscn" id="23_ehqqe"]
-[ext_resource type="Texture2D" path="res://gregFolder/testFolder/testTileSimpleThree.png" id="24_noa1t"]
-[ext_resource type="Texture2D" path="res://gregFolder/testFolder/testTileSimpleFour.png" id="25_8pu3f"]
-[ext_resource type="Shader" path="res://gregFolder/gregC/tileShader.gdshader" id="26_3p60y"]
-[ext_resource type="Shader" path="res://gregFolder/gregC/shaders/distortionShader.gdshader" id="27_axylk"]
+[ext_resource type="PackedScene" uid="uid://c4k7jgrdlhjtu" path="res://scenes/effects.tscn" id="23_ehqqe"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -75,27 +57,21 @@ particles_anim_v_frames = 3
 particles_anim_loop = false
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s5pcj"]
-atlas = ExtResource("19_fy7hq")
 region = Rect2(64, 0, 64, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nhwqw"]
-atlas = ExtResource("19_fy7hq")
 region = Rect2(128, 0, 64, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q3o23"]
-atlas = ExtResource("19_fy7hq")
 region = Rect2(0, 32, 64, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_07tog"]
-atlas = ExtResource("19_fy7hq")
 region = Rect2(64, 32, 64, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4bf6l"]
-atlas = ExtResource("19_fy7hq")
 region = Rect2(0, 64, 64, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_42u37"]
-atlas = ExtResource("19_fy7hq")
 region = Rect2(128, 32, 64, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_guwti"]
@@ -133,14 +109,8 @@ animations = [{
 }]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pcl74"]
-shader = ExtResource("26_3p60y")
-shader_parameter/scroll_speed = Vector2(0, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rh31d"]
-shader = ExtResource("27_axylk")
-shader_parameter/strength = 0.01
-shader_parameter/frequency = 25.0
-shader_parameter/speed = 20.0
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -155,14 +125,12 @@ material = SubResource("CanvasItemMaterial_oj31l")
 position = Vector2(569, -475)
 lifetime = 2.0
 draw_order = 1
-texture = ExtResource("2_lbdgj")
 gravity = Vector2(0, 500)
 anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="spriteSheetAnim" type="Sprite2D" parent="STUFF"]
 position = Vector2(-80, -468)
-texture = ExtResource("3_l21cm")
 hframes = 2
 vframes = 2
 
@@ -213,12 +181,10 @@ autowrap_mode = 1
 
 [node name="BACK sky" type="Sprite2D" parent="."]
 scale = Vector2(2.57, 2.57)
-texture = ExtResource("4_qoaw3")
 
 [node name="emojy" type="Sprite2D" parent="."]
 position = Vector2(-677, -264)
 scale = Vector2(3, 3)
-texture = ExtResource("10_17y8y")
 region_enabled = true
 region_rect = Rect2(0, 0, 40, 40)
 
@@ -236,7 +202,6 @@ emitting = false
 amount = 1
 lifetime = 0.2
 one_shot = true
-texture = ExtResource("13_1xx5h")
 emission_shape = 1
 emission_sphere_radius = 15.0
 direction = Vector2(0, -1)
@@ -252,16 +217,12 @@ anim_speed_min = 1.0
 anim_speed_max = 1.0
 
 [node name="shord OUTLINE" type="Sprite2D" parent="."]
-material = ExtResource("15_eko4s")
 position = Vector2(68, -324)
 scale = Vector2(4, 4)
-texture = ExtResource("16_y2h27")
 
 [node name="shord OUTLINE2" type="Sprite2D" parent="."]
-material = ExtResource("15_eko4s")
 position = Vector2(157, -273)
 scale = Vector2(4, 4)
-texture = ExtResource("16_y2h27")
 
 [node name="TEST GREG" type="Node2D" parent="."]
 script = ExtResource("17_2ling")
@@ -269,19 +230,16 @@ script = ExtResource("17_2ling")
 [node name="atacker" type="Sprite2D" parent="TEST GREG"]
 position = Vector2(-137, -58)
 scale = Vector2(2, 2)
-texture = ExtResource("18_8sogd")
 
 [node name="shord" type="Sprite2D" parent="TEST GREG/atacker"]
 position = Vector2(13.5, 20.5)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("16_y2h27")
 flip_h = true
 flip_v = true
 
 [node name="target" type="Sprite2D" parent="TEST GREG"]
 position = Vector2(-132, 36)
 scale = Vector2(2, 2)
-texture = ExtResource("18_8sogd")
 
 [node name="strike glow anim" type="AnimatedSprite2D" parent="."]
 position = Vector2(-83, -131)
@@ -292,7 +250,6 @@ frame = 6
 speed_scale = 2.0
 
 [node name="strike sprite only" type="Sprite2D" parent="."]
-texture = ExtResource("19_fy7hq")
 hframes = 3
 vframes = 2
 region_enabled = true
@@ -300,7 +257,6 @@ region_rect = Rect2(56, 0, 56, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_repeat = 2
-texture = ExtResource("20_qlnnc")
 hframes = 3
 vframes = 2
 region_enabled = true
@@ -313,12 +269,7 @@ offset_top = -166.0
 offset_right = 90.38
 offset_bottom = 9.0
 scale = Vector2(2, 2)
-texture = ExtResource("21_57kip")
 stretch_mode = 1
-script = ExtResource("22_qx80o")
-frame = null
-cooldown = 0.05
-framesArray = Array[Texture2D]([ExtResource("21_57kip"), ExtResource("23_0ctb3"), ExtResource("24_noa1t"), ExtResource("25_8pu3f")])
 
 [node name="MATERIAL TILE WORKED" type="TextureRect" parent="."]
 material = SubResource("ShaderMaterial_pcl74")
@@ -326,13 +277,11 @@ offset_left = -53.0
 offset_top = -180.0
 offset_right = -12.0
 offset_bottom = 199.0
-texture = ExtResource("20_qlnnc")
 stretch_mode = 1
 
 [node name="distortion" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_rh31d")
 position = Vector2(-100, -267)
 scale = Vector2(3, 3)
-texture = ExtResource("8_e36pa")
 
 [node name="Effects" parent="." instance=ExtResource("23_ehqqe")]

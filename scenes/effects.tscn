@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4k7jgrdlhjtu"]
+[gd_scene load_steps=4 format=3 uid="uid://c4k7jgrdlhjtu"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="1_40t6c"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]
+[ext_resource type="Script" path="res://gregFolder/gregC/atackAnimation.cs" id="3_8ktg1"]
 
 [node name="Effects" type="Node"]
 
@@ -24,3 +25,11 @@ scale = Vector2(2, 2)
 [node name="Sprite2D" type="Sprite2D" parent="EFFECTS/test sprite"]
 position = Vector2(18.5, 16)
 scale = Vector2(0.5, 0.5)
+
+[node name="atackAnimation" type="Node" parent="."]
+script = ExtResource("3_8ktg1")
+atackerRotation = 10.0
+atackerOffset = 5.0
+shordRotation = 10.0
+shordOffset = Vector2(-5, 10)
+delay = 0.05
