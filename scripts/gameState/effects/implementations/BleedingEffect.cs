@@ -1,22 +1,63 @@
-using System;
-
 namespace Cardoni;
 
-public class BleedingEffect : CountedEffect
+public class BleedingEffect : Effect
 {
 	public const EffectType Type = EffectType.Bleeding;
-	public override EffectType EffectType => Type;
+	public override EffectType EffectType => EffectType.Bleeding;
 
-	public BleedingEffect(Entity entity)
-		: base(entity) { }
+	public const uint StacksPerHealth = 1200;
 
-	protected override void Apply()
+	uint strength;
+	public uint Strength
 	{
-		throw new NotImplementedException();
+		get { return strength; }
+		set
+		{
+			strength = value;
+			Update();
+		}
+	}
+	public uint Stacks { get; set; }
+
+	public bool Ticking = false;
+
+	public BleedingEffect(Entity entity, uint strength)
+	{
+		Strength = strength;
+		Entity = entity;
+
+		RefEffect = this;
+		Update();
 	}
 
-	protected override void Remove()
+	public override bool Affected()
 	{
-		throw new NotImplementedException();
+		return Stacks > 0;
+	}
+
+	public void Tick()
+	{
+		Stacks += Strength;
+		if (Stacks >= StacksPerHealth)
+		{
+			int damage = (int)(Stacks / StacksPerHealth);
+			Stacks %= StacksPerHealth;
+			Entity.Damage(damage);
+		}
+	}
+
+	public override void Update()
+	{
+		base.Update();
+		if (Ticking && Strength == 0)
+		{
+			Ticking = false;
+			GameState.RemoveTicked(Tick);
+		}
+		else if (!Ticking && Strength > 0)
+		{
+			Ticking = true;
+			GameState.AddTicked(Tick);
+		}
 	}
 }
