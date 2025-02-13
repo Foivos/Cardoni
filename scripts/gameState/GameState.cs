@@ -87,7 +87,7 @@ public partial class GameState : Node
 		SpawnProjectiles();
 
 		ProcessProjectiles();
-		
+
 		KillProjectiles();
 
 		ProcessExpiring();
@@ -188,23 +188,32 @@ public partial class GameState : Node
 		dying = new();
 	}
 
-	private void ProcessProjectiles() {
-		foreach(Projectile projectile in projectiles) {
+	private void ProcessProjectiles()
+	{
+		foreach (Projectile projectile in projectiles)
+		{
 			projectile.Move();
 			Entity entity;
-			while((entity = projectile.Colliding()) != null) {
+			while ((entity = projectile.Colliding()) != null)
+			{
 				projectile.Hit(entity);
 			}
 		}
 	}
-	private void SpawnProjectiles() {
-		foreach(Projectile projectile in spawningProjectiles) {
+
+	private void SpawnProjectiles()
+	{
+		foreach (Projectile projectile in spawningProjectiles)
+		{
 			projectiles.Add(projectile);
 		}
 		spawningProjectiles = new();
 	}
-	private void KillProjectiles() {
-		foreach(Projectile projectile in dyingProjectiles) {
+
+	private void KillProjectiles()
+	{
+		foreach (Projectile projectile in dyingProjectiles)
+		{
 			projectiles.Remove(projectile);
 		}
 		dyingProjectiles = new();

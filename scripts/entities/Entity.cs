@@ -35,11 +35,11 @@ public partial class Entity
 
 	public uint BaseMovementSpeed { get; set; }
 	public float MovementSpeedModifier { get; set; } = 1;
-	public uint MovementSpeed => (uint)Math.Floor(BaseMovementSpeed * MovementSpeedModifier);
+	public uint MovementSpeed => (uint)Math.Max(0, Math.Floor(BaseMovementSpeed * MovementSpeedModifier));
 
 	public uint BaseAttackSpeed { get; set; }
 	public float AttackSpeedModifier { get; set; } = 1;
-	public uint AttackSpeed => (uint)Math.Floor(BaseAttackSpeed * AttackSpeedModifier);
+	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
 	public int Direction { get; set; }
 
@@ -79,6 +79,8 @@ public partial class Entity
 	}
 
 	public EntityMask Mask { get; set; }
+
+	public EntityMask TargetMask { get; set; }
 
 	protected Entity()
 	{

@@ -13,9 +13,8 @@ public class EntityMask
 {
 	public uint Mask { get; set; }
 
+	public EntityMask() { }
 
-	public EntityMask() {}
-	
 	public EntityMask(EntityMasks[] masks)
 	{
 		foreach (EntityMasks mask in masks)

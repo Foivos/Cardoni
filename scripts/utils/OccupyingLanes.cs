@@ -26,7 +26,8 @@ public class OccupyingLanes
 		return !(From > other.To && To < other.From);
 	}
 
-    public bool IsIn(uint lane) {
-        return From <= lane && To >= lane;
-    }
+	public bool IsIn(uint lane)
+	{
+		return From <= lane && To >= lane;
+	}
 }

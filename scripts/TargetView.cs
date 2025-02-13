@@ -78,8 +78,10 @@ public partial class TargetView : Node2D
 		SetProcess(true);
 		foreach (CardResult result in GameState.SelectedCard.CardResults)
 		{
-			if (result.Targets == null) continue;
-			foreach(CardTarget target in result.Targets) {
+			if (result.Targets == null)
+				continue;
+			foreach (CardTarget target in result.Targets)
+			{
 				if (target is LineTarget)
 				{
 					LineTarget.Visible = true;

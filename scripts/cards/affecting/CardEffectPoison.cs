@@ -10,7 +10,7 @@ public class CardEffectPoison : EntityActive
 		Duration = duration;
 		Strength = strength;
 	}
-	
+
 	public override void Activate(Entity entity)
 	{
 		Poisoned.Apply(entity, Duration, Strength);

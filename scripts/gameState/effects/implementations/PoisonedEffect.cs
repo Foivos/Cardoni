@@ -29,6 +29,11 @@ public class PoisonedEffect : Effect
 		Update();
 	}
 
+	public override bool Affected()
+	{
+		return Stacks > 0;
+	}
+
 	public void Tick()
 	{
 		Stacks += Strength;
@@ -52,16 +57,6 @@ public class PoisonedEffect : Effect
 		{
 			Ticking = true;
 			GameState.AddTicked(Tick);
-		}
-	}
-
-	public override void End()
-	{
-		base.End();
-
-		if (Ticking)
-		{
-			GameState.RemoveTicked(Tick);
 		}
 	}
 }

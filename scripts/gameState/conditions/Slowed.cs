@@ -6,28 +6,25 @@ public class Slowed : ExpiringEffectCondition<SlowedEffect>
 {
 	public override EffectType EffectType => EffectType.Slowed;
 
-	public uint Modifier;
-
 	private Slowed(Entity entity, uint modifier, uint duration)
 	{
 		Expiring = new Expiring(duration, OnExpire);
 
 		Entity = entity;
-		Modifier = modifier;
 
 		if (Effect == null)
 		{
-			Effect = new SlowedEffect(Entity, Modifier);
+			Effect = new SlowedEffect(Entity);
 		}
 		else
 		{
-			Effect.Modifier += Modifier;
+			Effect.Count += 1;
 		}
 	}
 
 	public void OnExpire()
 	{
-		Effect.Modifier -= Modifier;
+		Effect.Count -= 1;
 		Effect.Update();
 	}
 }

@@ -6,8 +6,6 @@ namespace Cardoni;
 
 public abstract partial class EffectEntity : Entity
 {
-	public EntityMask EffectMask { get; set; }
-
 	public List<ICondition> ActiveConditions { get; set; } = new();
 
 	public override void Spawn()
@@ -29,7 +27,6 @@ public abstract partial class EffectEntity : Entity
 		}
 	}
 
-
 	public abstract void ApplyEffect(Entity entity);
 
 	public virtual bool IsValidTarget(Entity entity)
@@ -37,10 +34,11 @@ public abstract partial class EffectEntity : Entity
 		return entity != this
 			&& entity.IsAlive
 			&& OccupyingLanes.Intersects(entity.OccupyingLanes)
-			&& EffectMask.Matches(entity.Mask);
+			&& TargetMask.Matches(entity.Mask);
 	}
 
-	public virtual void OnSpawn(Entity entity) {
+	public virtual void OnSpawn(Entity entity)
+	{
 		if (IsValidTarget(entity))
 		{
 			ApplyEffect(entity);

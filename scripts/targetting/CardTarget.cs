@@ -1,5 +1,3 @@
 namespace Cardoni;
 
-public abstract class CardTarget
-{
-}
+public abstract class CardTarget { }

@@ -23,6 +23,9 @@ public partial class GoblinSummoner : ActivatingEntity
 
 	protected override void Activate()
 	{
-		new GoblinWarrior(OccupyingLanes.From, Y);
+		new GoblinWarrior(OccupyingLanes.From, Y) {
+			Mask = Mask,
+			TargetMask = TargetMask,
+		};
 	}
 }

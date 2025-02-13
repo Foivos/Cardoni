@@ -15,8 +15,6 @@ public abstract partial class AttackingEntity : Entity
 
 	public Entity Target { get; set; }
 
-	public EntityMask TargetMask { get; set; }
-
 	public bool Attacking { get; set; }
 
 	void Tick()
