@@ -92,10 +92,18 @@ public partial class Entity
 		Health -= damage;
 		GD.Print(Name, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
 
+
+
 		if (Health <= 0)
 		{
-			GameState.Kill(this);
+			//falling shord
+			fallingShords.throwItem(Parent.Weapon);//? NEW
+
+			if (Parent.Weapon != null) GameState.Kill(this);
 		}
+		else new battleEffectsC.dmgEffect(Parent.Sprite);
+
+
 	}
 
 	public virtual void Move()

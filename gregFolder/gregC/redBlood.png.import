@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://vnpc03uk6qi3"
-path="res://.godot/imported/redBlood.png-4c0571bf0429f3493ee99892b0af6594.ctex"
+path="res://.godot/imported/redBlood.png-9e3420b261ab250370a29d4bbf54bc0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://gregFolder/shaders/gregC/redBlood.png"
-dest_files=["res://.godot/imported/redBlood.png-4c0571bf0429f3493ee99892b0af6594.ctex"]
+source_file="res://gregFolder/gregC/redBlood.png"
+dest_files=["res://.godot/imported/redBlood.png-9e3420b261ab250370a29d4bbf54bc0f.ctex"]
 
 [params]
 

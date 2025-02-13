@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
-[ext_resource type="PackedScene" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
+[ext_resource type="PackedScene" uid="uid://glpl5iwje24t" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]

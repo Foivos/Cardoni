@@ -1,37 +1,34 @@
-[gd_scene load_steps=47 format=3 uid="uid://nkxij81pggv7"]
+[gd_scene load_steps=44 format=3 uid="uid://nkxij81pggv7"]
 
-[ext_resource type="Script" path="res://gregFolder/shaders/gregC/cameraShake.cs" id="1_ky7pa"]
+[ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_ky7pa"]
 [ext_resource type="Texture2D" uid="uid://4wtajmvyyyoa" path="res://gregFolder/images/testSpriteSheet.png" id="2_i7cpd"]
 [ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/images/testEnemySpriteSheet.png" id="3_focmv"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="4_c7ny8"]
-[ext_resource type="Script" path="res://gregFolder/shaders/gregC/battleEffectsC.cs" id="5_bijuh"]
-[ext_resource type="Material" uid="uid://m4n04ci0djkv" path="res://gregFolder/shaders/whiteMaterial.tres" id="6_hl0kc"]
-[ext_resource type="Material" uid="uid://c6dvlpc3mnya8" path="res://gregFolder/shaders/blackMaterial.tres" id="7_x78vd"]
+[ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="5_bijuh"]
+[ext_resource type="Material" uid="uid://m4n04ci0djkv" path="res://gregFolder/gregC/shaders/whiteMaterial.tres" id="6_hl0kc"]
+[ext_resource type="Material" uid="uid://c6dvlpc3mnya8" path="res://gregFolder/gregC/shaders/blackMaterial.tres" id="7_x78vd"]
 [ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/images/testEnemyFour.png" id="8_whv7y"]
 [ext_resource type="Texture2D" uid="uid://dy0om6hy1yfsl" path="res://gregFolder/images/testEnemyThree.png" id="9_3v5jj"]
 [ext_resource type="Texture2D" uid="uid://bnsktbdg2spo5" path="res://gregFolder/images/testEmojys.png" id="10_48y4c"]
 [ext_resource type="Script" path="res://scripts/testPlayer.cs" id="11_tgmai"]
-[ext_resource type="PackedScene" uid="uid://ouhsto7m0jbo" path="res://scenes/newEnemy.tscn" id="12_om0g8"]
 [ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="13_6kseq"]
-[ext_resource type="Script" path="res://scripts/spawning.cs" id="14_cji0i"]
-[ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="15_scpgc"]
-[ext_resource type="Texture2D" uid="uid://vnpc03uk6qi3" path="res://gregFolder/shaders/gregC/redBlood.png" id="16_5t54d"]
-[ext_resource type="Script" path="res://gregFolder/images/fallingShords.cs" id="17_4l6mh"]
-[ext_resource type="Material" uid="uid://f8nshqg1fw1w" path="res://gregFolder/shaders/gregC/outlineMat.tres" id="18_6nv1c"]
+[ext_resource type="Texture2D" uid="uid://vnpc03uk6qi3" path="res://gregFolder/gregC/redBlood.png" id="16_5t54d"]
+[ext_resource type="Script" path="res://gregFolder/gregC/fallingItems.cs" id="17_4l6mh"]
+[ext_resource type="Material" uid="uid://f8nshqg1fw1w" path="res://gregFolder/gregC/outlineMat.tres" id="18_6nv1c"]
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="19_algcw"]
-[ext_resource type="Script" path="res://gregFolder/shaders/gregC/testGreg.cs" id="20_s5oq8"]
+[ext_resource type="Script" path="res://gregFolder/gregC/testGreg.cs" id="20_s5oq8"]
 [ext_resource type="Texture2D" uid="uid://c555fv5jlbfol" path="res://gregFolder/testFolder/testTileOne.png" id="21_nonrg"]
 [ext_resource type="Texture2D" uid="uid://cq1u71kvspybs" path="res://gregFolder/testFolder/testTileTwo.png" id="22_t64mx"]
 [ext_resource type="Texture2D" uid="uid://dvp0rkkvatcnf" path="res://gregFolder/images/testEnemyOne.png" id="23_c5b2s"]
 [ext_resource type="Texture2D" uid="uid://d2uvsujjudbbc" path="res://gregFolder/images/strikeGlow.png" id="24_wwyci"]
 [ext_resource type="Texture2D" uid="uid://bt2rhm4ixsjso" path="res://gregFolder/images/targetingMotivo.png" id="25_1s0ob"]
 [ext_resource type="Texture2D" uid="uid://c7sf3aigrjj73" path="res://gregFolder/testFolder/testTileSimpleOne.png" id="26_4c3ft"]
-[ext_resource type="Script" path="res://gregFolder/shaders/gregC/tileAnim.cs" id="27_gov6c"]
+[ext_resource type="Script" path="res://gregFolder/gregC/tileAnim.cs" id="27_gov6c"]
 [ext_resource type="Texture2D" uid="uid://dg2u3x3d0qpj3" path="res://gregFolder/testFolder/testTileSimpleTwo.png" id="28_820my"]
 [ext_resource type="Texture2D" uid="uid://mwwb6kewllg6" path="res://gregFolder/testFolder/testTileSimpleThree.png" id="29_lafrv"]
 [ext_resource type="Texture2D" uid="uid://dxwv5qkb37wcr" path="res://gregFolder/testFolder/testTileSimpleFour.png" id="30_jtkyt"]
-[ext_resource type="Shader" path="res://gregFolder/shaders/gregC/tileShader.gdshader" id="31_f5xo1"]
-[ext_resource type="Shader" path="res://gregFolder/shaders/distortionShader.gdshader" id="32_lln1x"]
+[ext_resource type="Shader" path="res://gregFolder/gregC/tileShader.gdshader" id="31_f5xo1"]
+[ext_resource type="Shader" path="res://gregFolder/gregC/shaders/distortionShader.gdshader" id="32_lln1x"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -256,19 +253,10 @@ region_rect = Rect2(0, 0, 40, 40)
 [node name="PLAYER" type="Node2D" parent="."]
 script = ExtResource("11_tgmai")
 
-[node name="newEnemy" parent="." instance=ExtResource("12_om0g8")]
-position = Vector2(331, -316)
-speed = 5.0
-
 [node name="Bullet" parent="." instance=ExtResource("13_6kseq")]
 position = Vector2(320, -158)
 
-[node name="spawning" type="Node2D" parent="." node_paths=PackedStringArray("player")]
-script = ExtResource("14_cji0i")
-EnemyPreffab = ExtResource("12_om0g8")
-minionPreffab = ExtResource("15_scpgc")
-spawnX = 10.0
-player = NodePath("../PLAYER")
+[node name="spawning" type="Node2D" parent="."]
 
 [node name="BLOOD" type="CPUParticles2D" parent="."]
 material = SubResource("CanvasItemMaterial_cq2j5")

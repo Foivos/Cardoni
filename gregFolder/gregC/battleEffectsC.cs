@@ -43,8 +43,8 @@ public partial class battleEffectsC : Node
 
 		if (@event.IsActionPressed("ui_right"))
 			addHitOne(testSprite);
-		if (@event.IsActionPressed("ui_left"))
-			addHitTwo(testSprite);
+		// if (@event.IsActionPressed("ui_left"))
+		// 	dmgEffect(testSprite);
 
 		if (@event.IsActionPressed("ui_up"))
 			cameraShake.StartShake(shakeCameraDuration, shakeCameraStrenght);
@@ -78,7 +78,7 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	class spriteEffect //? origin
+	public class spriteEffect //? origin
 	{
 		public Sprite2D sprite;
 		public int counter;
@@ -116,8 +116,17 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	class hitTwo : spriteEffect
+	public class dmgEffect : spriteEffect
 	{
+
+		public dmgEffect(Sprite2D victim)
+		{
+			if (inst == null || sprite == null) return;
+			
+			sprite = victim;
+			inst._spriteEffect.Add(this);
+
+		}
 		public override void update(float time, out bool removeMe)
 		{
 			if (sprite == null)
@@ -139,17 +148,15 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-    
+
 
 	public void addHitOne(Sprite2D sprite)
 	{
 		_spriteEffect.Add(new hitOne() { sprite = sprite });
 	}
 
-	public void addHitTwo(Sprite2D sprite)
-	{
-		_spriteEffect.Add(new hitTwo() { sprite = sprite });
-	}
+
+
 
 	class shakeSprite : spriteEffect
 	{
@@ -204,6 +211,8 @@ public partial class battleEffectsC : Node
 			new shakeSprite() { sprite = sprite, untill = Time.GetTicksMsec() + shakeSpriteDuration * 1000 }
 		);
 	}
+
+
 
 	#endregion
 

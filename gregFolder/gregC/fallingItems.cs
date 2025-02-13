@@ -13,6 +13,7 @@ public partial class fallingShords : Node
 	[Export] Sprite2D testSprite;
 	//[Export] PackedScene fallingItemPreffab;
 	List<fallingShordItem> fallingItems;
+
 	fallingShordItem getFallingItem()
 	{
 
@@ -56,6 +57,7 @@ public partial class fallingShords : Node
 		for (int i = 0; i < fallingItems.Count; i++)
 		{
 			if (fallingItems[i].Visible == false) continue;
+
 			fallingItems[i].processMe((float)delta);
 
 		}
@@ -67,26 +69,29 @@ public partial class fallingShords : Node
 
 
 
-	//[Export] PackedScene fallingPreffab;
 
 
-	ulong lastInput;
-	public override void _Input(InputEvent @event)
+	//ulong lastInput;
+	// public override void _Input(InputEvent @event)
+	// {
+	// 	//return;
+
+	// 	if (Time.GetTicksMsec() - lastInput < 200) return;
+	// 	lastInput = Time.GetTicksMsec();
+
+
+	// 	if (@event is InputEventMouseButton == false) return;
+	// 	throwItem(testSprite);
+
+	// }
+
+
+
+	public static void throwItem(Sprite2D thatOne)
 	{
-		//return;
-
-		if (Time.GetTicksMsec() - lastInput < 200) return;
-		lastInput = Time.GetTicksMsec();
-
-
-		if (@event is InputEventMouseButton == false) return;
-		throwItem(testSprite);
-
+		if (inst == null || thatOne == null) return;
+		inst.throwItemLocal(thatOne);
 	}
-
-
-
-	public static void throwItem(Sprite2D thatOne) { if (inst == null) return; inst.throwItemLocal(thatOne); }
 
 
 
