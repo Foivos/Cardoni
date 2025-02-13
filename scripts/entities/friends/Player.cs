@@ -1,6 +1,6 @@
+using System;
 using Cardoni;
 using Godot;
-using System;
 
 public partial class Player : Entity
 {
@@ -20,8 +20,4 @@ public partial class Player : Entity
 		//todoParent.Sprite.Texture = GD.Load<Texture2D>("res://resources/batteringRam.png");
 		//Parent.Sprite.Scale = new Vector2(0.3f, 0.3f);
 	}
-
-	
-
-
 }

@@ -2,6 +2,7 @@ namespace Cardoni;
 
 public class SlowedEffect : CountedEffect
 {
+	public const EffectType Type = EffectType.Slowed;
 	public override EffectType EffectType => EffectType.Slowed;
 
 	public SlowedEffect(Entity entity)

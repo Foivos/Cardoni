@@ -68,8 +68,6 @@ public partial class monsterBase : Node2D
 
 	public void onDeath()
 	{
-
-
 		fallingShords.throwItem(shord);
 		// spawning.monsterDied(this);
 		QueueFree();

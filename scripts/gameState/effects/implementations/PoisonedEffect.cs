@@ -2,6 +2,7 @@ namespace Cardoni;
 
 public class PoisonedEffect : Effect
 {
+	public const EffectType Type = EffectType.Poisoned;
 	public override EffectType EffectType => EffectType.Poisoned;
 
 	public const uint StacksPerHealth = 1200;

@@ -98,6 +98,11 @@ public partial class Entity
 		}
 	}
 
+	public virtual void DamageTyped(DamageTypes damageType, int damage)
+	{
+		DamageType.DealDamage(this, damageType, damage);
+	}
+
 	public virtual void Move()
 	{
 		int dx = (int)MovementSpeed * Direction;
@@ -139,5 +144,19 @@ public partial class Entity
 	public int VerticalDistance(Entity target)
 	{
 		return Math.Abs(target.Y - Y) - target.Height;
+	}
+
+	internal bool Affected(EffectType effectType)
+	{
+		Effect effect = Effects[(int)effectType];
+		return effect != null && effect.Affected();
+	}
+
+	internal T GetEffect<T>()
+		where T : Effect
+	{
+		EffectType effectType = (EffectType)typeof(T).GetField("Type").GetValue(null);
+
+		return (T)Effects[(int)effectType];
 	}
 }

@@ -1,43 +1,48 @@
-using Cardoni;
-using Godot;
 using System;
 using System.Collections;
+using Cardoni;
+using Godot;
 
 public partial class testGreg : Node2D
 {
-
-	//! set up your math functions and extentions	
+	//! set up your math functions and extentions
 
 	public override void _Input(InputEvent @event)
 	{
+		if (@event is InputEventMouseButton == false)
+			return;
 
-		if (@event is InputEventMouseButton == false) return;
+		if (testAnim)
+			playAnim();
+		if (testBlood)
+			spawnParticleThere(GetGlobalMousePosition(), 4);
 
-
-		if (testAnim) playAnim();
-		if (testBlood) spawnParticleThere(GetGlobalMousePosition(), 4);
-
-
-		if (testAtack && doingEffect == false) atackAnim();
+		if (testAtack && doingEffect == false)
+			atackAnim();
 		//var newOne = start atackRoutine();
 
-		if (testTiledAnim) changeTiledFrame();
-
+		if (testTiledAnim)
+			changeTiledFrame();
 	}
 
+	#region  tiled animation
 
-	#region  tiled animation    
+	//! KEEP IN MIND THE TILE ANIM MATERIAL IS WORKING
 
-	//! KEEP IN MIND THE TILE ANIM MATERIAL IS WORKING 
-	
-	//! made tileAnim c# that does it well enough 
+	//! made tileAnim c# that does it well enough
 	//worked through c# changing the texture
 
 
 	[ExportGroup("TILED ANIMATION")]
-	[Export] bool testTiledAnim;
-	[Export] TextureRect tiledRect;
-	[Export] Texture2D tiledFrame0, tiledFrame1;
+	[Export]
+	bool testTiledAnim;
+
+	[Export]
+	TextureRect tiledRect;
+
+	[Export]
+	Texture2D tiledFrame0,
+		tiledFrame1;
 	bool tilerFrameBool;
 
 	void changeTiledFrame()
@@ -48,17 +53,18 @@ public partial class testGreg : Node2D
 		//tilerFrameBool = !tilerFrameBool;
 	}
 
-
-
-
 	#endregion
 
 
 	#region  PARTICLES
 
 	//? PARTICLES
-	[Export] bool testBlood;
-	[Export] CpuParticles2D particles;
+	[Export]
+	bool testBlood;
+
+	[Export]
+	CpuParticles2D particles;
+
 	void spawnParticleThere(Vector2 pos, float scale)
 	{
 		particles.Emitting = true;
@@ -66,14 +72,13 @@ public partial class testGreg : Node2D
 		particles.ScaleAmountMin = scale;
 		particles.ScaleAmountMax = scale;
 
-		// particles.Direction = Vector2.Up; //! works fine 
+		// particles.Direction = Vector2.Up; //! works fine
 		// particles.AngleMin = 180 -45;
 		// particles.AngleMax = 180 +45;
 
 
 
 		//! to rotate must change angle and Direction both
-
 	}
 
 	#endregion
@@ -82,17 +87,20 @@ public partial class testGreg : Node2D
 	#region  ANIMATION
 
 	[ExportGroup("ANIMATION")]
-	[Export] bool testAnim;
-	[Export] AnimatedSprite2D anim;
-	[Export] float animRotaion;
+	[Export]
+	bool testAnim;
+
+	[Export]
+	AnimatedSprite2D anim;
+
+	[Export]
+	float animRotaion;
+
 	void playAnim()
 	{
 		anim.Position = GetGlobalMousePosition();
 		anim.Rotation = Time.GetTicksMsec() % 1000 > 500 ? animRotaion : -animRotaion;
 		anim.Play();
-
-
-
 	}
 
 	#endregion
@@ -109,15 +117,15 @@ public partial class testGreg : Node2D
 
 		battleEffectsC.inst.addHitTwo(target);
 		battleEffectsC.inst.doShake(target);
-
 	}
+
 	async void atackAnim()
 	{
-		if (doingEffect) return;
+		if (doingEffect)
+			return;
 		doingEffect = true;
 
 		targetDamage();
-
 
 		atacker.RotationDegrees = -atackerRotation;
 		shord.Material = redOutline;
@@ -130,12 +138,9 @@ public partial class testGreg : Node2D
 		shord.Offset = shordOffset;
 		shord.RotationDegrees = shordRotation;
 
-
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
 
 		atacker.Offset = Vector2.Zero;
-
-
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
 
@@ -150,25 +155,42 @@ public partial class testGreg : Node2D
 
 		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
 		doingEffect = false;
-
-
 	}
 
-
 	[ExportGroup("atack anim")]
-	[Export] bool testAtack;
-	[Export] Material redOutline;
-	[Export] Sprite2D atacker;
-	[Export] Sprite2D shord;
-	[Export] Sprite2D target;
-	[Export] float atackerRotation;
-	[Export] float atackerOffset;
-	[Export] float shordRotation;
-	[Export] Vector2 shordOffset;
-	[Export] float delay;
-	[Export] float targetDamageDelay;
-	bool doingEffect;
+	[Export]
+	bool testAtack;
 
+	[Export]
+	Material redOutline;
+
+	[Export]
+	Sprite2D atacker;
+
+	[Export]
+	Sprite2D shord;
+
+	[Export]
+	Sprite2D target;
+
+	[Export]
+	float atackerRotation;
+
+	[Export]
+	float atackerOffset;
+
+	[Export]
+	float shordRotation;
+
+	[Export]
+	Vector2 shordOffset;
+
+	[Export]
+	float delay;
+
+	[Export]
+	float targetDamageDelay;
+	bool doingEffect;
 
 	#endregion
 
@@ -185,24 +207,20 @@ public partial class testGreg : Node2D
 			raycast();
 			timer = 0;
 		}
-
-
 	}
-
 
 	double timer = 0;
 	double raycastCooldown;
 
 	uint layerMask;
 	Node2D testTarget;
+
 	void raycast()
 	{
-
 		GD.Print("testTarget POS  " + testTarget.Position);
 
 		// Get the space state for performing physics queries
 		var spaceState = GetWorld2D().DirectSpaceState;
-
 
 		// Perform the raycast and store the result in a dictionary
 		PhysicsRayQueryParameters2D par = new PhysicsRayQueryParameters2D();
@@ -216,10 +234,7 @@ public partial class testGreg : Node2D
 
 		var result = spaceState.IntersectRay(par);
 
-
-
-
-		//Object Collider = result["collider"] as Object;		
+		//Object Collider = result["collider"] as Object;
 
 		// if(Collider == Target)
 		// {
@@ -233,12 +248,8 @@ public partial class testGreg : Node2D
 		GD.Print(" results " + result.Count);
 		GD.Print(" results " + result.Count);
 
-
-
 		if (result.Count > 0)
 		{
-
-
 			// Get the collider (the object hit by the ray)
 			Node2D hitObject = (Node2D)result["collider"];
 			if (hitObject is monsterBase)
@@ -246,18 +257,10 @@ public partial class testGreg : Node2D
 				GD.Print(" results " + ((monsterBase)hitObject).Name);
 				//return (monsterBase)hitObject;
 			}
-			else GD.Print("NULL hitObject");
-
+			else
+				GD.Print("NULL hitObject");
 		}
-
-
-
 	}
-
-
-
-
-
 
 	//if (body.IsInGroup("enemies") == false) { GD.Print("not enemy group"); return; }
 	//! looks usefull
@@ -305,21 +308,7 @@ public partial class testGreg : Node2D
 
 
 		// return null;
-
-
-
-
-
 	}
 
-
-
-
-
 	#endregion
-
-
-
-
-
 }
