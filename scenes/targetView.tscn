@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bl0ml2mcw66dl"]
 
-[ext_resource type="Script" path="res://gregFolder/gregC/testTargetC.cs" id="1_e4y4w"]
-[ext_resource type="Texture2D" uid="uid://bhoc5yopses6y" path="res://gregFolder/square.png" id="2_6bnm2"]
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/testTargetC.cs" id="1_e4y4w"]
+[ext_resource type="Texture2D" uid="uid://bhoc5yopses6y" path="res://gregFolder/images/square.png" id="2_6bnm2"]
 
 [node name="targetView" type="Node2D" node_paths=PackedStringArray("positionTarget", "lineTarget")]
 script = ExtResource("1_e4y4w")

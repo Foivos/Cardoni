@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://dnmad5wsk5ar2"]
+
+[ext_resource type="Script" path="res://gregFolder/CardDetails.cs" id="1_jcor2"]
+[ext_resource type="Texture2D" uid="uid://bhoc5yopses6y" path="res://gregFolder/images/square.png" id="1_vgugq"]
+
+[node name="card details" type="Node2D"]
+visible = false
+position = Vector2(100, -5)
+script = ExtResource("1_jcor2")
+
+[node name="back" type="Sprite2D" parent="."]
+self_modulate = Color(0, 0, 0, 0.8)
+scale = Vector2(6, 4)
+texture = ExtResource("1_vgugq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = -82.0
+offset_top = -53.0
+offset_right = 82.0
+offset_bottom = 51.0
+text = "here we write card info when card is pressed ok ?? ??"

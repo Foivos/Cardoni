@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://8p0sb2qvp1ue"]
 
 [ext_resource type="Script" path="res://scripts/minnionBase.cs" id="1_okekw"]
-[ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="2_atkqb"]
-[ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/healthBack.png" id="3_b4ibx"]
-[ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/healthBar.png" id="4_b813c"]
-[ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/shord.png" id="5_ljqc8"]
+[ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/images/testBigEmojys.png" id="2_atkqb"]
+[ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/images/healthBack.png" id="3_b4ibx"]
+[ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/images/healthBar.png" id="4_b813c"]
+[ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="5_ljqc8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
 

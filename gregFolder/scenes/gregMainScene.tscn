@@ -1,0 +1,397 @@
+[gd_scene load_steps=47 format=3 uid="uid://nkxij81pggv7"]
+
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/cameraShake.cs" id="1_ky7pa"]
+[ext_resource type="Texture2D" uid="uid://4wtajmvyyyoa" path="res://gregFolder/images/testSpriteSheet.png" id="2_i7cpd"]
+[ext_resource type="Texture2D" uid="uid://cf278venq0udt" path="res://gregFolder/images/testEnemySpriteSheet.png" id="3_focmv"]
+[ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="4_c7ny8"]
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/battleEffectsC.cs" id="5_bijuh"]
+[ext_resource type="Material" uid="uid://m4n04ci0djkv" path="res://gregFolder/shaders/whiteMaterial.tres" id="6_hl0kc"]
+[ext_resource type="Material" uid="uid://c6dvlpc3mnya8" path="res://gregFolder/shaders/blackMaterial.tres" id="7_x78vd"]
+[ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/images/testEnemyFour.png" id="8_whv7y"]
+[ext_resource type="Texture2D" uid="uid://dy0om6hy1yfsl" path="res://gregFolder/images/testEnemyThree.png" id="9_3v5jj"]
+[ext_resource type="Texture2D" uid="uid://bnsktbdg2spo5" path="res://gregFolder/images/testEmojys.png" id="10_48y4c"]
+[ext_resource type="Script" path="res://scripts/testPlayer.cs" id="11_tgmai"]
+[ext_resource type="PackedScene" uid="uid://ouhsto7m0jbo" path="res://scenes/newEnemy.tscn" id="12_om0g8"]
+[ext_resource type="PackedScene" uid="uid://ds8yxhhu1phvs" path="res://gregFolder/bullet.tscn" id="13_6kseq"]
+[ext_resource type="Script" path="res://scripts/spawning.cs" id="14_cji0i"]
+[ext_resource type="PackedScene" uid="uid://8p0sb2qvp1ue" path="res://scenes/minnion.tscn" id="15_scpgc"]
+[ext_resource type="Texture2D" uid="uid://vnpc03uk6qi3" path="res://gregFolder/shaders/gregC/redBlood.png" id="16_5t54d"]
+[ext_resource type="Script" path="res://gregFolder/images/fallingShords.cs" id="17_4l6mh"]
+[ext_resource type="Material" uid="uid://f8nshqg1fw1w" path="res://gregFolder/shaders/gregC/outlineMat.tres" id="18_6nv1c"]
+[ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="19_algcw"]
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/testGreg.cs" id="20_s5oq8"]
+[ext_resource type="Texture2D" uid="uid://c555fv5jlbfol" path="res://gregFolder/testFolder/testTileOne.png" id="21_nonrg"]
+[ext_resource type="Texture2D" uid="uid://cq1u71kvspybs" path="res://gregFolder/testFolder/testTileTwo.png" id="22_t64mx"]
+[ext_resource type="Texture2D" uid="uid://dvp0rkkvatcnf" path="res://gregFolder/images/testEnemyOne.png" id="23_c5b2s"]
+[ext_resource type="Texture2D" uid="uid://d2uvsujjudbbc" path="res://gregFolder/images/strikeGlow.png" id="24_wwyci"]
+[ext_resource type="Texture2D" uid="uid://bt2rhm4ixsjso" path="res://gregFolder/images/targetingMotivo.png" id="25_1s0ob"]
+[ext_resource type="Texture2D" uid="uid://c7sf3aigrjj73" path="res://gregFolder/testFolder/testTileSimpleOne.png" id="26_4c3ft"]
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/tileAnim.cs" id="27_gov6c"]
+[ext_resource type="Texture2D" uid="uid://dg2u3x3d0qpj3" path="res://gregFolder/testFolder/testTileSimpleTwo.png" id="28_820my"]
+[ext_resource type="Texture2D" uid="uid://mwwb6kewllg6" path="res://gregFolder/testFolder/testTileSimpleThree.png" id="29_lafrv"]
+[ext_resource type="Texture2D" uid="uid://dxwv5qkb37wcr" path="res://gregFolder/testFolder/testTileSimpleFour.png" id="30_jtkyt"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/gregC/tileShader.gdshader" id="31_f5xo1"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/distortionShader.gdshader" id="32_lln1x"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
+particles_animation = true
+particles_anim_h_frames = 2
+particles_anim_v_frames = 2
+particles_anim_loop = false
+
+[sub_resource type="Animation" id="Animation_5mq22"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_vhblr"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vut0g"]
+_data = {
+"RESET": SubResource("Animation_5mq22"),
+"idle": SubResource("Animation_vhblr")
+}
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_cq2j5"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5pcj"]
+atlas = ExtResource("24_wwyci")
+region = Rect2(64, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhwqw"]
+atlas = ExtResource("24_wwyci")
+region = Rect2(128, 0, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3o23"]
+atlas = ExtResource("24_wwyci")
+region = Rect2(0, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07tog"]
+atlas = ExtResource("24_wwyci")
+region = Rect2(64, 32, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4bf6l"]
+atlas = ExtResource("24_wwyci")
+region = Rect2(0, 64, 64, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_42u37"]
+atlas = ExtResource("24_wwyci")
+region = Rect2(128, 32, 64, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_guwti"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5pcj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nhwqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3o23")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07tog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4bf6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_42u37")
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"strike glow anim",
+"speed": 30.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pcl74"]
+shader = ExtResource("31_f5xo1")
+shader_parameter/scroll_speed = Vector2(0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rh31d"]
+shader = ExtResource("32_lln1x")
+shader_parameter/strength = 0.01
+shader_parameter/frequency = 25.0
+shader_parameter/speed = 20.0
+
+[node name="GregMainScene" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("1_ky7pa")
+
+[node name="STUFF" type="Node" parent="."]
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="STUFF"]
+visible = false
+material = SubResource("CanvasItemMaterial_oj31l")
+position = Vector2(569, -475)
+lifetime = 2.0
+draw_order = 1
+texture = ExtResource("2_i7cpd")
+gravity = Vector2(0, 500)
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="spriteSheetAnim" type="Sprite2D" parent="STUFF"]
+position = Vector2(-80, -468)
+texture = ExtResource("3_focmv")
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="STUFF/spriteSheetAnim"]
+libraries = {
+"": SubResource("AnimationLibrary_vut0g")
+}
+autoplay = "idle"
+
+[node name="UI controll" type="Control" parent="."]
+layout_mode = 3
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="target pos label" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -146.0
+offset_top = -371.0
+offset_right = -53.0
+offset_bottom = -348.0
+scale = Vector2(2, 2)
+text = "p"
+
+[node name="target pos global" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -145.0
+offset_top = -311.0
+offset_right = -52.0
+offset_bottom = -288.0
+scale = Vector2(2, 2)
+text = "global p"
+
+[node name="explainer" type="Label" parent="UI controll"]
+layout_mode = 0
+offset_left = -157.0
+offset_top = 114.0
+offset_right = -5.0
+offset_bottom = 215.0
+scale = Vector2(2, 2)
+text = "left = flash 1 
+right = flash 2 
+down = shakeCam
+enter = shakeEnm"
+autowrap_mode = 1
+
+[node name="BACK sky" type="Sprite2D" parent="."]
+scale = Vector2(2.57, 2.57)
+texture = ExtResource("4_c7ny8")
+
+[node name="EFFECTS" type="Node" parent="." node_paths=PackedStringArray("testSprite")]
+script = ExtResource("5_bijuh")
+testSprite = NodePath("test sprite")
+whiteMat = ExtResource("6_hl0kc")
+blackMat = ExtResource("7_x78vd")
+effectDelay = 0.05
+shakeSpriteDuration = 0.03
+shakeSpriteOffset = 5.0
+shakeSpriteRotation = 10.0
+backroundEffectDelay = 0.02
+backroundEffeColor = Color(0.67, 0.67, 0.67, 1)
+
+[node name="test sprite" type="Sprite2D" parent="EFFECTS"]
+position = Vector2(-192, -460)
+scale = Vector2(2, 2)
+texture = ExtResource("8_whv7y")
+
+[node name="Sprite2D" type="Sprite2D" parent="EFFECTS/test sprite"]
+position = Vector2(18.5, 16)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_3v5jj")
+
+[node name="emojy" type="Sprite2D" parent="."]
+position = Vector2(-677, -264)
+scale = Vector2(3, 3)
+texture = ExtResource("10_48y4c")
+region_enabled = true
+region_rect = Rect2(0, 0, 40, 40)
+
+[node name="PLAYER" type="Node2D" parent="."]
+script = ExtResource("11_tgmai")
+
+[node name="newEnemy" parent="." instance=ExtResource("12_om0g8")]
+position = Vector2(331, -316)
+speed = 5.0
+
+[node name="Bullet" parent="." instance=ExtResource("13_6kseq")]
+position = Vector2(320, -158)
+
+[node name="spawning" type="Node2D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("14_cji0i")
+EnemyPreffab = ExtResource("12_om0g8")
+minionPreffab = ExtResource("15_scpgc")
+spawnX = 10.0
+player = NodePath("../PLAYER")
+
+[node name="BLOOD" type="CPUParticles2D" parent="."]
+material = SubResource("CanvasItemMaterial_cq2j5")
+emitting = false
+amount = 1
+lifetime = 0.2
+one_shot = true
+texture = ExtResource("16_5t54d")
+emission_shape = 1
+emission_sphere_radius = 15.0
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 200.0
+initial_velocity_max = 200.0
+angle_min = -50.0
+angle_max = 50.0
+scale_amount_min = 3.0
+scale_amount_max = 5.0
+anim_speed_min = 1.0
+anim_speed_max = 1.0
+
+[node name="falling shord" type="Node" parent="." node_paths=PackedStringArray("testSprite")]
+script = ExtResource("17_4l6mh")
+testSprite = NodePath("../shord OUTLINE")
+
+[node name="shord OUTLINE" type="Sprite2D" parent="."]
+material = ExtResource("18_6nv1c")
+position = Vector2(68, -324)
+scale = Vector2(4, 4)
+texture = ExtResource("19_algcw")
+
+[node name="shord OUTLINE2" type="Sprite2D" parent="."]
+material = ExtResource("18_6nv1c")
+position = Vector2(157, -273)
+scale = Vector2(4, 4)
+texture = ExtResource("19_algcw")
+
+[node name="TEST GREG" type="Node2D" parent="." node_paths=PackedStringArray("particles", "anim", "atacker", "shord", "target")]
+script = ExtResource("20_s5oq8")
+testTiledAnim = true
+tiledFrame0 = ExtResource("21_nonrg")
+tiledFrame1 = ExtResource("22_t64mx")
+particles = NodePath("../BLOOD")
+testAnim = true
+anim = NodePath("../strike glow anim")
+animRotaion = 3.0
+testAtack = true
+redOutline = ExtResource("18_6nv1c")
+atacker = NodePath("atacker")
+shord = NodePath("atacker/shord")
+target = NodePath("target")
+atackerRotation = 10.0
+atackerOffset = 5.0
+shordRotation = -30.0
+shordOffset = Vector2(-10, 7)
+delay = 0.03
+targetDamageDelay = 0.1
+
+[node name="atacker" type="Sprite2D" parent="TEST GREG"]
+position = Vector2(-137, -58)
+scale = Vector2(2, 2)
+texture = ExtResource("23_c5b2s")
+
+[node name="shord" type="Sprite2D" parent="TEST GREG/atacker"]
+position = Vector2(13.5, 20.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("19_algcw")
+flip_h = true
+flip_v = true
+
+[node name="target" type="Sprite2D" parent="TEST GREG"]
+position = Vector2(-132, 36)
+scale = Vector2(2, 2)
+texture = ExtResource("23_c5b2s")
+
+[node name="strike glow anim" type="AnimatedSprite2D" parent="."]
+position = Vector2(-83, -131)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_guwti")
+animation = &"strike glow anim"
+frame = 6
+speed_scale = 2.0
+
+[node name="strike sprite only" type="Sprite2D" parent="."]
+texture = ExtResource("24_wwyci")
+hframes = 3
+vframes = 2
+region_enabled = true
+region_rect = Rect2(56, 0, 56, 32)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_repeat = 2
+texture = ExtResource("25_1s0ob")
+hframes = 3
+vframes = 2
+region_enabled = true
+region_rect = Rect2(0, 0, 32, 32)
+
+[node name="TextureRect anim test2" type="TextureRect" parent="."]
+self_modulate = Color(1, 0.337, 0.22, 0.231373)
+offset_left = 53.0
+offset_top = -166.0
+offset_right = 90.38
+offset_bottom = 9.0
+scale = Vector2(2, 2)
+texture = ExtResource("26_4c3ft")
+stretch_mode = 1
+script = ExtResource("27_gov6c")
+cooldown = 0.05
+framesArray = Array[Texture2D]([ExtResource("26_4c3ft"), ExtResource("28_820my"), ExtResource("29_lafrv"), ExtResource("30_jtkyt")])
+
+[node name="MATERIAL TILE WORKED" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_pcl74")
+offset_left = -53.0
+offset_top = -180.0
+offset_right = -12.0
+offset_bottom = 199.0
+texture = ExtResource("25_1s0ob")
+stretch_mode = 1
+
+[node name="distortion" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rh31d")
+position = Vector2(-100, -267)
+scale = Vector2(3, 3)
+texture = ExtResource("8_whv7y")

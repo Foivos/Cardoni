@@ -1,0 +1,32 @@
+[gd_resource type="VisualShader" load_steps=2 format=3 uid="uid://bak36v1luej5"]
+
+[sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_fx53q"]
+parameter_name = "tint"
+default_value_enabled = true
+default_value = Color(0, 0, 0, 1)
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+uniform vec4 tint : source_color = vec4(0.000000, 0.000000, 0.000000, 1.000000);
+
+
+
+void fragment() {
+// ColorParameter:2
+	vec4 n_out2p0 = tint;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out2p0.xyz);
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(780, 160)
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorParameter_fx53q")
+nodes/fragment/2/position = Vector2(80, 180)
+nodes/fragment/connections = PackedInt32Array(2, 0, 0, 0)
