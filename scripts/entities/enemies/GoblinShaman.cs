@@ -2,7 +2,7 @@ namespace Cardoni;
 
 using Godot;
 
-public partial class GoblinShaman : EffectEntity
+public partial class GoblinShaman : Entity
 {
 	public GoblinShaman(uint lane, int y = 0, uint health = 5)
 		: base()
@@ -18,10 +18,12 @@ public partial class GoblinShaman : EffectEntity
 		Height = Constants.GridTicks / 2;
 		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/EnemySpriteSheet1.png");
 		Parent.Sprite.RegionRect = new Rect2(new Vector2(32, 128), new Vector2(32, 32));
-	}
-
-	public override void ApplyEffect(Entity entity)
-	{
-		ActiveConditions.Add(new Haste(entity, 0));
+		Passives.Add(
+			new ConditionPassive(
+				this,
+				new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
+				(entity) => new Haste(entity, 0)
+			)
+		);
 	}
 }

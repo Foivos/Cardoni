@@ -21,7 +21,8 @@ public class PoisonedEffect : Effect
 
 	public bool Ticking = false;
 
-	public PoisonedEffect(Entity entity): base(entity)
+	public PoisonedEffect(Entity entity)
+		: base(entity)
 	{
 		Strength = 0;
 	}

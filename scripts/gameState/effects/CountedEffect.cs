@@ -18,12 +18,13 @@ public abstract class CountedEffect : Effect
 			{
 				count = value;
 			}
-            Update();
+			Update();
 		}
 	}
 	public bool Active { get; set; }
 
-	public CountedEffect(Entity entity): base(entity)
+	public CountedEffect(Entity entity)
+		: base(entity)
 	{
 		Count = 0;
 	}

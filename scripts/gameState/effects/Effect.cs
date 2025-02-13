@@ -17,7 +17,8 @@ public abstract class Effect
 
 	public List<ICondition> Conditions { get; set; } = new();
 
-	public static Type[] EffectTypes = new Type[]{
+	public static Type[] EffectTypes = new Type[]
+	{
 		typeof(WetEffect),
 		typeof(FrozenEffect),
 		typeof(StunnedEffect),
@@ -31,12 +32,12 @@ public abstract class Effect
 		typeof(MindControlledEffect),
 	};
 
-	public Effect(Entity entity) {
+	public Effect(Entity entity)
+	{
 		Entity = entity;
 		RefEffect = this;
 
 		Update();
-
 	}
 
 	public virtual bool Affected()

@@ -83,14 +83,19 @@ public partial class Entity
 	public EntityMask TargetMask { get; set; }
 
 	public List<Cooldown> Cooldowns { get; set; } = new();
+	public List<Passive> Passives { get; set; } = new();
 
 	public Attack Attack { get; set; }
 
 	protected Entity()
 	{
 		SpawnManager.Spawn(this);
-		foreach (EffectType effectType in Enum.GetValues<EffectType>()) {
-			Effect.EffectTypes[(int) effectType].GetConstructor(new Type[]{typeof(Entity)}).Invoke(new object[]{this});
+		foreach (EffectType effectType in Enum.GetValues<EffectType>())
+		{
+			Effect
+				.EffectTypes[(int)effectType]
+				.GetConstructor(new Type[] { typeof(Entity) })
+				.Invoke(new object[] { this });
 		}
 	}
 
@@ -146,7 +151,11 @@ public partial class Entity
 		}
 		foreach (Cooldown cooldown in Cooldowns)
 		{
-			cooldown.Start();
+			cooldown.End();
+		}
+		foreach (Passive passive in Passives)
+		{
+			passive.End();
 		}
 		Parent.QueueFree();
 	}
@@ -158,6 +167,10 @@ public partial class Entity
 		foreach (Cooldown cooldown in Cooldowns)
 		{
 			cooldown.Start();
+		}
+		foreach (Passive passive in Passives)
+		{
+			passive.Start();
 		}
 	}
 

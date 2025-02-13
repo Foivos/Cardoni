@@ -4,13 +4,22 @@ using Godot;
 
 namespace Cardoni;
 
-public abstract partial class EffectEntity : Entity
+public abstract partial class Passive
 {
 	public List<ICondition> ActiveConditions { get; set; } = new();
 
-	public override void Spawn()
+	public Entity Entity { get; set; }
+
+	public EntityMask TargetMask { get; set; }
+
+	public Passive(Entity entity, EntityMask targetMask)
 	{
-		base.Spawn();
+		Entity = entity;
+		TargetMask = targetMask;
+	}
+
+	public virtual void Start()
+	{
 		foreach (Entity entity in GameState.Entities)
 		{
 			OnSpawn(entity);
@@ -18,9 +27,8 @@ public abstract partial class EffectEntity : Entity
 		Events.OnSpawn += OnSpawn;
 	}
 
-	public override void Kill()
+	public virtual void End()
 	{
-		base.Kill();
 		foreach (ICondition condition in ActiveConditions)
 		{
 			condition.End();
@@ -31,9 +39,9 @@ public abstract partial class EffectEntity : Entity
 
 	public virtual bool IsValidTarget(Entity entity)
 	{
-		return entity != this
+		return entity != Entity
 			&& entity.IsAlive
-			&& OccupyingLanes.Intersects(entity.OccupyingLanes)
+			&& Entity.OccupyingLanes.Intersects(entity.OccupyingLanes)
 			&& TargetMask.Matches(entity.Mask);
 	}
 

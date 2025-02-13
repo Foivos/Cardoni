@@ -21,7 +21,8 @@ public class BleedingEffect : Effect
 
 	public bool Ticking = false;
 
-	public BleedingEffect(Entity entity): base(entity)
+	public BleedingEffect(Entity entity)
+		: base(entity)
 	{
 		Strength = 0;
 	}
