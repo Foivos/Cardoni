@@ -85,7 +85,9 @@ public partial class GameState : Node
 		ProcessTicked();
 
 		SpawnProjectiles();
+
 		ProcessProjectiles();
+		
 		KillProjectiles();
 
 		ProcessExpiring();

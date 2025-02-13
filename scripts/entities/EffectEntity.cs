@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 
 namespace Cardoni;
@@ -7,30 +8,29 @@ public abstract partial class EffectEntity : Entity
 {
 	public EntityMask EffectMask { get; set; }
 
+	public List<ICondition> ActiveConditions { get; set; } = new();
+
 	public override void Spawn()
 	{
 		base.Spawn();
 		foreach (Entity entity in GameState.Entities)
 		{
-			if (IsValidTarget(entity))
-			{
-				ApplyEffect(entity);
-			}
+			OnSpawn(entity);
 		}
-		Events.OnSpawn += ApplyEffect;
+		Events.OnSpawn += OnSpawn;
 	}
 
 	public override void Kill()
 	{
 		base.Kill();
-		foreach (Entity entity in GameState.Entities)
+		foreach (ICondition condition in ActiveConditions)
 		{
-			RemoveEffect(entity);
+			condition.End();
 		}
 	}
 
+
 	public abstract void ApplyEffect(Entity entity);
-	public abstract void RemoveEffect(Entity entity);
 
 	public virtual bool IsValidTarget(Entity entity)
 	{
@@ -38,5 +38,12 @@ public abstract partial class EffectEntity : Entity
 			&& entity.IsAlive
 			&& OccupyingLanes.Intersects(entity.OccupyingLanes)
 			&& EffectMask.Matches(entity.Mask);
+	}
+
+	public virtual void OnSpawn(Entity entity) {
+		if (IsValidTarget(entity))
+		{
+			ApplyEffect(entity);
+		}
 	}
 }

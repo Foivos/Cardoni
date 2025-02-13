@@ -12,6 +12,8 @@ public class BaseProjectileResult : CardResult
 
     public uint Piercing { get; set; }
 
+    public int Y { get; set; } = Constants.TicksPerLane;
+
 
     public BaseProjectileResult(EntityActive[] projectileActives) {
         ProjectileActives = projectileActives;
@@ -23,7 +25,7 @@ public class BaseProjectileResult : CardResult
 	public override void Activate()
 	{
 		Projectile projectile = new() {
-            Y = Constants.TicksPerLane,
+            Y = Y,
             MovementSpeed = MovementSpeed,
             Actives = ProjectileActives,
             Lane = (uint) TargetView.Instance.GetCurrentOffset(new Vector2(0f, 0f)).X,

@@ -20,7 +20,7 @@ public partial class SpawnManager : Node
 		var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
 		{
 			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy, EntityMasks.Structure }),
+			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
 		};
 		var friend2 = new GoblinShaman(1, Constants.TicksPerLane)
 		{
@@ -28,7 +28,7 @@ public partial class SpawnManager : Node
 			EffectMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
 		};
 		var enemy1 = new GoblinWarrior(1);
-		var enemy2 = new GoblinRanged(1);
+		var enemy2 = new GoblinRanged(2);
 	}
 
 	public static void Spawn(Entity entity)
