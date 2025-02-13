@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://csbjck7132u02"]
+[gd_scene load_steps=3 format=3 uid="uid://c4k7jgrdlhjtu"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="1_40t6c"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]

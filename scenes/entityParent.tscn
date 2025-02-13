@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://glpl5iwje24t"]
+[gd_scene load_steps=7 format=3 uid="uid://b6qe4xt00nrba"]
 
 [ext_resource type="Script" path="res://scripts/EntityParent.cs" id="1_8mn4u"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/testBigEmojys.png" id="2_nnhdo"]
@@ -9,11 +9,12 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
 radius = 50.0
 
-[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite")]
+[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "Weapon")]
 collision_mask = 0
 script = ExtResource("1_8mn4u")
 HealthBar = NodePath("HealthBar")
 Sprite = NodePath("Sprite")
+Weapon = NodePath("Weapon")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 show_behind_parent = true

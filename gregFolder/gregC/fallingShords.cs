@@ -1,43 +1,93 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class fallingShords : Node
 {
 
+	
 	static fallingShords inst;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() { inst = this; }
 
 
-
 	[Export] Sprite2D testSprite;
-
-
-	[Export] PackedScene fallingPreffab;
-	[Export] int rotation;
-	[Export] float gravity;
-	[Export] float speed;
-	[Export] float sizeAdjust;
-
-
-	// public override void _Input(InputEvent @event)
-	// {
-	// 	//return;
-	// 	if (@event is InputEventMouseButton == false) return;
-	// 	throwItem(testSprite);
-
-	// }
-
-
-
-	public static void throwItem(Sprite2D thatOne)
+	//[Export] PackedScene fallingItemPreffab;
+	List<fallingShordItem> fallingItems;
+	fallingShordItem getFallingItem()
 	{
-		GD.Print("throwItem " + thatOne == null);
-		GD.Print("throwItem");
-		GD.Print("throwItem");
-		GD.Print("throwItem");
-		if (inst == null || thatOne == null) return; inst.throwItemLocal(thatOne);
+
+		if (fallingItems == null) fallingItems = new List<fallingShordItem>();
+
+		for (int i = 0; i < fallingItems.Count; i++)
+		{
+			if (fallingItems[i].Visible == false) return fallingItems[i];
+
+		}
+
+
+
+
+
+		//? HERE SPAWNS MORE
+		fallingShordItem tempItem = null;
+		for (int i = 0; i < 5; i++)
+		{
+			tempItem = new fallingShordItem();
+			//tempItem = fallingItemPreffab.Instantiate<fallingShordItem>();
+			tempItem.closeMe();
+
+			fallingItems.Add(tempItem);
+
+			AddChild(tempItem);
+		}
+
+		return tempItem;
+
+
+
 	}
+
+	public override void _Process(double delta)
+	{
+
+
+		if (fallingItems == null) return;
+
+		for (int i = 0; i < fallingItems.Count; i++)
+		{
+			if (fallingItems[i].Visible == false) continue;
+			fallingItems[i].processMe((float)delta);
+
+		}
+
+
+
+
+	}
+
+
+
+	//[Export] PackedScene fallingPreffab;
+
+
+	ulong lastInput;
+	public override void _Input(InputEvent @event)
+	{
+		//return;
+
+		if (Time.GetTicksMsec() - lastInput < 200) return;
+		lastInput = Time.GetTicksMsec();
+
+
+		if (@event is InputEventMouseButton == false) return;
+		throwItem(testSprite);
+
+	}
+
+
+
+	public static void throwItem(Sprite2D thatOne) { if (inst == null) return; inst.throwItemLocal(thatOne); }
 
 
 
@@ -45,21 +95,22 @@ public partial class fallingShords : Node
 	{
 
 
-		fallingShordItem item = fallingPreffab.Instantiate<fallingShordItem>();
-		AddChild(item);
+		//fallingShordItem item = fallingPreffab.Instantiate<fallingShordItem>();
+		//AddChild(item);
 
-		item.sprite.Texture = thatOne.Texture;
-		item.Position = thatOne.GlobalPosition;
-		item.Scale = thatOne.Scale * sizeAdjust;
-		//item.Scale = thatOne.GlobalTransform.Scale;
+		getFallingItem().useMe(thatOne.GlobalPosition, thatOne.Scale.X, thatOne.Texture
+		, default);
+
+		// resetSpeed();
+		// testFallingShord.Visible = true;
+		// testFallingShord.Texture = thatOne.Texture;
+		// testFallingShord.Position = thatOne.GlobalPosition;
+		// testFallingShord.Scale = thatOne.Scale * sizeAdjust;
+
+
 
 		GD.Print(thatOne.GlobalPosition + "__" + thatOne.Scale);
-		//+ "__" + thatOne.GlobalTransform.Scale + "__" + thatOne.Texture);
 
-
-		item.GravityScale = gravity;
-		item.LinearVelocity = new Vector2(0.5f, -0.5f) * speed;
-		item.AngularVelocity = rotation;
 
 
 
