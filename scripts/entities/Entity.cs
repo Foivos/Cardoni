@@ -60,6 +60,9 @@ public partial class Entity
 
 
 			}
+
+			if (Parent != null && Parent.EnemyMove != null)
+			 Parent.EnemyMove.SetProcess(direction != 0);
 		}
 	}
 

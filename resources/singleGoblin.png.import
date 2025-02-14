@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlfdn0vit3us5"
-path="res://.godot/imported/orcs.png-3d40d5ae8e6062c8da5c72c63e3583c0.ctex"
+uid="uid://dm53r7wy5cry5"
+path="res://.godot/imported/singleGoblin.png-eb714a812213271d3cc91ee0a7e15b50.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/orcs.png"
-dest_files=["res://.godot/imported/orcs.png-3d40d5ae8e6062c8da5c72c63e3583c0.ctex"]
+source_file="res://resources/singleGoblin.png"
+dest_files=["res://.godot/imported/singleGoblin.png-eb714a812213271d3cc91ee0a7e15b50.ctex"]
 
 [params]
 
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=0
+detect_3d/compress_to=1

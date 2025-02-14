@@ -11,5 +11,6 @@ public partial class EntityParent : Area2D
 	[Export]
 	public Sprite2D Sprite;
 
-	[Export]public Sprite2D Weapon;
+	[Export] public Sprite2D Weapon;
+	[Export] public enemyMove EnemyMove;
 }
