@@ -76,9 +76,9 @@ public partial class battleEffectsC : Node
 		}
 
 	}
-	
-	
-	
+
+
+
 
 	public class invisibleLater : effect
 	{
@@ -104,11 +104,72 @@ public partial class battleEffectsC : Node
 
 
 		}
+
+
+	}
+	public class rotateLater : effect
+	{
+		Node2D theNode;
+		int degrees;
+
+		public rotateLater(Node2D _node, float delay , int _degrees)
+		{
+
+			if (inst == null || _node == null) return;
+
+			untill = Time.GetTicksMsec() + delay * 1000;
+			theNode = _node;
+			degrees = _degrees;
+			inst._spriteEffect.Add(this);
+
+		}
+
+		public override void update(float time, out bool removeMe)
+		{
+
+			removeMe = true;
+			theNode.RotationDegrees += degrees;
+		
+
+
+		}
+
+
+
+	}
+		public class resizeLater : effect
+	{
+		Node2D theNode;
+		float sizeAdjust;
+
+		public resizeLater(Node2D _node, float delay , float _sizeAdjust)
+		{
+
+			if (inst == null || _node == null) return;
+
+			untill = Time.GetTicksMsec() + delay * 1000;
+			theNode = _node;
+			sizeAdjust = _sizeAdjust;
+			inst._spriteEffect.Add(this);
+
+		}
+
+		public override void update(float time, out bool removeMe)
+		{
+
+			removeMe = true;
+			theNode.Scale *= sizeAdjust;
+		
+
+
+		}
+
+
+
 	}
 
 
-	
-	
+
 	public class spriteEffect : effect //? origin
 	{
 		public Sprite2D sprite;
@@ -242,6 +303,91 @@ public partial class battleEffectsC : Node
 
 	#endregion
 
+	#region  poolable markers
+
+	List<Sprite2D> markersPool;
+
+	public Sprite2D getMarker(Vector2 position = default
+	, Color color = default, float lifetime = -1, string message = "")
+	{
+		if (markersPool == null) markersPool = new List<Sprite2D>();
+		Sprite2D marker = null;
+
+		for (int i = 0; i < markersPool.Count; i++)
+		{
+			if (markersPool[i].Visible == false) { marker = markersPool[i]; break; }
+
+		}
+
+		if (marker == null)// spwawn more
+		{
+
+			for (int i = 0; i < 5; i++)
+			{
+				marker = new Sprite2D();
+
+				AddChild(marker);
+				marker.Name = "marker with text child " + markersPool.Count;
+				markersPool.Add(marker);
+
+				marker.Texture = GD.Load<Texture2D>("res://gregFolder/images/square.png");
+				marker.Visible = false;
+			}
+
+
+
+		}
+
+
+
+		marker.Position = position;
+
+		if (color != default) marker.SelfModulate = color;
+		else marker.Modulate = new Color(1, 1, 1, 0.5f);
+
+		if (lifetime > 0) new invisibleLater(marker, lifetime);
+
+
+
+
+		// GD.PushError("1111");
+		// GD.PushWarning("2222");
+
+
+		if (marker.GetChildCount() == 0)
+		{
+			var label = new Label();
+			marker.AddChild(label);
+			label.Scale = new Vector2(2f, 2f);
+			label.Position = new Vector2(0, 0);
+			label.Text = message;
+			label.SelfModulate = Colors.Coral;
+
+
+		}
+		else if (marker.GetChild(0) is Label)
+		{
+
+			marker.GetChild<Label>(0).Text = message;
+		}
+		else
+		{
+			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
+			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
+			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
+		}
+
+
+
+
+		marker.Visible = true;
+		return marker;
+
+
+	}
+
+
+	#endregion
 
 	#region  BACKROUND FLASH
 

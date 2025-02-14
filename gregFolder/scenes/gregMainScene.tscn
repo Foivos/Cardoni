@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://gfu73gc2fpwh"]
+[gd_scene load_steps=16 format=3 uid="uid://gfu73gc2fpwh"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_stp0o"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="2_0o2b7"]
@@ -7,6 +7,8 @@
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="4_ahft0"]
 [ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/images/testEnemyFour.png" id="5_ph6ep"]
 [ext_resource type="Script" path="res://gregFolder/gregC/textEffects.cs" id="7_450mq"]
+[ext_resource type="Theme" uid="uid://kldp23p8yprq" path="res://gregFolder/new_theme.tres" id="8_0gu5u"]
+[ext_resource type="FontFile" uid="uid://btttisy36v4y6" path="res://gregFolder/Squeid Gameis.otf" id="9_mm42t"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -62,8 +64,6 @@ particles_anim_loop = false
 shader = ExtResource("3_rt1l3")
 shader_parameter/width = 1
 shader_parameter/outline_color = Color(0, 0.8, 1, 1)
-
-[sub_resource type="Theme" id="Theme_ypwe8"]
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -186,14 +186,16 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = -2.5
-offset_right = 81.0
-offset_bottom = 47.5
+offset_left = -96.0
+offset_top = -145.5
+offset_right = 16.0
+offset_bottom = -95.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-text = "3333awdadwd"
+theme = ExtResource("8_0gu5u")
+theme_override_fonts/font = ExtResource("9_mm42t")
+text = "12"
 horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
@@ -215,10 +217,20 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Node/Node2D"]
-offset_left = 9.0
-offset_top = -52.5
-offset_right = 49.0
-offset_bottom = -12.5
-theme = SubResource("Theme_ypwe8")
+offset_left = -66.5
+offset_top = -102.0
+offset_right = -26.5
+offset_bottom = -62.0
+theme = ExtResource("8_0gu5u")
+theme_override_constants/outline_size = 8
+theme_override_fonts/normal_font = ExtResource("9_mm42t")
 bbcode_enabled = true
-text = "33"
+text = "wdadwa"
+
+[node name="Label3" type="Label" parent="Node/Node2D"]
+offset_left = 9.0
+offset_top = -54.5
+offset_right = 51.0
+offset_bottom = -31.5
+theme_override_constants/outline_size = 8
+text = "23wq"

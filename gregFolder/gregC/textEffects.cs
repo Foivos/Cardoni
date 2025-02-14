@@ -94,7 +94,9 @@ public partial class textEffects : Node2D
 
 
 			texts.Add(item);
-			item.Item1.Visible = false;
+			father.Name = "poolable text "+texts.Count;
+
+						item.Item1.Visible = false;
 
 		}
 
@@ -106,40 +108,45 @@ public partial class textEffects : Node2D
 
 	public static void displayDmgText(Entity entity, int amount)
 	{
-
+		// Color redLowAlpha = new Color(1, 0, 0, 0.5f);
+		// battleEffectsC.inst.getMarker(entity.Parent.GlobalPosition
+		// , color: redLowAlpha, lifetime: 2, message: amount.ToString());
 
 
 		bool enemy = entity.Mask.Matches(new EntityMask(new EntityMasks[] { EntityMasks.Enemy }))
-		||entity is GoblinRanged || entity is GoblinWarrior	;
+		|| entity is GoblinRanged || entity is GoblinWarrior;
 		bool friendly = entity.Mask.Matches(new EntityMask(new EntityMasks[] { EntityMasks.Friendly }));
 
 
 
 
-		const float offsetX = 35;
-		const float offsetY = 45;
-		const float duration = 0.25f;
+		const float offsetX = 25;
+		const float offsetY = 30;
+		const float duration = 0.15f;
 		const float _size = 3f;
-		const int rotation = -5;
+		const int rotation = -5	;
 
 		Vector2 offset = Vector2.Zero;
 		if (enemy) offset = new Vector2(offsetX, -offsetY);
 		else if (friendly) offset = new Vector2(offsetX, -offsetY);
 
-		GD.Print("offset == ",offset);
+		//GD.Print("offset == ", offset);
 
 		// GD.Print("DIR == ", entity.Direction);
 		// GD.Print("POS == ", entity.Parent.GlobalPosition
 		//  + offset );
 
 		addText(amount.ToString(), entity.Parent.GlobalPosition + offset
-		, duration, size : _size , color : Colors.Red , degrees : rotation);
+		, duration, size: _size, color: Colors.Red, degrees: rotation);
 
 	}
 
 	public static void addText(string text, Vector2 position, float duration
-	, float size = 1, Color color = default, int degrees = default)
+	, float size = 1, Color color = default, int degrees = default )
 	{
+
+		//, bool outline = false
+
 		if (inst == null) return;
 
 		//GD.Print("SPAWN ");
@@ -153,6 +160,7 @@ public partial class textEffects : Node2D
 
 		label.Item2.Text = text;
 		label.Item2.SelfModulate = color;
+		label.Item2.AddThemeConstantOverride("outline_size", 5);
 
 		///GD.Print("H == ", label.Item2.HorizontalAlignment.ToString());
 		//GD.Print("V == ", label.Item2.VerticalAlignment.ToString());
@@ -160,6 +168,8 @@ public partial class textEffects : Node2D
 
 
 		new battleEffectsC.invisibleLater(label.Item1, duration);
+		new battleEffectsC.rotateLater(label.Item1, duration/2f , -7);
+		new battleEffectsC.resizeLater(label.Item1, duration/2f , 0.8f);
 
 
 	}
