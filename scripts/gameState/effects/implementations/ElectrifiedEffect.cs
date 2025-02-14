@@ -1,6 +1,6 @@
 namespace Cardoni;
 
-public class ElectrifiedEffect : CountedEffect
+public class ElectrifiedEffect : Effect
 {
 	public const EffectType Type = EffectType.Electrified;
 	public override EffectType EffectType => EffectType.Electrified;

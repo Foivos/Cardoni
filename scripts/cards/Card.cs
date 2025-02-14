@@ -6,8 +6,32 @@ public partial class Card : Node2D
 {
 	public int Index { get; set; }
 
-	[Export]
-	public string Description { get; set; }
+	public CardData Data
+	{
+		get => null;
+		set
+		{
+			if (value == null)
+				return;
+			Name = value.Name;
+			ManaCost = value.ManaCost;
+			Description = value.Description;
+			if (value.Sprite != null)
+				Sprite.Texture = value.Sprite;
+			CardResults = value.CardResults;
+		}
+	}
+
+	string description;
+	public string Description
+	{
+		get => description;
+		set
+		{
+			description = value;
+			Text.Text = value;
+		}
+	}
 
 	int manaCost;
 
@@ -26,20 +50,13 @@ public partial class Card : Node2D
 	public CardResult[] CardResults { get; set; }
 
 	[Export]
-	public Sprite2D MySprite { get; set; }
+	public Sprite2D Sprite { get; set; }
 
 	[Export]
-	public RichTextLabel MyText { get; set; }
+	public RichTextLabel Text { get; set; }
 
 	[Export]
 	public RichTextLabel ManaLabel { get; set; }
-
-	public override void _Ready()
-	{
-		DisplayMana();
-
-		MyText.Text = ManaCost + "_" + Description;
-	}
 
 	void DisplayMana()
 	{

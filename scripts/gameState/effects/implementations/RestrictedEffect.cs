@@ -1,6 +1,6 @@
 namespace Cardoni;
 
-public class RestrictedEffect : CountedEffect
+public class RestrictedEffect : Effect
 {
 	public const EffectType Type = EffectType.Restricted;
 	public override EffectType EffectType => EffectType.Restricted;

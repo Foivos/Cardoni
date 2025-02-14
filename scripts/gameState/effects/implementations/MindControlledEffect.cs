@@ -2,7 +2,7 @@ using System;
 
 namespace Cardoni;
 
-public class MindControlledEffect : CountedEffect
+public class MindControlledEffect : Effect
 {
 	public const EffectType Type = EffectType.MindControlled;
 	public override EffectType EffectType => EffectType.MindControlled;

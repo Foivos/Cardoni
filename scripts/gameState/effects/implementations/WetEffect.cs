@@ -1,6 +1,6 @@
 namespace Cardoni;
 
-public class WetEffect : CountedEffect
+public class WetEffect : Effect
 {
 	public const EffectType Type = EffectType.Wet;
 	public override EffectType EffectType => EffectType.Wet;

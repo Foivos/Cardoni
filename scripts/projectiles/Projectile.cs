@@ -8,7 +8,7 @@ public partial class Projectile
 {
 	public Sprite2D Sprite { get; } = new Sprite2D();
 
-	public uint Piercing { get; set; } = 1;
+	public int Piercing { get; set; } = 1;
 
 	public EntityActive[] Actives { get; set; }
 
@@ -88,6 +88,7 @@ public partial class Projectile
 		}
 		else if (Piercing == 1)
 		{
+			Piercing = -1;
 			Destroy();
 		}
 		else
@@ -104,7 +105,11 @@ public partial class Projectile
 
 	protected virtual bool IsValidTarget(Entity entity)
 	{
-		return Mask.Matches(entity.Mask) && entity.OccupyingLanes.IsIn(Lane) && AlreadyHit.IndexOf(entity) == -1;
+		return Piercing >= 0
+			&& entity.IsAlive
+			&& Mask.Matches(entity.Mask)
+			&& entity.OccupyingLanes.IsIn(Lane)
+			&& AlreadyHit.IndexOf(entity) == -1;
 	}
 
 	protected virtual int VerticalDistance(Entity target)

@@ -1,6 +1,6 @@
 namespace Cardoni;
 
-public class HasteEffect : CountedEffect
+public class HasteEffect : Effect
 {
 	public const EffectType Type = EffectType.Haste;
 	public override EffectType EffectType => EffectType.Haste;

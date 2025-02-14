@@ -11,5 +11,7 @@ public abstract partial class CardResult : Resource
 	[Export]
 	public Active[] Effects { get; set; }
 
+	public CardResult() { }
+
 	public abstract void Activate();
 }

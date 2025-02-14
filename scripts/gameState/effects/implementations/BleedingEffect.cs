@@ -7,34 +7,16 @@ public class BleedingEffect : Effect
 
 	public const uint StacksPerHealth = 1200;
 
-	uint strength;
-	public uint Strength
-	{
-		get { return strength; }
-		set
-		{
-			strength = value;
-			Update();
-		}
-	}
 	public uint Stacks { get; set; }
 
 	public bool Ticking = false;
 
 	public BleedingEffect(Entity entity)
-		: base(entity)
-	{
-		Strength = 0;
-	}
-
-	public override bool Affected()
-	{
-		return Stacks > 0;
-	}
+		: base(entity) { }
 
 	public void Tick()
 	{
-		Stacks += Strength;
+		Stacks += 60 * Count;
 		if (Stacks >= StacksPerHealth)
 		{
 			int damage = (int)(Stacks / StacksPerHealth);
@@ -43,18 +25,13 @@ public class BleedingEffect : Effect
 		}
 	}
 
-	public override void Update()
+	protected override void Apply()
 	{
-		base.Update();
-		if (Ticking && Strength == 0)
-		{
-			Ticking = false;
-			GameState.RemoveTicked(Tick);
-		}
-		else if (!Ticking && Strength > 0)
-		{
-			Ticking = true;
-			GameState.AddTicked(Tick);
-		}
+		GameState.AddTicked(Tick);
+	}
+
+	protected override void Remove()
+	{
+		GameState.RemoveTicked(Tick);
 	}
 }

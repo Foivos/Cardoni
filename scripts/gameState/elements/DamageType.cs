@@ -60,7 +60,7 @@ public class DamageType
 		}
 		if (entity.Affected(EffectType.Frozen))
 		{
-			p *= 1 << ((FrozenEffect)entity.Effects[(int)EffectType.Frozen]).Count;
+			p *= 1 << (int)entity.GetEffect<FrozenEffect>().Count;
 		}
 		return (int)Math.Ceiling(damage * p);
 	}
@@ -71,7 +71,7 @@ public class DamageType
 		if (entity.Affected(EffectType.Wet))
 		{
 			entity.GetEffect<WetEffect>().Conditions[0].End();
-			new Frozen(entity, 40);
+			new Condition(entity, new ConditionData(EffectType.Frozen, 60));
 		}
 	}
 
@@ -91,7 +91,7 @@ public class DamageType
 		if (entity.Affected(EffectType.Wet))
 		{
 			entity.GetEffect<WetEffect>().Conditions[0].End();
-			new Stunned(entity, 40);
+			new Condition(entity, new ConditionData(EffectType.Stunned, 60));
 		}
 		if (entity.Affected(EffectType.Wet))
 		{

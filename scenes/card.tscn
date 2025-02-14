@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://scripts/cards/Card.cs" id="1_hx23o"]
 [ext_resource type="Texture2D" uid="uid://digqxd7ktw20m" path="res://gregFolder/images/testCardP.png" id="2_tdbqd"]
 
-[node name="Card" type="Node2D" node_paths=PackedStringArray("MySprite", "MyText", "ManaLabel")]
+[node name="Card" type="Node2D" node_paths=PackedStringArray("Sprite", "Text", "ManaLabel")]
 script = ExtResource("1_hx23o")
-MySprite = NodePath("Sprite2D")
-MyText = NodePath("rich desciption text")
+Sprite = NodePath("Sprite2D")
+Text = NodePath("rich desciption text")
 ManaLabel = NodePath("rich mana text")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

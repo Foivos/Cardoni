@@ -7,6 +7,8 @@ using Godot;
 [GlobalClass]
 public partial class EffectResult : CardResult
 {
+	public EffectResult() { }
+
 	public EffectResult(List<EntityTarget> targets, List<EntityActive> effects)
 	{
 		Targets = targets.Cast<CardTarget>().ToArray();

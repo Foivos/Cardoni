@@ -20,21 +20,13 @@ public partial class CardView : Node2D
 	public override void _Ready()
 	{
 		Instance = this;
-
+		string[] names = new string[] { "dart", "firebolt", "frostbolt", "rain" };
 		for (int i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();
 			card.Index = i;
-			card.Description = "Card " + i;
 
-			card.CardResults = new CardResult[1];
-			//var target = new PatternTarget(new string[] { " X ", "XXX" }, false);
-			//var effect = new CardEffectPoison(100, 60);
-			//card.CardResults[0] = new EffectResult(new EntityTarget[]{target}.ToList(), new EntityActive[]{effect}.ToList());
-			card.CardResults[0] = new BaseProjectileResult(new EntityActive[] { new EntityEffectPoison(30, 40) })
-			{
-				Piercing = 2,
-			};
+			card.Data = GD.Load<CardData>("res://resources/cards/" + names[i] + ".tres");
 
 			Cards[i] = card;
 

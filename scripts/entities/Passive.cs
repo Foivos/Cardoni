@@ -6,7 +6,7 @@ namespace Cardoni;
 
 public abstract partial class Passive
 {
-	public List<ICondition> ActiveConditions { get; set; } = new();
+	public List<Condition> ActiveConditions { get; set; } = new();
 
 	public Entity Entity { get; set; }
 
@@ -29,7 +29,7 @@ public abstract partial class Passive
 
 	public virtual void End()
 	{
-		foreach (ICondition condition in ActiveConditions)
+		foreach (Condition condition in ActiveConditions)
 		{
 			condition.End();
 		}

@@ -44,7 +44,6 @@ public partial class Entity
 	public int Direction { get; set; }
 
 	public Effect[] Effects = new Effect[Enum.GetNames<EffectType>().Length];
-	public List<ICondition> Conditions = new List<ICondition>();
 
 	public Shape2D Shape { get; set; }
 
@@ -145,10 +144,6 @@ public partial class Entity
 			}
 			effect.End();
 		}
-		foreach (ICondition condiiton in Conditions)
-		{
-			condiiton.End();
-		}
 		foreach (Cooldown cooldown in Cooldowns)
 		{
 			cooldown.End();
@@ -182,7 +177,7 @@ public partial class Entity
 	internal bool Affected(EffectType effectType)
 	{
 		Effect effect = Effects[(int)effectType];
-		return effect != null && effect.Affected();
+		return effect != null && effect.Active;
 	}
 
 	internal T GetEffect<T>()

@@ -21,7 +21,7 @@ public partial class SpawnManager : Node
 
 		GD.Print(player.Health);
 
-		var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
+		/*var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
 		{
 			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
 			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
@@ -31,7 +31,7 @@ public partial class SpawnManager : Node
 			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
 			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
 		};
-		friend2.Passives[0].TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });
+		friend2.Passives[0].TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });*/
 		var enemy1 = new GoblinWarrior(1);
 		var enemy2 = new GoblinRanged(2);
 		var enemy3 = new GoblinSummoner(3);

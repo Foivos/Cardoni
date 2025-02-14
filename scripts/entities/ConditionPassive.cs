@@ -4,9 +4,9 @@ namespace Cardoni;
 
 public class ConditionPassive : Passive
 {
-	public Func<Entity, ICondition> GenerateCondition { get; set; }
+	public Func<Entity, Condition> GenerateCondition { get; set; }
 
-	public ConditionPassive(Entity entity, EntityMask targetMask, Func<Entity, ICondition> generateCondition)
+	public ConditionPassive(Entity entity, EntityMask targetMask, Func<Entity, Condition> generateCondition)
 		: base(entity, targetMask)
 	{
 		GenerateCondition = generateCondition;

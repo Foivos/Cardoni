@@ -22,7 +22,7 @@ public partial class GoblinShaman : Entity
 			new ConditionPassive(
 				this,
 				new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
-				(entity) => new Haste(entity, 0)
+				(entity) => new Condition(entity, new ConditionData() { Duration = 0 })
 			)
 		);
 	}

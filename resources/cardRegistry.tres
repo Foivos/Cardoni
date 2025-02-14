@@ -1,9 +1,111 @@
-[gd_resource type="Resource" script_class="CardRegistry" load_steps=2 format=3 uid="uid://dscy6ttx32cur"]
+[gd_resource type="Resource" script_class="CardRegistry" load_steps=25 format=3 uid="uid://dscy6ttx32cur"]
 
 [ext_resource type="Script" path="res://scripts/registries/CardRegistry.cs" id="1_2dxkn"]
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectDamage.cs" id="1_645tn"]
+[ext_resource type="Script" path="res://scripts/registries/CardResource.cs" id="1_rsxj0"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_gtsuq"]
+[ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_llfcw"]
+[ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_j8kti"]
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectPoison.cs" id="6_ms8p2"]
+
+[sub_resource type="Resource" id="Resource_7kim2"]
+script = ExtResource("1_645tn")
+Damage = 3
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_bcx48"]
+script = ExtResource("2_gtsuq")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_g28g6"]
+script = ExtResource("2_gtsuq")
+Masks = 0
+
+[sub_resource type="Resource" id="Resource_e8ldn"]
+script = ExtResource("3_llfcw")
+EntityMask = SubResource("Resource_g28g6")
+
+[sub_resource type="Resource" id="Resource_8d00w"]
+script = ExtResource("4_j8kti")
+MovementSpeed = -60
+ProjectileMask = SubResource("Resource_bcx48")
+Piercing = 0
+Y = 6000
+Targets = Array[Object]([SubResource("Resource_e8ldn")])
+Effects = Array[Object]([SubResource("Resource_7kim2")])
+
+[sub_resource type="Resource" id="Resource_rhjb1"]
+script = ExtResource("1_rsxj0")
+Name = "Dart"
+Description = "Create dart that deals 3 Physical Damage."
+ManaCost = 2
+CardResults = Array[Object]([SubResource("Resource_8d00w")])
+
+[sub_resource type="Resource" id="Resource_jx7pv"]
+script = ExtResource("1_645tn")
+Damage = 2
+DamageType = 1
+
+[sub_resource type="Resource" id="Resource_5dolm"]
+script = ExtResource("3_llfcw")
+EntityMask = SubResource("Resource_g28g6")
+
+[sub_resource type="Resource" id="Resource_ug5fa"]
+script = ExtResource("4_j8kti")
+MovementSpeed = -60
+ProjectileMask = SubResource("Resource_bcx48")
+Piercing = 0
+Y = 6000
+Targets = Array[Object]([SubResource("Resource_5dolm")])
+Effects = Array[Object]([SubResource("Resource_jx7pv")])
+
+[sub_resource type="Resource" id="Resource_h5bg2"]
+script = ExtResource("1_rsxj0")
+Name = "Firebolt"
+Description = "Create dart that deals 2 Fire Damage."
+ManaCost = 2
+CardResults = Array[Object]([SubResource("Resource_ug5fa")])
+
+[sub_resource type="Resource" id="Resource_5lsrn"]
+script = ExtResource("6_ms8p2")
+Duration = 100
+Strength = 60
+
+[sub_resource type="Resource" id="Resource_r3jpo"]
+script = ExtResource("2_gtsuq")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_4uasy"]
+script = ExtResource("2_gtsuq")
+Masks = 0
+
+[sub_resource type="Resource" id="Resource_enpgw"]
+script = ExtResource("3_llfcw")
+EntityMask = SubResource("Resource_4uasy")
+
+[sub_resource type="Resource" id="Resource_y63ck"]
+script = ExtResource("4_j8kti")
+MovementSpeed = -60
+ProjectileMask = SubResource("Resource_r3jpo")
+Piercing = 0
+Y = 6000
+Targets = Array[Object]([SubResource("Resource_enpgw")])
+Effects = Array[Object]([SubResource("Resource_5lsrn")])
+
+[sub_resource type="Resource" id="Resource_xdlnu"]
+script = ExtResource("1_rsxj0")
+Name = "Frostbolt"
+Description = "Create dart that deals 2 Frost Damage."
+ManaCost = 2
+CardResults = Array[Object]([SubResource("Resource_y63ck")])
+
+[sub_resource type="Resource" id="Resource_t0p3s"]
+script = ExtResource("1_rsxj0")
+Name = "Poison Dart"
+Description = "Create dart that deals 5 Poison Damage over 5 seconds."
+ManaCost = 2
+CardResults = Array[Object]([SubResource("Resource_y63ck")])
 
 [resource]
 script = ExtResource("1_2dxkn")
-Cards = {}
-Masks = 5
-Masks2 = 5
+Cards = [SubResource("Resource_rhjb1"), SubResource("Resource_h5bg2"), SubResource("Resource_xdlnu"), SubResource("Resource_t0p3s")]
