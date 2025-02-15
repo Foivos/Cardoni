@@ -1,9 +1,8 @@
 namespace Cardoni;
 
-using System.Reflection.PortableExecutable;
 using Godot;
-using Godot.Collections;
 
+[GlobalClass]
 public partial class EntityData : Resource
 {
 	public EntityData() { }
@@ -21,13 +20,10 @@ public partial class EntityData : Resource
 	public uint MaxHealth { get; set; }
 
 	[Export]
-	public AttackData AttackData { get; set; }
+	public EntityMask Mask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Enemy });
 
 	[Export]
-	public EntityMask Mask { get; set; }
-
-	[Export]
-	public EntityMask TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });
+	public EntityMask TargetMask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });
 
 	[Export]
 	public uint BaseMovementSpeed { get; set; } = 60;

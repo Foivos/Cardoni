@@ -8,8 +8,6 @@ public partial class Attack : TickedCharacteristic<AttackData>
 
 	public uint AttackStacks { get; set; }
 
-	public uint Range => Data.Range;
-
 	public uint StartingStacks => Data.StartingStacks;
 
 	public EntityActive Active => Data.Active;
@@ -65,7 +63,7 @@ public partial class Attack : TickedCharacteristic<AttackData>
 
 	protected virtual bool InRange(Entity target)
 	{
-		return Entity.VerticalDistance(target) <= Range;
+		return Data.AttackFilter.IsValid(Entity, target);
 	}
 
 	protected virtual void StartAttack()
@@ -104,8 +102,8 @@ public partial class Attack : TickedCharacteristic<AttackData>
 	{
 		return entity != Entity
 			&& entity.IsAlive
-			&& Entity.OccupyingLanes.Intersects(entity.OccupyingLanes)
-			&& Entity.TargetMask.Matches(entity.Mask);
+			&& Entity.TargetMask.Matches(entity.Mask)
+			&& Data.TargetFilter.IsValid(Entity, entity);
 	}
 
 	protected virtual void ContinueAttack()

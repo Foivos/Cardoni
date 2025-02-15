@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b5bq885l6aov0"]
 
-[ext_resource type="Script" path="res://scripts/EntityParent.cs" id="1_8mn4u"]
+[ext_resource type="Script" path="res://scripts/entities/Entity.cs" id="1_gt78p"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/images/testBigEmojys.png" id="2_nnhdo"]
 [ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/images/healthBack.png" id="3_32dvr"]
 [ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/images/healthBar.png" id="4_dlm2d"]
@@ -11,7 +11,7 @@ radius = 50.0
 
 [node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite")]
 collision_mask = 0
-script = ExtResource("1_8mn4u")
+script = ExtResource("1_gt78p")
 HealthBar = NodePath("HealthBar")
 Sprite = NodePath("Sprite")
 

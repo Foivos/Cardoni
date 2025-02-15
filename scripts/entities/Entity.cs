@@ -2,29 +2,18 @@ namespace Cardoni;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Godot;
 using Godot.Collections;
 
 public partial class Entity : Node2D
 {
-	public EntityParent Parent { set; get; }
-	public TextureProgressBar HealthBar => Parent.HealthBar;
+	[Export]
+	public TextureProgressBar HealthBar { get; set; }
 
-	public Sprite2D Sprite => Parent.Sprite;
-
-	EntityData data;
-	public EntityData Data
-	{
-		get => data;
-		set
-		{
-			data = value;
-			if (value == null)
-				return;
-
-			HealthBar.MaxValue = value.MaxHealth;
-		}
-	}
+	[Export]
+	public Sprite2D Sprite { get; set; }
+	public EntityData Data { get; set; }
 
 	public uint MaxHealth => Data.MaxHealth;
 	int health;
@@ -61,12 +50,12 @@ public partial class Entity : Node2D
 		set
 		{
 			occupyingLanes = value;
-			Parent.Position = Parent.Position with { X = ((value.To + value.From) / 2f - 1.5f) * Constants.GridWidth };
+			Position = Position with { X = ((value.To + value.From) / 2f - 1.5f) * Constants.GridWidth };
 		}
 	}
 
-	public int Height { get; set; }
-	public int Width { get; set; }
+	public uint Height => Data.Height;
+	public uint Width => Data.Width;
 
 	int y;
 	public int Y
@@ -75,7 +64,7 @@ public partial class Entity : Node2D
 		set
 		{
 			y = value;
-			Parent.Position = Parent.Position with
+			Position = Position with
 			{
 				Y = (value - Constants.TicksPerLane / 2) * Constants.GridHeight / Constants.GridTicks,
 			};
@@ -88,13 +77,22 @@ public partial class Entity : Node2D
 
 	public Characteristic Characteristic { get; set; }
 
-	public Entity()
+	public void SetData(EntityData data, int lane, int y)
 	{
-		SpawnManager.Spawn(this);
-		for (int i = 0; i < Effect.EffectTypes.Length; i++)
+		Data = data;
+		if (data == null)
+			return;
+
+		HealthBar.MaxValue = data.MaxHealth;
+		Health = (int)data.MaxHealth;
+		OccupyingLanes = new OccupyingLanes(lane, (int)(lane + data.Width - 1));
+		Y = y;
+		Mask = data.Mask;
+		TargetMask = data.TargetMask;
+		if (data.Sprite != null)
 		{
-			Effects[i] = (Effect)
-				Effect.EffectTypes[i].GetConstructor(new Type[] { typeof(Entity) }).Invoke(new object[] { this });
+			Sprite.Texture = data.Sprite.Texture;
+			Sprite.RegionRect = data.Sprite.RegionRect;
 		}
 	}
 
@@ -136,7 +134,7 @@ public partial class Entity : Node2D
 
 		float y = Y + dt * dx;
 		y = (y - Constants.TicksPerLane / 2) * Constants.GridHeight / Constants.GridTicks;
-		Parent.Position = Parent.Position with { Y = y };
+		Position = Position with { Y = y };
 	}
 
 	public virtual void Kill()
@@ -151,17 +149,17 @@ public partial class Entity : Node2D
 			effect.End();
 		}
 
-		Parent.QueueFree();
+		QueueFree();
 	}
 
 	public virtual void Spawn()
 	{
-		Characteristic.Start();
+		Characteristic?.Start();
 	}
 
 	public int VerticalDistance(Entity target)
 	{
-		return Math.Abs(target.Y - Y) - target.Height;
+		return Math.Abs(target.Y - Y) - (int)target.Height - (int)Height;
 	}
 
 	internal bool Affected(EffectType effectType)

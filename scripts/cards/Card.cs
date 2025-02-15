@@ -16,9 +16,12 @@ public partial class Card : Node2D
 			Name = value.Name;
 			ManaCost = value.ManaCost;
 			Description = value.Description;
+			CardResult = value.CardResult;
 			if (value.Sprite != null)
-				Sprite.Texture = value.Sprite;
-			CardResults = value.CardResults;
+			{
+				Sprite.Texture = value.Sprite.Texture;
+				Sprite.RegionRect = value.Sprite.RegionRect;
+			}
 		}
 	}
 
@@ -46,8 +49,7 @@ public partial class Card : Node2D
 		}
 	}
 
-	[Export]
-	public CardResult[] CardResults { get; set; }
+	public CardResult CardResult { get; set; }
 
 	[Export]
 	public Sprite2D Sprite { get; set; }

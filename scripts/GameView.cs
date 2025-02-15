@@ -30,10 +30,8 @@ public partial class GameView : Area2D
 			)
 				return;
 
-			foreach (CardResult result in GameState.SelectedCard.CardResults)
-			{
-				result.Activate();
-			}
+			GameState.SelectedCard.CardResult.Activate();
+
 			TargetView.EndTargeting();
 			GameState.SelectedCard = null;
 		}

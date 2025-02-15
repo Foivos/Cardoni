@@ -10,7 +10,7 @@ public partial class Projectile
 
 	public int Piercing { get; set; } = 1;
 
-	public EntityActive[] Actives { get; set; }
+	public EntityActive Active { get; set; }
 
 	public EntityMask Mask { get; set; } = new EntityMask();
 
@@ -78,10 +78,9 @@ public partial class Projectile
 	public virtual void Hit(Entity entity)
 	{
 		AlreadyHit.Add(entity);
-		foreach (EntityActive active in Actives)
-		{
-			active.Activate(entity);
-		}
+
+		Active.Activate(entity);
+
 		if (Piercing == 0)
 		{
 			return;
@@ -114,6 +113,6 @@ public partial class Projectile
 
 	protected virtual int VerticalDistance(Entity target)
 	{
-		return (int)Math.Abs(target.Y - Y) - target.Height;
+		return Math.Abs(target.Y - Y) - (int)target.Height;
 	}
 }

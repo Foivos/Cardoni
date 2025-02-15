@@ -8,13 +8,15 @@ using Godot.Collections;
 [GlobalClass]
 public partial class EffectResult : CardResult
 {
-	public EffectResult() { }
+	[Export]
+	public EntityTarget EntityTarget { get; set; }
 
-	public EffectResult(List<EntityTarget> targets, List<EntityActive> effects)
-	{
-		Targets = targets.Cast<CardTarget>().ToArray();
-		Effects = effects.Cast<Active>().ToArray();
-	}
+	[Export]
+	public EntityActive Active { get; set; }
+
+	public override CardTarget Target => EntityTarget;
+
+	public EffectResult() { }
 
 	public virtual bool Affects(Entity entity)
 	{
@@ -23,25 +25,12 @@ public partial class EffectResult : CardResult
 
 	public virtual void Affect(Entity entity)
 	{
-		foreach (Active effect in Effects)
-		{
-			((EntityActive)effect).Activate(entity);
-		}
-	}
-
-	public virtual List<Entity> GetTargets()
-	{
-		List<Entity> targets = new();
-		foreach (CardTarget target in Targets)
-		{
-			targets.AddRange(((EntityTarget)target).Targets());
-		}
-		return targets.Distinct().ToList();
+		Active.Activate(entity);
 	}
 
 	public override void Activate()
 	{
-		foreach (Entity entity in GetTargets())
+		foreach (Entity entity in EntityTarget.Targets())
 		{
 			GD.Print(entity.Effects);
 			Affect(entity);

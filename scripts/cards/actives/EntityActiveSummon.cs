@@ -15,6 +15,6 @@ public partial class EntityActiveSummon : EntityActive
 
 	public override void Activate(Entity entity)
 	{
-		SpawnManager.Spawn((uint)(entity.OccupyingLanes.From + RelativeLane), entity.Y, Summon);
+		SpawnManager.Spawn(entity.OccupyingLanes.From + RelativeLane, entity.Y, Summon);
 	}
 }

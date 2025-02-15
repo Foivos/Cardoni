@@ -1,40 +1,30 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=11 format=3 uid="uid://ct06qb70q7b50"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://ct06qb70q7b50"]
 
-[ext_resource type="Script" path="res://scripts/cards/affecting/EntityActiveDamage.cs" id="1_ki7s4"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_57gpi"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_q3v2e"]
-[ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_ldf5v"]
 [ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_jb4wv"]
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_qnr2i"]
 
-[sub_resource type="Resource" id="Resource_bxdlt"]
-script = ExtResource("1_ki7s4")
+[sub_resource type="Resource" id="Resource_yskms"]
+script = ExtResource("1_57gpi")
 Damage = 2
 DamageType = 1
 
-[sub_resource type="Resource" id="Resource_xh54m"]
+[sub_resource type="Resource" id="Resource_iiqe1"]
 script = ExtResource("2_q3v2e")
 Masks = 1
 
-[sub_resource type="Resource" id="Resource_xdpxq"]
-script = ExtResource("2_q3v2e")
-Masks = 0
-
-[sub_resource type="Resource" id="Resource_pln2w"]
-script = ExtResource("3_ldf5v")
-EntityMask = SubResource("Resource_xdpxq")
-
-[sub_resource type="Resource" id="Resource_mh2ku"]
+[sub_resource type="Resource" id="Resource_d8anp"]
 script = ExtResource("4_jb4wv")
 MovementSpeed = -60
-ProjectileMask = SubResource("Resource_xh54m")
+ProjectileMask = SubResource("Resource_iiqe1")
 Piercing = 1
 Y = 6000
-Targets = Array[Object]([SubResource("Resource_pln2w")])
-Effects = Array[Object]([SubResource("Resource_bxdlt")])
+Active = SubResource("Resource_yskms")
 
 [resource]
 script = ExtResource("5_qnr2i")
 Name = "Dart"
 Description = "Fire a dart that hits the first enemy hit, dealing 2 Fire Damage."
 ManaCost = 2
-CardResults = Array[Object]([SubResource("Resource_mh2ku")])
+CardResult = SubResource("Resource_d8anp")

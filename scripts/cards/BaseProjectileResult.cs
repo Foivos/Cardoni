@@ -6,6 +6,10 @@ using Godot;
 [GlobalClass]
 public partial class BaseProjectileResult : CardResult
 {
+	public static CardTarget LineTarget = new LineTarget();
+
+	public override CardTarget Target => LineTarget;
+
 	[Export]
 	public int MovementSpeed { get; set; } = -60;
 
@@ -18,10 +22,10 @@ public partial class BaseProjectileResult : CardResult
 	[Export]
 	public int Y { get; set; } = Constants.TicksPerLane;
 
-	public BaseProjectileResult()
-	{
-		Targets = new CardTarget[] { new LineTarget() };
-	}
+	[Export]
+	EntityActive Active { get; set; }
+
+	public BaseProjectileResult() { }
 
 	public override void Activate()
 	{
@@ -29,7 +33,7 @@ public partial class BaseProjectileResult : CardResult
 		{
 			Y = Y,
 			MovementSpeed = MovementSpeed,
-			Actives = Array.ConvertAll(Effects, (effect) => (EntityActive)effect),
+			Active = Active,
 			Lane = (uint)TargetView.Instance.GetCurrentOffset(new Vector2(0f, 0f)).X,
 			Mask = ProjectileMask,
 			Piercing = Piercing,

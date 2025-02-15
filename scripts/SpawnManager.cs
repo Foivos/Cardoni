@@ -16,21 +16,20 @@ public partial class SpawnManager : Node
 	public override void _Ready()
 	{
 		Instance = this;
+
+		Spawn(1, 0, GD.Load<EntityData>("res://resources/entities/goblin_warrior.tres"));
+		Spawn(0, 6000, GD.Load<EntityData>("res://resources/entities/player.tres"));
+		Spawn(0, 6000, GD.Load<EntityData>("res://resources/entities/test.tres"));
 	}
 
-	public static void Spawn(Entity entity)
+	public static void Spawn(int lane, int y, EntityData data)
 	{
-		EntityParent parent = Instance.EnemyPreffab.Instantiate<EntityParent>();
+		Entity entity = Instance.EnemyPreffab.Instantiate<Entity>();
 
-		entity.Parent = parent;
+		entity.SetData(data, lane, y);
 
-		Instance.AddChild(parent);
+		Instance.AddChild(entity);
 
 		GameState.Spawning.Add(entity);
-	}
-
-	public static void Spawn(uint lane, int y, EntityData data)
-	{
-		throw new NotImplementedException();
 	}
 }

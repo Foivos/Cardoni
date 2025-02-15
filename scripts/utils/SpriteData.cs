@@ -2,6 +2,7 @@ namespace Cardoni;
 
 using Godot;
 
+[GlobalClass]
 public partial class SpriteData : Resource
 {
 	public SpriteData() { }

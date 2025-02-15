@@ -1,40 +1,30 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=11 format=3 uid="uid://c2lrd20l3xo4x"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://c2lrd20l3xo4x"]
 
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_73nk7"]
-[ext_resource type="Script" path="res://scripts/cards/affecting/EntityActiveDamage.cs" id="1_g8q2k"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_apxmm"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_yl5hi"]
-[ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_ccncu"]
 [ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_ddmrc"]
 
-[sub_resource type="Resource" id="Resource_bxdlt"]
-script = ExtResource("1_g8q2k")
+[sub_resource type="Resource" id="Resource_j0r8c"]
+script = ExtResource("1_apxmm")
 Damage = 3
 DamageType = 0
 
-[sub_resource type="Resource" id="Resource_30k57"]
+[sub_resource type="Resource" id="Resource_iiqe1"]
 script = ExtResource("2_yl5hi")
 Masks = 1
 
-[sub_resource type="Resource" id="Resource_xdpxq"]
-script = ExtResource("2_yl5hi")
-Masks = 0
-
-[sub_resource type="Resource" id="Resource_pln2w"]
-script = ExtResource("3_ccncu")
-EntityMask = SubResource("Resource_xdpxq")
-
-[sub_resource type="Resource" id="Resource_mh2ku"]
+[sub_resource type="Resource" id="Resource_i5nr8"]
 script = ExtResource("4_ddmrc")
 MovementSpeed = -60
-ProjectileMask = SubResource("Resource_30k57")
+ProjectileMask = SubResource("Resource_iiqe1")
 Piercing = 1
 Y = 6000
-Targets = Array[Object]([SubResource("Resource_pln2w")])
-Effects = Array[Object]([SubResource("Resource_bxdlt")])
+Active = SubResource("Resource_j0r8c")
 
 [resource]
 script = ExtResource("1_73nk7")
 Name = "Dart"
 Description = "Fire a dart that hits the first enemy hit, dealing 3 Physical Damage."
 ManaCost = 2
-CardResults = Array[Object]([SubResource("Resource_mh2ku")])
+CardResult = SubResource("Resource_i5nr8")

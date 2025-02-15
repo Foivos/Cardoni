@@ -15,8 +15,8 @@ public partial class CardData : Resource
 	public int ManaCost { get; set; }
 
 	[Export]
-	public CardResult[] CardResults { get; set; }
+	public SpriteData Sprite { get; set; }
 
 	[Export]
-	public Texture2D Sprite { get; set; }
+	public CardResult CardResult { get; set; }
 }
