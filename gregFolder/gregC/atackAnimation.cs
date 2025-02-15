@@ -8,11 +8,12 @@ public partial class atackAnimation : Node
 
 	static atackAnimation inst;
 
-	public override void _Process(double delta) { inst = this; }
+	public override void _Ready() { inst = this; }
 
 
 
 	[Export] Material redOutline;
+
 
 	[Export] float atackerRotation;
 	[Export] float atackerOffset;
@@ -35,6 +36,10 @@ public partial class atackAnimation : Node
 
 		bool problemDetection() { return attacker == null || attacker.IsAlive == false; }
 
+		
+		bool lookingDown = attacker.Target.Parent.Sprite.GlobalPosition.Y
+		> attacker.Parent.Sprite.GlobalPosition.Y;
+		int atackDirection = lookingDown ? 1 : -1;
 
 		Sprite2D sprite = attacker.Parent.Sprite;
 		Sprite2D weapon = attacker.Parent.Weapon;
@@ -48,12 +53,11 @@ public partial class atackAnimation : Node
 		if (problemDetection()) return;
 
 		sprite.RotationDegrees = 0;
-		sprite.Offset = new Vector2(0, atackerOffset) * attacker.Direction;
+		sprite.Offset = new Vector2(0, atackerOffset) * atackDirection;
+
 		weapon.ZIndex = 5;
-		weapon.Offset = new Vector2(shordOffset.X, attacker.Direction * shordOffset.Y);
-
-
-		weapon.RotationDegrees = shordStartRotation +  shordRotation * attacker.Direction;
+		weapon.Offset = new Vector2(atackDirection * shordOffset.X,  shordOffset.Y);//atackDirection *
+		weapon.RotationDegrees = shordStartRotation + shordRotation * atackDirection;
 
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");

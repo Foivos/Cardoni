@@ -3,13 +3,14 @@ using Godot;
 
 namespace Cardoni;
 
+
 public abstract partial class AttackingEntity : Entity
 {
 	public const uint StacksPerAttack = 1200;
 
 	uint startingStacks = 600;
 	uint attackStacks;
-	
+
 
 
 	public uint Range { get; set; }
@@ -118,7 +119,7 @@ public abstract partial class AttackingEntity : Entity
 			attackStacks -= StacksPerAttack;
 		}
 	}
-     
+
 	protected abstract void Attack();
 
 	public override void Spawn()

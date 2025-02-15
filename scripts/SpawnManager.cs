@@ -29,6 +29,7 @@ public partial class SpawnManager : Node
 			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
 			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
 		};
+		
 		var enemy1 = new GoblinWarrior(1);
 		var enemy2 = new GoblinRanged(2);
 	}

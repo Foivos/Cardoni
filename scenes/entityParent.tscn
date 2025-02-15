@@ -1,29 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://bib401hmbony5"]
+[gd_scene load_steps=9 format=3 uid="uid://bib401hmbony5"]
 
 [ext_resource type="Script" path="res://scripts/EntityParent.cs" id="1_8mn4u"]
 [ext_resource type="Texture2D" uid="uid://c7jfxb4nb7xj" path="res://gregFolder/images/testBigEmojys.png" id="2_nnhdo"]
 [ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/images/healthBack.png" id="3_32dvr"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/distortionShaderTwo.gdshader" id="4_ar2ex"]
 [ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/images/healthBar.png" id="4_dlm2d"]
-[ext_resource type="Shader" path="res://gregFolder/shaders/distortionShader.gdshader" id="4_s63c0"]
 [ext_resource type="Texture2D" uid="uid://d1ts0gduggbgo" path="res://gregFolder/images/shordTwo.png" id="5_otgi4"]
-[ext_resource type="Script" path="res://gregFolder/gregC/enemyMove.cs" id="5_tqlhy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5dgql"]
-shader = ExtResource("4_s63c0")
-shader_parameter/strength = 0.002
-shader_parameter/frequency = 2.0
-shader_parameter/speed = 1.0
+shader = ExtResource("4_ar2ex")
+shader_parameter/wave_speed = 1.0
+shader_parameter/wave_amplitude = 0.01
+shader_parameter/wave_frequency = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
 radius = 50.0
 
-[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "Weapon", "EnemyMove")]
+[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "Weapon")]
 collision_mask = 0
 script = ExtResource("1_8mn4u")
 HealthBar = NodePath("HealthBar")
-Sprite = NodePath("Sprite")
+Sprite = NodePath("face sprite")
 Weapon = NodePath("weapon")
-EnemyMove = NodePath("Sprite")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 show_behind_parent = true
@@ -43,17 +41,16 @@ stretch_margin_bottom = 4
 texture_under = ExtResource("3_32dvr")
 texture_progress = ExtResource("4_dlm2d")
 
-[node name="Sprite" type="Sprite2D" parent="."]
+[node name="face sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_5dgql")
 scale = Vector2(2.55, 2.55)
 texture = ExtResource("2_nnhdo")
 region_enabled = true
 region_rect = Rect2(0, 0, 48, 48)
-script = ExtResource("5_tqlhy")
 
 [node name="weapon" type="Sprite2D" parent="."]
 position = Vector2(46, 68)
-scale = Vector2(2.55, 2.55)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("5_otgi4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

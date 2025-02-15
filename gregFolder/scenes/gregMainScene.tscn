@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://gfu73gc2fpwh"]
+[gd_scene load_steps=31 format=3 uid="uid://gfu73gc2fpwh"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_stp0o"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="2_0o2b7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="4_ahft0"]
 [ext_resource type="Texture2D" uid="uid://dmgke6vatacy8" path="res://gregFolder/images/testEnemyFour.png" id="5_ph6ep"]
 [ext_resource type="Script" path="res://gregFolder/gregC/textEffects.cs" id="7_450mq"]
+[ext_resource type="Texture2D" uid="uid://byb4gab3q8fps" path="res://resources/smoke.png" id="7_qwrw5"]
 [ext_resource type="Theme" uid="uid://kldp23p8yprq" path="res://gregFolder/new_theme.tres" id="8_0gu5u"]
 [ext_resource type="FontFile" uid="uid://btttisy36v4y6" path="res://gregFolder/Squeid Gameis.otf" id="9_mm42t"]
 [ext_resource type="Shader" path="res://gregFolder/shaders/distortionShader.gdshader" id="10_kgb0a"]
@@ -16,7 +17,7 @@
 [ext_resource type="Shader" path="res://gregFolder/shaders/distortionShaderTwo.gdshader" id="13_j2cbf"]
 [ext_resource type="Texture2D" uid="uid://btswljg6bf0gn" path="res://resources/shordNew.png" id="14_bs5xm"]
 [ext_resource type="Texture2D" uid="uid://dm53r7wy5cry5" path="res://resources/singleGoblin.png" id="15_grb3t"]
-[ext_resource type="Shader" path="res://gregFolder/shaders/rippleShader.gdshader" id="16_rwoca"]
+[ext_resource type="Texture2D" uid="uid://bpvtecw5eqpb1" path="res://resources/hollowStrikeMedium.png" id="18_idu0t"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_oj31l"]
 particles_animation = true
@@ -73,6 +74,29 @@ shader = ExtResource("3_rt1l3")
 shader_parameter/width = 1
 shader_parameter/outline_color = Color(0, 0.8, 1, 1)
 
+[sub_resource type="Curve" id="Curve_65r4b"]
+_data = [Vector2(0.417625, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.00794899), -1.84921, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uhpu2"]
+curve = SubResource("Curve_65r4b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fhdjj"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(45, 45, 1)
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector3(1, 1, 0)
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 20, 0)
+damping_min = 400.0
+damping_max = 500.0
+scale_min = 0.4
+scale_max = 0.6
+scale_curve = SubResource("CurveTexture_uhpu2")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7oy5"]
 shader = ExtResource("10_kgb0a")
 shader_parameter/strength = 0.002
@@ -86,11 +110,6 @@ shader_parameter/wave_amplitude = 0.01
 shader_parameter/wave_frequency = 2.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uui6j"]
-shader = ExtResource("16_rwoca")
-shader_parameter/ripple_speed = 2.0
-shader_parameter/ripple_amplitude = 0.02
-shader_parameter/ripple_frequency = 2.28
-shader_parameter/ripple_center = null
 
 [node name="GregMainScene" type="Node2D"]
 
@@ -196,17 +215,28 @@ position = Vector2(-52, -106)
 rotation = -0.817296
 texture = ExtResource("5_ph6ep")
 
-[node name="Node" type="Node2D" parent="."]
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(46, -97)
+emitting = false
+amount = 24
+process_material = SubResource("ParticleProcessMaterial_fhdjj")
+texture = ExtResource("7_qwrw5")
+lifetime = 0.4
+one_shot = true
+explosiveness = 0.7
+randomness = 0.3
+
+[node name="text effects" type="Node2D" parent="."]
 script = ExtResource("7_450mq")
 col = Color(0.92, 0, 0, 1)
 duration = 0.2
 size = 2.0
 
-[node name="Node2D" type="Node2D" parent="Node"]
+[node name="Node2D" type="Node2D" parent="text effects"]
 position = Vector2(0, 1)
 scale = Vector2(2, 2)
 
-[node name="Label" type="Label" parent="Node/Node2D"]
+[node name="Label" type="Label" parent="text effects/Node2D"]
 layout_direction = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -227,7 +257,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Label2" type="Label" parent="Node/Node2D"]
+[node name="Label2" type="Label" parent="text effects/Node2D"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -243,24 +273,52 @@ text = "3333333dawdw"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Node/Node2D"]
-offset_left = -105.0
-offset_top = -129.5
-offset_right = -65.0
-offset_bottom = -89.5
+[node name="RichTextLabel" type="RichTextLabel" parent="text effects/Node2D"]
+offset_left = -93.5
+offset_top = -220.5
+offset_right = -53.5
+offset_bottom = -180.5
 theme = ExtResource("8_0gu5u")
 theme_override_constants/outline_size = 8
 theme_override_fonts/normal_font = ExtResource("9_mm42t")
 bbcode_enabled = true
 text = "wdadwa"
 
-[node name="Label3" type="Label" parent="Node/Node2D"]
+[node name="Label3" type="Label" parent="text effects/Node2D"]
 offset_left = -106.0
 offset_top = -78.5
 offset_right = -64.0
 offset_bottom = -55.5
 theme_override_constants/outline_size = 8
 text = "23wq"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2(-110, 24)
+emitting = false
+amount = 32
+one_shot = true
+explosiveness = 1.0
+randomness = 0.2
+lifetime_randomness = 0.2
+texture = ExtResource("4_ahft0")
+emission_shape = 1
+emission_sphere_radius = 45.0
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 200)
+initial_velocity_min = 150.0
+initial_velocity_max = 200.0
+angular_velocity_min = -30.0
+angular_velocity_max = 30.0
+orbit_velocity_min = -0.1
+orbit_velocity_max = 0.1
+linear_accel_min = 27.5
+linear_accel_max = 27.5
+radial_accel_min = 0.8
+radial_accel_max = 0.8
+damping_min = 300.0
+damping_max = 500.0
+scale_amount_max = 2.0
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_y7oy5")
@@ -272,7 +330,7 @@ region_rect = Rect2(128, 0, 32, 32)
 
 [node name="Sprite2D3" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_y7oy5")
-position = Vector2(-111, 34)
+position = Vector2(-140, 50)
 scale = Vector2(3, 3)
 texture = ExtResource("11_pinf5")
 region_enabled = true
@@ -337,7 +395,6 @@ moveLimits = Vector2(-200, -100)
 
 [node name="body" type="Sprite2D" parent="test move anim3"]
 material = SubResource("ShaderMaterial_uui6j")
-position = Vector2(-10, 16)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("15_grb3t")
 region_rect = Rect2(160, 0, 160, 160)
@@ -346,3 +403,65 @@ region_rect = Rect2(160, 0, 160, 160)
 position = Vector2(22, 23)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("14_bs5xm")
+
+[node name="test move anim4" type="Node2D" parent="." node_paths=PackedStringArray("body", "shord")]
+position = Vector2(40, -110)
+script = ExtResource("12_ipv2e")
+moveDistance = 2.0
+moveRotation = 2.0
+moveCooldown = 0.4
+body = NodePath("body")
+shord = NodePath("shord")
+moveSpeed = 15.0
+moveLimits = Vector2(-200, -100)
+
+[node name="body" type="Sprite2D" parent="test move anim4"]
+material = SubResource("ShaderMaterial_uui6j")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_grb3t")
+region_rect = Rect2(160, 0, 160, 160)
+
+[node name="shord" type="Sprite2D" parent="test move anim4"]
+position = Vector2(22, 23)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("14_bs5xm")
+
+[node name="strike particles" type="CPUParticles2D" parent="."]
+position = Vector2(13, 89)
+emitting = false
+amount = 1
+lifetime = 0.08
+speed_scale = 1.5
+randomness = 1.0
+fixed_fps = 120
+fract_delta = false
+texture = ExtResource("18_idu0t")
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1200.0
+scale_amount_min = 1.1
+scale_amount_max = 1.1
+color = Color(1, 0.9565, 0.13, 1)
+
+[node name="strike particles small" type="CPUParticles2D" parent="."]
+position = Vector2(38, -121)
+rotation = -3.25329
+emitting = false
+amount = 3
+lifetime = 0.05
+one_shot = true
+fract_delta = false
+texture = ExtResource("18_idu0t")
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+direction = Vector2(1, 1)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 2000.0
+initial_velocity_max = 3000.0

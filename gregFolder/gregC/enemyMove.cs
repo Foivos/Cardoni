@@ -4,6 +4,8 @@ using System;
 
 public partial class enemyMove : Sprite2D
 {
+
+	//! moved to entity parent this is not used anymore
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{

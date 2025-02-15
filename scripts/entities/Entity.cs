@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
+
 public partial class Entity
 {
 	public string Name { get; set; }
@@ -49,20 +50,11 @@ public partial class Entity
 		{
 			direction = value;
 
-			if (Parent != null && Parent.Weapon != null)
-			{
+			if (Parent != null && Parent.Weapon != null) Parent.setShordPosition(this);
 
 
-
-				if (value == 1) Parent.Weapon.RotationDegrees = -145;
-
-				else Parent.Weapon.RotationDegrees = -45;
-
-
-			}
-
-			if (Parent != null && Parent.EnemyMove != null)
-			 Parent.EnemyMove.SetProcess(direction != 0);
+			//if (Parent != null && Parent.EnemyMove != null)
+			//Parent.EnemyMove.SetProcess(direction != 0);
 		}
 	}
 
@@ -119,11 +111,13 @@ public partial class Entity
 		if (Health <= 0)
 		{
 			fallingShords.throwItem(Parent.Weapon);
-			textEffects.displayDmgText(this, 999);
+			textEffects.displayDmgText(this, 0, ovveride: "DEAD");
+
 			GameState.Kill(this);
 		}
 		else
 		{
+			battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
 			new battleEffectsC.hitDmg(Parent.Sprite);
 			textEffects.displayDmgText(this, damage);
 		}
@@ -132,10 +126,15 @@ public partial class Entity
 
 	public virtual void Move()
 	{
+
+
 		int dx = (int)MovementSpeed * Direction;
 		if (dx == 0)
 			return;
+
 		Y += dx;
+
+		Parent.processSideMove();
 	}
 
 	public virtual void UpdatePosition(float dt)

@@ -43,9 +43,37 @@ public partial class battleEffectsC : Node
 	#endregion
 
 
+	#region  particle effects 
 
+	[ExportGroup("particles")]
+	[Export] CpuParticles2D hitParticles;
+	[Export] float hitParticlesOffset;
+
+	public static void doHitParticles(Vector2 pos)
+	{
+
+		bool side = gregF.rBool();
+		//GD.Print("side: " + side);
+
+		inst.hitParticles.Position = pos
+		 + new Vector2(side ? -inst.hitParticlesOffset : inst.hitParticlesOffset, inst.hitParticlesOffset);
+
+		inst.hitParticles.RotationDegrees = side ? 45 : -45;
+		inst.hitParticles.RotationDegrees += (float)gregF.r(-10f, 10f);
+
+		inst.hitParticles.Emitting = true;
+
+	}
+
+
+
+	#endregion
 
 	#region  SPRITE EFFECTS
+
+
+
+
 
 	List<effect> _spriteEffect = new List<effect>();
 
@@ -112,7 +140,7 @@ public partial class battleEffectsC : Node
 		Node2D theNode;
 		int degrees;
 
-		public rotateLater(Node2D _node, float delay , int _degrees)
+		public rotateLater(Node2D _node, float delay, int _degrees)
 		{
 
 			if (inst == null || _node == null) return;
@@ -129,7 +157,7 @@ public partial class battleEffectsC : Node
 
 			removeMe = true;
 			theNode.RotationDegrees += degrees;
-		
+
 
 
 		}
@@ -137,12 +165,12 @@ public partial class battleEffectsC : Node
 
 
 	}
-		public class resizeLater : effect
+	public class resizeLater : effect
 	{
 		Node2D theNode;
 		float sizeAdjust;
 
-		public resizeLater(Node2D _node, float delay , float _sizeAdjust)
+		public resizeLater(Node2D _node, float delay, float _sizeAdjust)
 		{
 
 			if (inst == null || _node == null) return;
@@ -159,7 +187,7 @@ public partial class battleEffectsC : Node
 
 			removeMe = true;
 			theNode.Scale *= sizeAdjust;
-		
+
 
 
 		}
@@ -208,7 +236,11 @@ public partial class battleEffectsC : Node
 	public class hitDmg : spriteEffect
 	{
 
-		const float hitDmgDelay = 0.05f;
+
+		const float blackColor = 0.1f;
+		const float hitDmgDelay = 0.03f;
+		const int possitionOffset = -20;
+
 		public hitDmg(Sprite2D _sprite)
 		{
 
@@ -232,11 +264,19 @@ public partial class battleEffectsC : Node
 			untill = time + hitDmgDelay * 1000;
 
 			if (counter == 1)
-				sprite.Modulate = new Color(0.2f, 0.2f, 0.2f);
+				sprite.Modulate = new Color(blackColor, blackColor, blackColor);
 			else if (counter == 2)
-				sprite.Modulate = new Color(1f, 1f, 1f);
+			{
+				sprite.Modulate = Colors.DarkRed;
+				sprite.Offset = Vector2.Up * possitionOffset;
+			}
 			else
+			{
+				sprite.Modulate = Colors.White;
+				sprite.Offset = Vector2.Zero;
 				removeMe = true;
+			}
+
 		}
 	}
 

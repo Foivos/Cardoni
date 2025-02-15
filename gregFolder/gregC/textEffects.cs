@@ -94,9 +94,9 @@ public partial class textEffects : Node2D
 
 
 			texts.Add(item);
-			father.Name = "poolable text "+texts.Count;
+			father.Name = "poolable text " + texts.Count;
 
-						item.Item1.Visible = false;
+			item.Item1.Visible = false;
 
 		}
 
@@ -106,7 +106,7 @@ public partial class textEffects : Node2D
 	}
 
 
-	public static void displayDmgText(Entity entity, int amount)
+	public static void displayDmgText(Entity entity, int amount, string ovveride = null)
 	{
 		// Color redLowAlpha = new Color(1, 0, 0, 0.5f);
 		// battleEffectsC.inst.getMarker(entity.Parent.GlobalPosition
@@ -120,11 +120,11 @@ public partial class textEffects : Node2D
 
 
 
-		const float offsetX = 25;
-		const float offsetY = 30;
+		const float offsetX = -15;
+		const float offsetY = 20;
 		const float duration = 0.15f;
 		const float _size = 3f;
-		const int rotation = -5	;
+		const int rotation = -5;
 
 		Vector2 offset = Vector2.Zero;
 		if (enemy) offset = new Vector2(offsetX, -offsetY);
@@ -136,13 +136,15 @@ public partial class textEffects : Node2D
 		// GD.Print("POS == ", entity.Parent.GlobalPosition
 		//  + offset );
 
-		addText(amount.ToString(), entity.Parent.GlobalPosition + offset
+		if (ovveride == null || ovveride == "") ovveride = amount.ToString();
+
+		addText(ovveride, entity.Parent.GlobalPosition + offset
 		, duration, size: _size, color: Colors.Red, degrees: rotation);
 
 	}
 
 	public static void addText(string text, Vector2 position, float duration
-	, float size = 1, Color color = default, int degrees = default )
+	, float size = 1, Color color = default, int degrees = default)
 	{
 
 		//, bool outline = false
@@ -168,8 +170,8 @@ public partial class textEffects : Node2D
 
 
 		new battleEffectsC.invisibleLater(label.Item1, duration);
-		new battleEffectsC.rotateLater(label.Item1, duration/2f , -7);
-		new battleEffectsC.resizeLater(label.Item1, duration/2f , 0.8f);
+		new battleEffectsC.rotateLater(label.Item1, duration / 2f, -7);
+		new battleEffectsC.resizeLater(label.Item1, duration / 2f, 0.8f);
 
 
 	}

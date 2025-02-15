@@ -4,7 +4,7 @@ namespace Cardoni;
 
 public partial class GoblinWarrior : DamagingEntity
 {
-	public GoblinWarrior(uint lane, int y = 0, uint health = 5, int damage = 2)
+	public GoblinWarrior(uint lane, int y = 0, uint health = 20, int damage = 2)
 		: base()
 	{
 		OccupyingLanes = new OccupyingLanes(lane);
@@ -19,8 +19,10 @@ public partial class GoblinWarrior : DamagingEntity
 		BaseMovementSpeed = 60;
 		BaseAttackSpeed = 40;
 		Height = Constants.GridTicks / 2;
-		Range = (uint)Constants.GridTicks / 2;
-		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/EnemySpriteSheet1.png");
-		Parent.Sprite.RegionRect = new Rect2(new Vector2(192, 0), new Vector2(32, 32));
+		Range = (uint)Constants.GridTicks / 2;//res://resources/singleGoblin.png
+		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/singleGoblin.png");
+		Parent.Sprite.Scale = Vector2.One * 0.5f;
+		Parent.Sprite.RegionEnabled = false;
+		//Parent.Sprite.RegionRect = new Rect2(new Vector2(192, 0), new Vector2(32, 32));
 	}
 }

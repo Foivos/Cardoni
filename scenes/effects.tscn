@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dsfsps4n187ti"]
+[gd_scene load_steps=8 format=3 uid="uid://dsfsps4n187ti"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="1_40t6c"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]
 [ext_resource type="Script" path="res://gregFolder/gregC/atackAnimation.cs" id="3_8ktg1"]
+[ext_resource type="Texture2D" uid="uid://brsi8kgcmggmh" path="res://resources/hollowStrikeMedioumOutline.png" id="3_qa6s3"]
 [ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="4_iljim"]
 [ext_resource type="Script" path="res://gregFolder/gregC/textEffects.cs" id="5_n1kp3"]
 
@@ -16,8 +17,10 @@ shader_parameter/outline_color = Color(1, 0, 0, 1)
 [node name="falling shord" type="Node" parent="."]
 script = ExtResource("1_40t6c")
 
-[node name="EFFECTS" type="Node" parent="."]
+[node name="EFFECTS" type="Node" parent="." node_paths=PackedStringArray("hitParticles")]
 script = ExtResource("2_v5wef")
+hitParticles = NodePath("strike particles")
+hitParticlesOffset = 50.0
 shakeSpriteDuration = 0.03
 shakeSpriteOffset = 5.0
 shakeSpriteRotation = 10.0
@@ -32,14 +35,37 @@ scale = Vector2(2, 2)
 position = Vector2(18.5, 16)
 scale = Vector2(0.5, 0.5)
 
+[node name="strike particles" type="CPUParticles2D" parent="EFFECTS"]
+self_modulate = Color(0.967667, 1, 0.03, 1)
+position = Vector2(-64, 76)
+rotation = -3.25329
+emitting = false
+amount = 1
+lifetime = 0.08
+one_shot = true
+speed_scale = 1.5
+randomness = 1.0
+fixed_fps = 120
+fract_delta = false
+texture = ExtResource("3_qa6s3")
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1200.0
+scale_amount_min = 0.6
+scale_amount_max = 0.8
+
 [node name="atackAnimation" type="Node" parent="."]
 script = ExtResource("3_8ktg1")
 redOutline = SubResource("ShaderMaterial_y4ghb")
 atackerRotation = 10.0
 atackerOffset = 5.0
-shordRotation = 40.0
-shordOffset = Vector2(-5, 10)
-delay = 0.05
+shordOffset = Vector2(2, -10)
+delay = 0.03
 
 [node name="textEffects" type="Node2D" parent="." node_paths=PackedStringArray("labelHolderPresset", "labelPresset")]
 script = ExtResource("5_n1kp3")

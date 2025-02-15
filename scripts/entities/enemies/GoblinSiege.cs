@@ -4,7 +4,7 @@ using Godot;
 
 public partial class GoblinSiege : DamagingEntity
 {
-	public GoblinSiege(uint leftLane, int y = 0, uint health = 15, int damage = 3)
+	public GoblinSiege(uint leftLane, int y = 0, uint health = 100, int damage = 3)
 		: base()
 	{
 		OccupyingLanes = new OccupyingLanes(leftLane, leftLane + 1);
@@ -20,9 +20,10 @@ public partial class GoblinSiege : DamagingEntity
 		BaseAttackSpeed = 20;
 		Height = Constants.GridTicks / 2;
 		Range = (uint)Constants.GridTicks / 2;
-
-		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/batteringRam.png");
-		Parent.Sprite.RegionRect = new Rect2(new Vector2(0, 0), new Vector2(348, 265));
-		Parent.Sprite.Scale = new Vector2(0.3f, 0.3f);
+		
+		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/singleGoblinTwo.png");
+		//Parent.Sprite.RegionRect = new Rect2(new Vector2(0, 0), new Vector2(348, 265));
+		Parent.Sprite.RegionEnabled = false; 
+		Parent.Sprite.Scale = Vector2.One * 0.5f;
 	}
 }
