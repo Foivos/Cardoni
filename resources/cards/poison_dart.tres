@@ -1,15 +1,21 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=11 format=3 uid="uid://odxsnfeqpwwi"]
+[gd_resource type="Resource" script_class="CardData" load_steps=13 format=3 uid="uid://odxsnfeqpwwi"]
 
-[ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectPoison.cs" id="1_x5558"]
+[ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_ognu7"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_si177"]
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityActiveCondition.cs" id="2_t44tr"]
 [ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_rds2l"]
 [ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_gaee4"]
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_npvq4"]
 
-[sub_resource type="Resource" id="Resource_jr2um"]
-script = ExtResource("1_x5558")
-Duration = 100
-Strength = 60
+[sub_resource type="Resource" id="Resource_jqyjh"]
+script = ExtResource("1_ognu7")
+Duration = 0
+Strength = 5
+EffectType = 3
+
+[sub_resource type="Resource" id="Resource_nxde0"]
+script = ExtResource("2_t44tr")
+Data = SubResource("Resource_jqyjh")
 
 [sub_resource type="Resource" id="Resource_xh54m"]
 script = ExtResource("2_si177")
@@ -30,7 +36,7 @@ ProjectileMask = SubResource("Resource_xh54m")
 Piercing = 1
 Y = 6000
 Targets = Array[Object]([SubResource("Resource_pln2w")])
-Effects = Array[Object]([SubResource("Resource_jr2um")])
+Effects = Array[Object]([SubResource("Resource_nxde0")])
 
 [resource]
 script = ExtResource("5_npvq4")

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardResource" load_steps=16 format=3 uid="uid://cl60e7pwcqhv3"]
 
 [ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="1_3yfqu"]
-[ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectDamage.cs" id="1_5e64c"]
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityActiveDamage.cs" id="1_5e64c"]
 [ext_resource type="Script" path="res://scripts/registries/CardResource.cs" id="1_xvm0l"]
 [ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="2_j3ady"]
 [ext_resource type="Script" path="res://scripts/cards/affecting/EntityEffectPoison.cs" id="2_qgb8d"]

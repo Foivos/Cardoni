@@ -20,7 +20,7 @@ public partial class CardView : Node2D
 	public override void _Ready()
 	{
 		Instance = this;
-		string[] names = new string[] { "dart", "firebolt", "frostbolt", "rain" };
+		string[] names = new string[] { "poison_dart", "thunderclap", "frostbolt", "rain" };
 		for (int i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();

@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=11 format=3 uid="uid://blptubc65wwgp"]
+
+[ext_resource type="Script" path="res://scripts/cards/affecting/EntityActiveDamage.cs" id="1_gruce"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_plw2b"]
+[ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_leyng"]
+[ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_a43d5"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_uw05r"]
+
+[sub_resource type="Resource" id="Resource_bxdlt"]
+script = ExtResource("1_gruce")
+Damage = 2
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_m6xg8"]
+script = ExtResource("2_plw2b")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_xdpxq"]
+script = ExtResource("2_plw2b")
+Masks = 0
+
+[sub_resource type="Resource" id="Resource_pln2w"]
+script = ExtResource("3_leyng")
+EntityMask = SubResource("Resource_xdpxq")
+
+[sub_resource type="Resource" id="Resource_mh2ku"]
+script = ExtResource("4_a43d5")
+MovementSpeed = -90
+ProjectileMask = SubResource("Resource_m6xg8")
+Piercing = 0
+Y = 6000
+Targets = Array[Object]([SubResource("Resource_pln2w")])
+Effects = Array[Object]([SubResource("Resource_bxdlt")])
+
+[resource]
+script = ExtResource("5_uw05r")
+Name = "Boulder"
+Description = "Deal 2 Physical damage to the whole row."
+ManaCost = 5
+CardResults = Array[Object]([SubResource("Resource_mh2ku")])

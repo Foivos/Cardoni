@@ -1,3 +1,5 @@
+using Godot;
+
 namespace Cardoni;
 
 public class Condition
@@ -20,6 +22,7 @@ public class Condition
 	{
 		Entity = entity;
 		Data = data;
+		GD.Print((int)Data.EffectType, " ", (int)EffectType, " ", Entity.Effects[3]);
 		Effect.Conditions.Add(this);
 		Effect.Count += Data.Strength;
 		if (data.Duration > 0)

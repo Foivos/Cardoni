@@ -1,30 +1,27 @@
-using System;
 using Godot;
 
 namespace Cardoni;
 
-public abstract class Attack
+public partial class Attack : TickedCharacteristic<AttackData>
 {
 	public const uint StacksPerAttack = 1200;
 
-	uint attackStacks;
+	public uint AttackStacks { get; set; }
 
-	uint startingStacks = 600;
+	public uint Range => Data.Range;
 
-	public uint Range { get; set; }
+	public uint StartingStacks => Data.StartingStacks;
+
+	public EntityActive Active => Data.Active;
 
 	public Entity Target { get; set; }
-	public Entity Entity { get; set; }
 
 	public bool Attacking { get; set; }
 
-	public Attack(Entity entity, uint range)
-	{
-		Entity = entity;
-		Range = range;
-	}
+	public Attack(Entity entity, AttackData data)
+		: base(entity, data) { }
 
-	void Tick()
+	public override void Tick()
 	{
 		if (Attacking)
 		{
@@ -58,11 +55,11 @@ public abstract class Attack
 
 	protected virtual void FinishAttack()
 	{
-		attackStacks += Entity.AttackSpeed;
-		if (attackStacks >= startingStacks)
+		AttackStacks += Entity.AttackSpeed;
+		if (AttackStacks >= StartingStacks)
 		{
 			StopAttack();
-			attackStacks = startingStacks;
+			AttackStacks = StartingStacks;
 		}
 	}
 
@@ -76,7 +73,7 @@ public abstract class Attack
 		GD.Print(Entity.Name, " ", Entity.AttackSpeedModifier);
 		Attacking = true;
 		Entity.Direction = 0;
-		attackStacks = startingStacks;
+		AttackStacks = StartingStacks;
 	}
 
 	protected virtual void StopAttack()
@@ -113,23 +110,11 @@ public abstract class Attack
 
 	protected virtual void ContinueAttack()
 	{
-		attackStacks += Entity.AttackSpeed;
-		while (attackStacks >= StacksPerAttack)
+		AttackStacks += Entity.AttackSpeed;
+		while (AttackStacks >= StacksPerAttack)
 		{
-			Activate();
-			attackStacks -= StacksPerAttack;
+			Active.Activate(Target);
+			AttackStacks -= StacksPerAttack;
 		}
-	}
-
-	protected abstract void Activate();
-
-	public void Start()
-	{
-		GameState.AddTicked(Tick);
-	}
-
-	public void End()
-	{
-		GameState.RemoveTicked(Tick);
 	}
 }

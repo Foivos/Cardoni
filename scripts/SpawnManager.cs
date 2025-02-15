@@ -16,25 +16,6 @@ public partial class SpawnManager : Node
 	public override void _Ready()
 	{
 		Instance = this;
-
-		Player player = new Player(50);
-
-		GD.Print(player.Health);
-
-		/*var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
-		{
-			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
-		};
-		var friend2 = new GoblinShaman(1, Constants.TicksPerLane)
-		{
-			Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-			TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-		};
-		friend2.Passives[0].TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });*/
-		var enemy1 = new GoblinWarrior(1);
-		var enemy2 = new GoblinRanged(2);
-		var enemy3 = new GoblinSummoner(3);
 	}
 
 	public static void Spawn(Entity entity)
@@ -46,5 +27,10 @@ public partial class SpawnManager : Node
 		Instance.AddChild(parent);
 
 		GameState.Spawning.Add(entity);
+	}
+
+	public static void Spawn(uint lane, int y, EntityData data)
+	{
+		throw new NotImplementedException();
 	}
 }

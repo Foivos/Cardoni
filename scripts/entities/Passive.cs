@@ -33,6 +33,7 @@ public abstract partial class Passive
 		{
 			condition.End();
 		}
+		Events.OnSpawn -= OnSpawn;
 	}
 
 	public abstract void ApplyEffect(Entity entity);

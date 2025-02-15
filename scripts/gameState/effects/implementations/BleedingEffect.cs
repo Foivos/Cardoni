@@ -16,12 +16,13 @@ public class BleedingEffect : Effect
 
 	public void Tick()
 	{
-		Stacks += 60 * Count;
+		Stacks += (uint)(30 * Count);
 		if (Stacks >= StacksPerHealth)
 		{
 			int damage = (int)(Stacks / StacksPerHealth);
 			Stacks %= StacksPerHealth;
 			Entity.Damage(damage);
+			Count -= damage;
 		}
 	}
 

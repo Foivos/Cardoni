@@ -3,12 +3,12 @@ namespace Cardoni;
 using Godot;
 
 [GlobalClass]
-public partial class EntityEffectCondition : EntityActive
+public partial class EntityActiveCondition : EntityActive
 {
 	[Export]
 	public ConditionData Data;
 
-	public EntityEffectCondition()
+	public EntityActiveCondition()
 		: base() { }
 
 	public override void Activate(Entity entity)

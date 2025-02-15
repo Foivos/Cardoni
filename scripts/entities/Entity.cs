@@ -3,25 +3,30 @@ namespace Cardoni;
 using System;
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 
-public partial class Entity
+public partial class Entity : Node2D
 {
-	public string Name { get; set; }
 	public EntityParent Parent { set; get; }
 	public TextureProgressBar HealthBar => Parent.HealthBar;
 
 	public Sprite2D Sprite => Parent.Sprite;
 
-	uint maxHealth;
-	public virtual uint MaxHealth
+	EntityData data;
+	public EntityData Data
 	{
-		get { return maxHealth; }
+		get => data;
 		set
 		{
-			maxHealth = value;
-			HealthBar.MaxValue = value;
+			data = value;
+			if (value == null)
+				return;
+
+			HealthBar.MaxValue = value.MaxHealth;
 		}
 	}
+
+	public uint MaxHealth => Data.MaxHealth;
 	int health;
 	public virtual int Health
 	{
@@ -33,11 +38,11 @@ public partial class Entity
 		}
 	}
 
-	public uint BaseMovementSpeed { get; set; }
+	public uint BaseMovementSpeed => Data.BaseMovementSpeed;
 	public float MovementSpeedModifier { get; set; } = 1;
 	public uint MovementSpeed => (uint)Math.Max(0, Math.Floor(BaseMovementSpeed * MovementSpeedModifier));
 
-	public uint BaseAttackSpeed { get; set; }
+	public uint BaseAttackSpeed => Data.BaseAttackSpeed;
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
@@ -81,21 +86,22 @@ public partial class Entity
 
 	public EntityMask TargetMask { get; set; }
 
-	public List<Cooldown> Cooldowns { get; set; } = new();
-	public List<Passive> Passives { get; set; } = new();
+	public Characteristic Characteristic { get; set; }
 
-	public Attack Attack { get; set; }
-
-	protected Entity()
+	public Entity()
 	{
 		SpawnManager.Spawn(this);
-		foreach (EffectType effectType in Enum.GetValues<EffectType>())
+		for (int i = 0; i < Effect.EffectTypes.Length; i++)
 		{
-			Effect
-				.EffectTypes[(int)effectType]
-				.GetConstructor(new Type[] { typeof(Entity) })
-				.Invoke(new object[] { this });
+			Effects[i] = (Effect)
+				Effect.EffectTypes[i].GetConstructor(new Type[] { typeof(Entity) }).Invoke(new object[] { this });
 		}
+	}
+
+	public override void _Ready()
+	{
+		base._Ready();
+		Characteristic = Data.Characteristic?.Create(this);
 	}
 
 	public virtual void Damage(int damage)
@@ -135,7 +141,7 @@ public partial class Entity
 
 	public virtual void Kill()
 	{
-		Attack?.End();
+		Characteristic?.End();
 		foreach (Effect effect in Effects)
 		{
 			if (effect == null)
@@ -144,29 +150,13 @@ public partial class Entity
 			}
 			effect.End();
 		}
-		foreach (Cooldown cooldown in Cooldowns)
-		{
-			cooldown.End();
-		}
-		foreach (Passive passive in Passives)
-		{
-			passive.End();
-		}
+
 		Parent.QueueFree();
 	}
 
 	public virtual void Spawn()
 	{
-		Attack?.Start();
-
-		foreach (Cooldown cooldown in Cooldowns)
-		{
-			cooldown.Start();
-		}
-		foreach (Passive passive in Passives)
-		{
-			passive.Start();
-		}
+		Characteristic.Start();
 	}
 
 	public int VerticalDistance(Entity target)

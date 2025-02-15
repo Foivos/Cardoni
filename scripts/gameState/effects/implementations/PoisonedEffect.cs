@@ -1,3 +1,5 @@
+using Godot;
+
 namespace Cardoni;
 
 public class PoisonedEffect : Effect
@@ -16,12 +18,14 @@ public class PoisonedEffect : Effect
 
 	public void Tick()
 	{
-		Stacks += 60 * Count;
+		Stacks += (uint)(30 * Count);
 		if (Stacks >= StacksPerHealth)
 		{
 			int damage = (int)(Stacks / StacksPerHealth);
+			GD.Print("Damage ", damage);
 			Stacks %= StacksPerHealth;
 			Entity.Damage(damage);
+			Count -= damage;
 		}
 	}
 

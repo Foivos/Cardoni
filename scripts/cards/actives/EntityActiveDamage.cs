@@ -3,7 +3,7 @@ namespace Cardoni;
 using Godot;
 
 [GlobalClass]
-public partial class EntityEffectDamage : EntityActive
+public partial class EntityActiveDamage : EntityActive
 {
 	[Export]
 	public int Damage { get; set; }
@@ -11,9 +11,9 @@ public partial class EntityEffectDamage : EntityActive
 	[Export]
 	public DamageTypes DamageType { get; set; }
 
-	public EntityEffectDamage() { }
+	public EntityActiveDamage() { }
 
-	public EntityEffectDamage(DamageTypes damageType, int damage)
+	public EntityActiveDamage(DamageTypes damageType, int damage)
 	{
 		Damage = damage;
 		DamageType = damageType;

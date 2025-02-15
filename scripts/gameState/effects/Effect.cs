@@ -7,13 +7,13 @@ public abstract class Effect
 {
 	public Entity Entity;
 
-	uint count;
-	public uint Count
+	int count;
+	public int Count
 	{
 		get => count;
 		set
 		{
-			count = value;
+			count = Math.Max(0, value);
 			Update();
 		}
 	}
