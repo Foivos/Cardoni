@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=10 format=3 uid="uid://bb6wsonyqnnw6"]
+
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_6tnfv"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_64qmj"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_oywrf"]
+[ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="2_wa21o"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="3_tps3a"]
+
+[sub_resource type="Resource" id="Resource_76cuc"]
+script = ExtResource("1_oywrf")
+Damage = 3
+DamageType = 4
+
+[sub_resource type="Resource" id="Resource_h8j0t"]
+script = ExtResource("1_64qmj")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_02udr"]
+script = ExtResource("2_wa21o")
+Clip = false
+StringPattern = PackedStringArray("XXX", "XXX", "XXX")
+EntityMask = SubResource("Resource_h8j0t")
+
+[sub_resource type="Resource" id="Resource_rjbuy"]
+script = ExtResource("3_tps3a")
+EntityTarget = SubResource("Resource_02udr")
+Active = SubResource("Resource_76cuc")
+
+[resource]
+script = ExtResource("1_6tnfv")
+Name = "Earthquake"
+Description = "Deals 3 Earth damage in a 3x3 square"
+ManaCost = 8
+CardResult = SubResource("Resource_rjbuy")

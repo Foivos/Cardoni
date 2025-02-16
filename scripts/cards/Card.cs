@@ -62,6 +62,7 @@ public partial class Card : Node2D
 
 	void DisplayMana()
 	{
-		ManaLabel.Text = manaCost.ToString();
+		if (ManaLabel != null)
+			ManaLabel.Text = manaCost.ToString();
 	}
 }

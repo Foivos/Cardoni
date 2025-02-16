@@ -14,13 +14,7 @@ public class MindControlledEffect : Effect
 	public MindControlledEffect(Entity entity)
 		: base(entity) { }
 
-	protected override void Apply()
-	{
-		Entity.TargetMask.Mask = Entity.TargetMask.Mask ^ MindControlMask.Mask;
-	}
+	protected override void Apply() { }
 
-	protected override void Remove()
-	{
-		Entity.TargetMask.Mask = Entity.TargetMask.Mask ^ MindControlMask.Mask;
-	}
+	protected override void Remove() { }
 }

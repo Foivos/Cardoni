@@ -20,7 +20,7 @@ public partial class CardView : Node2D
 	public override void _Ready()
 	{
 		Instance = this;
-		string[] names = new string[] { "poison_dart", "thunderclap", "frostbolt", "rain" };
+		string[] names = new string[] { "poison_dart", "thunderclap", "earthquake", "rain" };
 		for (int i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();
@@ -33,13 +33,29 @@ public partial class CardView : Node2D
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
 			cardArea.CardView = this;
 			cardArea.Index = i;
-			cardArea.Position = new Vector2(100 * (int)i - 150, 0);
+			cardArea.Position = new Vector2(100 * i - 150, 0);
 
 			cardArea.AddChild(card);
 
 			CardAreas[i] = cardArea;
 			AddChild(cardArea);
 		}
+
+		CardData data = new CardData()
+		{
+			Name = "Test",
+			ManaCost = 4,
+			CardResult = new EffectResult()
+			{
+				EntityTarget = new PatternTarget() { StringPattern = new string[] { "X" } },
+				Active = new EntityActiveDamage() { Damage = 2 },
+			},
+		};
+		Card card2 = CardsScene.Instantiate<Card>();
+		card2.Index = 3;
+		card2.Data = data;
+
+		Cards[3] = card2;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

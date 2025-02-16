@@ -3,6 +3,7 @@ using Godot;
 
 namespace Cardoni;
 
+[GlobalClass]
 public partial class AuraData : CharacteristicData
 {
 	[Export]

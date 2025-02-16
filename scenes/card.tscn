@@ -5,7 +5,6 @@
 
 [node name="Card" type="Node2D" node_paths=PackedStringArray("Sprite", "Text", "ManaLabel")]
 script = ExtResource("1_hx23o")
-ManaCost = null
 Sprite = NodePath("Sprite2D")
 Text = NodePath("rich desciption text")
 ManaLabel = NodePath("rich mana text")

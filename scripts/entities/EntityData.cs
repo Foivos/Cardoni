@@ -23,9 +23,6 @@ public partial class EntityData : Resource
 	public EntityMask Mask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Enemy });
 
 	[Export]
-	public EntityMask TargetMask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });
-
-	[Export]
 	public uint BaseMovementSpeed { get; set; } = 60;
 
 	[Export]

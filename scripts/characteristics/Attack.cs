@@ -100,10 +100,7 @@ public partial class Attack : TickedCharacteristic<AttackData>
 
 	protected virtual bool IsValidTarget(Entity entity)
 	{
-		return entity != Entity
-			&& entity.IsAlive
-			&& Entity.TargetMask.Matches(entity.Mask)
-			&& Data.TargetFilter.IsValid(Entity, entity);
+		return entity != Entity && entity.IsAlive && Data.TargetFilter.IsValid(Entity, entity);
 	}
 
 	protected virtual void ContinueAttack()

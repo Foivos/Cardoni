@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://b8irdsow8k586"]
+
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_ixwwl"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="2_oe0ol"]
+
+[sub_resource type="Resource" id="Resource_8v1ws"]
+script = ExtResource("1_ixwwl")
+Masks = 2
+
+[sub_resource type="Resource" id="Resource_s56vk"]
+script = ExtResource("1_ixwwl")
+Masks = 0
+
+[resource]
+script = ExtResource("2_oe0ol")
+Name = "Player"
+Width = 4
+Height = 1200
+MaxHealth = 50
+Mask = SubResource("Resource_8v1ws")
+TargetMask = SubResource("Resource_s56vk")
+BaseMovementSpeed = 60
+BaseAttackSpeed = 40

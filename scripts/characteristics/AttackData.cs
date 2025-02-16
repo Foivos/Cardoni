@@ -8,7 +8,12 @@ public partial class AttackData : CharacteristicData
 	public AttackData() { }
 
 	[Export]
-	public EntityFilter TargetFilter { get; set; } = new LaneFilter() { RelativeLane = 0 };
+	public EntityFilter TargetFilter { get; set; } =
+		new AndFilter()
+		{
+			Filter1 = new LaneFilter() { RelativeLane = 0 },
+			Filter2 = new EnemiesFilter(),
+		};
 
 	[Export]
 	public EntityFilter AttackFilter { get; set; } = new VerticalDistanceFilter() { Within = 0 };

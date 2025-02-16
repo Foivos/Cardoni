@@ -3,6 +3,7 @@ namespace Cardoni;
 using Godot;
 using Godot.Collections;
 
+[GlobalClass]
 public partial class MultipleCharacteristicData : CharacteristicData
 {
 	[Export]

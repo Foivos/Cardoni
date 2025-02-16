@@ -73,9 +73,16 @@ public partial class Entity : Node2D
 
 	public EntityMask Mask { get; set; }
 
-	public EntityMask TargetMask { get; set; }
-
 	public Characteristic Characteristic { get; set; }
+
+	public Entity()
+	{
+		for (int i = 0; i < Effect.EffectTypes.Length; i++)
+		{
+			Type effectType = Effect.EffectTypes[i];
+			Effects[i] = (Effect)Activator.CreateInstance(effectType, this);
+		}
+	}
 
 	public void SetData(EntityData data, int lane, int y)
 	{
@@ -88,7 +95,6 @@ public partial class Entity : Node2D
 		OccupyingLanes = new OccupyingLanes(lane, (int)(lane + data.Width - 1));
 		Y = y;
 		Mask = data.Mask;
-		TargetMask = data.TargetMask;
 		if (data.Sprite != null)
 		{
 			Sprite.Texture = data.Sprite.Texture;
@@ -159,7 +165,7 @@ public partial class Entity : Node2D
 
 	public int VerticalDistance(Entity target)
 	{
-		return Math.Abs(target.Y - Y) - (int)target.Height - (int)Height;
+		return Math.Abs(target.Y - Y) - (int)(target.Height + Height) / 2;
 	}
 
 	internal bool Affected(EffectType effectType)

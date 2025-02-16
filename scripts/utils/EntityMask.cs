@@ -14,6 +14,7 @@ public enum EntityMasks
 	Boss = 1 << 4,
 }
 
+[GlobalClass]
 public partial class EntityMask : Resource
 {
 	public uint Mask { get; set; }
