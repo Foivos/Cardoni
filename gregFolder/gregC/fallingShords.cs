@@ -1,18 +1,18 @@
+using Cardoni;
 using Godot;
 using System;
 using System.Collections.Generic;
 
 public partial class fallingShords : Node
 {
+	//todo change Name 
 
-	
 	static fallingShords inst;
-	// Called when the node enters the scene tree for the first time.
 	public override void _Ready() { inst = this; }
 
 
-	[Export] Sprite2D testSprite;
-	//[Export] PackedScene fallingItemPreffab;
+
+
 	List<fallingShordItem> fallingItems;
 	fallingShordItem getFallingItem()
 	{
@@ -68,8 +68,6 @@ public partial class fallingShords : Node
 
 
 
-	//[Export] PackedScene fallingPreffab;
-
 
 	ulong lastInput;
 	public override void _Input(InputEvent @event)
@@ -87,38 +85,72 @@ public partial class fallingShords : Node
 
 
 
-	public static void throwItem(Sprite2D thatOne) { if (inst == null) return; inst.throwItemLocal(thatOne); }
-
-
-
-	public void throwItemLocal(Sprite2D thatOne)
+	public static void throwItem(Sprite2D thatOne)
 	{
-
-
-		//fallingShordItem item = fallingPreffab.Instantiate<fallingShordItem>();
-		//AddChild(item);
-
-		getFallingItem().useMe(thatOne.GlobalPosition, thatOne.Scale.X, thatOne.Texture
-		, default);
-
-		// resetSpeed();
-		// testFallingShord.Visible = true;
-		// testFallingShord.Texture = thatOne.Texture;
-		// testFallingShord.Position = thatOne.GlobalPosition;
-		// testFallingShord.Scale = thatOne.Scale * sizeAdjust;
+		if (inst == null) return;
 
 
 
-		GD.Print(thatOne.GlobalPosition + "__" + thatOne.Scale);
+
+		Color color = new Color(0.8f, 0.8f, 0.8f);
+		const int gravity = 900;//10000
+		const int startRotationSpeed = 50;//60
+
+		const int speedBreak = 400;//400
+		const int rotationBreak = 20;//40
+
+		const int speedX = 300;
+		const int speedY = -200;
 
 
 
+		inst.getFallingItem().useMe(thatOne.GlobalPosition
+		, thatOne.Scale.X, thatOne.Texture,
+		_gravity: gravity,
+		 _speed: new Vector2(speedX.rDir(), speedY),
+		_rotationSpeed: startRotationSpeed.rDir(),
+		_speedBreak: speedBreak,
+		 _rotationBreak: rotationBreak,
+		 _color: color
+
+		);
 
 
 
 	}
 
 
+
+	Texture2D strikeTexture;
+
+	public static void testStrikeThere(Vector2 pos)
+	{
+		int side = 1.rDir();
+		Vector2 offset = new Vector2(-20 * side, -20);
+		Vector2 speed = new Vector2(1200 * side, 1200);
+
+		testStrike(pos + offset, speed, -45 * side, 0.04f, Colors.Yellow);
+
+	}
+	static void testStrike(Vector2 pos, Vector2 speed, int degrees, float lifeTime, Color color)
+	{
+		if (inst == null) return;
+		if (inst.strikeTexture == null) inst.strikeTexture =
+	   GD.Load<Texture2D>("res://resources/hollowStrikeMedioumOutline.png");
+
+		const float size = 0.6f;
+
+		var item = inst.getFallingItem();
+		item.useMe(pos, size,
+		 inst.strikeTexture, _degrees: degrees, _speed: speed,
+		 _color: color);
+
+		new battleEffectsC.invisibleLater(item, lifeTime);
+
+
+
+
+	}
 
 
 

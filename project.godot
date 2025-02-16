@@ -12,6 +12,7 @@ config_version=5
 
 config/name="cardoniProject"
 run/main_scene="res://scenes/mainScene.tscn"
+run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://resources/icon.svg"
 

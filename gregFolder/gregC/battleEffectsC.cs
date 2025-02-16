@@ -4,15 +4,24 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
+
 public partial class battleEffectsC : Node
 {
 
 	#region  BASICS
+
+
 	public static battleEffectsC inst;
 	public override void _Ready() { inst = this; }
 
 	public override void _Input(InputEvent @event)// for testing only
 	{
+
+		// playBloodAnimation(new Vector2(100, 100) + Vector2.Up * 100.rDir()
+		// , gregF.rBool() , _Scale : 2);
+
+		// testBlood();
+
 		// if (testSprite == null)
 		// 	return;
 
@@ -49,8 +58,11 @@ public partial class battleEffectsC : Node
 	[Export] CpuParticles2D hitParticles;
 	[Export] float hitParticlesOffset;
 
+
 	public static void doHitParticles(Vector2 pos)
 	{
+
+
 
 		bool side = gregF.rBool();
 		//GD.Print("side: " + side);
@@ -67,7 +79,145 @@ public partial class battleEffectsC : Node
 
 
 
+
+	[Export] GpuParticles2D bloodParticles;
+	[Export] GpuParticles2D bloodParticlesB;
+	bool bloodPoolUse;
+	[Export] Vector2 bloodOffset;
+
+	Entity lastBloodEntity;
+
+	void testBlood() { doBloodParticles(lastBloodEntity); }
+	public static void doBloodParticles(Entity entity)
+	{
+
+
+
+
+		inst.lastBloodEntity = entity;
+
+		GpuParticles2D particles = inst.bloodPoolUse ? inst.bloodParticles : inst.bloodParticlesB;
+
+		if (particles.Emitting) return;
+		inst.bloodPoolUse = !inst.bloodPoolUse;
+
+
+		bool goingUp = entity.lookingDirection == 1;
+		GD.Print("BLEED UP: " + goingUp);
+		Vector2 pos = entity.Parent.Sprite.GlobalPosition;
+
+		bool side = gregF.rBool();
+		//GD.Print("side: " + side);
+
+		particles.Position = pos
+		 + new Vector2(side ? -inst.bloodOffset.X : inst.bloodOffset.X
+		 , inst.bloodOffset.Y * (goingUp ? -1 : 1));
+
+
+		particles.RotationDegrees = goingUp ? 180 : 0;
+		particles.RotationDegrees += 20.rDir();
+
+		particles.Emitting = true;
+
+
+		//inst.bloodParticles.RotationDegrees += (float)gregF.r(-10f, 10f);
+
+
+
+	}
+
+
+
 	#endregion
+
+
+	#region  ANIMATIONS poolable
+
+
+
+	List<testAnimation> animationsPool;
+	testAnimation getAnimation()
+	{
+
+		if (animationsPool == null) animationsPool = new List<testAnimation>();
+		testAnimation anim = null;
+
+		for (int i = 0; i < animationsPool.Count; i++)
+		{
+			if (animationsPool[i].Visible) continue;
+
+			animationsPool[i].Visible = true;
+			return animationsPool[i];
+
+		}
+
+
+
+		for (int i = 0; i < 5; i++)
+		{
+			anim = new testAnimation();
+
+			AddChild(anim);
+			anim.Name = "animation child " + animationsPool.Count;
+			animationsPool.Add(anim);
+
+			anim.Visible = false;
+		}
+
+		anim.Visible = true;
+		return anim;
+
+
+	}
+
+
+
+	public void EntityBlood(Entity ent)
+	{
+
+		GD.Print("blood id == "+ent.id);
+
+		bool dead = !ent.IsAlive;
+		int direction = ent.lookingDirection;
+
+		//GD.Print("BLEED UP: " + (direction == 1 ? "down" : "^^^^"));
+
+		const int offsetY = -40;
+		const int randomX = 10;
+		const int offsetX = 5;
+		const int randomRotation = 10;
+		const float SCALE = 2;
+		const float SCALE_DEAD = 3.5f;
+
+		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir();//todo POLISH
+																			//GD.Print("XXX: " + XXX);
+
+		playBloodAnimation(ent.Parent.GlobalPosition
+	+ new Vector2(XXX, direction * offsetY)
+	, (direction == 1 ? 180 : 0) + randomRotation.rDir()
+	, _Scale: (dead ? SCALE_DEAD : SCALE));
+
+
+	}
+
+
+	//! SO SIMPLE SO NICE !!
+	// todo with enums later ???
+	public void playBloodAnimation(Vector2 pos, int _rotation, float _Scale = 1)
+	{
+
+		getAnimation().playAnimation(
+				GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"),
+				8, 3, 3, 0.05, pos, rotation: _rotation, Scale: _Scale, Z: -1
+			);
+
+	}
+
+
+
+
+	#endregion
+
 
 	#region  SPRITE EFFECTS
 

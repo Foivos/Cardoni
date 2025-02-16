@@ -23,15 +23,15 @@ public partial class EntityParent : Area2D
 
 		if (Weapon == null) return;
 
-		bool lookingDown = false;
+		bool lookingDown = enytity.getDirection() == 1;
 
-		if (enytity.Direction != 0) lookingDown = enytity.Direction == 1;
-		else if (enytity is AttackingEntity atacker && atacker.Target != null)
-		{
-			lookingDown = atacker.Target.Parent.Sprite.GlobalPosition.Y
-		> enytity.Parent.Sprite.GlobalPosition.Y;
-		}
-		else GD.PushError("NEED BETTER WAY OF KNOWING DIRECTION");
+		// if (enytity.Direction != 0) lookingDown = enytity.Direction == 1;
+		// else if (enytity is AttackingEntity atacker && atacker.Target != null)
+		// {
+		// 	lookingDown = atacker.Target.Parent.Sprite.GlobalPosition.Y
+		// > enytity.Parent.Sprite.GlobalPosition.Y;
+		// }
+		// else GD.PushError("NEED BETTER WAY OF KNOWING DIRECTION");
 
 
 

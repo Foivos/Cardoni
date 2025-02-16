@@ -14,6 +14,7 @@ size = Vector2(400, 600)
 [node name="MainScene" type="Node2D"]
 
 [node name="backround" type="Sprite2D" parent="."]
+z_index = -5
 position = Vector2(200, 400)
 scale = Vector2(3, 3)
 texture = ExtResource("5_mxxi8")

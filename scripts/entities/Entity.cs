@@ -7,6 +7,12 @@ using Godot;
 
 public partial class Entity
 {
+
+	public static uint idCounter;
+	public uint id;
+
+
+
 	public string Name { get; set; }
 	public EntityParent Parent { set; get; }
 	public TextureProgressBar HealthBar => Parent.HealthBar;
@@ -42,13 +48,18 @@ public partial class Entity
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
+
+	public int lookingDirection;//? never zero .. even when not moving
 	int direction;
+
 	public int Direction
 	{
 		get { return direction; }
 		set
 		{
 			direction = value;
+
+			if(value != 0)lookingDirection = value;
 
 			if (Parent != null && Parent.Weapon != null) Parent.setShordPosition(this);
 
@@ -100,24 +111,44 @@ public partial class Entity
 
 	protected Entity()
 	{
+		idCounter += 2;
+		id = idCounter;
+
+		Name = Name + "_" + id;
+
 		SpawnManager.Spawn(this);
 	}
 
 	public virtual void Damage(int damage)
 	{
+		if (Health <= 0 || IsAlive == false)
+		{
+			GD.PushError("DAMAGE Entity ALREADY DEAD");
+			return;
+		}
+
+
 		Health -= damage;
 		GD.Print(Name, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
+
+
 
 		if (Health <= 0)
 		{
 			fallingShords.throwItem(Parent.Weapon);
 			textEffects.displayDmgText(this, 0, ovveride: "DEAD");
 
+			battleEffectsC.inst.EntityBlood(this);
+
+
 			GameState.Kill(this);
 		}
 		else
 		{
-			battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
+			fallingShords.testStrikeThere(Parent.Sprite.GlobalPosition);
+			//battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
+
+			battleEffectsC.inst.EntityBlood(this); //battleEffectsC.doBloodParticles(this);
 			new battleEffectsC.hitDmg(Parent.Sprite);
 			textEffects.displayDmgText(this, damage);
 		}
