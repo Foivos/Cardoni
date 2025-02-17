@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dm53r7wy5cry5"
-path="res://.godot/imported/singleGoblin.png-eb714a812213271d3cc91ee0a7e15b50.ctex"
+uid="uid://cjgafn504suim"
+path="res://.godot/imported/grid.png-64d53d2a29c7df1112ee90ad5dcebc69.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/singleGoblin.png"
-dest_files=["res://.godot/imported/singleGoblin.png-eb714a812213271d3cc91ee0a7e15b50.ctex"]
+source_file="res://resources/grid.png"
+dest_files=["res://.godot/imported/grid.png-64d53d2a29c7df1112ee90ad5dcebc69.ctex"]
 
 [params]
 

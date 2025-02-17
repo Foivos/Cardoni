@@ -123,13 +123,21 @@ public partial class fallingShords : Node
 
 	Texture2D strikeTexture;
 
-	public static void testStrikeThere(Vector2 pos)
+	public static void testStrikeThere(Entity ent)
 	{
-		int side = 1.rDir();
-		Vector2 offset = new Vector2(-20 * side, -20);
-		Vector2 speed = new Vector2(1200 * side, 1200);
 
-		testStrike(pos + offset, speed, -45 * side, 0.04f, Colors.Yellow);
+		const int speedValue = 1200; //1200;
+		const int offsetValue  = 20; 
+		const float lifetime  = 0.04f;//; 0.04f; 
+
+		int sideX = 1.rDir();
+		//int sideY = ent.lookingDirection;
+
+		Vector2 pos = ent.Sprite.GlobalPosition;
+		Vector2 offset = -new Vector2(offsetValue * sideX, offsetValue );//* sideY
+		Vector2 speed = new Vector2(speedValue * sideX, speedValue );//* sideY
+
+		testStrike(pos + offset, speed, -45 * sideX , lifetime, Colors.Yellow);
 
 	}
 	static void testStrike(Vector2 pos, Vector2 speed, int degrees, float lifeTime, Color color)

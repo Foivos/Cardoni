@@ -24,7 +24,8 @@ public partial class Entity : Node2D
 		set
 		{
 			health = value;
-			HealthBar.Value = value;
+			HealthLabel.Text = value.ToString();
+			//HealthBar.Value = value;
 		}
 	}
 
@@ -150,7 +151,7 @@ public partial class Entity : Node2D
 		}
 		else
 		{
-			fallingShords.testStrikeThere(Sprite.GlobalPosition);
+			fallingShords.testStrikeThere(this);
 			//battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
 
 			battleEffectsC.inst.EntityBlood(this); //battleEffectsC.doBloodParticles(this);

@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=10 format=3 uid="uid://qtgg1a57jfes"]
 
+[ext_resource type="Texture2D" uid="uid://cjgafn504suim" path="res://resources/grid.png" id="2_g0wjl"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
@@ -18,6 +19,16 @@ z_index = -5
 position = Vector2(200, 400)
 scale = Vector2(3, 3)
 texture = ExtResource("5_mxxi8")
+
+[node name="TextureRectgrid" type="TextureRect" parent="backround"]
+self_modulate = Color(1, 1, 1, 0.152941)
+offset_left = -92.0
+offset_top = -141.0
+offset_right = 262.0
+offset_bottom = 474.0
+scale = Vector2(0.48, 0.48)
+texture = ExtResource("2_g0wjl")
+stretch_mode = 1
 
 [node name="GameView" type="Area2D" parent="."]
 position = Vector2(200, 300)

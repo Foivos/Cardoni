@@ -179,11 +179,11 @@ public partial class battleEffectsC : Node
 
 		//GD.Print("BLEED UP: " + (direction == 1 ? "down" : "^^^^"));
 
-		const int offsetY = -40;
+		const int offsetY = -50;
 		const int randomX = 10;
 		const int offsetX = 5;
 		const int randomRotation = 10;
-		const float SCALE = 2;
+		const float SCALE = 3;
 		const float SCALE_DEAD = 3.5f;
 
 		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir();//todo POLISH
