@@ -1,10 +1,7 @@
 namespace Cardoni;
 
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using Godot;
-using Godot.Collections;
 
 public partial class Entity : Node2D
 {
@@ -13,6 +10,10 @@ public partial class Entity : Node2D
 
 	[Export]
 	public Sprite2D Sprite { get; set; }
+
+	[Export]
+	public Sprite2D Weapon { get; set; }
+
 	public EntityData Data { get; set; }
 
 	public uint MaxHealth => Data.MaxHealth;
@@ -35,7 +36,22 @@ public partial class Entity : Node2D
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
-	public int Direction { get; set; }
+	public int FacingDirection { get; set; }//? never zero .. even when not moving
+	int direction;
+
+	public int Direction
+	{
+		get { return direction; }
+		set
+		{
+			direction = value;
+
+			if(value != 0) FacingDirection = value;
+
+			if (Weapon != null) SetSwordPosition(this);
+		}
+	}
+
 
 	public Effect[] Effects = new Effect[Enum.GetNames<EffectType>().Length];
 
@@ -110,13 +126,38 @@ public partial class Entity : Node2D
 
 	public virtual void Damage(int damage)
 	{
+		if (Health <= 0 || IsAlive == false)
+		{
+			GD.PushError("DAMAGE Entity ALREADY DEAD");
+			return;
+		}
+
+
 		Health -= damage;
 		GD.Print(Name, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
 
+
+
 		if (Health <= 0)
 		{
+			fallingShords.throwItem(Weapon);
+			textEffects.displayDmgText(this, 0, ovveride: "DEAD");
+
+			battleEffectsC.inst.EntityBlood(this);
+
+
 			GameState.Kill(this);
 		}
+		else
+		{
+			fallingShords.testStrikeThere(Sprite.GlobalPosition);
+			//battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
+
+			battleEffectsC.inst.EntityBlood(this); //battleEffectsC.doBloodParticles(this);
+			new battleEffectsC.hitDmg(Sprite);
+			textEffects.displayDmgText(this, damage);
+		}
+
 	}
 
 	public virtual void DamageTyped(DamageTypes damageType, int damage)
@@ -126,10 +167,15 @@ public partial class Entity : Node2D
 
 	public virtual void Move()
 	{
+
+
 		int dx = (int)MovementSpeed * Direction;
 		if (dx == 0)
 			return;
+
 		Y += dx;
+
+		ProcessSideMove();
 	}
 
 	public virtual void UpdatePosition(float dt)

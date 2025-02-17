@@ -4,61 +4,228 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
+
 public partial class battleEffectsC : Node
 {
+
+	#region  BASICS
+
+
 	public static battleEffectsC inst;
+	public override void _Ready() { inst = this; }
 
-	public override void _Ready()
+	public override void _Input(InputEvent @event)// for testing only
 	{
-		inst = this;
+
+		// playBloodAnimation(new Vector2(100, 100) + Vector2.Up * 100.rDir()
+		// , gregF.rBool() , _Scale : 2);
+
+		// testBlood();
+
+		// if (testSprite == null)
+		// 	return;
+
+		// if (@event.IsActionPressed("ui_right"))
+		// 	addHitOne(testSprite);
+		// if (@event.IsActionPressed("ui_left"))
+		// 	addHitTwo(testSprite);
+
+		// if (@event.IsActionPressed("ui_up"))
+		// 	cameraShake.StartShake(shakeCameraDuration, shakeCameraStrenght);
+
+		// if (@event.IsActionPressed("ui_down"))
+		// 	doBackroundFlash();
+
+		// if (@event.IsActionPressed("ui_accept"))
+		// 	doShake(testSprite);
 	}
 
-	[ExportGroup("test group ")]
-	[Export]
-	Sprite2D testSprite;
 
-	[Export]
-	Material whiteMat,
-		blackMat;
 
-	[Export]
-	public float effectDelay;
+	public override void _Process(double delta) { _ProcessSpriteEffects(); }
 
-	[ExportGroup("test camera shake")]
-	[Export]
-	public float shakeCameraDuration = 0.08f;
 
-	[Export]
-	public float shakeCameraStrenght = 10;
 
-	public override void _Process(double delta)
+
+
+
+	#endregion
+
+
+	#region  particle effects 
+
+	[ExportGroup("particles")]
+	[Export] CpuParticles2D hitParticles;
+	[Export] float hitParticlesOffset;
+
+
+	public static void doHitParticles(Vector2 pos)
 	{
-		_ProcessSpriteEffects();
+
+
+
+		bool side = gregF.rBool();
+		//GD.Print("side: " + side);
+
+		inst.hitParticles.Position = pos
+		 + new Vector2(side ? -inst.hitParticlesOffset : inst.hitParticlesOffset, inst.hitParticlesOffset);
+
+		inst.hitParticles.RotationDegrees = side ? 45 : -45;
+		inst.hitParticles.RotationDegrees += (float)gregF.r(-10f, 10f);
+
+		inst.hitParticles.Emitting = true;
+
 	}
 
-	public override void _Input(InputEvent @event)
+
+
+
+	[Export] GpuParticles2D bloodParticles;
+	[Export] GpuParticles2D bloodParticlesB;
+	bool bloodPoolUse;
+	[Export] Vector2 bloodOffset;
+
+	Entity lastBloodEntity;
+
+	void testBlood() { doBloodParticles(lastBloodEntity); }
+	public static void doBloodParticles(Entity entity)
 	{
-		if (testSprite == null)
-			return;
 
-		if (@event.IsActionPressed("ui_right"))
-			addHitOne(testSprite);
-		if (@event.IsActionPressed("ui_left"))
-			addHitTwo(testSprite);
 
-		if (@event.IsActionPressed("ui_up"))
-			cameraShake.StartShake(shakeCameraDuration, shakeCameraStrenght);
 
-		if (@event.IsActionPressed("ui_down"))
-			doBackroundFlash();
 
-		if (@event.IsActionPressed("ui_accept"))
-			doShake(testSprite);
+		inst.lastBloodEntity = entity;
+
+		GpuParticles2D particles = inst.bloodPoolUse ? inst.bloodParticles : inst.bloodParticlesB;
+
+		if (particles.Emitting) return;
+		inst.bloodPoolUse = !inst.bloodPoolUse;
+
+
+		bool goingUp = entity.lookingDirection == 1;
+		GD.Print("BLEED UP: " + goingUp);
+		Vector2 pos = entity.Parent.Sprite.GlobalPosition;
+
+		bool side = gregF.rBool();
+		//GD.Print("side: " + side);
+
+		particles.Position = pos
+		 + new Vector2(side ? -inst.bloodOffset.X : inst.bloodOffset.X
+		 , inst.bloodOffset.Y * (goingUp ? -1 : 1));
+
+
+		particles.RotationDegrees = goingUp ? 180 : 0;
+		particles.RotationDegrees += 20.rDir();
+
+		particles.Emitting = true;
+
+
+		//inst.bloodParticles.RotationDegrees += (float)gregF.r(-10f, 10f);
+
+
+
 	}
+
+
+
+	#endregion
+
+
+	#region  ANIMATIONS poolable
+
+
+
+	List<testAnimation> animationsPool;
+	testAnimation getAnimation()
+	{
+
+		if (animationsPool == null) animationsPool = new List<testAnimation>();
+		testAnimation anim = null;
+
+		for (int i = 0; i < animationsPool.Count; i++)
+		{
+			if (animationsPool[i].Visible) continue;
+
+			animationsPool[i].Visible = true;
+			return animationsPool[i];
+
+		}
+
+
+
+		for (int i = 0; i < 5; i++)
+		{
+			anim = new testAnimation();
+
+			AddChild(anim);
+			anim.Name = "animation child " + animationsPool.Count;
+			animationsPool.Add(anim);
+
+			anim.Visible = false;
+		}
+
+		anim.Visible = true;
+		return anim;
+
+
+	}
+
+
+
+	public void EntityBlood(Entity ent)
+	{
+
+		GD.Print("blood id == "+ent.id);
+
+		bool dead = !ent.IsAlive;
+		int direction = ent.lookingDirection;
+
+		//GD.Print("BLEED UP: " + (direction == 1 ? "down" : "^^^^"));
+
+		const int offsetY = -40;
+		const int randomX = 10;
+		const int offsetX = 5;
+		const int randomRotation = 10;
+		const float SCALE = 2;
+		const float SCALE_DEAD = 3.5f;
+
+		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir();//todo POLISH
+																			//GD.Print("XXX: " + XXX);
+
+		playBloodAnimation(ent.Parent.GlobalPosition
+	+ new Vector2(XXX, direction * offsetY)
+	, (direction == 1 ? 180 : 0) + randomRotation.rDir()
+	, _Scale: (dead ? SCALE_DEAD : SCALE));
+
+
+	}
+
+
+	//! SO SIMPLE SO NICE !!
+	// todo with enums later ???
+	public void playBloodAnimation(Vector2 pos, int _rotation, float _Scale = 1)
+	{
+
+		getAnimation().playAnimation(
+				GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"),
+				8, 3, 3, 0.05, pos, rotation: _rotation, Scale: _Scale, Z: -1
+			);
+
+	}
+
+
+
+
+	#endregion
+
 
 	#region  SPRITE EFFECTS
 
-	List<spriteEffect> _spriteEffect = new List<spriteEffect>();
+
+
+
+
+	List<effect> _spriteEffect = new List<effect>();
 
 	void _ProcessSpriteEffects()
 	{
@@ -76,19 +243,121 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	class spriteEffect //? origin
+	public class effect //? ORIGIN
 	{
-		public Sprite2D sprite;
+
 		public int counter;
 		public float untill;
-
 		public virtual void update(float time, out bool removeMe)
 		{
 			removeMe = false;
 		}
+
 	}
 
-	class hitOne : spriteEffect
+
+
+
+	public class invisibleLater : effect
+	{
+
+		Node2D theNode;
+
+		public invisibleLater(Node2D _node, float delay)
+		{
+
+			if (inst == null || _node == null) return;
+
+			untill = Time.GetTicksMsec() + delay * 1000;
+			theNode = _node;
+			inst._spriteEffect.Add(this);
+
+		}
+
+		public override void update(float time, out bool removeMe)
+		{
+
+			removeMe = true;
+			if (theNode != null) theNode.Visible = false;
+
+
+		}
+
+
+	}
+	public class rotateLater : effect
+	{
+		Node2D theNode;
+		int degrees;
+
+		public rotateLater(Node2D _node, float delay, int _degrees)
+		{
+
+			if (inst == null || _node == null) return;
+
+			untill = Time.GetTicksMsec() + delay * 1000;
+			theNode = _node;
+			degrees = _degrees;
+			inst._spriteEffect.Add(this);
+
+		}
+
+		public override void update(float time, out bool removeMe)
+		{
+
+			removeMe = true;
+			theNode.RotationDegrees += degrees;
+
+
+
+		}
+
+
+
+	}
+	public class resizeLater : effect
+	{
+		Node2D theNode;
+		float sizeAdjust;
+
+		public resizeLater(Node2D _node, float delay, float _sizeAdjust)
+		{
+
+			if (inst == null || _node == null) return;
+
+			untill = Time.GetTicksMsec() + delay * 1000;
+			theNode = _node;
+			sizeAdjust = _sizeAdjust;
+			inst._spriteEffect.Add(this);
+
+		}
+
+		public override void update(float time, out bool removeMe)
+		{
+
+			removeMe = true;
+			theNode.Scale *= sizeAdjust;
+
+
+
+		}
+
+
+
+	}
+
+
+
+	public class spriteEffect : effect //? origin
+	{
+		public Sprite2D sprite;
+
+
+
+	}
+
+
+	class hitWithInvisbleNotNice : spriteEffect
 	{
 		public override void update(float time, out bool removeMe)
 		{
@@ -114,8 +383,24 @@ public partial class battleEffectsC : Node
 		}
 	}
 
-	class hitTwo : spriteEffect
+	public class hitDmg : spriteEffect
 	{
+
+
+		const float blackColor = 0.1f;
+		const float hitDmgDelay = 0.03f;
+		const int possitionOffset = -20;
+
+		public hitDmg(Sprite2D _sprite)
+		{
+
+			if (inst == null || _sprite == null)
+				return;
+
+			sprite = _sprite;
+			inst._spriteEffect.Add(this);
+
+		}
 		public override void update(float time, out bool removeMe)
 		{
 			if (sprite == null)
@@ -126,26 +411,31 @@ public partial class battleEffectsC : Node
 
 			removeMe = false;
 			counter++;
-			untill = time + inst.effectDelay * 1000;
+			untill = time + hitDmgDelay * 1000;
 
 			if (counter == 1)
-				sprite.Modulate = new Color(0.2f, 0.2f, 0.2f);
+				sprite.Modulate = new Color(blackColor, blackColor, blackColor);
 			else if (counter == 2)
-				sprite.Modulate = new Color(1f, 1f, 1f);
+			{
+				sprite.Modulate = Colors.DarkRed;
+				sprite.Offset = Vector2.Up * possitionOffset;
+			}
 			else
+			{
+				sprite.Modulate = Colors.White;
+				sprite.Offset = Vector2.Zero;
 				removeMe = true;
+			}
+
 		}
 	}
 
 	public void addHitOne(Sprite2D sprite)
 	{
-		_spriteEffect.Add(new hitOne() { sprite = sprite });
+		_spriteEffect.Add(new hitWithInvisbleNotNice() { sprite = sprite });
 	}
 
-	public void addHitTwo(Sprite2D sprite)
-	{
-		_spriteEffect.Add(new hitTwo() { sprite = sprite });
-	}
+
 
 	class shakeSprite : spriteEffect
 	{
@@ -203,6 +493,91 @@ public partial class battleEffectsC : Node
 
 	#endregion
 
+	#region  poolable markers
+
+	List<Sprite2D> markersPool;
+
+	public Sprite2D getMarker(Vector2 position = default
+	, Color color = default, float lifetime = -1, string message = "")
+	{
+		if (markersPool == null) markersPool = new List<Sprite2D>();
+		Sprite2D marker = null;
+
+		for (int i = 0; i < markersPool.Count; i++)
+		{
+			if (markersPool[i].Visible == false) { marker = markersPool[i]; break; }
+
+		}
+
+		if (marker == null)// spwawn more
+		{
+
+			for (int i = 0; i < 5; i++)
+			{
+				marker = new Sprite2D();
+
+				AddChild(marker);
+				marker.Name = "marker with text child " + markersPool.Count;
+				markersPool.Add(marker);
+
+				marker.Texture = GD.Load<Texture2D>("res://gregFolder/images/square.png");
+				marker.Visible = false;
+			}
+
+
+
+		}
+
+
+
+		marker.Position = position;
+
+		if (color != default) marker.SelfModulate = color;
+		else marker.Modulate = new Color(1, 1, 1, 0.5f);
+
+		if (lifetime > 0) new invisibleLater(marker, lifetime);
+
+
+
+
+		// GD.PushError("1111");
+		// GD.PushWarning("2222");
+
+
+		if (marker.GetChildCount() == 0)
+		{
+			var label = new Label();
+			marker.AddChild(label);
+			label.Scale = new Vector2(2f, 2f);
+			label.Position = new Vector2(0, 0);
+			label.Text = message;
+			label.SelfModulate = Colors.Coral;
+
+
+		}
+		else if (marker.GetChild(0) is Label)
+		{
+
+			marker.GetChild<Label>(0).Text = message;
+		}
+		else
+		{
+			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
+			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
+			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
+		}
+
+
+
+
+		marker.Visible = true;
+		return marker;
+
+
+	}
+
+
+	#endregion
 
 	#region  BACKROUND FLASH
 
@@ -248,4 +623,8 @@ public partial class battleEffectsC : Node
 	}
 
 	#endregion
+
+
+
+
 }

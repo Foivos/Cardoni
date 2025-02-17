@@ -12,6 +12,7 @@ config_version=5
 
 config/name="cardoniProject"
 run/main_scene="res://scenes/mainScene.tscn"
+run/enable_alt_space_menu=true
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://resources/icon.svg"
 
@@ -37,6 +38,11 @@ project/assembly_name="New Game Project"
 
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
+
+[gui]
+
+theme/custom="res://gregFolder/new_theme.tres"
+theme/custom_font="res://gregFolder/Squeid Gameis.otf"
 
 [layer_names]
 

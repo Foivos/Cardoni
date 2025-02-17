@@ -18,4 +18,3 @@ void fragment() {
     // Output the final color
     COLOR = color * COLOR;
 }
-

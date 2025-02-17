@@ -1,0 +1,151 @@
+[gd_scene load_steps=11 format=3 uid="uid://dsfsps4n187ti"]
+
+[ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="1_40t6c"]
+[ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]
+[ext_resource type="Script" path="res://gregFolder/gregC/atackAnimation.cs" id="3_8ktg1"]
+[ext_resource type="Texture2D" uid="uid://brsi8kgcmggmh" path="res://resources/hollowStrikeMedioumOutline.png" id="3_qa6s3"]
+[ext_resource type="Texture2D" uid="uid://cqn5d224g3vka" path="res://gregFolder/images/testBlood.png" id="4_5ikyp"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="4_iljim"]
+[ext_resource type="Script" path="res://gregFolder/gregC/textEffects.cs" id="5_n1kp3"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_fi5q5"]
+particles_animation = true
+particles_anim_h_frames = 3
+particles_anim_v_frames = 3
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_djcnw"]
+particle_flag_align_y = true
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 1.07288e-05
+inherit_velocity_ratio = 1.0
+direction = Vector3(0, 1, 0)
+spread = 0.0
+initial_velocity_min = 100.0
+initial_velocity_max = 100.0
+gravity = Vector3(0, 0, 0)
+scale_min = 3.0
+scale_max = 3.0
+anim_speed_min = 2.0
+anim_speed_max = 2.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y4ghb"]
+shader = ExtResource("4_iljim")
+shader_parameter/width = 1
+shader_parameter/outline_color = Color(1, 0, 0, 1)
+
+[node name="Effects" type="Node"]
+
+[node name="falling shord" type="Node" parent="."]
+script = ExtResource("1_40t6c")
+
+[node name="EFFECTS" type="Node" parent="." node_paths=PackedStringArray("hitParticles", "bloodParticles", "bloodParticlesB")]
+script = ExtResource("2_v5wef")
+hitParticles = NodePath("strike particles")
+hitParticlesOffset = 50.0
+bloodParticles = NodePath("GPU blood")
+bloodParticlesB = NodePath("GPU blood B")
+bloodOffset = Vector2(20, 80)
+shakeSpriteDuration = 0.03
+shakeSpriteOffset = 5.0
+shakeSpriteRotation = 10.0
+backroundEffectDelay = 0.02
+backroundEffeColor = Color(0.67, 0.67, 0.67, 1)
+
+[node name="test sprite" type="Sprite2D" parent="EFFECTS"]
+position = Vector2(-192, -460)
+scale = Vector2(2, 2)
+
+[node name="Sprite2D" type="Sprite2D" parent="EFFECTS/test sprite"]
+position = Vector2(18.5, 16)
+scale = Vector2(0.5, 0.5)
+
+[node name="strike particles" type="CPUParticles2D" parent="EFFECTS"]
+self_modulate = Color(0.967667, 1, 0.03, 1)
+position = Vector2(-64, 76)
+rotation = -3.25329
+emitting = false
+amount = 1
+lifetime = 0.08
+one_shot = true
+speed_scale = 1.5
+randomness = 1.0
+fixed_fps = 120
+fract_delta = false
+texture = ExtResource("3_qa6s3")
+emission_shape = 1
+emission_sphere_radius = 10.0
+particle_flag_align_y = true
+direction = Vector2(0, -1)
+spread = 0.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 1000.0
+initial_velocity_max = 1200.0
+scale_amount_min = 0.6
+scale_amount_max = 0.8
+
+[node name="GPU blood" type="GPUParticles2D" parent="EFFECTS"]
+z_index = -1
+material = SubResource("CanvasItemMaterial_fi5q5")
+position = Vector2(102, 105)
+rotation = 3.30252
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_djcnw")
+texture = ExtResource("4_5ikyp")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+interpolate = false
+
+[node name="GPU blood B" type="GPUParticles2D" parent="EFFECTS"]
+z_index = -1
+material = SubResource("CanvasItemMaterial_fi5q5")
+position = Vector2(102, 105)
+rotation = 3.30252
+emitting = false
+amount = 1
+process_material = SubResource("ParticleProcessMaterial_djcnw")
+texture = ExtResource("4_5ikyp")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+interpolate = false
+
+[node name="atackAnimation" type="Node" parent="."]
+script = ExtResource("3_8ktg1")
+redOutline = SubResource("ShaderMaterial_y4ghb")
+atackerRotation = 10.0
+atackerOffset = 5.0
+shordOffset = Vector2(2, -10)
+delay = 0.03
+
+[node name="textEffects" type="Node2D" parent="." node_paths=PackedStringArray("labelHolderPresset", "labelPresset")]
+script = ExtResource("5_n1kp3")
+testSay = "14113"
+col = Color(0, 0, 0, 1)
+duration = 1.0
+size = 3.0
+labelHolderPresset = NodePath("label holder DONT DELETE")
+labelPresset = NodePath("label holder DONT DELETE/label DONT DELETE")
+
+[node name="label holder DONT DELETE" type="Node2D" parent="textEffects"]
+
+[node name="label DONT DELETE" type="Label" parent="textEffects/label holder DONT DELETE"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -60.0
+offset_top = -11.5
+offset_right = 60.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "daad"
+horizontal_alignment = 1
+vertical_alignment = 1
