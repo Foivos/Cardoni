@@ -6,12 +6,12 @@ using Godot;
 [GlobalClass]
 public partial class LineTarget : EntityTarget
 {
-	int Line => TargetView.Instance.Line;
+	static int Line => TargetView.Instance.Line;
 
 	public LineTarget() { }
 
 	public override List<Entity> Targets()
 	{
-		return new List<Entity>();
+		return GameState.Entities.FindAll((entity) => entity.OccupyingLanes.IsIn((uint)Line));
 	}
 }

@@ -32,7 +32,6 @@ public partial class EffectResult : CardResult
 	{
 		foreach (Entity entity in EntityTarget.Targets())
 		{
-			GD.Print(entity.Effects);
 			Affect(entity);
 		}
 	}

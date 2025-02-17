@@ -93,7 +93,7 @@ public partial class PatternTarget : EntityTarget
 				Vector2I square = patternSquare + offset;
 				if (!entity.OccupyingLanes.IsIn((uint)square.X))
 					continue;
-				if (Math.Abs(entity.Y - square.Y * Constants.GridTicks) >= entity.Height + Constants.GridTicks)
+				if (Math.Abs(entity.Y - square.Y * Constants.GridTicks) >= entity.Height / 2 + Constants.GridTicks)
 					continue;
 
 				list.Add(entity);

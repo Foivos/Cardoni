@@ -66,7 +66,7 @@ public partial class Entity : Node2D
 			y = value;
 			Position = Position with
 			{
-				Y = (value - Constants.TicksPerLane / 2) * Constants.GridHeight / Constants.GridTicks,
+				Y = ((value - Constants.TicksPerLane / 2f) / Constants.GridTicks + 0.5f) * Constants.GridHeight,
 			};
 		}
 	}
@@ -139,7 +139,7 @@ public partial class Entity : Node2D
 			return;
 
 		float y = Y + dt * dx;
-		y = (y - Constants.TicksPerLane / 2) * Constants.GridHeight / Constants.GridTicks;
+		y = ((y - Constants.TicksPerLane / 2f) / Constants.GridTicks + 0.5f) * Constants.GridHeight;
 		Position = Position with { Y = y };
 	}
 
@@ -166,6 +166,22 @@ public partial class Entity : Node2D
 	public int VerticalDistance(Entity target)
 	{
 		return Math.Abs(target.Y - Y) - (int)(target.Height + Height) / 2;
+	}
+
+	public int DistanceSquared(Entity target)
+	{
+		int VerticalDistance = target.Y - Y;
+		int HorizontalDistance =
+			Math.Max(
+				0,
+				Math.Max(OccupyingLanes.From - target.OccupyingLanes.To, target.OccupyingLanes.From - OccupyingLanes.To)
+			) * Constants.GridTicks;
+		return VerticalDistance * VerticalDistance + HorizontalDistance * HorizontalDistance;
+	}
+
+	public double Distance(Entity target)
+	{
+		return Math.Sqrt((float)DistanceSquared(target));
 	}
 
 	internal bool Affected(EffectType effectType)

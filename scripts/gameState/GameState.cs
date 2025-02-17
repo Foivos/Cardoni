@@ -163,7 +163,6 @@ public partial class GameState : Node
 	{
 		while (expiringQueue.Count > 0 && expiringQueue.Top.End <= Tick)
 		{
-			GD.Print("Expire");
 			Expiring expiring = expiringQueue.Pop();
 			expiring.OnExpire();
 			if (expiring.Repeat != 1)

@@ -3,7 +3,7 @@ namespace Cardoni;
 using Godot;
 
 [GlobalClass]
-public abstract partial class MultiEntityActive : EntityActive
+public partial class MultiEntityActive : EntityActive
 {
 	[Export]
 	public EntityActive[] Actives { get; set; }

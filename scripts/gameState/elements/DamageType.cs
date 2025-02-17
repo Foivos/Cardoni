@@ -33,7 +33,6 @@ public class DamageType
 
 	public static void DealDamage(Entity entity, DamageTypes damageType, int damage)
 	{
-		GD.Print(damageType, " ", (int)damageType);
 		damageActions[(int)damageType](entity, damage);
 	}
 

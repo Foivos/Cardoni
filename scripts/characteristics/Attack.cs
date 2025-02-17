@@ -68,7 +68,6 @@ public partial class Attack : TickedCharacteristic<AttackData>
 
 	protected virtual void StartAttack()
 	{
-		GD.Print(Entity.Name, " ", Entity.AttackSpeedModifier);
 		Attacking = true;
 		Entity.Direction = 0;
 		AttackStacks = StartingStacks;

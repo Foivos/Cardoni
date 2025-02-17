@@ -17,11 +17,11 @@ public partial class SpawnManager : Node
 	{
 		Instance = this;
 
-		Spawn(1, 0, GD.Load<EntityData>("res://resources/entities/goblin_warrior.tres"));
-		Spawn(1, 0, GD.Load<EntityData>("res://resources/entities/goblin_shaman.tres"));
+		Spawn(0, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
+		Spawn(1, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
+		Spawn(2, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
 		Spawn(3, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
-		var friend = Spawn(1, 6000, GD.Load<EntityData>("res://resources/entities/goblin_warrior.tres"));
-		friend.Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly });
+
 		Spawn(0, 6000, GD.Load<EntityData>("res://resources/entities/player.tres"));
 	}
 

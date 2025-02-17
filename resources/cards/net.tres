@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=12 format=3 uid="uid://bkhysa8ojyn02"]
+
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_6kuxi"]
+[ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_61tvb"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveCondition.cs" id="1_mqbh3"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_pgwth"]
+[ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="3_acysv"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="4_qxeeu"]
+
+[sub_resource type="Resource" id="Resource_w0rml"]
+script = ExtResource("1_61tvb")
+Duration = 100
+Strength = 1
+EffectType = 8
+
+[sub_resource type="Resource" id="Resource_paqjy"]
+script = ExtResource("1_mqbh3")
+Data = SubResource("Resource_w0rml")
+
+[sub_resource type="Resource" id="Resource_fsnor"]
+script = ExtResource("2_pgwth")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_qiakn"]
+script = ExtResource("3_acysv")
+Clip = false
+StringPattern = PackedStringArray("XX")
+EntityMask = SubResource("Resource_fsnor")
+
+[sub_resource type="Resource" id="Resource_vkklg"]
+script = ExtResource("4_qxeeu")
+EntityTarget = SubResource("Resource_qiakn")
+Active = SubResource("Resource_paqjy")
+
+[resource]
+script = ExtResource("1_6kuxi")
+Name = "Net"
+Description = "Restrict everyone in a 2x1 square"
+ManaCost = 2
+CardResult = SubResource("Resource_vkklg")

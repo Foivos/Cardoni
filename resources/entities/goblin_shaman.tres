@@ -33,7 +33,7 @@ script = ExtResource("3_gdl2v")
 EntityFilter = SubResource("Resource_jbxx0")
 Condition = SubResource("Resource_7iqk4")
 
-[sub_resource type="Resource" id="Resource_hppi3"]
+[sub_resource type="Resource" id="Resource_kgup3"]
 script = ExtResource("1_5b77a")
 Masks = 1
 
@@ -48,7 +48,7 @@ Name = "Goblin Warrior"
 Width = 1
 Height = 1200
 MaxHealth = 3
-Mask = SubResource("Resource_hppi3")
+Mask = SubResource("Resource_kgup3")
 BaseMovementSpeed = 60
 BaseAttackSpeed = 40
 Sprite = SubResource("Resource_7aqap")

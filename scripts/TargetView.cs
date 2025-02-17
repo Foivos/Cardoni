@@ -29,7 +29,7 @@ public partial class TargetView : Node2D
 	public Vector2 MousePosition { get; set; }
 	public int Line => GetSelectedLine(MousePosition);
 
-	Vector2 PatternOffset;
+	Vector2 PatternOffset { get; set; }
 
 	public override void _Ready()
 	{
@@ -159,6 +159,13 @@ public partial class TargetView : Node2D
 	{
 		int x = (int)Math.Floor(MousePosition.X / LineLength + offset.X) + Constants.NumberOfLanes / 2;
 		int y = (int)Math.Floor(MousePosition.Y / LineLength + offset.Y) + Constants.NumberOfRows / 2;
+		return new(x, y);
+	}
+
+	public Vector2I GetCurrentPosition()
+	{
+		int x = (int)Math.Floor(MousePosition.X / LineLength) + Constants.NumberOfLanes / 2;
+		int y = (int)Math.Floor(MousePosition.Y / LineLength * Constants.GridTicks) + Constants.TicksPerLane / 2;
 		return new(x, y);
 	}
 
