@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://bib401hmbony5"]
+[gd_scene load_steps=9 format=3 uid="uid://cugjir424sxlc"]
 
 [ext_resource type="Script" path="res://scripts/entities/Entity.cs" id="1_8mn4u"]
 [ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/images/healthBack.png" id="3_32dvr"]
 [ext_resource type="Shader" path="res://gregFolder/shaders/distortionShaderTwo.gdshader" id="4_ar2ex"]
 [ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/images/healthBar.png" id="5_dlm2d"]
-[ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="5_o38kh"]
 [ext_resource type="Texture2D" uid="uid://d1ts0gduggbgo" path="res://gregFolder/images/shordTwo.png" id="6_otgi4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_5dgql"]
@@ -18,7 +17,7 @@ radius = 50.0
 
 [sub_resource type="Theme" id="Theme_3bx3c"]
 
-[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "Weapon", "HealthLabel")]
+[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "Weapon")]
 collision_mask = 0
 script = ExtResource("1_8mn4u")
 HealthBar = NodePath("HealthBar")
@@ -49,8 +48,6 @@ texture_progress = ExtResource("5_dlm2d")
 [node name="face sprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_5dgql")
 scale = Vector2(0.55, 0.55)
-texture = ExtResource("5_o38kh")
-region_enabled = true
 region_rect = Rect2(0, 0, 160, 160)
 
 [node name="weapon" type="Sprite2D" parent="."]

@@ -14,6 +14,9 @@ public partial class Entity : Node2D
 	[Export]
 	public Sprite2D Weapon { get; set; }
 
+	[Export]
+	public Label HealthLabel { get; set; }
+
 	public EntityData Data { get; set; }
 
 	public uint MaxHealth => Data.MaxHealth;
@@ -258,8 +261,6 @@ public partial class Entity : Node2D
 		// > enytity.Parent.Sprite.GlobalPosition.Y;
 		// }
 		// else GD.PushError("NEED BETTER WAY OF KNOWING DIRECTION");
-
-
 
 		if (lookingDown) Weapon.RotationDegrees = -135;
 		else Weapon.RotationDegrees = -45;
