@@ -20,7 +20,7 @@ public partial class GoblinRanged : DamagingEntity
 		BaseAttackSpeed = 40;
 		Height = Constants.GridTicks / 2;
 		Range = (uint)Constants.GridTicks / 2 * 4;
-		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/EnemySpriteSheet1.png");
+		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/enemies/kaktosBandage.png");
 		Parent.Sprite.RegionRect = new Rect2(new Vector2(128, 0), new Vector2(32, 32));
 	}
 }

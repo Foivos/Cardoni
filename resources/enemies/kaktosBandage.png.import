@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://70t5bcch5jl3"
-path="res://.godot/imported/singleGoblinTwo.png-07e93e671ee5f80eab7d46051801d4e0.ctex"
+uid="uid://ngeq6qqf8gdp"
+path="res://.godot/imported/kaktosBandage.png-e2953ab7b35d6c97d4165a9da5ebe17f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/singleGoblinTwo.png"
-dest_files=["res://.godot/imported/singleGoblinTwo.png-07e93e671ee5f80eab7d46051801d4e0.ctex"]
+source_file="res://resources/enemies/kaktosBandage.png"
+dest_files=["res://.godot/imported/kaktosBandage.png-e2953ab7b35d6c97d4165a9da5ebe17f.ctex"]
 
 [params]
 

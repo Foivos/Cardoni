@@ -17,7 +17,7 @@ public partial class GoblinShaman : EffectEntity
 		TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy });
 		Name = "Goblin Shaman";
 		Height = Constants.GridTicks / 2;
-		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/EnemySpriteSheet1.png");
+		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/enemies/goblinBase.png");
 		Parent.Sprite.RegionRect = new Rect2(new Vector2(32, 128), new Vector2(32, 32));
 	}
 

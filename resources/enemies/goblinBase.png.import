@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jkorirslebke"
-path="res://.godot/imported/batteringRam.png-72a9c10eeaeba1a80a504efe1752c678.ctex"
+uid="uid://bpf2gmkxbrv5n"
+path="res://.godot/imported/goblinBase.png-5f636f2165384857b277f93e34efa0ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://resources/batteringRam.png"
-dest_files=["res://.godot/imported/batteringRam.png-72a9c10eeaeba1a80a504efe1752c678.ctex"]
+source_file="res://resources/enemies/goblinBase.png"
+dest_files=["res://.godot/imported/goblinBase.png-5f636f2165384857b277f93e34efa0ef.ctex"]
 
 [params]
 

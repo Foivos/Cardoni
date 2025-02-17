@@ -20,7 +20,7 @@ public partial class GoblinWarrior : DamagingEntity
 		BaseAttackSpeed = 40;
 		Height = Constants.GridTicks / 2;
 		Range = (uint)Constants.GridTicks / 2;//res://resources/singleGoblin.png
-		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/singleGoblin.png");
+		Parent.Sprite.Texture = GD.Load<Texture2D>("res://resources/enemies/kaktosBase.png");
 		Parent.Sprite.Scale = Vector2.One * 0.5f;
 		Parent.Sprite.RegionEnabled = false;
 		//Parent.Sprite.RegionRect = new Rect2(new Vector2(192, 0), new Vector2(32, 32));

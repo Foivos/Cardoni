@@ -26,7 +26,9 @@ public partial class Entity
 		set
 		{
 			maxHealth = value;
-			HealthBar.MaxValue = value;
+
+			Parent.healthLabel.Text = maxHealth.ToString(); //healthLabel
+			//HealthBar.MaxValue = value;
 		}
 	}
 	int health;
@@ -36,7 +38,8 @@ public partial class Entity
 		set
 		{
 			health = value;
-			HealthBar.Value = value;
+			Parent.healthLabel.Text = value.ToString();
+			//HealthBar.Value = value;
 		}
 	}
 
@@ -59,7 +62,7 @@ public partial class Entity
 		{
 			direction = value;
 
-			if(value != 0)lookingDirection = value;
+			if (value != 0) lookingDirection = value;
 
 			if (Parent != null && Parent.Weapon != null) Parent.setShordPosition(this);
 
@@ -145,7 +148,7 @@ public partial class Entity
 		}
 		else
 		{
-			fallingShords.testStrikeThere(Parent.Sprite.GlobalPosition);
+			fallingShords.testStrikeThere(this);
 			//battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
 
 			battleEffectsC.inst.EntityBlood(this); //battleEffectsC.doBloodParticles(this);

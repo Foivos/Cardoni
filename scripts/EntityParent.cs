@@ -7,6 +7,9 @@ public partial class EntityParent : Area2D
 {
 	[Export]
 	public TextureProgressBar HealthBar;
+	[Export]
+	
+	public Label healthLabel;
 
 	[Export]
 	public Sprite2D Sprite;
