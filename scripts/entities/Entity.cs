@@ -48,7 +48,7 @@ public partial class Entity : Node2D
 
 			if(value != 0) FacingDirection = value;
 
-			if (Weapon != null) SetSwordPosition(this);
+			if (Weapon != null) SetWeaponPosition(this);
 		}
 	}
 
@@ -242,5 +242,33 @@ public partial class Entity : Node2D
 		EffectType effectType = (EffectType)typeof(T).GetField("Type").GetValue(null);
 
 		return (T)Effects[(int)effectType];
+	}
+
+	public void SetWeaponPosition(Entity entity)
+	{
+		if (Weapon == null) return;
+
+		bool lookingDown = entity.FacingDirection == 1;
+
+		// if (enytity.Direction != 0) lookingDown = enytity.Direction == 1;
+		// else if (enytity is AttackingEntity atacker && atacker.Target != null)
+		// {
+		// 	lookingDown = atacker.Target.Parent.Sprite.GlobalPosition.Y
+		// > enytity.Parent.Sprite.GlobalPosition.Y;
+		// }
+		// else GD.PushError("NEED BETTER WAY OF KNOWING DIRECTION");
+
+
+
+		if (lookingDown) Weapon.RotationDegrees = -135;
+		else Weapon.RotationDegrees = -45;
+
+		Vector2 shordPosition = new Vector2(23, 23);
+		if (!lookingDown) shordPosition.Y *= -1;
+		Weapon.Position = shordPosition;
+	}
+
+	public void ProcessSideMove()
+	{
 	}
 }

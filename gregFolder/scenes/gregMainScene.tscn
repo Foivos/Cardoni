@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dsfsps4n187ti" path="res://scenes/effects.tscn" id="3_skox6"]
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="4_ahft0"]
 [ext_resource type="Texture2D" uid="uid://cqn5d224g3vka" path="res://gregFolder/images/testBlood.png" id="4_bk4ib"]
-[ext_resource type="Script" path="res://gregFolder/gregC/textEffects.cs" id="7_450mq"]
+[ext_resource type="Script" path="res://gregFolder/shaders/gregC/textEffects.cs" id="7_450mq"]
 [ext_resource type="Texture2D" uid="uid://byb4gab3q8fps" path="res://resources/smoke.png" id="7_qwrw5"]
 [ext_resource type="Theme" uid="uid://kldp23p8yprq" path="res://gregFolder/new_theme.tres" id="8_0gu5u"]
 [ext_resource type="FontFile" uid="uid://btttisy36v4y6" path="res://gregFolder/Squeid Gameis.otf" id="9_mm42t"]

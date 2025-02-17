@@ -102,9 +102,9 @@ public partial class battleEffectsC : Node
 		inst.bloodPoolUse = !inst.bloodPoolUse;
 
 
-		bool goingUp = entity.lookingDirection == 1;
+		bool goingUp = entity.FacingDirection == 1;
 		GD.Print("BLEED UP: " + goingUp);
-		Vector2 pos = entity.Parent.Sprite.GlobalPosition;
+		Vector2 pos = entity.Sprite.GlobalPosition;
 
 		bool side = gregF.rBool();
 		//GD.Print("side: " + side);
@@ -172,13 +172,10 @@ public partial class battleEffectsC : Node
 
 
 
-	public void EntityBlood(Entity ent)
+	public void EntityBlood(Entity entity)
 	{
-
-		GD.Print("blood id == "+ent.id);
-
-		bool dead = !ent.IsAlive;
-		int direction = ent.lookingDirection;
+		bool dead = !entity.IsAlive;
+		int direction = entity.FacingDirection;
 
 		//GD.Print("BLEED UP: " + (direction == 1 ? "down" : "^^^^"));
 
@@ -192,7 +189,7 @@ public partial class battleEffectsC : Node
 		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir();//todo POLISH
 																			//GD.Print("XXX: " + XXX);
 
-		playBloodAnimation(ent.Parent.GlobalPosition
+		playBloodAnimation(entity.GlobalPosition
 	+ new Vector2(XXX, direction * offsetY)
 	, (direction == 1 ? 180 : 0) + randomRotation.rDir()
 	, _Scale: (dead ? SCALE_DEAD : SCALE));

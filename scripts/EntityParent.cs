@@ -16,14 +16,11 @@ public partial class EntityParent : Area2D
 
 
 
-	public void setShordPosition(Entity enytity)
+	public void setShordPosition(Entity entity)
 	{
-
-
-
 		if (Weapon == null) return;
 
-		bool lookingDown = enytity.getDirection() == 1;
+		bool lookingDown = entity.FacingDirection == 1;
 
 		// if (enytity.Direction != 0) lookingDown = enytity.Direction == 1;
 		// else if (enytity is AttackingEntity atacker && atacker.Target != null)
@@ -41,9 +38,6 @@ public partial class EntityParent : Area2D
 		Vector2 shordPosition = new Vector2(23, 23);
 		if (!lookingDown) shordPosition.Y *= -1;
 		Weapon.Position = shordPosition;
-
-
-
 	}
 
 
