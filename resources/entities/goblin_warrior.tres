@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://scripts/characteristics/AttackData.cs" id="4_7ugmu"]
 [ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="4_yxgum"]
 [ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="5_ye0lx"]
-[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/EnemySpriteSheet1.png" id="6_alqch"]
+[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="6_alqch"]
 [ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="7_ep37l"]
 
 [sub_resource type="Resource" id="Resource_peefb"]

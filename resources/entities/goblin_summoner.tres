@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveSummon.cs" id="2_kr771"]
 [ext_resource type="Script" path="res://scripts/characteristics/CooldownData.cs" id="3_s8ngx"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="5_m5tbe"]
-[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/EnemySpriteSheet1.png" id="6_p435k"]
+[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="6_p435k"]
 [ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="7_w3rqb"]
 [ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="8_0ie2y"]
 
