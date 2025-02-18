@@ -1,0 +1,55 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=17 format=3 uid="uid://dtwdhvv6e45u"]
+
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_5b77a"]
+[ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_675oa"]
+[ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="2_5e38l"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="2_y3us8"]
+[ext_resource type="Script" path="res://scripts/characteristics/AuraData.cs" id="3_gdl2v"]
+[ext_resource type="Script" path="res://scripts/filters/AlliesFilter.cs" id="3_t1am4"]
+[ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="4_x7lop"]
+[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/EnemySpriteSheet1.png" id="5_qoti3"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="6_dlqn6"]
+
+[sub_resource type="Resource" id="Resource_7iqk4"]
+script = ExtResource("1_675oa")
+Duration = 0
+Strength = 1
+EffectType = 7
+
+[sub_resource type="Resource" id="Resource_xdx0h"]
+script = ExtResource("2_5e38l")
+RelativeLane = 0
+
+[sub_resource type="Resource" id="Resource_8bvxc"]
+script = ExtResource("3_t1am4")
+
+[sub_resource type="Resource" id="Resource_jbxx0"]
+script = ExtResource("4_x7lop")
+Filter1 = SubResource("Resource_xdx0h")
+Filter2 = SubResource("Resource_8bvxc")
+
+[sub_resource type="Resource" id="Resource_jgu6f"]
+script = ExtResource("3_gdl2v")
+EntityFilter = SubResource("Resource_jbxx0")
+Condition = SubResource("Resource_7iqk4")
+
+[sub_resource type="Resource" id="Resource_kgup3"]
+script = ExtResource("1_5b77a")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_7aqap"]
+script = ExtResource("6_dlqn6")
+Texture = ExtResource("5_qoti3")
+RegionRect = Rect2(32, 128, 32, 32)
+
+[resource]
+script = ExtResource("2_y3us8")
+Name = "Goblin Warrior"
+Width = 1
+Height = 1200
+MaxHealth = 3
+Mask = SubResource("Resource_kgup3")
+BaseMovementSpeed = 60
+BaseAttackSpeed = 40
+Sprite = SubResource("Resource_7aqap")
+Characteristic = SubResource("Resource_jgu6f")

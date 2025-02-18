@@ -4,13 +4,13 @@ using System;
 
 public class OccupyingLanes
 {
-	readonly uint from,
+	readonly int from,
 		to;
 
-	public uint From => from;
-	public uint To => to;
+	public int From => from;
+	public int To => to;
 
-	public OccupyingLanes(uint _from, uint _to)
+	public OccupyingLanes(int _from, int _to)
 	{
 		if (from > to)
 			throw new Exception("Occupying Lanes cannot have a larger from than to");
@@ -18,12 +18,12 @@ public class OccupyingLanes
 		to = _to;
 	}
 
-	public OccupyingLanes(uint single)
+	public OccupyingLanes(int single)
 		: this(single, single) { }
 
 	public bool Intersects(OccupyingLanes other)
 	{
-		return !(From > other.To && To < other.From);
+		return From <= other.To && To >= other.From;
 	}
 
 	public bool IsIn(uint lane)

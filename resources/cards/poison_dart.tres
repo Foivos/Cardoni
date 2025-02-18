@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=10 format=3 uid="uid://odxsnfeqpwwi"]
+
+[ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_ognu7"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_si177"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveCondition.cs" id="2_un154"]
+[ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_gaee4"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_npvq4"]
+
+[sub_resource type="Resource" id="Resource_vm232"]
+script = ExtResource("1_ognu7")
+Duration = 100
+Strength = 60
+EffectType = 3
+
+[sub_resource type="Resource" id="Resource_8yfl1"]
+script = ExtResource("2_un154")
+Data = SubResource("Resource_vm232")
+
+[sub_resource type="Resource" id="Resource_iiqe1"]
+script = ExtResource("2_si177")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_pmkyx"]
+script = ExtResource("4_gaee4")
+MovementSpeed = -60
+ProjectileMask = SubResource("Resource_iiqe1")
+Piercing = 1
+Y = 6000
+Active = SubResource("Resource_8yfl1")
+
+[resource]
+script = ExtResource("5_npvq4")
+Name = "Dart"
+Description = "Fire a dart that hits the first enemy hit, dealing 5 Poison Damage over 5 seconds."
+ManaCost = 2
+CardResult = SubResource("Resource_pmkyx")

@@ -29,7 +29,7 @@ public partial class TargetView : Node2D
 	public Vector2 MousePosition { get; set; }
 	public int Line => GetSelectedLine(MousePosition);
 
-	Vector2 PatternOffset;
+	Vector2 PatternOffset { get; set; }
 
 	public override void _Ready()
 	{
@@ -41,7 +41,7 @@ public partial class TargetView : Node2D
 
 	public override void _Process(double delta)
 	{
-		if (GameState.SelectedCard == null || GameState.SelectedCard.CardResults == null)
+		if (GameState.SelectedCard == null || GameState.SelectedCard.CardResult == null)
 			return;
 		ProcessGraphics();
 		ProcessTargets();
@@ -49,14 +49,12 @@ public partial class TargetView : Node2D
 
 	private void ProcessTargets()
 	{
-		foreach (CardResult result in GameState.SelectedCard.CardResults)
+		CardResult result = GameState.SelectedCard.CardResult;
+		if (result is EffectResult effectResult)
 		{
-			if (result is EffectResult effectResult)
+			foreach (Entity entity in effectResult.EntityTarget.Targets())
 			{
-				foreach (Entity entity in effectResult.GetTargets())
-				{
-					// You can do something to each target here.
-				}
+				// You can do something to each target here.
 			}
 		}
 	}
@@ -73,38 +71,52 @@ public partial class TargetView : Node2D
 
 	void _BeginTargeting() //! MAIN FUNCTION
 	{
-		if (GameState.SelectedCard == null || GameState.SelectedCard.CardResults == null)
+		if (GameState.SelectedCard == null || GameState.SelectedCard.CardResult == null)
 			return;
 		SetProcess(true);
-		foreach (CardResult result in GameState.SelectedCard.CardResults)
+
+		DisplayTarget(GameState.SelectedCard.CardResult.Target);
+		//enemyTarget.Visible = targetNow == targetTypes.enemy;
+	}
+
+	void DisplayTarget(CardTarget target)
+	{
+		if (target == null)
+			return;
+		if (target is LineTarget)
 		{
-			if (result.Targets == null)
-				continue;
-			foreach (CardTarget target in result.Targets)
+			LineTarget.Visible = true;
+		}
+		else if (target is PositionTarget)
+		{
+			PositionTarget.Visible = true;
+		}
+		else if (target is PatternTarget patternTarget)
+		{
+			PatternTarget.Visible = true;
+			PatternOffset = patternTarget.Offset;
+			foreach (Vector2I item in patternTarget.Pattern)
 			{
-				if (target is LineTarget)
-				{
-					LineTarget.Visible = true;
-				}
-				else if (target is PositionTarget)
-				{
-					PositionTarget.Visible = true;
-				}
-				else if (target is PatternTarget patternTarget)
-				{
-					PatternTarget.Visible = true;
-					PatternOffset = patternTarget.Offset;
-					foreach (Vector2I item in patternTarget.Pattern)
-					{
-						Sprite2D sprite = (Sprite2D)PositionTarget.Duplicate();
-						PatternTarget.AddChild(sprite);
-						sprite.Visible = true;
-						sprite.Position = ((Vector2)item) * LineLength;
-					}
-				}
+				Sprite2D sprite = (Sprite2D)PositionTarget.Duplicate();
+				PatternTarget.AddChild(sprite);
+				sprite.Visible = true;
+				sprite.Position = ((Vector2)item) * LineLength;
 			}
 		}
-		//enemyTarget.Visible = targetNow == targetTypes.enemy;
+		else if (target is MultiTarget multiTarget)
+		{
+			foreach (CardTarget inner in multiTarget.Targets)
+			{
+				DisplayTarget(inner);
+			}
+		}
+		else if (target is MultiEntityTarget multiEntityTarget)
+		{
+			foreach (EntityTarget inner in multiEntityTarget.EntityTargets)
+			{
+				DisplayTarget(inner);
+			}
+		}
 	}
 
 	void _EndTargeting() //! MAIN FUNCTION
@@ -147,6 +159,13 @@ public partial class TargetView : Node2D
 	{
 		int x = (int)Math.Floor(MousePosition.X / LineLength + offset.X) + Constants.NumberOfLanes / 2;
 		int y = (int)Math.Floor(MousePosition.Y / LineLength + offset.Y) + Constants.NumberOfRows / 2;
+		return new(x, y);
+	}
+
+	public Vector2I GetCurrentPosition()
+	{
+		int x = (int)Math.Floor(MousePosition.X / LineLength) + Constants.NumberOfLanes / 2;
+		int y = (int)Math.Floor(MousePosition.Y / LineLength * Constants.GridTicks) + Constants.TicksPerLane / 2;
 		return new(x, y);
 	}
 

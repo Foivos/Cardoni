@@ -1,7 +1,8 @@
 namespace Cardoni;
 
-public class ConfusedEffect : CountedEffect
+public class ConfusedEffect : Effect
 {
+	public const EffectType Type = EffectType.Confused;
 	public override EffectType EffectType => EffectType.Confused;
 
 	public ConfusedEffect(Entity entity)

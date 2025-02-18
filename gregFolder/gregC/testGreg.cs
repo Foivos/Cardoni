@@ -1,27 +1,31 @@
+using System;
 using Cardoni;
 using Godot;
-using System;
-using System.Collections;
 
 public partial class testGreg : Node2D
 {
 
-	//! set up your math functions and extentions	
 
+	//! set up your math functions and extentions	
+	static testGreg inst;
+	public override void _Process(double delta)
+	{
+		inst = this;
+	}
 	public override void _Input(InputEvent @event)
 	{
 
-		if (@event is InputEventMouseButton == false) return;
+		// if (@event is InputEventMouseButton == false) return;
 
 
-		if (testAnim) playAnim();
+		// if (testAnim) playAnim();
 		if (testBlood) spawnParticleThere(GetGlobalMousePosition(), 4);
 
 
-		if (testAtack && doingEffect == false) atackAnim();
-		//var newOne = start atackRoutine();
+		// if (testAtack && doingEffect == false) atackAnim();
+		// //var newOne = start atackRoutine();
 
-		if (testTiledAnim) changeTiledFrame();
+		// if (testTiledAnim) changeTiledFrame();
 
 	}
 
@@ -29,7 +33,7 @@ public partial class testGreg : Node2D
 	#region  tiled animation    
 
 	//! KEEP IN MIND THE TILE ANIM MATERIAL IS WORKING 
-	
+
 	//! made tileAnim c# that does it well enough 
 	//worked through c# changing the texture
 
@@ -107,49 +111,54 @@ public partial class testGreg : Node2D
 	{
 		await ToSignal(GetTree().CreateTimer(targetDamageDelay), "timeout");
 
-		battleEffectsC.inst.addHitTwo(target);
+		new battleEffectsC.hitDmg(target);
 		battleEffectsC.inst.doShake(target);
 
 	}
-	async void atackAnim()
+
+	public static void doAtackAnim(Sprite2D entity, Sprite2D weapon)
 	{
-		if (doingEffect) return;
-		doingEffect = true;
+		if (inst == null || entity == null || weapon == null) return;
+		inst.atackAnim(entity, weapon);
+	}
+	public async void atackAnim(Sprite2D entity, Sprite2D weapon)
+	{
 
-		targetDamage();
+
+		//targetDamage();
 
 
-		atacker.RotationDegrees = -atackerRotation;
-		shord.Material = redOutline;
-
-		await ToSignal(GetTree().CreateTimer(delay), "timeout");
-
-		atacker.RotationDegrees = 0;
-		atacker.Offset = new Vector2(0, atackerOffset);
-		shord.ZIndex = 5;
-		shord.Offset = shordOffset;
-		shord.RotationDegrees = shordRotation;
-
+		entity.RotationDegrees = -atackerRotation;
+		weapon.Material = redOutline;
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
 
-		atacker.Offset = Vector2.Zero;
+		entity.RotationDegrees = 0;
+		entity.Offset = new Vector2(0, atackerOffset);
+		weapon.ZIndex = 5;
+		weapon.Offset = shordOffset;
+		weapon.RotationDegrees = shordRotation;
+
+
+		await ToSignal(GetTree().CreateTimer(delay), "timeout");
+
+		entity.Offset = Vector2.Zero;
 
 
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
 
-		shord.ZIndex = 0;
-		shord.RotationDegrees = 0;
-		shord.Offset = Vector2.Zero;
-		shord.Material = null;
+		weapon.ZIndex = 0;
+		weapon.RotationDegrees = 0;
+		weapon.Offset = Vector2.Zero;
+		weapon.Material = null;
 		//shord.TopLevel = false;
 
 
 
 
-		await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
-		doingEffect = false;
+		//await ToSignal(GetTree().CreateTimer(0.5f), "timeout");
+		//doingEffect = false;
 
 
 	}
@@ -317,6 +326,13 @@ public partial class testGreg : Node2D
 
 
 	#endregion
+
+
+
+
+
+
+
 
 
 

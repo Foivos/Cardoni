@@ -3,14 +3,20 @@ namespace Cardoni;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Godot.Collections;
 
-public class EffectResult : CardResult
+[GlobalClass]
+public partial class EffectResult : CardResult
 {
-	public EffectResult(List<EntityTarget> targets, List<EntityActive> effects)
-	{
-		Targets = targets.Cast<CardTarget>().ToList();
-		Effects = effects.Cast<IActive>().ToList();
-	}
+	[Export]
+	public EntityTarget EntityTarget { get; set; }
+
+	[Export]
+	public EntityActive Active { get; set; }
+
+	public override CardTarget Target => EntityTarget;
+
+	public EffectResult() { }
 
 	public virtual bool Affects(Entity entity)
 	{
@@ -19,27 +25,13 @@ public class EffectResult : CardResult
 
 	public virtual void Affect(Entity entity)
 	{
-		foreach (IActive effect in Effects)
-		{
-			((EntityActive)effect).Activate(entity);
-		}
-	}
-
-	public virtual List<Entity> GetTargets()
-	{
-		List<Entity> targets = new();
-		foreach (CardTarget target in Targets)
-		{
-			targets.AddRange(((EntityTarget)target).Targets());
-		}
-		return targets.Distinct().ToList();
+		Active.Activate(entity);
 	}
 
 	public override void Activate()
 	{
-		foreach (Entity entity in GetTargets())
+		foreach (Entity entity in EntityTarget.Targets())
 		{
-			GD.Print(entity.Effects);
 			Affect(entity);
 		}
 	}

@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://blptubc65wwgp"]
+
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_jir7u"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_plw2b"]
+[ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_a43d5"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_uw05r"]
+
+[sub_resource type="Resource" id="Resource_0cdx1"]
+script = ExtResource("1_jir7u")
+Damage = 3
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_iiqe1"]
+script = ExtResource("2_plw2b")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_cjf5y"]
+script = ExtResource("4_a43d5")
+MovementSpeed = -90
+ProjectileMask = SubResource("Resource_iiqe1")
+Piercing = 1
+Y = 6000
+Active = SubResource("Resource_0cdx1")
+
+[resource]
+script = ExtResource("5_uw05r")
+Name = "Boulder"
+Description = "Deal 2 Physical damage to the whole row."
+ManaCost = 5
+CardResult = SubResource("Resource_cjf5y")

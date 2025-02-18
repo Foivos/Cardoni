@@ -3,7 +3,8 @@ namespace Cardoni;
 using System.Collections.Generic;
 using Godot;
 
-public class AreaTarget : EntityTarget
+[GlobalClass]
+public partial class AreaTarget : EntityTarget
 {
 	Vector2 Position => TargetView.Instance.Position;
 	double Radius { get; set; }

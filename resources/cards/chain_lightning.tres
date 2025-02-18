@@ -1,0 +1,59 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=20 format=3 uid="uid://bhilyhnqikwe4"]
+
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_qgqy7"]
+[ext_resource type="Script" path="res://scripts/filters/AlliesFilter.cs" id="2_83mlf"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_eawa6"]
+[ext_resource type="Script" path="res://scripts/filters/RangeFilter.cs" id="3_3lads"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveChain.cs" id="3_r0xgd"]
+[ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="4_b2dr6"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="4_ndvlb"]
+[ext_resource type="Script" path="res://scripts/cards/actives/MultiEntityActive.cs" id="4_wh7xc"]
+[ext_resource type="Script" path="res://scripts/targetting/SingleTarget.cs" id="6_ry2qd"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="7_afujc"]
+
+[sub_resource type="Resource" id="Resource_k8xk5"]
+script = ExtResource("1_qgqy7")
+Damage = 2
+DamageType = 3
+
+[sub_resource type="Resource" id="Resource_oh5sy"]
+script = ExtResource("2_83mlf")
+
+[sub_resource type="Resource" id="Resource_gt7cj"]
+script = ExtResource("3_3lads")
+MaxRange = 1800
+
+[sub_resource type="Resource" id="Resource_cx23k"]
+script = ExtResource("4_b2dr6")
+Filter1 = SubResource("Resource_oh5sy")
+Filter2 = SubResource("Resource_gt7cj")
+
+[sub_resource type="Resource" id="Resource_4nyw2"]
+script = ExtResource("3_r0xgd")
+Number = 2
+ValidTargets = SubResource("Resource_cx23k")
+Active = SubResource("Resource_k8xk5")
+
+[sub_resource type="Resource" id="Resource_dfss7"]
+script = ExtResource("4_wh7xc")
+Actives = Array[Object]([SubResource("Resource_k8xk5"), SubResource("Resource_4nyw2")])
+
+[sub_resource type="Resource" id="Resource_85grl"]
+script = ExtResource("2_eawa6")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_oo8e4"]
+script = ExtResource("6_ry2qd")
+EntityMask = SubResource("Resource_85grl")
+
+[sub_resource type="Resource" id="Resource_wsk2u"]
+script = ExtResource("7_afujc")
+EntityTarget = SubResource("Resource_oo8e4")
+Active = SubResource("Resource_dfss7")
+
+[resource]
+script = ExtResource("4_ndvlb")
+Name = "Chain Lightning"
+Description = "Deal 2 Thunder damage to the selected target and two newrby targets"
+ManaCost = 5
+CardResult = SubResource("Resource_wsk2u")

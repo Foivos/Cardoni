@@ -17,30 +17,24 @@ public partial class SpawnManager : Node
 	{
 		Instance = this;
 
-		new Player(50);
+		Spawn(0, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
+		Spawn(1, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
+		Spawn(2, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
+		Spawn(3, 0, GD.Load<EntityData>("res://resources/entities/goblin_summoner.tres"));
 
-		// var friend1 = new GoblinSiege(1, Constants.TicksPerLane)
-		// {
-		// 	Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-		// 	TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Enemy }),
-		// };
-		// var friend2 = new GoblinShaman(1, Constants.TicksPerLane)
-		// {
-		// 	Mask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-		// 	TargetMask = new EntityMask(new EntityMasks[] { EntityMasks.Friendly }),
-		// };
-		var enemy1 = new GoblinWarrior(1);
-		var enemy2 = new GoblinRanged(2);
+		Spawn(0, 6000, GD.Load<EntityData>("res://resources/entities/player.tres"));
 	}
 
-	public static void Spawn(Entity entity)
+	public static Entity Spawn(int lane, int y, EntityData data)
 	{
-		EntityParent parent = Instance.EnemyPreffab.Instantiate<EntityParent>();
+		Entity entity = Instance.EnemyPreffab.Instantiate<Entity>();
 
-		entity.Parent = parent;
+		entity.SetData(data, lane, y);
 
-		Instance.AddChild(parent);
+		Instance.AddChild(entity);
 
 		GameState.Spawning.Add(entity);
+
+		return entity;
 	}
 }

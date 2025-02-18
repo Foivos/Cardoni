@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://6f7cybje2ayh"]
+
+[ext_resource type="Resource" uid="uid://bess3x87l60gi" path="res://resources/entities/goblin_warrior.tres" id="1_v8ttj"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveSummon.cs" id="2_kr771"]
+[ext_resource type="Script" path="res://scripts/characteristics/CooldownData.cs" id="3_s8ngx"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="5_m5tbe"]
+[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="6_p435k"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="7_w3rqb"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="8_0ie2y"]
+
+[sub_resource type="Resource" id="Resource_fh56b"]
+script = ExtResource("2_kr771")
+Summon = ExtResource("1_v8ttj")
+RelativeLane = 0
+
+[sub_resource type="Resource" id="Resource_m378f"]
+script = ExtResource("3_s8ngx")
+StartingStacks = 0
+MaxStacks = 1200
+Active = SubResource("Resource_fh56b")
+
+[sub_resource type="Resource" id="Resource_hppi3"]
+script = ExtResource("5_m5tbe")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_0emhm"]
+script = ExtResource("7_w3rqb")
+Texture = ExtResource("6_p435k")
+RegionRect = Rect2(128, 128, 32, 32)
+
+[resource]
+script = ExtResource("8_0ie2y")
+Name = "Goblin Summoner"
+Width = 1
+Height = 1200
+MaxHealth = 5
+Mask = SubResource("Resource_hppi3")
+BaseMovementSpeed = 60
+BaseAttackSpeed = 30
+Sprite = SubResource("Resource_0emhm")
+Characteristic = SubResource("Resource_m378f")

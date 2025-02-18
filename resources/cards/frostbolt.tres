@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://df5oi1ja1n74y"]
+
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_jnxpq"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_7lhsd"]
+[ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_kbam4"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_wtdlf"]
+
+[sub_resource type="Resource" id="Resource_tu5kl"]
+script = ExtResource("1_jnxpq")
+Damage = 2
+DamageType = 2
+
+[sub_resource type="Resource" id="Resource_iiqe1"]
+script = ExtResource("2_7lhsd")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_ao8e2"]
+script = ExtResource("4_kbam4")
+MovementSpeed = -60
+ProjectileMask = SubResource("Resource_iiqe1")
+Piercing = 1
+Y = 6000
+Active = SubResource("Resource_tu5kl")
+
+[resource]
+script = ExtResource("5_wtdlf")
+Name = "Dart"
+Description = "Fire a dart that hits the first enemy hit, dealing 2 Frost Damage."
+ManaCost = 2
+CardResult = SubResource("Resource_ao8e2")

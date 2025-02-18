@@ -59,7 +59,7 @@ public partial class monsterBase : Node2D
 			onDeath();
 		else
 		{
-			battleEffectsC.inst.addHitTwo(sprite);
+			new battleEffectsC.hitDmg(sprite);
 			battleEffectsC.inst.doShake(sprite);
 
 			GD.Print("dmg: " + amount + " HP: " + hp);
@@ -68,8 +68,6 @@ public partial class monsterBase : Node2D
 
 	public void onDeath()
 	{
-
-
 		fallingShords.throwItem(shord);
 		// spawning.monsterDied(this);
 		QueueFree();

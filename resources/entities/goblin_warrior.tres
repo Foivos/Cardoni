@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=19 format=3 uid="uid://bess3x87l60gi"]
+
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_dawy5"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_l8m5u"]
+[ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_12c2w"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="2_lu5cg"]
+[ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="3_s3mdt"]
+[ext_resource type="Script" path="res://scripts/characteristics/AttackData.cs" id="4_7ugmu"]
+[ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="4_yxgum"]
+[ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="5_ye0lx"]
+[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="6_alqch"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="7_ep37l"]
+
+[sub_resource type="Resource" id="Resource_peefb"]
+script = ExtResource("1_l8m5u")
+Damage = 2
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_u6ex5"]
+script = ExtResource("2_12c2w")
+Within = 0
+
+[sub_resource type="Resource" id="Resource_46blr"]
+script = ExtResource("3_s3mdt")
+RelativeLane = 0
+
+[sub_resource type="Resource" id="Resource_g5qiu"]
+script = ExtResource("4_yxgum")
+
+[sub_resource type="Resource" id="Resource_61pma"]
+script = ExtResource("5_ye0lx")
+Filter1 = SubResource("Resource_46blr")
+Filter2 = SubResource("Resource_g5qiu")
+
+[sub_resource type="Resource" id="Resource_pw0ln"]
+script = ExtResource("4_7ugmu")
+TargetFilter = SubResource("Resource_61pma")
+AttackFilter = SubResource("Resource_u6ex5")
+StartingStacks = 600
+Active = SubResource("Resource_peefb")
+
+[sub_resource type="Resource" id="Resource_hppi3"]
+script = ExtResource("1_dawy5")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_6qw7i"]
+script = ExtResource("7_ep37l")
+Texture = ExtResource("6_alqch")
+RegionRect = Rect2(194, 0, 32, 32)
+
+[resource]
+script = ExtResource("2_lu5cg")
+Name = "Goblin Warrior"
+Width = 1
+Height = 1200
+MaxHealth = 5
+Mask = SubResource("Resource_hppi3")
+BaseMovementSpeed = 60
+BaseAttackSpeed = 40
+Sprite = SubResource("Resource_6qw7i")
+Characteristic = SubResource("Resource_pw0ln")

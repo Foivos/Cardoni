@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=20 format=3 uid="uid://133u5v4h18wv"]
+
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_ae5sl"]
+[ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_5eby3"]
+[ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="2_jp7rw"]
+[ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="3_x4gb2"]
+[ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="4_f55jx"]
+[ext_resource type="Script" path="res://scripts/characteristics/AttackData.cs" id="6_qqs0r"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="6_v6f2v"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="7_aii3e"]
+[ext_resource type="Script" path="res://scripts/cards/SummonResult.cs" id="8_7lubq"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="9_swlce"]
+
+[sub_resource type="Resource" id="Resource_8o1qg"]
+script = ExtResource("1_ae5sl")
+Damage = 2
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_usxtc"]
+script = ExtResource("2_5eby3")
+Within = 1800
+
+[sub_resource type="Resource" id="Resource_2nwa1"]
+script = ExtResource("2_jp7rw")
+RelativeLane = 0
+
+[sub_resource type="Resource" id="Resource_g6x1v"]
+script = ExtResource("3_x4gb2")
+
+[sub_resource type="Resource" id="Resource_c8oyc"]
+script = ExtResource("4_f55jx")
+Filter1 = SubResource("Resource_2nwa1")
+Filter2 = SubResource("Resource_g6x1v")
+
+[sub_resource type="Resource" id="Resource_qompd"]
+script = ExtResource("6_qqs0r")
+TargetFilter = SubResource("Resource_c8oyc")
+AttackFilter = SubResource("Resource_usxtc")
+StartingStacks = 600
+Active = SubResource("Resource_8o1qg")
+
+[sub_resource type="Resource" id="Resource_ccw7v"]
+script = ExtResource("6_v6f2v")
+Masks = 2
+
+[sub_resource type="Resource" id="Resource_2bdrg"]
+script = ExtResource("7_aii3e")
+Name = "Slowing Field"
+Width = 1
+Height = 1200
+MaxHealth = 10
+Mask = SubResource("Resource_ccw7v")
+BaseMovementSpeed = 0
+BaseAttackSpeed = 50
+Characteristic = SubResource("Resource_qompd")
+
+[sub_resource type="Resource" id="Resource_qsh0s"]
+script = ExtResource("8_7lubq")
+Summon = SubResource("Resource_2bdrg")
+
+[resource]
+script = ExtResource("9_swlce")
+Name = "Arrow Turret"
+Description = "Summon a turret that fires at enemies"
+ManaCost = 3
+CardResult = SubResource("Resource_qsh0s")

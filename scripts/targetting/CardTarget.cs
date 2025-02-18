@@ -1,3 +1,6 @@
+using Godot;
+
 namespace Cardoni;
 
-public abstract class CardTarget { }
+[GlobalClass]
+public abstract partial class CardTarget : Resource { }

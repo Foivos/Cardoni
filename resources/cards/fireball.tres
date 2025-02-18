@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=10 format=3 uid="uid://b117wbqlb5cgm"]
+
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_5ds5s"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_bgkja"]
+[ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="3_xegd0"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="4_73v21"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_wrgbn"]
+
+[sub_resource type="Resource" id="Resource_q1kfx"]
+script = ExtResource("1_5ds5s")
+Damage = 3
+DamageType = 1
+
+[sub_resource type="Resource" id="Resource_8usvp"]
+script = ExtResource("2_bgkja")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_c48bv"]
+script = ExtResource("3_xegd0")
+Clip = false
+StringPattern = PackedStringArray("XX", "XX")
+EntityMask = SubResource("Resource_8usvp")
+
+[sub_resource type="Resource" id="Resource_ay3ll"]
+script = ExtResource("4_73v21")
+EntityTarget = SubResource("Resource_c48bv")
+Active = SubResource("Resource_q1kfx")
+
+[resource]
+script = ExtResource("5_wrgbn")
+Name = "Thunderclap"
+Description = "Deal 3 Fire damage to a 2x2 area."
+ManaCost = 7
+CardResult = SubResource("Resource_ay3ll")

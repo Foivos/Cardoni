@@ -1,8 +1,9 @@
 namespace Cardoni;
 
-public class HasteEffect : CountedEffect
+public class HasteEffect : Effect
 {
-	public override EffectType EffectType => EffectType.Hasted;
+	public const EffectType Type = EffectType.Haste;
+	public override EffectType EffectType => EffectType.Haste;
 
 	public HasteEffect(Entity entity)
 		: base(entity) { }

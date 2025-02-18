@@ -2,6 +2,7 @@ namespace Cardoni;
 
 public class StunnedEffect : RestrictedEffect
 {
+	public new const EffectType Type = EffectType.Stunned;
 	public override EffectType EffectType => EffectType.Stunned;
 
 	public StunnedEffect(Entity entity)

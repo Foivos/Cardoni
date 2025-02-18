@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c6dvlpc3mnya8"]
-
-[ext_resource type="Shader" uid="uid://bak36v1luej5" path="res://gregFolder/gregC/shaders/blackShader.tres" id="1_sotof"]
-
-[resource]
-shader = ExtResource("1_sotof")
-shader_parameter/tint = Color(0.07, 0.07, 0.07, 1)

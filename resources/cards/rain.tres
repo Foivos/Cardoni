@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=12 format=3 uid="uid://b71t5o2igapcp"]
+
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_580le"]
+[ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_st7c7"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveCondition.cs" id="2_mlajp"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="3_i0lv6"]
+[ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="4_qs2fl"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="5_dt5gc"]
+
+[sub_resource type="Resource" id="Resource_bw8uk"]
+script = ExtResource("1_st7c7")
+Duration = 0
+Strength = 1
+EffectType = 0
+
+[sub_resource type="Resource" id="Resource_k0lyn"]
+script = ExtResource("2_mlajp")
+Data = SubResource("Resource_bw8uk")
+
+[sub_resource type="Resource" id="Resource_8usvp"]
+script = ExtResource("3_i0lv6")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_nvkbw"]
+script = ExtResource("4_qs2fl")
+Clip = false
+StringPattern = PackedStringArray("X")
+EntityMask = SubResource("Resource_8usvp")
+
+[sub_resource type="Resource" id="Resource_mg1ud"]
+script = ExtResource("5_dt5gc")
+EntityTarget = SubResource("Resource_nvkbw")
+Active = SubResource("Resource_k0lyn")
+
+[resource]
+script = ExtResource("1_580le")
+Name = "Rain"
+Description = "Make every enemy in a 2x2 square Wet."
+ManaCost = 1
+CardResult = SubResource("Resource_mg1ud")

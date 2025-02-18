@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://cugjir424sxlc"]
+
+[ext_resource type="Script" path="res://scripts/entities/Entity.cs" id="1_8mn4u"]
+[ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/images/healthBack.png" id="3_32dvr"]
+[ext_resource type="Shader" path="res://gregFolder/shaders/distortionShaderTwo.gdshader" id="4_ar2ex"]
+[ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/images/healthBar.png" id="5_dlm2d"]
+[ext_resource type="Texture2D" uid="uid://d1ts0gduggbgo" path="res://gregFolder/images/shordTwo.png" id="6_otgi4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5dgql"]
+shader = ExtResource("4_ar2ex")
+shader_parameter/wave_speed = 1.0
+shader_parameter/wave_amplitude = 0.01
+shader_parameter/wave_frequency = 1.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kt6g3"]
+radius = 50.0
+
+[sub_resource type="Theme" id="Theme_3bx3c"]
+
+[node name="EntityParent" type="Area2D" node_paths=PackedStringArray("HealthBar", "Sprite", "Weapon")]
+collision_mask = 0
+script = ExtResource("1_8mn4u")
+HealthBar = NodePath("HealthBar")
+Sprite = NodePath("face sprite")
+Weapon = NodePath("weapon")
+HealthLabel = NodePath("Label hp")
+
+[node name="HealthBar" type="TextureProgressBar" parent="."]
+visible = false
+show_behind_parent = true
+texture_repeat = 2
+offset_left = -32.0
+offset_top = -39.0
+offset_right = 68.0
+offset_bottom = -14.0
+scale = Vector2(0.45, 0.45)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+value = 22.0
+nine_patch_stretch = true
+stretch_margin_left = 4
+stretch_margin_top = 4
+stretch_margin_right = 4
+stretch_margin_bottom = 4
+texture_under = ExtResource("3_32dvr")
+texture_progress = ExtResource("5_dlm2d")
+
+[node name="face sprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_5dgql")
+scale = Vector2(0.55, 0.55)
+region_rect = Rect2(0, 0, 160, 160)
+
+[node name="weapon" type="Sprite2D" parent="."]
+position = Vector2(46, 68)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_otgi4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(1, 7)
+scale = Vector2(0.6, 0.6)
+shape = SubResource("CircleShape2D_kt6g3")
+
+[node name="Label hp" type="Label" parent="."]
+self_modulate = Color(0.78, 0.78, 0.78, 1)
+show_behind_parent = true
+offset_left = -57.0
+offset_top = -40.0
+offset_right = -17.0
+offset_bottom = -23.0
+rotation = -0.196899
+scale = Vector2(2, 2)
+theme = SubResource("Theme_3bx3c")
+theme_override_constants/outline_size = 6
+text = "22"
+horizontal_alignment = 1

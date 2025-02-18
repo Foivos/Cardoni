@@ -1,24 +1,31 @@
 namespace Cardoni;
 
+using System;
 using Godot;
 
-public class BaseProjectileResult : CardResult
+[GlobalClass]
+public partial class BaseProjectileResult : CardResult
 {
+	public static CardTarget LineTarget = new LineTarget();
+
+	public override CardTarget Target => LineTarget;
+
+	[Export]
 	public int MovementSpeed { get; set; } = -60;
 
-	public EntityActive[] ProjectileActives { get; set; }
-
+	[Export]
 	public EntityMask ProjectileMask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Enemy });
 
-	public uint Piercing { get; set; }
+	[Export]
+	public int Piercing { get; set; } = 1;
 
+	[Export]
 	public int Y { get; set; } = Constants.TicksPerLane;
 
-	public BaseProjectileResult(EntityActive[] projectileActives)
-	{
-		ProjectileActives = projectileActives;
-		Targets = new() { new LineTarget() };
-	}
+	[Export]
+	EntityActive Active { get; set; }
+
+	public BaseProjectileResult() { }
 
 	public override void Activate()
 	{
@@ -26,7 +33,7 @@ public class BaseProjectileResult : CardResult
 		{
 			Y = Y,
 			MovementSpeed = MovementSpeed,
-			Actives = ProjectileActives,
+			Active = Active,
 			Lane = (uint)TargetView.Instance.GetCurrentOffset(new Vector2(0f, 0f)).X,
 			Mask = ProjectileMask,
 			Piercing = Piercing,

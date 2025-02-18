@@ -9,7 +9,7 @@ public enum EffectType
 	Electrified,
 	Bleeding,
 	Slowed,
-	Hasted,
+	Haste,
 	Restricted,
 	Confused,
 	MindControlled,

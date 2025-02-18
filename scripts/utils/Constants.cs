@@ -6,7 +6,7 @@ public class Constants
 
 	public const int GridTicks = 1200;
 
-	public const int NumberOfRows = 5;
+	public const int NumberOfRows = 6;
 
 	public static int TicksPerLane => NumberOfRows * GridTicks;
 }
