@@ -5,33 +5,48 @@ public partial class atackAnimation : Node
 {
 	static atackAnimation inst;
 
-	public override void _Ready() { inst = this; }
+	public override void _Ready()
+	{
+		inst = this;
+	}
 
-	[Export] Material redOutline;
+	[Export]
+	Material redOutline;
 
+	[Export]
+	float atackerRotation;
 
-	[Export] float atackerRotation;
-	[Export] float atackerOffset;
-	[Export] float shordRotation;
-	[Export] Vector2 shordOffset;
-	[Export] float delay;
-	[Export] float targetDamageDelay;
+	[Export]
+	float atackerOffset;
 
+	[Export]
+	float shordRotation;
 
+	[Export]
+	Vector2 shordOffset;
+
+	[Export]
+	float delay;
+
+	[Export]
+	float targetDamageDelay;
 
 	public static void doAtackAnim(Entity attacker)
 	{
-		if (inst == null) return;
-		if (attacker.Sprite == null || attacker.Sprite == null) return;
+		if (inst == null)
+			return;
+		if (attacker.Sprite == null || attacker.Sprite == null)
+			return;
 		inst.attackAnim(attacker);
 	}
+
 	public async void attackAnim(Entity attacker)
 	{
+		bool problemDetection()
+		{
+			return attacker == null || attacker.IsAlive == false;
+		}
 
-
-		bool problemDetection() { return attacker == null || attacker.IsAlive == false; }
-
-		
 		bool lookingDown = attacker.FacingDirection > 0;
 		int atackDirection = lookingDown ? 1 : -1;
 
@@ -43,25 +58,25 @@ public partial class atackAnimation : Node
 		weapon.Material = redOutline;
 
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
-		if (problemDetection()) return;
+		if (problemDetection())
+			return;
 
 		sprite.RotationDegrees = 0;
 		sprite.Offset = new Vector2(0, atackerOffset) * atackDirection;
 
 		weapon.ZIndex = 5;
-		weapon.Offset = new Vector2(atackDirection * shordOffset.X,  shordOffset.Y);
+		weapon.Offset = new Vector2(atackDirection * shordOffset.X, shordOffset.Y);
 		weapon.RotationDegrees = shordStartRotation + shordRotation * atackDirection;
 
-
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
-		if (problemDetection()) return;
+		if (problemDetection())
+			return;
 
 		sprite.Offset = Vector2.Zero;
 
-
-
 		await ToSignal(GetTree().CreateTimer(delay), "timeout");
-		if (problemDetection()) return;
+		if (problemDetection())
+			return;
 
 		weapon.ZIndex = 0;
 		weapon.RotationDegrees = shordStartRotation;

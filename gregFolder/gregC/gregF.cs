@@ -1,20 +1,28 @@
+using System;
 using Cardoni;
 using Godot;
-using System;
 
 public static class gregF
 {
+	public static bool rBool()
+	{
+		return new Random().Next(0, 2) == 0;
+	}
 
+	public static int rDir()
+	{
+		return rBool() ? 1 : -1;
+	}
 
-	public static bool rBool() { return new Random().Next(0, 2) == 0; }
-	public static int rDir() { return rBool() ? 1 : -1; }
 	public static double r(float a, float b)
-	{ return GD.RandRange((double)a, (double)b); }
+	{
+		return GD.RandRange((double)a, (double)b);
+	}
+
 	public static double r(float a)
-	{ return GD.RandRange(0, (double)a); }
-
-
-
+	{
+		return GD.RandRange(0, (double)a);
+	}
 
 	public static float angle(Vector2 p_vector2)
 	{
@@ -28,12 +36,16 @@ public static class gregF
 		{
 			return 360 - Mathf.RadToDeg(Mathf.Atan2(p_vector2.X, p_vector2.Y));
 		}
-
 	}
 
-
 	//!EXTENTIONS
-	public static float rDir(this float a) { return a * rDir(); }
-	public static int rDir(this int a) { return a * rDir(); }
+	public static float rDir(this float a)
+	{
+		return a * rDir();
+	}
 
+	public static int rDir(this int a)
+	{
+		return a * rDir();
+	}
 }

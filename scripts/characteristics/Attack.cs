@@ -68,8 +68,6 @@ public partial class Attack : TickedCharacteristic<AttackData>
 
 	protected virtual void StartAttack()
 	{
-
-
 		Attacking = true;
 		Entity.Direction = 0;
 		AttackStacks = StartingStacks;

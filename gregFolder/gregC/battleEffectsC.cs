@@ -4,19 +4,20 @@ using System;
 using System.Collections.Generic;
 using Godot;
 
-
 public partial class battleEffectsC : Node
 {
-
 	#region  BASICS
 
 
 	public static battleEffectsC inst;
-	public override void _Ready() { inst = this; }
 
-	public override void _Input(InputEvent @event)// for testing only
+	public override void _Ready()
 	{
+		inst = this;
+	}
 
+	public override void _Input(InputEvent @event) // for testing only
+	{
 		// playBloodAnimation(new Vector2(100, 100) + Vector2.Up * 100.rDir()
 		// , gregF.rBool() , _Scale : 2);
 
@@ -40,67 +41,63 @@ public partial class battleEffectsC : Node
 		// 	doShake(testSprite);
 	}
 
-
-
-	public override void _Process(double delta) { _ProcessSpriteEffects(); }
-
-
-
-
-
+	public override void _Process(double delta)
+	{
+		_ProcessSpriteEffects();
+	}
 
 	#endregion
 
 
-	#region  particle effects 
+	#region  particle effects
 
 	[ExportGroup("particles")]
-	[Export] CpuParticles2D hitParticles;
-	[Export] float hitParticlesOffset;
+	[Export]
+	CpuParticles2D hitParticles;
 
+	[Export]
+	float hitParticlesOffset;
 
 	public static void doHitParticles(Vector2 pos)
 	{
-
-
-
 		bool side = gregF.rBool();
 		//GD.Print("side: " + side);
 
-		inst.hitParticles.Position = pos
-		 + new Vector2(side ? -inst.hitParticlesOffset : inst.hitParticlesOffset, inst.hitParticlesOffset);
+		inst.hitParticles.Position =
+			pos + new Vector2(side ? -inst.hitParticlesOffset : inst.hitParticlesOffset, inst.hitParticlesOffset);
 
 		inst.hitParticles.RotationDegrees = side ? 45 : -45;
 		inst.hitParticles.RotationDegrees += (float)gregF.r(-10f, 10f);
 
 		inst.hitParticles.Emitting = true;
-
 	}
 
+	[Export]
+	GpuParticles2D bloodParticles;
 
-
-
-	[Export] GpuParticles2D bloodParticles;
-	[Export] GpuParticles2D bloodParticlesB;
+	[Export]
+	GpuParticles2D bloodParticlesB;
 	bool bloodPoolUse;
-	[Export] Vector2 bloodOffset;
+
+	[Export]
+	Vector2 bloodOffset;
 
 	Entity lastBloodEntity;
 
-	void testBlood() { doBloodParticles(lastBloodEntity); }
+	void testBlood()
+	{
+		doBloodParticles(lastBloodEntity);
+	}
+
 	public static void doBloodParticles(Entity entity)
 	{
-
-
-
-
 		inst.lastBloodEntity = entity;
 
 		GpuParticles2D particles = inst.bloodPoolUse ? inst.bloodParticles : inst.bloodParticlesB;
 
-		if (particles.Emitting) return;
+		if (particles.Emitting)
+			return;
 		inst.bloodPoolUse = !inst.bloodPoolUse;
-
 
 		bool goingUp = entity.FacingDirection == 1;
 		GD.Print("BLEED UP: " + goingUp);
@@ -109,24 +106,16 @@ public partial class battleEffectsC : Node
 		bool side = gregF.rBool();
 		//GD.Print("side: " + side);
 
-		particles.Position = pos
-		 + new Vector2(side ? -inst.bloodOffset.X : inst.bloodOffset.X
-		 , inst.bloodOffset.Y * (goingUp ? -1 : 1));
-
+		particles.Position =
+			pos + new Vector2(side ? -inst.bloodOffset.X : inst.bloodOffset.X, inst.bloodOffset.Y * (goingUp ? -1 : 1));
 
 		particles.RotationDegrees = goingUp ? 180 : 0;
 		particles.RotationDegrees += 20.rDir();
 
 		particles.Emitting = true;
 
-
 		//inst.bloodParticles.RotationDegrees += (float)gregF.r(-10f, 10f);
-
-
-
 	}
-
-
 
 	#endregion
 
@@ -136,22 +125,21 @@ public partial class battleEffectsC : Node
 
 
 	List<testAnimation> animationsPool;
+
 	testAnimation getAnimation()
 	{
-
-		if (animationsPool == null) animationsPool = new List<testAnimation>();
+		if (animationsPool == null)
+			animationsPool = new List<testAnimation>();
 		testAnimation anim = null;
 
 		for (int i = 0; i < animationsPool.Count; i++)
 		{
-			if (animationsPool[i].Visible) continue;
+			if (animationsPool[i].Visible)
+				continue;
 
 			animationsPool[i].Visible = true;
 			return animationsPool[i];
-
 		}
-
-
 
 		for (int i = 0; i < 5; i++)
 		{
@@ -166,11 +154,7 @@ public partial class battleEffectsC : Node
 
 		anim.Visible = true;
 		return anim;
-
-
 	}
-
-
 
 	public void EntityBlood(Entity entity)
 	{
@@ -186,32 +170,33 @@ public partial class battleEffectsC : Node
 		const float SCALE = 3;
 		const float SCALE_DEAD = 3.5f;
 
-		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir();//todo POLISH
-																			//GD.Print("XXX: " + XXX);
+		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir(); //todo POLISH
+		//GD.Print("XXX: " + XXX);
 
-		playBloodAnimation(entity.GlobalPosition
-	+ new Vector2(XXX, direction * offsetY)
-	, (direction == 1 ? 180 : 0) + randomRotation.rDir()
-	, _Scale: (dead ? SCALE_DEAD : SCALE));
-
-
+		playBloodAnimation(
+			entity.GlobalPosition + new Vector2(XXX, direction * offsetY),
+			(direction == 1 ? 180 : 0) + randomRotation.rDir(),
+			_Scale: (dead ? SCALE_DEAD : SCALE)
+		);
 	}
-
 
 	//! SO SIMPLE SO NICE !!
 	// todo with enums later ???
 	public void playBloodAnimation(Vector2 pos, int _rotation, float _Scale = 1)
 	{
-
-		getAnimation().playAnimation(
+		getAnimation()
+			.playAnimation(
 				GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"),
-				8, 3, 3, 0.05, pos, rotation: _rotation, Scale: _Scale, Z: -1
+				8,
+				3,
+				3,
+				0.05,
+				pos,
+				rotation: _rotation,
+				Scale: _Scale,
+				Z: -1
 			);
-
 	}
-
-
-
 
 	#endregion
 
@@ -242,46 +227,37 @@ public partial class battleEffectsC : Node
 
 	public class effect //? ORIGIN
 	{
-
 		public int counter;
 		public float untill;
+
 		public virtual void update(float time, out bool removeMe)
 		{
 			removeMe = false;
 		}
-
 	}
-
-
-
 
 	public class invisibleLater : effect
 	{
-
 		Node2D theNode;
 
 		public invisibleLater(Node2D _node, float delay)
 		{
-
-			if (inst == null || _node == null) return;
+			if (inst == null || _node == null)
+				return;
 
 			untill = Time.GetTicksMsec() + delay * 1000;
 			theNode = _node;
 			inst._spriteEffect.Add(this);
-
 		}
 
 		public override void update(float time, out bool removeMe)
 		{
-
 			removeMe = true;
-			if (theNode != null) theNode.Visible = false;
-
-
+			if (theNode != null)
+				theNode.Visible = false;
 		}
-
-
 	}
+
 	public class rotateLater : effect
 	{
 		Node2D theNode;
@@ -289,29 +265,22 @@ public partial class battleEffectsC : Node
 
 		public rotateLater(Node2D _node, float delay, int _degrees)
 		{
-
-			if (inst == null || _node == null) return;
+			if (inst == null || _node == null)
+				return;
 
 			untill = Time.GetTicksMsec() + delay * 1000;
 			theNode = _node;
 			degrees = _degrees;
 			inst._spriteEffect.Add(this);
-
 		}
 
 		public override void update(float time, out bool removeMe)
 		{
-
 			removeMe = true;
 			theNode.RotationDegrees += degrees;
-
-
-
 		}
-
-
-
 	}
+
 	public class resizeLater : effect
 	{
 		Node2D theNode;
@@ -319,40 +288,26 @@ public partial class battleEffectsC : Node
 
 		public resizeLater(Node2D _node, float delay, float _sizeAdjust)
 		{
-
-			if (inst == null || _node == null) return;
+			if (inst == null || _node == null)
+				return;
 
 			untill = Time.GetTicksMsec() + delay * 1000;
 			theNode = _node;
 			sizeAdjust = _sizeAdjust;
 			inst._spriteEffect.Add(this);
-
 		}
 
 		public override void update(float time, out bool removeMe)
 		{
-
 			removeMe = true;
 			theNode.Scale *= sizeAdjust;
-
-
-
 		}
-
-
-
 	}
-
-
 
 	public class spriteEffect : effect //? origin
 	{
 		public Sprite2D sprite;
-
-
-
 	}
-
 
 	class hitWithInvisbleNotNice : spriteEffect
 	{
@@ -382,22 +337,19 @@ public partial class battleEffectsC : Node
 
 	public class hitDmg : spriteEffect
 	{
-
-
 		const float blackColor = 0.1f;
 		const float hitDmgDelay = 0.03f;
 		const int possitionOffset = -20;
 
 		public hitDmg(Sprite2D _sprite)
 		{
-
 			if (inst == null || _sprite == null)
 				return;
 
 			sprite = _sprite;
 			inst._spriteEffect.Add(this);
-
 		}
+
 		public override void update(float time, out bool removeMe)
 		{
 			if (sprite == null)
@@ -423,7 +375,6 @@ public partial class battleEffectsC : Node
 				sprite.Offset = Vector2.Zero;
 				removeMe = true;
 			}
-
 		}
 	}
 
@@ -431,8 +382,6 @@ public partial class battleEffectsC : Node
 	{
 		_spriteEffect.Add(new hitWithInvisbleNotNice() { sprite = sprite });
 	}
-
-
 
 	class shakeSprite : spriteEffect
 	{
@@ -488,29 +437,34 @@ public partial class battleEffectsC : Node
 		);
 	}
 
-
-
 	#endregion
 
 	#region  poolable markers
 
 	List<Sprite2D> markersPool;
 
-	public Sprite2D getMarker(Vector2 position = default
-	, Color color = default, float lifetime = -1, string message = "")
+	public Sprite2D getMarker(
+		Vector2 position = default,
+		Color color = default,
+		float lifetime = -1,
+		string message = ""
+	)
 	{
-		if (markersPool == null) markersPool = new List<Sprite2D>();
+		if (markersPool == null)
+			markersPool = new List<Sprite2D>();
 		Sprite2D marker = null;
 
 		for (int i = 0; i < markersPool.Count; i++)
 		{
-			if (markersPool[i].Visible == false) { marker = markersPool[i]; break; }
-
+			if (markersPool[i].Visible == false)
+			{
+				marker = markersPool[i];
+				break;
+			}
 		}
 
-		if (marker == null)// spwawn more
+		if (marker == null) // spwawn more
 		{
-
 			for (int i = 0; i < 5; i++)
 			{
 				marker = new Sprite2D();
@@ -522,22 +476,17 @@ public partial class battleEffectsC : Node
 				marker.Texture = GD.Load<Texture2D>("res://gregFolder/images/square.png");
 				marker.Visible = false;
 			}
-
-
-
 		}
-
-
 
 		marker.Position = position;
 
-		if (color != default) marker.SelfModulate = color;
-		else marker.Modulate = new Color(1, 1, 1, 0.5f);
+		if (color != default)
+			marker.SelfModulate = color;
+		else
+			marker.Modulate = new Color(1, 1, 1, 0.5f);
 
-		if (lifetime > 0) new invisibleLater(marker, lifetime);
-
-
-
+		if (lifetime > 0)
+			new invisibleLater(marker, lifetime);
 
 		// GD.PushError("1111");
 		// GD.PushWarning("2222");
@@ -551,12 +500,9 @@ public partial class battleEffectsC : Node
 			label.Position = new Vector2(0, 0);
 			label.Text = message;
 			label.SelfModulate = Colors.Coral;
-
-
 		}
 		else if (marker.GetChild(0) is Label)
 		{
-
 			marker.GetChild<Label>(0).Text = message;
 		}
 		else
@@ -566,15 +512,9 @@ public partial class battleEffectsC : Node
 			GD.Print("BATTLE EFFECTS MARKER ERROR marker has no label");
 		}
 
-
-
-
 		marker.Visible = true;
 		return marker;
-
-
 	}
-
 
 	#endregion
 
@@ -622,8 +562,4 @@ public partial class battleEffectsC : Node
 	}
 
 	#endregion
-
-
-
-
 }

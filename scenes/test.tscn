@@ -23,7 +23,6 @@ script = ExtResource("1_8mn4u")
 HealthBar = NodePath("HealthBar")
 Sprite = NodePath("face sprite")
 Weapon = NodePath("weapon")
-HealthLabel = NodePath("Label hp")
 
 [node name="HealthBar" type="TextureProgressBar" parent="."]
 visible = false

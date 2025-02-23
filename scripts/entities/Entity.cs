@@ -40,7 +40,7 @@ public partial class Entity : Node2D
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
-	public int FacingDirection { get; set; }//? never zero .. even when not moving
+	public int FacingDirection { get; set; } //? never zero .. even when not moving
 	int direction;
 
 	public int Direction
@@ -50,12 +50,13 @@ public partial class Entity : Node2D
 		{
 			direction = value;
 
-			if(value != 0) FacingDirection = value;
+			if (value != 0)
+				FacingDirection = value;
 
-			if (Weapon != null) SetWeaponPosition(this);
+			if (Weapon != null)
+				SetWeaponPosition(this);
 		}
 	}
-
 
 	public Effect[] Effects = new Effect[Enum.GetNames<EffectType>().Length];
 
@@ -136,11 +137,8 @@ public partial class Entity : Node2D
 			return;
 		}
 
-
 		Health -= damage;
 		GD.Print(Name, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
-
-
 
 		if (Health <= 0)
 		{
@@ -148,7 +146,6 @@ public partial class Entity : Node2D
 			textEffects.displayDmgText(this, 0, ovveride: "DEAD");
 
 			battleEffectsC.inst.EntityBlood(this);
-
 
 			GameState.Kill(this);
 		}
@@ -161,7 +158,6 @@ public partial class Entity : Node2D
 			new battleEffectsC.hitDmg(Sprite);
 			textEffects.displayDmgText(this, damage);
 		}
-
 	}
 
 	public virtual void DamageTyped(DamageTypes damageType, int damage)
@@ -171,8 +167,6 @@ public partial class Entity : Node2D
 
 	public virtual void Move()
 	{
-
-
 		int dx = (int)MovementSpeed * Direction;
 		if (dx == 0)
 			return;
@@ -250,7 +244,8 @@ public partial class Entity : Node2D
 
 	public void SetWeaponPosition(Entity entity)
 	{
-		if (Weapon == null) return;
+		if (Weapon == null)
+			return;
 
 		bool lookingDown = entity.FacingDirection == 1;
 
@@ -262,15 +257,16 @@ public partial class Entity : Node2D
 		// }
 		// else GD.PushError("NEED BETTER WAY OF KNOWING DIRECTION");
 
-		if (lookingDown) Weapon.RotationDegrees = -135;
-		else Weapon.RotationDegrees = -45;
+		if (lookingDown)
+			Weapon.RotationDegrees = -135;
+		else
+			Weapon.RotationDegrees = -45;
 
 		Vector2 shordPosition = new Vector2(23, 23);
-		if (!lookingDown) shordPosition.Y *= -1;
+		if (!lookingDown)
+			shordPosition.Y *= -1;
 		Weapon.Position = shordPosition;
 	}
 
-	public void ProcessSideMove()
-	{
-	}
+	public void ProcessSideMove() { }
 }
