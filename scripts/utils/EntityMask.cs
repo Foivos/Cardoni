@@ -1,6 +1,7 @@
 namespace Cardoni;
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Godot;
 
@@ -15,7 +16,7 @@ public enum EntityMasks
 }
 
 [GlobalClass]
-public partial class EntityMask : Resource
+public partial class EntityMask : Resource, IEnumerable<EntityMasks>
 {
 	public uint Mask { get; set; }
 
@@ -28,17 +29,36 @@ public partial class EntityMask : Resource
 
 	public EntityMask() { }
 
-	public EntityMask(EntityMasks[] masks)
-	{
-		Mask = 0;
-		foreach (EntityMasks mask in masks)
-		{
-			Mask |= (uint)mask;
-		}
-	}
-
 	public bool Matches(EntityMask other)
 	{
 		return (Mask & other.Mask) == Mask;
+	}
+
+	public void Add(EntityMasks mask)
+	{
+		Mask |= (uint)mask;
+	}
+
+	public void Remove(EntityMasks mask)
+	{
+		Mask &= ~(uint)mask;
+	}
+
+	public IEnumerator<EntityMasks> GetEnumerator()
+	{
+		List<EntityMasks> list = new();
+		foreach (EntityMasks mask in Enum.GetValues(typeof(EntityMasks)))
+		{
+			if (((uint)mask & Mask) != 0)
+			{
+				list.Add(mask);
+			}
+		}
+		return list.GetEnumerator();
+	}
+
+	IEnumerator IEnumerable.GetEnumerator()
+	{
+		return GetEnumerator();
 	}
 }

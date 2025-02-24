@@ -5,9 +5,7 @@ using Godot;
 [GlobalClass]
 public partial class EnemiesFilter : EntityFilter
 {
-	static readonly uint FactionsMask = new EntityMask(
-		new EntityMasks[] { EntityMasks.Friendly, EntityMasks.Enemy }
-	).Mask;
+	static readonly uint FactionsMask = new EntityMask() { EntityMasks.Friendly, EntityMasks.Enemy }.Mask;
 
 	public override bool IsValid(Entity source, Entity other)
 	{

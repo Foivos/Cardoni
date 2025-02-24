@@ -7,7 +7,7 @@ using Godot;
 public abstract partial class EntityTarget : CardTarget
 {
 	[Export]
-	public EntityMask EntityMask { get; set; } = new(new EntityMasks[0]);
+	public EntityMask EntityMask { get; set; } = new();
 
 	public abstract List<Entity> Targets();
 }

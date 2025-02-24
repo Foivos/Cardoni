@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmtvrurxcfp4m"]
+
+[ext_resource type="Script" path="res://scripts/specialEffects/SpecialState.cs" id="1_q45ev"]
+
+[node name="SpecialState" type="Node" node_paths=PackedStringArray("AnimationNode", "LabelNode")]
+script = ExtResource("1_q45ev")
+AnimationNode = NodePath("Animations")
+LabelNode = NodePath("Labels")
+
+[node name="Animations" type="Node2D" parent="."]
+
+[node name="Labels" type="Node2D" parent="."]

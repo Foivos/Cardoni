@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bib401hmbony5" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
-[ext_resource type="PackedScene" uid="uid://dsfsps4n187ti" path="res://scenes/effects.tscn" id="6_h4557"]
+[ext_resource type="PackedScene" uid="uid://dmtvrurxcfp4m" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
@@ -47,4 +47,4 @@ EnemyPreffab = ExtResource("5_fxrmd")
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
 
-[node name="Effects" parent="." instance=ExtResource("6_h4557")]
+[node name="SpecialState" parent="." instance=ExtResource("8_xgso0")]

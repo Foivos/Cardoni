@@ -1,7 +1,6 @@
 namespace Cardoni;
 
 using System;
-using Godot;
 
 public class ProcessExpiring : IComparable, IEquatable<ProcessExpiring>
 {
@@ -21,12 +20,12 @@ public class ProcessExpiring : IComparable, IEquatable<ProcessExpiring>
 		SpecialState.AddExpiring(this);
 	}
 
-	public ProcessExpiring(uint duration, Action onExpire)
+	public ProcessExpiring(float duration, Action onExpire)
 		: this(duration, onExpire, 1) { }
 
 	public int CompareTo(object other)
 	{
-		return (int)End - (int)((Expiring)other).End;
+		return (int)End - (int)((ProcessExpiring)other).End;
 	}
 
 	public bool Equals(ProcessExpiring other)

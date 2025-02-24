@@ -116,8 +116,8 @@ public partial class textEffects : Node2D
 		// , color: redLowAlpha, lifetime: 2, message: amount.ToString());
 
 
-		bool enemy = entity.Mask.Matches(new EntityMask(new EntityMasks[] { EntityMasks.Enemy }));
-		bool friendly = entity.Mask.Matches(new EntityMask(new EntityMasks[] { EntityMasks.Friendly }));
+		bool enemy = entity.Mask.Matches(new EntityMask() { EntityMasks.Enemy });
+		bool friendly = entity.Mask.Matches(new EntityMask() { EntityMasks.Friendly });
 
 		const float offsetX = -15;
 		const float offsetY = 20;

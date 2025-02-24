@@ -14,7 +14,7 @@ public partial class BaseProjectileResult : CardResult
 	public int MovementSpeed { get; set; } = -60;
 
 	[Export]
-	public EntityMask ProjectileMask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Enemy });
+	public EntityMask ProjectileMask { get; set; } = new EntityMask() { EntityMasks.Enemy };
 
 	[Export]
 	public int Piercing { get; set; } = 1;

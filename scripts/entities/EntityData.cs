@@ -20,7 +20,7 @@ public partial class EntityData : Resource
 	public uint MaxHealth { get; set; }
 
 	[Export]
-	public EntityMask Mask { get; set; } = new EntityMask(new EntityMasks[] { EntityMasks.Enemy });
+	public EntityMask Mask { get; set; } = new EntityMask() { EntityMasks.Enemy };
 
 	[Export]
 	public uint BaseMovementSpeed { get; set; } = 60;

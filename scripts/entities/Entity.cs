@@ -140,22 +140,19 @@ public partial class Entity : Node2D
 		Health -= damage;
 		GD.Print(Name, " damaged at: ", GameState.Tick, " currecnt health is ", Health);
 
+		SpecialState.EntityBlood(this);
 		if (Health <= 0)
 		{
 			fallingShords.throwItem(Weapon);
 			textEffects.displayDmgText(this, 0, ovveride: "DEAD");
-
-			battleEffectsC.inst.EntityBlood(this);
 
 			GameState.Kill(this);
 		}
 		else
 		{
 			fallingShords.testStrikeThere(this);
-			//battleEffectsC.doHitParticles(Parent.Sprite.GlobalPosition);
 
-			battleEffectsC.inst.EntityBlood(this); //battleEffectsC.doBloodParticles(this);
-			new battleEffectsC.hitDmg(Sprite);
+			SpecialState.HitDamage(Sprite);
 			textEffects.displayDmgText(this, damage);
 		}
 	}
