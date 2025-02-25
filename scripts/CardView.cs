@@ -19,8 +19,11 @@ public partial class CardView : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+
+		// "arrow_turret", //net
+
 		Instance = this;
-		string[] names = new string[] { "arrow_turret", "net", "toxic_fumes", "slowing_field" };
+		string[] names = new string[] { "gregTestCard", "earthquake", "toxic_fumes", "slowing_field" };
 		for (int i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();

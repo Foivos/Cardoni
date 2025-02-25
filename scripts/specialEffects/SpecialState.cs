@@ -228,7 +228,7 @@ public partial class SpecialState : Node
 		//GD.Print("XXX: " + XXX);
 		Animation animation = GetAnimation();
 		animation.Position = entity.GlobalPosition + new Vector2(XXX, direction * offsetY);
-		animation.Rotation = (direction == 1 ? 180 : 0) + randomRotation.rDir();
+		animation.Rotation = (direction == 1 ? 0 : 180) + randomRotation.rDir();//was 180 : 0 
 		animation.Scale = Vector2.One * (dead ? SCALE_DEAD : SCALE);
 		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, 0.02f);
 	}

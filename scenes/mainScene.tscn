@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bib401hmbony5" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
-[ext_resource type="PackedScene" uid="uid://dmtvrurxcfp4m" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
+[ext_resource type="PackedScene" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
@@ -37,6 +37,7 @@ script = ExtResource("2_kstpq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]
 shape = SubResource("RectangleShape2D_edew2")
+debug_color = Color(0, 0.595, 0.7, 0.0980392)
 
 [node name="TargetView" parent="GameView" instance=ExtResource("3_tbob3")]
 
