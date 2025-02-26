@@ -222,14 +222,18 @@ public partial class SpecialState : Node
 		const int offsetX = 5;
 		const int randomRotation = 10;
 		const float SCALE = 3;
-		const float SCALE_DEAD = 3.5f;
+		const float SCALE_DEAD = 4.5f;
 
 		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir(); //todo POLISH
-		//GD.Print("XXX: " + XXX);
+																			 //GD.Print("XXX: " + XXX);
 		Animation animation = GetAnimation();
 		animation.Position = entity.GlobalPosition + new Vector2(XXX, direction * offsetY);
 		animation.Rotation = (direction == 1 ? 0 : 180) + randomRotation.rDir();//was 180 : 0 
 		animation.Scale = Vector2.One * (dead ? SCALE_DEAD : SCALE);
-		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, 0.02f);
+		//animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, 0.02f); 
+
+		(float , int )[]frames = new (float, int)[7];
+		for (int i = 0; i < 7; i++) { frames[i] = (0.02f, i); }
+		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3 , frames , 1); 
 	}
 }

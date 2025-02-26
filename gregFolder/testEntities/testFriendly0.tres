@@ -18,7 +18,7 @@ DamageType = 0
 
 [sub_resource type="Resource" id="Resource_3rv1e"]
 script = ExtResource("2_glokc")
-Within = 600
+Within = 1000
 
 [sub_resource type="Resource" id="Resource_euy2l"]
 script = ExtResource("4_kkyob")
@@ -56,6 +56,6 @@ Height = 1200
 MaxHealth = 10
 Mask = SubResource("Resource_0jvvx")
 BaseMovementSpeed = 0
-BaseAttackSpeed = 300
+BaseAttackSpeed = 80
 Sprite = SubResource("Resource_6tmvk")
 Characteristic = SubResource("Resource_iiysi")

@@ -23,7 +23,7 @@ public partial class CardView : Node2D
 		// "arrow_turret", //net
 
 		Instance = this;
-		string[] names = new string[] { "gregTestCard", "earthquake", "toxic_fumes", "slowing_field" };
+		string[] names = new string[] { "greg/spawnWarrior", "earthquake", "toxic_fumes", "slowing_field" };
 		for (int i = 0; i < 4; i++)
 		{
 			Card card = CardsScene.Instantiate<Card>();

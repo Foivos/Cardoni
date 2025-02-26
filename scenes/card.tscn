@@ -16,16 +16,17 @@ scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_tdbqd")
 
 [node name="rich desciption text" type="RichTextLabel" parent="."]
-offset_left = -27.0
-offset_top = -59.0
-offset_right = 45.0
+self_modulate = Color(1, 0.283333, 0, 1)
+offset_left = -37.0
+offset_top = -61.0
+offset_right = 55.0
 offset_bottom = 41.0
 scale = Vector2(0.782488, 1.06834)
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
-theme_override_constants/line_separation = -12
-theme_override_font_sizes/normal_font_size = 24
+theme_override_constants/line_separation = -5
+theme_override_font_sizes/normal_font_size = 22
 text = "test tich"
 scroll_active = false
 
