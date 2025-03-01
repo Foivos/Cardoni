@@ -13,6 +13,7 @@ Summon = ExtResource("1_jcb3e")
 [sub_resource type="Resource" id="Resource_u6ga0"]
 script = ExtResource("2_wtkbn")
 Texture = ExtResource("1_ttnvw")
+regionDisabled = false
 RegionRect = Rect2(0, 0, 220, 320)
 
 [resource]

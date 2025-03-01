@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="4_utaa1"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yrnca"]
-load_path = "res://.godot/imported/targetingNewRect.png-50c321403de6a21c258209952e96ba34.ctex"
 
 [node name="TargetView" type="Node2D" node_paths=PackedStringArray("PositionTarget", "LineTarget", "PatternTarget")]
 script = ExtResource("1_17rt2")
@@ -35,7 +34,7 @@ region_rect = Rect2(0, 0, 100, 600)
 [node name="PositionTargetNew" type="Sprite2D" parent="."]
 self_modulate = Color(1, 0.14, 0.14, 1)
 z_index = -1
-position = Vector2(1.99999, -1)
+position = Vector2(6, -55)
 scale = Vector2(0.325, 0.325)
 texture = ExtResource("3_bje02")
 
@@ -44,12 +43,12 @@ texture = ExtResource("3_bje02")
 [node name="lineTargetRectNew" type="TextureRect" parent="lineRextParent"]
 self_modulate = Color(1, 0.183333, 0, 1)
 z_index = -2
-offset_left = -45.0
-offset_top = -312.0
-offset_right = 261.0
-offset_bottom = 1788.0
+offset_left = -41.0
+offset_top = -323.0
+offset_right = 265.0
+offset_bottom = 1777.0
 scale = Vector2(0.3, 0.3)
-texture = SubResource("CompressedTexture2D_yrnca")
+texture = ExtResource("3_bje02")
 stretch_mode = 1
 
 [node name="test targets" type="Node" parent="."]

@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=13 format=3 uid="uid://4rpoyq4rckdn"]
+
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_7tpdq"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActivePush.cs" id="1_ho1hw"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="3_0q0g4"]
+[ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_3jh4x"]
+[ext_resource type="Texture2D" uid="uid://ds3jvcljfcys3" path="res://resources/newCard.png" id="3_nrcs6"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="4_dj2k2"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="4_qghok"]
+
+[sub_resource type="Resource" id="Resource_4bsm2"]
+script = ExtResource("1_ho1hw")
+MovePush = 600
+
+[sub_resource type="Resource" id="Resource_b3h2d"]
+script = ExtResource("1_7tpdq")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_lf51a"]
+script = ExtResource("3_3jh4x")
+EntityMask = SubResource("Resource_b3h2d")
+
+[sub_resource type="Resource" id="Resource_cfqs6"]
+script = ExtResource("4_qghok")
+EntityTarget = SubResource("Resource_lf51a")
+Active = SubResource("Resource_4bsm2")
+
+[sub_resource type="Resource" id="Resource_wl4jq"]
+script = ExtResource("4_dj2k2")
+Texture = ExtResource("3_nrcs6")
+regionDisabled = true
+RegionRect = Rect2(0, 0, 0, 0)
+
+[resource]
+script = ExtResource("3_0q0g4")
+Name = "PUSHER . ."
+Description = "i push you and you get pushed as a result"
+ManaCost = 1
+Sprite = SubResource("Resource_wl4jq")
+CardResult = SubResource("Resource_cfqs6")

@@ -116,11 +116,14 @@ public partial class Entity : Node2D
 		OccupyingLanes = new OccupyingLanes(lane, (int)(lane + data.Width - 1));
 		Y = y;
 		Mask = data.Mask;
-		if (data.Sprite != null)
-		{
-			Sprite.Texture = data.Sprite.Texture;
-			Sprite.RegionRect = data.Sprite.RegionRect;
-		}
+
+		if (data.Sprite != null) data.Sprite.setUp(Sprite); // GREGORY
+
+		// if (data.Sprite != null)
+		// {
+		// 	Sprite.Texture = data.Sprite.Texture;
+		// 	Sprite.RegionRect = data.Sprite.RegionRect;
+		// }
 	}
 
 	public override void _Ready()

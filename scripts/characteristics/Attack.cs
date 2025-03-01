@@ -102,11 +102,13 @@ public partial class Attack : TickedCharacteristic<AttackData>
 		return entity != Entity && entity.IsAlive && Data.TargetFilter.IsValid(Entity, entity);
 	}
 
+	public static Entity EntityAttackingNow;
 	protected virtual void ContinueAttack()
 	{
 		AttackStacks += Entity.AttackSpeed;
 		while (AttackStacks >= StacksPerAttack)
 		{
+			EntityAttackingNow = Entity;
 			Active.Activate(Target);
 			AttackStacks -= StacksPerAttack;
 		}

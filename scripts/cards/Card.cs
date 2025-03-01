@@ -17,11 +17,13 @@ public partial class Card : Node2D
 			ManaCost = value.ManaCost;
 			Description = value.Description;
 			CardResult = value.CardResult;
-			if (value.Sprite != null)
-			{
-				Sprite.Texture = value.Sprite.Texture;
-				Sprite.RegionRect = value.Sprite.RegionRect;
-			}
+
+			if (value.Sprite != null) value.Sprite.setUp(Sprite); // GREGORY
+			// if (value.Sprite != null)
+			// {
+			// 	Sprite.Texture = value.Sprite.Texture;
+			// 	Sprite.RegionRect = value.Sprite.RegionRect;
+			// }
 		}
 	}
 
