@@ -11,9 +11,11 @@ public partial class shaderHolder : Node
     }
 
 
-    [Export] ShaderMaterial _enemyShader , _outlineBlue;
+    [Export] ShaderMaterial _enemyShader , _outlineBlue , _targetingCustomOutline;
+    
     public static ShaderMaterial enemyShader => Instance._enemyShader;
     public static ShaderMaterial outlineBlue => Instance._outlineBlue;
+    public static ShaderMaterial targetingCustomOutline => Instance._targetingCustomOutline;
 
 
 

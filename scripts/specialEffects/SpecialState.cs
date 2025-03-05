@@ -193,18 +193,19 @@ public partial class SpecialState : Node
 	}
 
 	public static ProcessExpiring pushShadowTrail(
-			Entity entity , int pushDistance
+			Entity entity //, int pushDistance
 		)
 	{
-		int distanceForOneShadow = 40;
-		int shadowStep = 40;
+		//int distanceForOneShadow = 300;
+		int shadowStep = 45;
 		float delay = 0.04f;// 0.04f;
-		float aStep = 0.5f;//0.2f;
+		float aStep = 0.3f;//0.2f;
 		float aStart = 0.9f;
 		List<Sprite2D> shadows = new();
-		
-		int shadowCount = pushDistance / distanceForOneShadow;
-		if(shadowCount < 1)shadowCount = 1;
+
+		int shadowCount = 2;// (int)((float)pushDistance / shadowStep);
+							//if (shadowCount < 1) shadowCount = 1;
+							//GD.Print("shadowCount: " + shadowCount + " pushDistance: " + pushDistance);
 
 		for (int i = 0; i < shadowCount; i++)
 		{
@@ -214,8 +215,13 @@ public partial class SpecialState : Node
 			s.Modulate = new Color(1, 1, 1, aStart - i * aStep);//(shadowCount - i - 1)
 
 			s.Scale = entity.Sprite.Scale;
-			s.Position = entity.GlobalPosition + entity.FacingDirection
-			* new Vector2(0, shadowStep * (i + 1));
+			s.GlobalPosition = entity.GlobalPosition + entity.FacingDirection
+			* new Vector2(0, shadowStep * (i + 1));  //pushDistance 
+
+
+			//GD.Print("ENTITY: " + entity.GlobalPosition);
+			//GD.Print("POS: " + s.GlobalPosition);
+
 
 			Instance.AddChild(s);
 			shadows.Add(s);
@@ -241,7 +247,7 @@ public partial class SpecialState : Node
 
 
 				shadows[i].Modulate = new Color(1, 1, 1, shadows[i].Modulate.A - aStep);
-				GD.Print("A ==  " + shadows[i].Modulate.A);
+				//GD.Print("A ==  " + shadows[i].Modulate.A);
 
 				if (shadows[i].Modulate.A > 0.1f) done = false;
 
@@ -293,22 +299,24 @@ public partial class SpecialState : Node
 		bool dead = !entity.IsAlive;
 		int direction = entity.FacingDirection;
 
-		//GD.Print("BLEED UP: " + (direction == 1 ? "down" : "^^^^"));
 
 		const int offsetY = -50;
-		const int randomX = 10;
-		const int offsetX = 5;
-		const int randomRotation = 10;
-		const float SCALE = 3;
-		const float SCALE_DEAD = 4.5f;
+		const int offsetX = -6;
+		const int randomX = 3;
+		const int randomRotation = 5;
 
-		float XXX = offsetX + (float)gregF.r((float)randomX) * gregF.rDir(); //todo POLISH
-																			 //GD.Print("XXX: " + XXX);
+		const float scale = 2.5f, scaleDead = 3.5f;
+
+
+		float XXX = offsetX * direction
+		+ (float)gregF.r((float)randomX) * gregF.rDir();
+
 		Animation animation = GetAnimation();
 		animation.Position = entity.GlobalPosition + new Vector2(XXX, direction * offsetY);
-		animation.Rotation = (direction == 1 ? 0 : 180) + randomRotation.rDir();//was 180 : 0 
-		animation.Scale = Vector2.One * (dead ? SCALE_DEAD : SCALE);
-		//animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, 0.02f); 
+		animation.RotationDegrees = (direction == 1 ? 180 : 0)
+		 + randomRotation.rDir();
+		animation.Scale = Vector2.One * (dead ? scaleDead : scale);
+		animation.ZIndex = -5;
 
 		(float, int)[] frames = new (float, int)[7];
 		for (int i = 0; i < 7; i++) { frames[i] = (0.02f, i); }

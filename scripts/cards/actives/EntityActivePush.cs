@@ -22,9 +22,9 @@ public partial class EntityActivePush : EntityActive
 
 	public override void Activate(Entity entity)
 	{
-
+	
 		entity.Y -= MovePush * entity.FacingDirection;
-		SpecialState.pushShadowTrail(entity , MovePush);
+	SpecialState.pushShadowTrail(entity);//MUST BE AFTER //, MovePush
 
 	}
 

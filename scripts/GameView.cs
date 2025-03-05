@@ -74,6 +74,7 @@ public partial class GameView : Area2D
 
 			TargetView.EndTargeting();
 			GameState.SelectedCard = null;
+			activeCardInfo.closeDisplay();
 		}
 		else if (@event is InputEventMouseMotion eventMouseMotion)
 		{
@@ -87,6 +88,7 @@ public partial class GameView : Area2D
 		if (GameState.SelectedCard == null)
 			return;
 
+		activeCardInfo.displayCard(GameState.SelectedCard);
 		TargetView.BeginTargeting(); //! CHOOSE TYPE
 	}
 
@@ -95,6 +97,7 @@ public partial class GameView : Area2D
 		if (GameState.SelectedCard == null)
 			return;
 
+		activeCardInfo.closeDisplay();
 		TargetView.EndTargeting();
 	}
 }

@@ -19,11 +19,11 @@ public partial class Card : Node2D
 			CardResult = value.CardResult;
 
 			if (value.Sprite != null) value.Sprite.setUp(Sprite); // GREGORY
-			// if (value.Sprite != null)
-			// {
-			// 	Sprite.Texture = value.Sprite.Texture;
-			// 	Sprite.RegionRect = value.Sprite.RegionRect;
-			// }
+																  // if (value.Sprite != null)
+																  // {
+																  // 	Sprite.Texture = value.Sprite.Texture;
+																  // 	Sprite.RegionRect = value.Sprite.RegionRect;
+																  // }
 		}
 	}
 
@@ -62,9 +62,19 @@ public partial class Card : Node2D
 	[Export]
 	public RichTextLabel ManaLabel { get; set; }
 
+	[Export] Sprite2D ManaSprite { get; set; }
 	void DisplayMana()
 	{
-		if (ManaLabel != null)
-			ManaLabel.Text = manaCost.ToString();
+		//if (ManaLabel != null)
+		//	ManaLabel.Text = manaCost.ToString();
+
+		if (ManaSprite != null)
+		{
+			ManaSprite.Hframes = 4;
+			ManaSprite.Vframes = 3;
+			
+			ManaSprite.Frame = manaCost;
+
+		}
 	}
 }

@@ -54,9 +54,11 @@ public partial class TargetView : Node2D
 	{
 		//if (markedTargets.Contains(entity)) return;
 
-		entity.Sprite.Material = shaderHolder.outlineBlue;// null;
-														  //entity.Sprite.SelfModulate = new Color(0.9f, 0.9f, 0.9f, 1);
-		entity.Sprite.SelfModulate = new Color(0.1f, 0.1f, 0.1f, 1);
+		//entity.Sprite.Material = shaderHolder.outlineBlue;
+		entity.Sprite.Material = shaderHolder.targetingCustomOutline;
+		shaderHolder.targetingCustomOutline.SetShaderParameter("outline_color", Colors.Red);
+
+		//entity.Sprite.SelfModulate = new Color(0.1f, 0.1f, 0.1f, 1);
 		markedTargets.Add(entity);
 	}
 	void unMarkTargetEntity(Entity entity)

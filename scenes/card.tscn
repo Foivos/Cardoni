@@ -1,36 +1,46 @@
-[gd_scene load_steps=3 format=3 uid="uid://ixpayohnt6iw"]
+[gd_scene load_steps=4 format=3 uid="uid://ixpayohnt6iw"]
 
 [ext_resource type="Script" path="res://scripts/cards/Card.cs" id="1_hx23o"]
-[ext_resource type="Texture2D" uid="uid://digqxd7ktw20m" path="res://gregFolder/images/testCardP.png" id="2_tdbqd"]
+[ext_resource type="Texture2D" uid="uid://ds3jvcljfcys3" path="res://resources/newCard.png" id="2_ubijm"]
+[ext_resource type="Texture2D" uid="uid://c5ue7ood0ph7k" path="res://gregFolder/images/cardMana.png" id="3_hsw4w"]
 
 [node name="Card" type="Node2D" node_paths=PackedStringArray("Sprite", "Text", "ManaLabel")]
 script = ExtResource("1_hx23o")
-Sprite = NodePath("Sprite2D")
+Sprite = NodePath("Sprite2D card")
 Text = NodePath("rich desciption text")
 ManaLabel = NodePath("rich mana text")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D card" type="Sprite2D" parent="."]
 light_mask = 2
 visibility_layer = 2
 scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_tdbqd")
+texture = ExtResource("2_ubijm")
+
+[node name="Sprite2D mana" type="Sprite2D" parent="."]
+position = Vector2(-25, -65)
+rotation = 0.178522
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_hsw4w")
+region_enabled = true
+region_rect = Rect2(0, 0, 63, 65)
 
 [node name="rich desciption text" type="RichTextLabel" parent="."]
 self_modulate = Color(1, 0.283333, 0, 1)
-offset_left = -37.0
-offset_top = -61.0
-offset_right = 55.0
-offset_bottom = 41.0
-scale = Vector2(0.782488, 1.06834)
+offset_left = -33.0
+offset_top = -50.0
+offset_right = 49.0
+offset_bottom = 76.0
+scale = Vector2(0.8, 0.8)
 mouse_filter = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 4
 theme_override_constants/line_separation = -5
-theme_override_font_sizes/normal_font_size = 22
+theme_override_font_sizes/normal_font_size = 26
 text = "test tich"
 scroll_active = false
 
 [node name="rich mana text" type="RichTextLabel" parent="."]
+visible = false
 self_modulate = Color(0, 1, 1, 1)
 offset_left = 1.0
 offset_top = -90.0
