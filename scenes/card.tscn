@@ -4,11 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://ds3jvcljfcys3" path="res://resources/newCard.png" id="2_ubijm"]
 [ext_resource type="Texture2D" uid="uid://c5ue7ood0ph7k" path="res://gregFolder/images/cardMana.png" id="3_hsw4w"]
 
-[node name="Card" type="Node2D" node_paths=PackedStringArray("Sprite", "Text", "ManaLabel")]
+[node name="Card" type="Node2D" node_paths=PackedStringArray("Sprite", "Text", "ManaLabel", "ManaSprite")]
 script = ExtResource("1_hx23o")
 Sprite = NodePath("Sprite2D card")
 Text = NodePath("rich desciption text")
 ManaLabel = NodePath("rich mana text")
+ManaSprite = NodePath("Sprite2D mana")
 
 [node name="Sprite2D card" type="Sprite2D" parent="."]
 light_mask = 2

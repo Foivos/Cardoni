@@ -70,10 +70,13 @@ public partial class Card : Node2D
 
 		if (ManaSprite != null)
 		{
+			ManaSprite.RegionEnabled = false;
+			
 			ManaSprite.Hframes = 4;
 			ManaSprite.Vframes = 3;
 			
 			ManaSprite.Frame = manaCost;
+			//GD.Print("ManaCost: " + manaCost);
 
 		}
 	}
