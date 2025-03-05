@@ -46,6 +46,9 @@ public partial class CardView : Node2D
 	}
 	public void CardPlayed(Card card)
 	{
+
+		return;// FOR EDIT TO REPLAY SAME CARD
+
 		Cards[card.Index] = null;
 		card.QueueFree();
 

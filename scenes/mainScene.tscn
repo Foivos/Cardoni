@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=23 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Texture2D" uid="uid://cjgafn504suim" path="res://resources/grid.png" id="2_g0wjl"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
@@ -9,10 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
 [ext_resource type="Theme" uid="uid://bfekn0h5isjfi" path="res://gregFolder/new_theme.tres" id="7_d6cqh"]
+[ext_resource type="Script" path="res://gregFolder/gregC/shaderHolder.cs" id="8_mmaof"]
 [ext_resource type="PackedScene" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
 [ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="9_5i4ko"]
+[ext_resource type="Material" uid="uid://bbrc0tkf848ao" path="res://gregFolder/shaders/enemyShadert.tres" id="9_gf3dn"]
 [ext_resource type="Resource" uid="uid://4rpoyq4rckdn" path="res://resources/cards/greg/pushCard.tres" id="9_o3m6r"]
 [ext_resource type="Resource" uid="uid://bmkw08xg8cn10" path="res://resources/cards/greg/spawnWarrior.tres" id="10_0j7rj"]
+[ext_resource type="Material" uid="uid://djxbpwkr8wyu1" path="res://gregFolder/shaders/bueOutline.tres" id="10_v2c0p"]
 [ext_resource type="Resource" uid="uid://bhilyhnqikwe4" path="res://resources/cards/chain_lightning.tres" id="11_fyg5a"]
 [ext_resource type="Resource" uid="uid://c2lrd20l3xo4x" path="res://resources/cards/dart.tres" id="12_8f72x"]
 [ext_resource type="Resource" uid="uid://bb6wsonyqnnw6" path="res://resources/cards/earthquake.tres" id="13_rqc40"]
@@ -69,6 +72,11 @@ scale = Vector2(6, 6)
 theme = ExtResource("7_d6cqh")
 theme_override_constants/outline_size = 5
 text = "0"
+
+[node name="shader holder" type="Node" parent="GameView"]
+script = ExtResource("8_mmaof")
+_enemyShader = ExtResource("9_gf3dn")
+_outlineBlue = ExtResource("10_v2c0p")
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
 deck = Array[Object]([ExtResource("9_o3m6r"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x"), ExtResource("13_rqc40"), ExtResource("14_uor0q")])

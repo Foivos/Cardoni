@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bbrc0tkf848ao"]
+
+[ext_resource type="Shader" path="res://gregFolder/shaders/distortionShaderTwo.gdshader" id="1_dn0d5"]
+
+[resource]
+shader = ExtResource("1_dn0d5")
+shader_parameter/wave_speed = 1.0
+shader_parameter/wave_amplitude = 0.01
+shader_parameter/wave_frequency = 1.0

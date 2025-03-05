@@ -29,12 +29,21 @@ public partial class EntityActiveProjectile : EntityActive
 	public override void Activate(Entity entity)
 	{
 
-
+		// if entity is not oving from birth facing direction == 0   FIX THIS
+		//GD.Print("projectile Dir : " + Attack.EntityAttackingNow.FacingDirection);
 		
+		int direction = Attack.EntityAttackingNow.FacingDirection;
+		if (direction == 0)
+		{
+			bool enemy = Attack.EntityAttackingNow.Mask.Matches(new EntityMask() { EntityMasks.Enemy });
+			direction = enemy ? 1 : -1;
+		}
+
 		var projectile = new Projectile()
 		{
-			Y = Attack.EntityAttackingNow.Y + Attack.EntityAttackingNow.FacingDirection * Y,
-			MovementSpeed = MovementSpeed * Attack.EntityAttackingNow.FacingDirection,
+
+			Y = Attack.EntityAttackingNow.Y + direction * Y,
+			MovementSpeed = MovementSpeed * direction,
 			Active = Active,
 			Lane = (uint)Attack.EntityAttackingNow.OccupyingLanes.From,
 			Mask = ProjectileMask,

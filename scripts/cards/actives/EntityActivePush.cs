@@ -24,12 +24,13 @@ public partial class EntityActivePush : EntityActive
 	{
 
 		entity.Y -= MovePush * entity.FacingDirection;
-
-
+		SpecialState.pushShadowTrail(entity , MovePush);
 
 	}
 
 
 
 }
+
+
 

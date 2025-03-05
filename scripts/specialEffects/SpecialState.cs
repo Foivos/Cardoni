@@ -1,5 +1,6 @@
 namespace Cardoni;
 
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Godot;
 
@@ -167,8 +168,11 @@ public partial class SpecialState : Node
 		uint counter = 0;
 		void onExpire()
 		{
+			if (counter == 100 || !IsInstanceValid(sprite)) { counter = 100; return; }
+
+
 			counter++;
-			GD.Print(counter);
+			//GD.Print(counter);
 			if (counter == 1)
 			{
 				sprite.Modulate = new Color(blackColor, blackColor, blackColor);
@@ -187,6 +191,80 @@ public partial class SpecialState : Node
 		;
 		return new ProcessExpiring(duration, onExpire, 3);
 	}
+
+	public static ProcessExpiring pushShadowTrail(
+			Entity entity , int pushDistance
+		)
+	{
+		int distanceForOneShadow = 40;
+		int shadowStep = 40;
+		float delay = 0.04f;// 0.04f;
+		float aStep = 0.5f;//0.2f;
+		float aStart = 0.9f;
+		List<Sprite2D> shadows = new();
+		
+		int shadowCount = pushDistance / distanceForOneShadow;
+		if(shadowCount < 1)shadowCount = 1;
+
+		for (int i = 0; i < shadowCount; i++)
+		{
+			var s = new Sprite2D();
+
+			s.Texture = entity.Sprite.Texture;
+			s.Modulate = new Color(1, 1, 1, aStart - i * aStep);//(shadowCount - i - 1)
+
+			s.Scale = entity.Sprite.Scale;
+			s.Position = entity.GlobalPosition + entity.FacingDirection
+			* new Vector2(0, shadowStep * (i + 1));
+
+			Instance.AddChild(s);
+			shadows.Add(s);
+
+		}
+
+
+
+		void onExpire()
+		{
+
+
+			//counter++;uint counter = 0;
+			//GD.Print("push shadow " +counter);
+
+			if (shadows.Count == 0) return;
+
+			bool done = true;
+
+			for (int i = 0; i < shadows.Count; i++)
+			{
+				//if (shadows[i].Modulate.A < 0.05f) continue;
+
+
+				shadows[i].Modulate = new Color(1, 1, 1, shadows[i].Modulate.A - aStep);
+				GD.Print("A ==  " + shadows[i].Modulate.A);
+
+				if (shadows[i].Modulate.A > 0.1f) done = false;
+
+
+			}
+
+			if (done)
+			{
+				for (int i = shadows.Count - 1; i >= 0; i--)
+				{
+					shadows[i].QueueFree();
+				}
+				shadows.Clear();
+
+			}
+
+
+		}
+
+		return new ProcessExpiring(delay, onExpire, 5);
+	}
+
+
 
 	public static ProcessExpiring BackgroundFlash(Color flashColor, float duration)
 	{
@@ -232,8 +310,8 @@ public partial class SpecialState : Node
 		animation.Scale = Vector2.One * (dead ? SCALE_DEAD : SCALE);
 		//animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, 0.02f); 
 
-		(float , int )[]frames = new (float, int)[7];
+		(float, int)[] frames = new (float, int)[7];
 		for (int i = 0; i < 7; i++) { frames[i] = (0.02f, i); }
-		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3 , frames , 1); 
+		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, frames, 1);
 	}
 }
