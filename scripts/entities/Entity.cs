@@ -171,6 +171,8 @@ public partial class Entity : Node2D
 			fallingShords.testStrikeThere(this);
 
 			SpecialState.HitDamage(Sprite);
+			SpecialState.flashLabelInvissible(HealthLabel, 0.02f);
+
 			textEffects.displayDmgText(this, damage);
 		}
 	}
@@ -283,10 +285,10 @@ public partial class Entity : Node2D
 		Weapon.Position = shordPosition;
 	}
 
-    int lastSide;
+	int lastSide;
 	public void ProcessSideMove()
 	{
-   
+
 		int side = Time.GetTicksMsec() % 1500 > 750 ? 1 : -1;
 		if (side == lastSide) return;
 		lastSide = side;

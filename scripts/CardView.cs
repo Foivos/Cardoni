@@ -35,6 +35,7 @@ public partial class CardView : Node2D
 
 		for (int i = 0; i < 4; i++)
 		{
+
 			drawCard(deck[i], i);
 		}
 
@@ -52,13 +53,57 @@ public partial class CardView : Node2D
 		Cards[card.Index] = null;
 		card.QueueFree();
 
-		drawCard();
+		requestDrawCard();
+		//drawCard();
+
+	}
+
+
+	bool handFull()
+	{
+		if (Cards[0] != null &&
+					Cards[1] != null &&
+					Cards[2] != null &&
+					Cards[3] != null) return true;
+		return false;
+
+	}
+
+	ulong lastCardDrawTime;
+	void requestDrawCard()
+	{
+
+		if (handFull()) return;
+
+		ulong minDrawTimeDistance = 300;
+		if (Time.GetTicksMsec() < lastCardDrawTime + minDrawTimeDistance)
+		{
+
+			float diff = (lastCardDrawTime + minDrawTimeDistance) / 1000f;
+			new ProcessExpiring(diff, () =>
+				{
+					drawCard();
+				}, 1);
+
+			lastCardDrawTime = lastCardDrawTime + minDrawTimeDistance;
+
+		}
+		else { drawCard(); lastCardDrawTime = Time.GetTicksMsec(); }
+
+
+
+
+
+
+
+
+
 
 	}
 	void drawCard()
 	{
 
-
+		if (handFull()) return;
 
 		if (drawPile.Count == 0)
 		{
@@ -88,6 +133,34 @@ public partial class CardView : Node2D
 
 
 	}
+
+	void drawCardEffect(Card card)
+	{
+		float delay = 0.3f;
+		int offsetValue = 8;
+		Vector2I offset = new Vector2I(offsetValue.rDir(), offsetValue.rDir());
+		int rotation = 4.rDir();
+		Color color = Colors.Gray;
+
+		card.Sprite.Modulate = color;
+		card.Sprite.Offset = offset;
+		card.RotationDegrees = rotation;
+
+
+		new ProcessExpiring(delay, () =>
+					{
+						if (!IsInstanceValid(card)) return;
+
+						card.Modulate = Colors.White;
+						card.Sprite.Offset = Vector2.Zero;
+						card.RotationDegrees = 0;
+					}, 1);
+
+
+
+	}
+
+
 	void resetDrawPile()// also draws 4 cards
 	{
 
@@ -100,10 +173,15 @@ public partial class CardView : Node2D
 
 		suffleDrawPile();
 
-		drawCard();
-		drawCard();
-		drawCard();
-		drawCard();
+		requestDrawCard();
+		requestDrawCard();
+		requestDrawCard();
+		requestDrawCard();
+
+		// drawCard();
+		// drawCard();
+		// drawCard();
+		// drawCard();
 
 
 

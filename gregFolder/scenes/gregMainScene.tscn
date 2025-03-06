@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://cqn5d224g3vka" path="res://gregFolder/images/testBlood.png" id="4_bk4ib"]
 [ext_resource type="Texture2D" uid="uid://byb4gab3q8fps" path="res://resources/smoke.png" id="7_qwrw5"]
 [ext_resource type="Theme" uid="uid://bfekn0h5isjfi" path="res://gregFolder/new_theme.tres" id="8_0gu5u"]
-[ext_resource type="Material" path="res://gregFolder/shaders/bueOutline.tres" id="8_odpie"]
+[ext_resource type="Material" uid="uid://djxbpwkr8wyu1" path="res://gregFolder/shaders/bueOutline.tres" id="8_odpie"]
 [ext_resource type="FontFile" uid="uid://btttisy36v4y6" path="res://gregFolder/Squeid Gameis.otf" id="9_mm42t"]
 [ext_resource type="Shader" path="res://gregFolder/shaders/distortionShader.gdshader" id="10_kgb0a"]
 [ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="11_pinf5"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/entities/Entity.cs" id="1_8mn4u"]
 [ext_resource type="Texture2D" uid="uid://b7ctatsm3h7nv" path="res://gregFolder/images/healthBack.png" id="3_32dvr"]
-[ext_resource type="Material" path="res://gregFolder/shaders/enemyShadert.tres" id="4_6lnmg"]
+[ext_resource type="Material" uid="uid://bfnhk6mao6io2" path="res://gregFolder/shaders/enemyShadert.tres" id="4_6lnmg"]
 [ext_resource type="Texture2D" uid="uid://egxkw6t7yeby" path="res://gregFolder/images/healthBar.png" id="5_dlm2d"]
 [ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="5_o38kh"]
 [ext_resource type="Texture2D" uid="uid://d1ts0gduggbgo" path="res://gregFolder/images/shordTwo.png" id="6_otgi4"]
