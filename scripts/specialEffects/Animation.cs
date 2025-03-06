@@ -7,6 +7,9 @@ namespace Cardoni;
 
 public partial class Animation : Sprite2D
 {
+
+    
+	
 	public (float, int)[] Frames { get; set; }
 
 	public int Index { get; set; }
@@ -27,6 +30,7 @@ public partial class Animation : Sprite2D
 		new ProcessExpiring(time, OnExpire);
 	}
 
+
 	public void Play(Texture2D texture, int hframes, int vframes, float duration)
 	{
 		List<(float, int)> frames = new();
@@ -36,6 +40,8 @@ public partial class Animation : Sprite2D
 		}
 		Play(texture, hframes, vframes, frames.ToArray(), 1);
 	}
+
+	
 
 	void OnExpire()
 	{

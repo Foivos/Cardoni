@@ -12,6 +12,8 @@ public partial class LineTarget : EntityTarget
 
 	public override List<Entity> Targets()
 	{
-		return GameState.Entities.FindAll((entity) => entity.OccupyingLanes.IsIn((uint)Line));
+		return GameState.Entities.FindAll((entity) 
+		=> entity.OccupyingLanes.IsIn((uint)Line)
+		&& EntityMask.Matches(entity.Mask));
 	}
 }

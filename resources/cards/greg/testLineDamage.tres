@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=13 format=3 uid="uid://e0a0sw7v1mvq"]
+
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_b23dx"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_xokwb"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_mwl5b"]
+[ext_resource type="Script" path="res://scripts/targetting/LineTarget.cs" id="3_0s0ca"]
+[ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="4_l0u2m"]
+[ext_resource type="Texture2D" uid="uid://ds3jvcljfcys3" path="res://resources/newCard.png" id="5_q305y"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="6_fjyw1"]
+
+[sub_resource type="Resource" id="Resource_f64om"]
+script = ExtResource("1_xokwb")
+Damage = 1
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_qi1rv"]
+script = ExtResource("2_mwl5b")
+Masks = 0
+
+[sub_resource type="Resource" id="Resource_8ifny"]
+script = ExtResource("3_0s0ca")
+EntityMask = SubResource("Resource_qi1rv")
+
+[sub_resource type="Resource" id="Resource_y4ygc"]
+script = ExtResource("4_l0u2m")
+EntityTarget = SubResource("Resource_8ifny")
+Active = SubResource("Resource_f64om")
+
+[sub_resource type="Resource" id="Resource_o0an1"]
+script = ExtResource("6_fjyw1")
+Texture = ExtResource("5_q305y")
+regionDisabled = true
+RegionRect = Rect2(0, 0, 0, 0)
+
+[resource]
+script = ExtResource("1_b23dx")
+Name = "testttt"
+Description = "test line dmg cause push pushed friendly too"
+ManaCost = 1
+Sprite = SubResource("Resource_o0an1")
+CardResult = SubResource("Resource_y4ygc")

@@ -47,15 +47,89 @@ public partial class TargetView : Node2D
 		ProcessTargets();
 	}
 
+
+
+	List<Entity> markedTargets = new();
+	void markTargetEntity(Entity entity)
+	{
+		//if (markedTargets.Contains(entity)) return;
+
+		//entity.Sprite.Material = shaderHolder.outlineBlue;
+		entity.Sprite.Material = shaderHolder.targetingCustomOutline;
+		shaderHolder.targetingCustomOutline.SetShaderParameter("outline_color", Colors.Red);
+
+		//entity.Sprite.SelfModulate = new Color(0.1f, 0.1f, 0.1f, 1);
+		markedTargets.Add(entity);
+	}
+	void unMarkTargetEntity(Entity entity)
+	{
+		if (!IsInstanceValid(entity)) return;
+
+
+		if (markedTargets.Contains(entity) == false) return;
+		markedTargets.Remove(entity);
+
+		entity.Sprite.Material = shaderHolder.enemyShader;
+		entity.Sprite.SelfModulate = Colors.White;
+
+	}
+
+	void clearAllMarkedTargets()
+	{
+		if (markedTargets == null) return;
+
+		for (int i = markedTargets.Count - 1; i >= 0; i--)
+		{
+			unMarkTargetEntity(markedTargets[i]);
+		}
+
+		foreach (Entity entity in markedTargets)
+		{
+			if (entity == null || !IsInstanceValid(entity)) continue;
+			unMarkTargetEntity(entity);
+		}
+		markedTargets.Clear();
+
+	}
+	void clearOldMarkedTargets(List<Entity> targetsNow)
+	{
+		for (int i = markedTargets.Count - 1; i >= 0; i--)
+		{
+			if (!targetsNow.Contains(markedTargets[i])) unMarkTargetEntity(markedTargets[i]);
+		}
+
+
+
+	}
+
+
+
+
 	private void ProcessTargets()
 	{
+
+
+
 		CardResult result = GameState.SelectedCard.CardResult;
+
+
+
 		if (result is EffectResult effectResult)
 		{
+
+			//GD.Print("Processing targets " + effectResult.EntityTarget.Targets().Count);
+
+
 			foreach (Entity entity in effectResult.EntityTarget.Targets())
 			{
 				// You can do something to each target here.
+				markTargetEntity(entity);
+
+
+				// 2  thinking of an arrow above them pointing down for a start
 			}
+
+			clearOldMarkedTargets(effectResult.EntityTarget.Targets());
 		}
 	}
 
@@ -67,6 +141,7 @@ public partial class TargetView : Node2D
 	public static void EndTargeting()
 	{
 		Instance._EndTargeting();
+		Instance.clearAllMarkedTargets();
 	}
 
 	void _BeginTargeting() //! MAIN FUNCTION

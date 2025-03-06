@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://bmkw08xg8cn10"]
+
+[ext_resource type="Resource" uid="uid://b2ybqmcn75g5r" path="res://gregFolder/testEntities/testFriendly0.tres" id="1_jcb3e"]
+[ext_resource type="Texture2D" uid="uid://ds3jvcljfcys3" path="res://resources/newCard.png" id="1_ttnvw"]
+[ext_resource type="Script" path="res://scripts/cards/SummonResult.cs" id="2_kgap3"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="2_wtkbn"]
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="3_58drl"]
+
+[sub_resource type="Resource" id="Resource_x71lu"]
+script = ExtResource("2_kgap3")
+Summon = ExtResource("1_jcb3e")
+
+[sub_resource type="Resource" id="Resource_u6ga0"]
+script = ExtResource("2_wtkbn")
+Texture = ExtResource("1_ttnvw")
+regionDisabled = false
+RegionRect = Rect2(0, 0, 220, 320)
+
+[resource]
+script = ExtResource("3_58drl")
+Name = "spawer"
+Description = "spawns warrior"
+ManaCost = 1
+Sprite = SubResource("Resource_u6ga0")
+CardResult = SubResource("Resource_x71lu")

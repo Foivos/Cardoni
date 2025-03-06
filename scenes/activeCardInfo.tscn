@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0adub32rndud"]
+
+[ext_resource type="Script" path="res://scripts/activeCardInfo.cs" id="1_n1ihn"]
+
+[node name="active card info" type="Node2D" node_paths=PackedStringArray("cardName", "cardInfo")]
+position = Vector2(-90, -8)
+script = ExtResource("1_n1ihn")
+cardName = NodePath("card name")
+cardInfo = NodePath("card details")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = 12
+offset_left = -6.0
+offset_top = -80.0
+offset_right = 187.0
+offset_bottom = 73.0
+color = Color(0, 0, 0, 0.788235)
+
+[node name="card name" type="Label" parent="."]
+z_index = 12
+offset_top = -84.0
+offset_right = 106.0
+offset_bottom = -60.0
+theme_override_font_sizes/font_size = 24
+text = "NAME"
+
+[node name="card details" type="Label" parent="."]
+modulate = Color(0, 0.875295, 0.875295, 1)
+z_index = 12
+offset_left = 10.0
+offset_top = -55.0
+offset_right = 260.0
+offset_bottom = 117.0
+scale = Vector2(0.6, 0.6)
+theme_override_font_sizes/font_size = 24
+text = "details"
+autowrap_mode = 2

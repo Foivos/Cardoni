@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://b2ybqmcn75g5r"]
+
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_82esx"]
+[ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_glokc"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveProjectile.cs" id="2_j1s45"]
+[ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="3_uum6n"]
+[ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="4_kkyob"]
+[ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="5_8hotg"]
+[ext_resource type="Script" path="res://scripts/characteristics/AttackData.cs" id="6_5lcvo"]
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="7_6ptii"]
+[ext_resource type="Texture2D" uid="uid://cdeuicqnqju3l" path="res://resources/enemies/goblinScull.png" id="8_v3ltp"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="9_vahni"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="10_e5apt"]
+
+[sub_resource type="Resource" id="Resource_udmf4"]
+script = ExtResource("1_82esx")
+Damage = 1
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_jlfpc"]
+script = ExtResource("7_6ptii")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_dcdwp"]
+script = ExtResource("2_j1s45")
+MovementSpeed = 200
+ProjectileMask = SubResource("Resource_jlfpc")
+Piercing = 1
+Y = 50
+Active = SubResource("Resource_udmf4")
+
+[sub_resource type="Resource" id="Resource_3rv1e"]
+script = ExtResource("2_glokc")
+Within = 3000
+
+[sub_resource type="Resource" id="Resource_euy2l"]
+script = ExtResource("4_kkyob")
+
+[sub_resource type="Resource" id="Resource_3c3bb"]
+script = ExtResource("3_uum6n")
+RelativeLane = 0
+
+[sub_resource type="Resource" id="Resource_sy83u"]
+script = ExtResource("5_8hotg")
+Filter1 = SubResource("Resource_euy2l")
+Filter2 = SubResource("Resource_3c3bb")
+
+[sub_resource type="Resource" id="Resource_iiysi"]
+script = ExtResource("6_5lcvo")
+TargetFilter = SubResource("Resource_sy83u")
+AttackFilter = SubResource("Resource_3rv1e")
+StartingStacks = 200
+Active = SubResource("Resource_dcdwp")
+
+[sub_resource type="Resource" id="Resource_0jvvx"]
+script = ExtResource("7_6ptii")
+Masks = 2
+
+[sub_resource type="Resource" id="Resource_6tmvk"]
+script = ExtResource("9_vahni")
+Texture = ExtResource("8_v3ltp")
+regionDisabled = false
+RegionRect = Rect2(0, 0, 160, 160)
+
+[resource]
+script = ExtResource("10_e5apt")
+Name = "testFriendly0"
+Width = 1
+Height = 1200
+MaxHealth = 10
+Mask = SubResource("Resource_0jvvx")
+BaseMovementSpeed = 0
+BaseAttackSpeed = 100
+Sprite = SubResource("Resource_6tmvk")
+Characteristic = SubResource("Resource_iiysi")

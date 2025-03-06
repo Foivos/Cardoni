@@ -1,0 +1,61 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=19 format=3 uid="uid://dxdgyxkrfxexk"]
+
+[ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_0jwgq"]
+[ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="1_ti2rx"]
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_xnitx"]
+[ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="2_7fkyi"]
+[ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="2_dx8kw"]
+[ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="2_nilmk"]
+[ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="3_4wpes"]
+[ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="3_dbij2"]
+[ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="4_oyp6c"]
+[ext_resource type="Script" path="res://scripts/characteristics/AttackData.cs" id="5_7uxhf"]
+
+[sub_resource type="Resource" id="Resource_xl8ad"]
+script = ExtResource("1_xnitx")
+Damage = 1
+DamageType = 0
+
+[sub_resource type="Resource" id="Resource_kwppf"]
+script = ExtResource("1_ti2rx")
+Within = 300
+
+[sub_resource type="Resource" id="Resource_d2n7y"]
+script = ExtResource("3_dbij2")
+
+[sub_resource type="Resource" id="Resource_48ckw"]
+script = ExtResource("2_dx8kw")
+RelativeLane = 0
+
+[sub_resource type="Resource" id="Resource_440rp"]
+script = ExtResource("4_oyp6c")
+Filter1 = SubResource("Resource_d2n7y")
+Filter2 = SubResource("Resource_48ckw")
+
+[sub_resource type="Resource" id="Resource_iiysi"]
+script = ExtResource("5_7uxhf")
+TargetFilter = SubResource("Resource_440rp")
+AttackFilter = SubResource("Resource_kwppf")
+StartingStacks = 600
+Active = SubResource("Resource_xl8ad")
+
+[sub_resource type="Resource" id="Resource_v3frj"]
+script = ExtResource("1_0jwgq")
+Masks = 1
+
+[sub_resource type="Resource" id="Resource_6tmvk"]
+script = ExtResource("3_4wpes")
+Texture = ExtResource("2_nilmk")
+RegionRect = Rect2(0, 0, 160, 160)
+
+[resource]
+script = ExtResource("2_7fkyi")
+Name = "testEnemy0"
+Width = 1
+Height = 1200
+MaxHealth = 10
+Mask = SubResource("Resource_v3frj")
+BaseMovementSpeed = 30
+BaseAttackSpeed = 80
+Sprite = SubResource("Resource_6tmvk")
+Characteristic = SubResource("Resource_iiysi")

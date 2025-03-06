@@ -14,10 +14,42 @@ public partial class GameView : Area2D
 		InputEvent += _Input;
 		MouseExited += _MouseExited;
 		MouseEntered += _MouseEntered;
+
+		Mana = 4;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) { }
+	public override void _Process(double delta) { processMana(delta); }
+
+	[Export] Label manaLabel;
+	int mana = 4;
+	public int Mana
+	{
+		get => mana;
+		set
+		{
+			if (value > 8) value = 8;
+
+			mana = value;
+			manaLabel.Text = mana.ToString();
+		}
+	}
+	[Export] double manaRegen = 1;
+	double manaTimer;
+	void processMana(double delta)
+	{
+
+
+		manaTimer += delta;
+		if (manaTimer < 1 / manaRegen) return;
+
+		manaTimer = 0;
+		Mana++;
+		manaLabel.Text = mana.ToString();
+
+
+
+	}
 
 	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
 	{
@@ -30,10 +62,19 @@ public partial class GameView : Area2D
 			)
 				return;
 
-			GameState.SelectedCard.CardResult.Activate();
+
+			if (GameView.Instance.Mana >= GameState.SelectedCard.ManaCost)
+			{
+				GameView.Instance.Mana -= GameState.SelectedCard.ManaCost;
+				GameState.SelectedCard.CardResult.Activate();
+				CardView.Instance.CardPlayed(GameState.SelectedCard);
+			}
+			else GD.Print("Not enough mana");
+
 
 			TargetView.EndTargeting();
 			GameState.SelectedCard = null;
+			activeCardInfo.closeDisplay();
 		}
 		else if (@event is InputEventMouseMotion eventMouseMotion)
 		{
@@ -47,6 +88,7 @@ public partial class GameView : Area2D
 		if (GameState.SelectedCard == null)
 			return;
 
+		activeCardInfo.displayCard(GameState.SelectedCard);
 		TargetView.BeginTargeting(); //! CHOOSE TYPE
 	}
 
@@ -55,6 +97,7 @@ public partial class GameView : Area2D
 		if (GameState.SelectedCard == null)
 			return;
 
+		activeCardInfo.closeDisplay();
 		TargetView.EndTargeting();
 	}
 }

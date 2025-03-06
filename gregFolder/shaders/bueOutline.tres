@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://djxbpwkr8wyu1"]
+
+[ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="1_s462v"]
+
+[resource]
+shader = ExtResource("1_s462v")
+shader_parameter/width = 4
+shader_parameter/outline_color = Color(0, 1, 0.75, 1)

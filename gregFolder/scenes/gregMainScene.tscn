@@ -1,14 +1,13 @@
-[gd_scene load_steps=33 format=3 uid="uid://gfu73gc2fpwh"]
+[gd_scene load_steps=31 format=3 uid="uid://gfu73gc2fpwh"]
 
 [ext_resource type="Script" path="res://gregFolder/gregC/cameraShake.cs" id="1_stp0o"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="2_0o2b7"]
-[ext_resource type="Shader" path="res://gregFolder/shaders/outlineShader.gdshader" id="3_rt1l3"]
 [ext_resource type="PackedScene" uid="uid://dsfsps4n187ti" path="res://scenes/effects.tscn" id="3_skox6"]
 [ext_resource type="Texture2D" uid="uid://b4fsfc12l0hka" path="res://gregFolder/images/shord.png" id="4_ahft0"]
 [ext_resource type="Texture2D" uid="uid://cqn5d224g3vka" path="res://gregFolder/images/testBlood.png" id="4_bk4ib"]
-[ext_resource type="Script" path="res://gregFolder/shaders/gregC/textEffects.cs" id="7_450mq"]
 [ext_resource type="Texture2D" uid="uid://byb4gab3q8fps" path="res://resources/smoke.png" id="7_qwrw5"]
-[ext_resource type="Theme" uid="uid://kldp23p8yprq" path="res://gregFolder/new_theme.tres" id="8_0gu5u"]
+[ext_resource type="Theme" uid="uid://bfekn0h5isjfi" path="res://gregFolder/new_theme.tres" id="8_0gu5u"]
+[ext_resource type="Material" path="res://gregFolder/shaders/bueOutline.tres" id="8_odpie"]
 [ext_resource type="FontFile" uid="uid://btttisy36v4y6" path="res://gregFolder/Squeid Gameis.otf" id="9_mm42t"]
 [ext_resource type="Shader" path="res://gregFolder/shaders/distortionShader.gdshader" id="10_kgb0a"]
 [ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="11_pinf5"]
@@ -111,11 +110,6 @@ particles_animation = true
 particles_anim_h_frames = 3
 particles_anim_v_frames = 3
 particles_anim_loop = false
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_34wtk"]
-shader = ExtResource("3_rt1l3")
-shader_parameter/width = 1
-shader_parameter/outline_color = Color(0, 0.8, 1, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y7oy5"]
 shader = ExtResource("10_kgb0a")
@@ -332,8 +326,16 @@ anim_speed_max = 1.0
 [node name="MATERIALS" type="Node" parent="."]
 
 [node name="shord OUTLINE" type="Sprite2D" parent="MATERIALS"]
-material = SubResource("ShaderMaterial_34wtk")
+material = ExtResource("8_odpie")
 position = Vector2(-55, -323)
+scale = Vector2(4, 4)
+texture = ExtResource("4_ahft0")
+
+[node name="shord OUTLINE2" type="Sprite2D" parent="MATERIALS"]
+modulate = Color(0, 0, 0, 1)
+self_modulate = Color(0, 0, 0, 1)
+material = ExtResource("8_odpie")
+position = Vector2(114, -316)
 scale = Vector2(4, 4)
 texture = ExtResource("4_ahft0")
 
@@ -354,10 +356,6 @@ region_enabled = true
 region_rect = Rect2(128, 0, 32, 32)
 
 [node name="text effects" type="Node2D" parent="."]
-script = ExtResource("7_450mq")
-col = Color(0.92, 0, 0, 1)
-duration = 0.2
-size = 2.0
 
 [node name="Node2D" type="Node2D" parent="text effects"]
 position = Vector2(0, 1)

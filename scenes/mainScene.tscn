@@ -1,16 +1,33 @@
-[gd_scene load_steps=10 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=26 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Texture2D" uid="uid://cjgafn504suim" path="res://resources/grid.png" id="2_g0wjl"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
 [ext_resource type="Script" path="res://scripts/SpawnManager.cs" id="3_enjjy"]
 [ext_resource type="PackedScene" uid="uid://bl0ml2mcw66dl" path="res://scenes/targetView.tscn" id="3_tbob3"]
+[ext_resource type="Texture2D" uid="uid://dp0xq83vtadly" path="res://gregFolder/images/targetingNew.png" id="4_oc770"]
 [ext_resource type="PackedScene" uid="uid://bib401hmbony5" path="res://scenes/entityParent.tscn" id="5_fxrmd"]
 [ext_resource type="PackedScene" uid="uid://bw54ppij0q66r" path="res://scenes/cardView.tscn" id="5_hkg8d"]
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
-[ext_resource type="PackedScene" uid="uid://dmtvrurxcfp4m" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
+[ext_resource type="Theme" uid="uid://bfekn0h5isjfi" path="res://gregFolder/new_theme.tres" id="7_d6cqh"]
+[ext_resource type="Script" path="res://gregFolder/gregC/shaderHolder.cs" id="8_mmaof"]
+[ext_resource type="PackedScene" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
+[ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="9_5i4ko"]
+[ext_resource type="Material" path="res://gregFolder/shaders/enemyShadert.tres" id="9_gf3dn"]
+[ext_resource type="Resource" uid="uid://4rpoyq4rckdn" path="res://resources/cards/greg/pushCard.tres" id="9_o3m6r"]
+[ext_resource type="Resource" uid="uid://bmkw08xg8cn10" path="res://resources/cards/greg/spawnWarrior.tres" id="10_0j7rj"]
+[ext_resource type="Material" path="res://gregFolder/shaders/bueOutline.tres" id="10_v2c0p"]
+[ext_resource type="Resource" uid="uid://bhilyhnqikwe4" path="res://resources/cards/chain_lightning.tres" id="11_fyg5a"]
+[ext_resource type="Material" path="res://gregFolder/shaders/customTargetOutline.tres" id="11_r6nwr"]
+[ext_resource type="PackedScene" uid="uid://b0adub32rndud" path="res://scenes/activeCardInfo.tscn" id="11_vpeqw"]
+[ext_resource type="Resource" uid="uid://c2lrd20l3xo4x" path="res://resources/cards/dart.tres" id="12_8f72x"]
+[ext_resource type="Resource" uid="uid://e0a0sw7v1mvq" path="res://resources/cards/greg/testLineDamage.tres" id="12_bpmkx"]
+[ext_resource type="Resource" uid="uid://bb6wsonyqnnw6" path="res://resources/cards/earthquake.tres" id="13_rqc40"]
+[ext_resource type="Resource" uid="uid://b117wbqlb5cgm" path="res://resources/cards/fireball.tres" id="14_uor0q"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yrnca"]
 
 [node name="MainScene" type="Node2D"]
 
@@ -22,21 +39,24 @@ texture = ExtResource("5_mxxi8")
 
 [node name="TextureRectgrid" type="TextureRect" parent="backround"]
 self_modulate = Color(1, 1, 1, 0.152941)
-offset_left = -92.0
-offset_top = -141.0
-offset_right = 262.0
-offset_bottom = 474.0
-scale = Vector2(0.48, 0.48)
+offset_left = -97.6667
+offset_top = -132.333
+offset_right = 256.333
+offset_bottom = 482.667
+scale = Vector2(0.51, 0.51)
 texture = ExtResource("2_g0wjl")
 stretch_mode = 1
 
-[node name="GameView" type="Area2D" parent="."]
+[node name="GameView" type="Area2D" parent="." node_paths=PackedStringArray("manaLabel")]
 position = Vector2(200, 300)
 collision_mask = 0
 script = ExtResource("2_kstpq")
+manaLabel = NodePath("mana label")
+manaRegen = 4.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]
 shape = SubResource("RectangleShape2D_edew2")
+debug_color = Color(0, 0.595, 0.7, 0.0980392)
 
 [node name="TargetView" parent="GameView" instance=ExtResource("3_tbob3")]
 
@@ -45,6 +65,98 @@ script = ExtResource("3_enjjy")
 GameView = NodePath("..")
 EnemyPreffab = ExtResource("5_fxrmd")
 
+[node name="mana label" type="Label" parent="GameView"]
+self_modulate = Color(3.85046e-07, 0.815802, 0.814758, 1)
+offset_left = 126.0
+offset_top = -171.0
+offset_right = 166.0
+offset_bottom = -154.0
+scale = Vector2(3, 3)
+theme = ExtResource("7_d6cqh")
+theme_override_constants/outline_size = 5
+theme_override_font_sizes/font_size = 42
+text = "0"
+
+[node name="shader holder" type="Node" parent="GameView"]
+script = ExtResource("8_mmaof")
+_enemyShader = ExtResource("9_gf3dn")
+_outlineBlue = ExtResource("10_v2c0p")
+_targetingCustomOutline = ExtResource("11_r6nwr")
+
+[node name="active card info" parent="." instance=ExtResource("11_vpeqw")]
+z_index = 12
+position = Vector2(210, 701)
+wordDelay = 0.03
+panelPositions = Vector2(10, 210)
+
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
+deck = Array[Object]([ExtResource("12_bpmkx"), ExtResource("9_o3m6r"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x"), ExtResource("13_rqc40"), ExtResource("14_uor0q")])
+drawPile = Array[int]([])
 
 [node name="SpecialState" parent="." instance=ExtResource("8_xgso0")]
+
+[node name="greg tests" type="Node" parent="."]
+
+[node name="test enemy" type="Sprite2D" parent="greg tests"]
+visible = false
+position = Vector2(64, 75)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("9_5i4ko")
+
+[node name="target" type="Sprite2D" parent="greg tests"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(63, 134)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("4_oc770")
+
+[node name="target2" type="Sprite2D" parent="greg tests"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(63, 228)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("4_oc770")
+
+[node name="target3" type="Sprite2D" parent="greg tests"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(64, 322)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("4_oc770")
+
+[node name="target4" type="Sprite2D" parent="greg tests"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(64, 416)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("4_oc770")
+
+[node name="target rect" type="TextureRect" parent="greg tests"]
+visible = false
+self_modulate = Color(1, 0.183333, 0, 1)
+z_index = -2
+offset_left = 141.0
+offset_right = 447.0
+offset_bottom = 2100.0
+scale = Vector2(0.3, 0.3)
+texture = SubResource("CompressedTexture2D_yrnca")
+stretch_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="greg tests"]
+visible = false
+z_index = -1
+offset_left = 275.0
+offset_top = -5.0
+offset_right = 635.0
+offset_bottom = 1715.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("4_oc770")
+region_rect = Rect2(0.919983, -0.290009, 356.95, 359.37)
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50

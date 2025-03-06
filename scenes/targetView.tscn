@@ -1,22 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://bl0ml2mcw66dl"]
+[gd_scene load_steps=6 format=3 uid="uid://bl0ml2mcw66dl"]
 
 [ext_resource type="Script" path="res://scripts/TargetView.cs" id="1_17rt2"]
 [ext_resource type="Texture2D" uid="uid://bhoc5yopses6y" path="res://gregFolder/images/square.png" id="2_6bnm2"]
+[ext_resource type="Texture2D" uid="uid://dp0xq83vtadly" path="res://gregFolder/images/targetingNew.png" id="3_bje02"]
+[ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="4_utaa1"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yrnca"]
 
 [node name="TargetView" type="Node2D" node_paths=PackedStringArray("PositionTarget", "LineTarget", "PatternTarget")]
 script = ExtResource("1_17rt2")
-PositionTarget = NodePath("PositionTarget")
-LineTarget = NodePath("LineTarget")
+PositionTarget = NodePath("PositionTargetNew")
+LineTarget = NodePath("lineRextParent")
 PatternTarget = NodePath("PatternTarget")
 LineLength = 100.0
 
 [node name="PositionTarget" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(0, 1, 1, 0.215686)
 texture = ExtResource("2_6bnm2")
 region_enabled = true
 region_rect = Rect2(0, 0, 100, 100)
 
 [node name="LineTarget" type="Sprite2D" parent="."]
+visible = false
 self_modulate = Color(0, 1, 1, 0.215686)
 texture_repeat = 2
 texture = ExtResource("2_6bnm2")
@@ -24,3 +30,82 @@ region_enabled = true
 region_rect = Rect2(0, 0, 100, 600)
 
 [node name="PatternTarget" type="Node2D" parent="."]
+
+[node name="PositionTargetNew" type="Sprite2D" parent="."]
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(6, -55)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("3_bje02")
+
+[node name="lineRextParent" type="Sprite2D" parent="."]
+
+[node name="lineTargetRectNew" type="TextureRect" parent="lineRextParent"]
+self_modulate = Color(1, 0.183333, 0, 1)
+z_index = -2
+offset_left = -41.0
+offset_top = -323.0
+offset_right = 265.0
+offset_bottom = 1777.0
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_bje02")
+stretch_mode = 1
+
+[node name="test targets" type="Node" parent="."]
+
+[node name="test enemy" type="Sprite2D" parent="test targets"]
+visible = false
+position = Vector2(158.5, -178)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_utaa1")
+
+[node name="target2" type="Sprite2D" parent="test targets"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(157.5, -25)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("3_bje02")
+
+[node name="target3" type="Sprite2D" parent="test targets"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(158.5, 69)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("3_bje02")
+
+[node name="target4" type="Sprite2D" parent="test targets"]
+visible = false
+self_modulate = Color(1, 0.14, 0.14, 1)
+z_index = -1
+position = Vector2(158.5, 163)
+scale = Vector2(0.325, 0.325)
+texture = ExtResource("3_bje02")
+
+[node name="target rect" type="TextureRect" parent="test targets"]
+visible = false
+self_modulate = Color(1, 0.183333, 0, 1)
+z_index = -2
+offset_left = -45.0
+offset_top = -312.0
+offset_right = 261.0
+offset_bottom = 1788.0
+scale = Vector2(0.3, 0.3)
+texture = SubResource("CompressedTexture2D_yrnca")
+stretch_mode = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="test targets"]
+visible = false
+z_index = -1
+offset_left = 410.5
+offset_top = -374.0
+offset_right = 770.5
+offset_bottom = 1346.0
+scale = Vector2(0.35, 0.35)
+texture = ExtResource("3_bje02")
+region_rect = Rect2(0.919983, -0.290009, 356.95, 359.37)
+patch_margin_left = 50
+patch_margin_top = 50
+patch_margin_right = 50
+patch_margin_bottom = 50

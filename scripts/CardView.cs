@@ -1,11 +1,12 @@
 namespace Cardoni;
 
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
 public partial class CardView : Node2D
 {
-	static CardView Instance;
+	public static CardView Instance;
 
 	[Export]
 	public PackedScene CardAreaScene { get; set; }
@@ -16,30 +17,169 @@ public partial class CardView : Node2D
 	Card[] Cards = new Card[4];
 	CardArea[] CardAreas = new CardArea[4];
 
+
+
+	[Export] public CardData[] deck;// GREGORY
+
+	[Export]
+	public Godot.Collections.Array<int> drawPile;
+	//List<int> drawPile;
+	void StartSetDeck()
+	{
+		drawPile = new();
+		for (int i = 4; i < deck.Length; i++)
+		{
+			drawPile.Add(i);
+		}
+		GD.Print("drawPile.Count: " + drawPile.Count);
+
+		for (int i = 0; i < 4; i++)
+		{
+			drawCard(deck[i], i);
+		}
+
+
+
+		suffleDrawPile();
+
+
+	}
+	public void CardPlayed(Card card)
+	{
+
+		return;// FOR EDIT TO REPLAY SAME CARD
+
+		Cards[card.Index] = null;
+		card.QueueFree();
+
+		drawCard();
+
+	}
+	void drawCard()
+	{
+
+
+
+		if (drawPile.Count == 0)
+		{
+			if (Cards[0] == null &&
+				Cards[1] == null &&
+				Cards[2] == null &&
+				Cards[3] == null) resetDrawPile();
+
+			return;
+
+		}
+
+		int firstEmpty()
+		{
+			for (int i = 0; i < 4; i++)
+			{
+				if (Cards[i] == null)
+					return i;
+			}
+			{ GD.PushError("didnt find first empty"); return 0; }
+		}
+
+		drawCard(deck[drawPile[0]], firstEmpty());
+		drawPile.RemoveAt(0);
+
+
+
+
+	}
+	void resetDrawPile()// also draws 4 cards
+	{
+
+		drawPile.Clear();
+
+		for (int i = 0; i < deck.Length; i++)
+		{
+			drawPile.Add(i);
+		}
+
+		suffleDrawPile();
+
+		drawCard();
+		drawCard();
+		drawCard();
+		drawCard();
+
+
+
+
+	}
+	void suffleDrawPile()
+	{
+		int a, b, holder;
+		for (int i = 0; i < 10; i++)
+		{
+			a = (int)GD.RandRange(0, drawPile.Count - 1);
+			b = (int)GD.RandRange(0, drawPile.Count - 1);
+			holder = drawPile[a];
+			drawPile[a] = drawPile[b];
+			drawPile[b] = holder;
+		}
+
+	}
+
+	void drawCard(CardData data, int index)
+	{
+		Card card = CardsScene.Instantiate<Card>();
+		card.Index = index;
+
+		card.Data = data;
+
+		Cards[index] = card;
+		CardAreas[index].AddChild(card);
+
+	}
+
+
+
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+
+		// "arrow_turret", //net
+		//greg/spawnWarrior
+
+
+
 		Instance = this;
-		string[] names = new string[] { "arrow_turret", "net", "toxic_fumes", "slowing_field" };
+
+
+
+		//string[] names = new string[] { "greg/pushCard", "earthquake", "toxic_fumes", "slowing_field" };
 		for (int i = 0; i < 4; i++)
 		{
-			Card card = CardsScene.Instantiate<Card>();
-			card.Index = i;
 
-			card.Data = GD.Load<CardData>("res://resources/cards/" + names[i] + ".tres");
 
-			Cards[i] = card;
+			//Card card = CardsScene.Instantiate<Card>();
+			//card.Index = i;
+
+			//card.Data = GD.Load<CardData>("res://resources/cards/" + names[i] + ".tres");
+			//card.Data = deck[i];
+
+			//Cards[i] = card;
 
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
 			cardArea.CardView = this;
 			cardArea.Index = i;
 			cardArea.Position = new Vector2(100 * i - 150, 0);
 
-			cardArea.AddChild(card);
+			//cardArea.AddChild(card);
 
 			CardAreas[i] = cardArea;
 			AddChild(cardArea);
+
+
 		}
+
+		StartSetDeck();
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
