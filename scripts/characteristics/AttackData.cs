@@ -18,7 +18,7 @@ public partial class AttackData : CharacteristicData
 	[Export]
 	public EntityFilter AttackFilter { get; set; } = new VerticalDistanceFilter() { Within = 0 };
 
-	[Export]
+	[Export(PropertyHint.Range, "0,1200")]
 	public uint StartingStacks { get; set; } = 600;
 
 	[Export]

@@ -46,7 +46,7 @@ Filter2 = SubResource("Resource_48ckw")
 script = ExtResource("5_7uxhf")
 TargetFilter = SubResource("Resource_440rp")
 AttackFilter = SubResource("Resource_kwppf")
-StartingStacks = -600
+StartingStacks = 0
 Active = SubResource("Resource_h7mpn")
 
 [sub_resource type="Resource" id="Resource_v3frj"]

@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
 [ext_resource type="Theme" uid="uid://bfekn0h5isjfi" path="res://gregFolder/new_theme.tres" id="7_d6cqh"]
 [ext_resource type="Script" path="res://gregFolder/gregC/shaderHolder.cs" id="8_mmaof"]
-[ext_resource type="PackedScene" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
+[ext_resource type="PackedScene" uid="uid://dmtvrurxcfp4m" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
 [ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="9_5i4ko"]
 [ext_resource type="Material" uid="uid://bfnhk6mao6io2" path="res://gregFolder/shaders/enemyShadert.tres" id="9_gf3dn"]
 [ext_resource type="Resource" uid="uid://4rpoyq4rckdn" path="res://resources/cards/greg/pushCard.tres" id="9_o3m6r"]

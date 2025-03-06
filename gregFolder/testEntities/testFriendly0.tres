@@ -70,6 +70,6 @@ Height = 1200
 MaxHealth = 10
 Mask = SubResource("Resource_0jvvx")
 BaseMovementSpeed = 0
-BaseAttackSpeed = 100
+BaseAttackSpeed = 0
 Sprite = SubResource("Resource_6tmvk")
 Characteristic = SubResource("Resource_iiysi")

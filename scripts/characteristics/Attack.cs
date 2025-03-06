@@ -106,7 +106,7 @@ public partial class Attack : TickedCharacteristic<AttackData>
 	protected virtual void ContinueAttack()
 	{
 		AttackStacks += Entity.AttackSpeed;
-		while (AttackStacks >= StacksPerAttack)
+		if (AttackStacks >= StacksPerAttack)
 		{
 			EntityAttackingNow = Entity;
 			Active.Activate(Target);

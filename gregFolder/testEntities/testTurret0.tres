@@ -46,6 +46,7 @@ Masks = 2
 [sub_resource type="Resource" id="Resource_6tmvk"]
 script = ExtResource("9_c1wmm")
 Texture = ExtResource("8_y654s")
+regionDisabled = false
 RegionRect = Rect2(0, 0, 160, 160)
 
 [resource]
