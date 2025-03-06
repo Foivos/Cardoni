@@ -1,8 +1,8 @@
 [gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://b2ybqmcn75g5r"]
 
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_82esx"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_82esx"]
 [ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_glokc"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveProjectile.cs" id="2_j1s45"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveProjectile.cs" id="2_j1s45"]
 [ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="3_uum6n"]
 [ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="4_kkyob"]
 [ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="5_8hotg"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_6tnfv"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_64qmj"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_oywrf"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_oywrf"]
 [ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="2_wa21o"]
 [ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="3_tps3a"]
 

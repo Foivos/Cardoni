@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=20 format=3 uid="uid://bhilyhnqikwe4"]
 
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_qgqy7"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_qgqy7"]
 [ext_resource type="Script" path="res://scripts/filters/AlliesFilter.cs" id="2_83mlf"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_eawa6"]
 [ext_resource type="Script" path="res://scripts/filters/RangeFilter.cs" id="3_3lads"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveChain.cs" id="3_r0xgd"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveChain.cs" id="3_r0xgd"]
 [ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="4_b2dr6"]
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="4_ndvlb"]
-[ext_resource type="Script" path="res://scripts/cards/actives/MultiEntityActive.cs" id="4_wh7xc"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/MultiEntityActive.cs" id="4_wh7xc"]
 [ext_resource type="Script" path="res://scripts/targetting/SingleTarget.cs" id="6_ry2qd"]
 [ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="7_afujc"]
 

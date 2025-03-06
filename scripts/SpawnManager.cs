@@ -23,9 +23,9 @@ public partial class SpawnManager : Node
 
 		//Spawn(3, 0, GD.Load<EntityData>("res://resources/entities/goblin_warrior.tres"));
 		Spawn(0, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testEnemy0.tres"));
-		Spawn(1, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testTank.tres"));
-		Spawn(2, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testEnemy0.tres"));
-		Spawn(3, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testEnemy0.tres"));
+		// Spawn(1, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testTank.tres"));
+		// Spawn(2, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testEnemy0.tres"));
+		// Spawn(3, 0, GD.Load<EntityData>("res://gregFolder/testEntities/testEnemy0.tres"));
 
 		Spawn(0, 6000, GD.Load<EntityData>("res://gregFolder/testEntities/testFriendly0.tres"));
 		// Spawn(1, 6000, GD.Load<EntityData>("res://gregFolder/testEntities/testFriendly0.tres"));
