@@ -35,8 +35,8 @@ public partial class CardView : Node2D
 
 		for (int i = 0; i < 4; i++)
 		{
-
-			drawCard(deck[i], i);
+			requestDrawCard();
+			//drawCard(deck[i], i);
 		}
 
 
@@ -48,7 +48,7 @@ public partial class CardView : Node2D
 	public void CardPlayed(Card card)
 	{
 
-		return;// FOR EDIT TO REPLAY SAME CARD
+		//return;// FOR EDIT TO REPLAY SAME CARD
 
 		Cards[card.Index] = null;
 		card.QueueFree();
@@ -68,27 +68,53 @@ public partial class CardView : Node2D
 		return false;
 
 	}
+	bool handEmpty()
+	{
 
-	ulong lastCardDrawTime;
+		if (Cards[0] == null &&
+			Cards[1] == null &&
+			Cards[2] == null &&
+			Cards[3] == null) return true;
+		return false;
+	}
+
+	int firstEmptyCard()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if (Cards[i] == null)
+				return i;
+		}
+
+		GD.PushError("didnt find first empty");
+		return 0;
+
+
+	}
+
+	long lastCardDrawTime = -2000;
 	void requestDrawCard()
 	{
 
 		if (handFull()) return;
 
-		ulong minDrawTimeDistance = 300;
-		if (Time.GetTicksMsec() < lastCardDrawTime + minDrawTimeDistance)
+		long minDrawTimeDistance = 250;
+		long now = (long)Time.GetTicksMsec();
+		if (now < lastCardDrawTime + minDrawTimeDistance)
 		{
 
-			float diff = (lastCardDrawTime + minDrawTimeDistance) / 1000f;
-			new ProcessExpiring(diff, () =>
+			GD.Print("DRAW REQUESTED");
+			float diff = (lastCardDrawTime + minDrawTimeDistance - now) / 1000f;
+			new ProcessExpiring(  diff, () =>
 				{
+					GD.Print("after expire draw");
 					drawCard();
 				}, 1);
 
 			lastCardDrawTime = lastCardDrawTime + minDrawTimeDistance;
 
 		}
-		else { drawCard(); lastCardDrawTime = Time.GetTicksMsec(); }
+		else { GD.Print("DRAW NOW"); drawCard(); lastCardDrawTime = now; }
 
 
 
@@ -103,30 +129,24 @@ public partial class CardView : Node2D
 	void drawCard()
 	{
 
+		GD.Print("CARD 0 ");
 		if (handFull()) return;
 
-		if (drawPile.Count == 0)
-		{
-			if (Cards[0] == null &&
-				Cards[1] == null &&
-				Cards[2] == null &&
-				Cards[3] == null) resetDrawPile();
+		if (drawPile.Count == 0) resetDrawPile();
+		// {
+		// 	if (handEmpty())
 
-			return;
+		// 		// requestDrawCard();
+		// 		// requestDrawCard();
+		// 		// requestDrawCard();
+		// 		// requestDrawCard();
 
-		}
+		// 		return;
+		// }
 
-		int firstEmpty()
-		{
-			for (int i = 0; i < 4; i++)
-			{
-				if (Cards[i] == null)
-					return i;
-			}
-			{ GD.PushError("didnt find first empty"); return 0; }
-		}
+		GD.Print("CARD 1 ");
 
-		drawCard(deck[drawPile[0]], firstEmpty());
+		drawCard(deck[drawPile[0]], firstEmptyCard());
 		drawPile.RemoveAt(0);
 
 
@@ -134,12 +154,30 @@ public partial class CardView : Node2D
 
 	}
 
+	void drawCard(CardData data, int index)
+	{
+		GD.Print("CARD 2  " + index);
+
+
+		Card card = CardsScene.Instantiate<Card>();
+		card.Index = index;
+
+		card.Data = data;
+
+		Cards[index] = card;
+		CardAreas[index].AddChild(card);
+
+		drawCardEffect(card);
+
+	}
+
+
 	void drawCardEffect(Card card)
 	{
-		float delay = 0.3f;
-		int offsetValue = 8;
+		float delay = 0.18f;
+		int offsetValue = 4;
 		Vector2I offset = new Vector2I(offsetValue.rDir(), offsetValue.rDir());
-		int rotation = 4.rDir();
+		int rotation = 1.rDir();
 		Color color = Colors.Gray;
 
 		card.Sprite.Modulate = color;
@@ -161,7 +199,7 @@ public partial class CardView : Node2D
 	}
 
 
-	void resetDrawPile()// also draws 4 cards
+	void resetDrawPile()
 	{
 
 		drawPile.Clear();
@@ -172,16 +210,6 @@ public partial class CardView : Node2D
 		}
 
 		suffleDrawPile();
-
-		requestDrawCard();
-		requestDrawCard();
-		requestDrawCard();
-		requestDrawCard();
-
-		// drawCard();
-		// drawCard();
-		// drawCard();
-		// drawCard();
 
 
 
@@ -200,19 +228,6 @@ public partial class CardView : Node2D
 		}
 
 	}
-
-	void drawCard(CardData data, int index)
-	{
-		Card card = CardsScene.Instantiate<Card>();
-		card.Index = index;
-
-		card.Data = data;
-
-		Cards[index] = card;
-		CardAreas[index].AddChild(card);
-
-	}
-
 
 
 

@@ -65,11 +65,14 @@ public partial class SpecialState : Node
 
 	public override void _Process(double delta)
 	{
+		
 		base._Process(delta);
 		float t = CurrentTime;
 		while (Expiring.Count > 0 && Expiring.Top.End <= t)
 		{
+
 			ProcessExpiring expiring = Expiring.Pop();
+
 			expiring.OnExpire();
 			if (expiring.Repeat != 1)
 			{
@@ -81,6 +84,8 @@ public partial class SpecialState : Node
 				AddExpiring(expiring);
 			}
 		}
+
+		
 	}
 
 	public static void AddExpiring(ProcessExpiring expiring)
@@ -97,6 +102,8 @@ public partial class SpecialState : Node
 	{
 		return Instance.Animations.Get();
 	}
+
+
 
 	public static ProcessExpiring RemoveLater(Node2D node, float duration)
 	{
@@ -150,6 +157,9 @@ public partial class SpecialState : Node
 			duration,
 			() =>
 			{
+
+				if (!IsInstanceValid(node)) return;
+
 				visible = !visible;
 				node.Visible = visible;
 			},
@@ -164,12 +174,32 @@ public partial class SpecialState : Node
 			duration,
 			() =>
 			{
+				if (!IsInstanceValid(label)) return;
+
 				visible = !visible;
 				label.Visible = visible;
 			},
 			2
 		);
 	}
+
+	public static ProcessExpiring closeGravityBody(GravityBody item, float duration)
+	{
+
+		return new ProcessExpiring(
+			duration,
+			() =>
+			{
+				if (!IsInstanceValid(item)) return;
+
+				GravityBodyView.returnBody(item);
+			},
+			2
+		);
+	}
+
+
+
 
 	public static ProcessExpiring HitDamage(
 		Sprite2D sprite,
@@ -337,4 +367,11 @@ public partial class SpecialState : Node
 		for (int i = 0; i < 7; i++) { frames[i] = (0.02f, i); }
 		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, frames, 1);
 	}
+
+
+
+
+
+
+
 }

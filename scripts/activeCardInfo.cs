@@ -79,7 +79,7 @@ public partial class activeCardInfo : Node2D
         }
 
         float x = card.Index >= 2 ? Instance.panelPositions.X : Instance.panelPositions.Y;
-        GD.Print("x: " + x);
+        //GD.Print("x: " + x);
         Instance.Position = new Vector2(x, Instance.Position.Y);
 
         Instance.cardName.Text = card.Name;

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dsfsps4n187ti"]
 
-[ext_resource type="Script" path="res://gregFolder/gregC/fallingShords.cs" id="1_40t6c"]
+[ext_resource type="Script" path="res://gregFolder/gregC/GravityBodyView.cs" id="1_40t6c"]
 [ext_resource type="Script" path="res://gregFolder/gregC/battleEffectsC.cs" id="2_v5wef"]
 [ext_resource type="Script" path="res://gregFolder/gregC/atackAnimation.cs" id="3_8ktg1"]
 [ext_resource type="Texture2D" uid="uid://brsi8kgcmggmh" path="res://resources/hollowStrikeMedioumOutline.png" id="3_qa6s3"]

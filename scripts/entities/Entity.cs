@@ -167,14 +167,14 @@ public partial class Entity : Node2D
 		SpecialState.EntityBlood(this);
 		if (Health <= 0)
 		{
-			fallingShords.throwItem(Weapon);
+			GravityBodyView.throwItem(Weapon);
 			textEffects.displayDmgText(this, 0, ovveride: "DEAD");
 
 			GameState.Kill(this);
 		}
 		else
 		{
-			fallingShords.testStrikeThere(this);
+			GravityBodyView.EntityStrike(this);
 
 			SpecialState.HitDamage(Sprite);
 			SpecialState.flashLabelInvissible(HealthLabel, 0.02f);

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=27 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Texture2D" uid="uid://cjgafn504suim" path="res://resources/grid.png" id="2_g0wjl"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://k6b3feyti63b" path="res://gregFolder/images/spaceBack.png" id="5_mxxi8"]
 [ext_resource type="Theme" uid="uid://bfekn0h5isjfi" path="res://gregFolder/new_theme.tres" id="7_d6cqh"]
 [ext_resource type="Script" path="res://gregFolder/gregC/shaderHolder.cs" id="8_mmaof"]
-[ext_resource type="PackedScene" uid="uid://dmtvrurxcfp4m" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
+[ext_resource type="PackedScene" path="res://scenes/SpecialState.tscn" id="8_xgso0"]
 [ext_resource type="Texture2D" uid="uid://bpf2gmkxbrv5n" path="res://resources/enemies/goblinBase.png" id="9_5i4ko"]
 [ext_resource type="Material" uid="uid://bfnhk6mao6io2" path="res://gregFolder/shaders/enemyShadert.tres" id="9_gf3dn"]
 [ext_resource type="Resource" uid="uid://4rpoyq4rckdn" path="res://resources/cards/greg/pushCard.tres" id="9_o3m6r"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://b0adub32rndud" path="res://scenes/activeCardInfo.tscn" id="11_vpeqw"]
 [ext_resource type="Resource" uid="uid://c2lrd20l3xo4x" path="res://resources/cards/dart.tres" id="12_8f72x"]
 [ext_resource type="Resource" uid="uid://e0a0sw7v1mvq" path="res://resources/cards/greg/testLineDamage.tres" id="12_bpmkx"]
+[ext_resource type="Script" path="res://gregFolder/gregC/GravityBodyView.cs" id="12_c64uc"]
 [ext_resource type="Resource" uid="uid://bb6wsonyqnnw6" path="res://resources/cards/earthquake.tres" id="13_rqc40"]
 [ext_resource type="Resource" uid="uid://b117wbqlb5cgm" path="res://resources/cards/fireball.tres" id="14_uor0q"]
 
@@ -46,6 +47,8 @@ offset_bottom = 482.667
 scale = Vector2(0.51, 0.51)
 texture = ExtResource("2_g0wjl")
 stretch_mode = 1
+
+[node name="SpecialState" parent="." instance=ExtResource("8_xgso0")]
 
 [node name="GameView" type="Area2D" parent="." node_paths=PackedStringArray("ManaLabel")]
 position = Vector2(200, 300)
@@ -82,6 +85,9 @@ _enemyShader = ExtResource("9_gf3dn")
 _outlineBlue = ExtResource("10_v2c0p")
 _targetingCustomOutline = ExtResource("11_r6nwr")
 
+[node name="Gravity bodies" type="Node" parent="GameView"]
+script = ExtResource("12_c64uc")
+
 [node name="active card info" parent="." instance=ExtResource("11_vpeqw")]
 z_index = 12
 position = Vector2(210, 701)
@@ -89,10 +95,8 @@ wordDelay = 0.03
 panelPositions = Vector2(10, 210)
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
-deck = Array[Object]([ExtResource("12_bpmkx"), ExtResource("9_o3m6r"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x"), ExtResource("13_rqc40"), ExtResource("14_uor0q")])
+deck = Array[Object]([ExtResource("13_rqc40"), ExtResource("14_uor0q"), ExtResource("12_bpmkx"), ExtResource("9_o3m6r"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x")])
 drawPile = Array[int]([])
-
-[node name="SpecialState" parent="." instance=ExtResource("8_xgso0")]
 
 [node name="greg tests" type="Node" parent="."]
 

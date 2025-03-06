@@ -1,7 +1,7 @@
 using System;
 using Godot;
 
-public partial class fallingShordItem : Sprite2D
+public partial class GravityBody : Sprite2D
 {
 	//! GENERALISE TO HAVE STRIKES AND EVERYTHING
 	//todo   velocity , angular velocity, gravity,
@@ -53,11 +53,7 @@ public partial class fallingShordItem : Sprite2D
 		SetProcess(true);
 	}
 
-	public void closeMe()
-	{
-		Visible = false;
-		SetProcess(false);
-	}
+
 
 	float gravity = 900;
 	Vector2 speed;
@@ -67,24 +63,32 @@ public partial class fallingShordItem : Sprite2D
 	float speedBreak = 400; //400
 	float rotationBreak = 20; //40
 
-	public void processMe(float delta)
+	public override void _Process(double delta)
 	{
+		// 	base._Process(delta);
+		// }
+		// public void processMe(float delta)
+		// {
+
+		float _delta = (float)delta;
+
+
 		if (rotationSpeed > 0)
-			rotationSpeed -= rotationBreak * delta;
+			rotationSpeed -= rotationBreak * _delta;
 		else
 			rotationSpeed = 0;
 
 		if (speed.X > 10)
-			speed.X -= speedBreak * delta;
+			speed.X -= speedBreak * _delta;
 		else if (speed.X < -10)
-			speed.X += speedBreak * delta;
+			speed.X += speedBreak * _delta;
 
-		Rotation += rotationSide * rotationSpeed * (float)delta;
+		Rotation += rotationSide * rotationSpeed * _delta;
 
 		if (gravity > 0)
-			speed.Y += gravity * (float)delta;
+			speed.Y += gravity * _delta;
 
-		Position += speed * (float)delta;
+		Position += speed * _delta;
 
 		ifOutClose();
 	}
@@ -92,6 +96,6 @@ public partial class fallingShordItem : Sprite2D
 	void ifOutClose()
 	{
 		if (Position.X < -20 || Position.X > 400 || Position.Y > 900 || Position.Y < -20)
-			closeMe();
+			GravityBodyView.returnBody(this);
 	}
 }
