@@ -95,7 +95,7 @@ wordDelay = 0.03
 panelPositions = Vector2(10, 210)
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
-deck = Array[Object]([ExtResource("13_rqc40"), ExtResource("14_uor0q"), ExtResource("12_bpmkx"), ExtResource("9_o3m6r"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x")])
+deck = Array[Object]([ExtResource("9_o3m6r"), ExtResource("13_rqc40"), ExtResource("14_uor0q"), ExtResource("12_bpmkx"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x")])
 drawPile = Array[int]([])
 
 [node name="greg tests" type="Node" parent="."]
