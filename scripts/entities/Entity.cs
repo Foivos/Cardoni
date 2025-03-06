@@ -71,7 +71,8 @@ public partial class Entity : Node2D
 		set
 		{
 			occupyingLanes = value;
-			Position = Position with { X = ((value.To + value.From) / 2f - 1.5f) * Constants.GridWidth };
+			positionX = ((value.To + value.From) / 2f - 1.5f) * Constants.GridWidth;
+			Position = Position with { X = positionX };
 		}
 	}
 
@@ -91,13 +92,18 @@ public partial class Entity : Node2D
 			};
 		}
 	}
+	float positionX;
 
 	public EntityMask Mask { get; set; }
 
 	public Characteristic Characteristic { get; set; }
 
+	static int nonce = 0;
+	public int Id { get; set; }
+
 	public Entity()
 	{
+		Id = nonce++;
 		for (int i = 0; i < Effect.EffectTypes.Length; i++)
 		{
 			Type effectType = Effect.EffectTypes[i];
@@ -169,12 +175,11 @@ public partial class Entity : Node2D
 			return;
 
 		Y += dx;
-
-		ProcessSideMove();
 	}
 
 	public virtual void UpdatePosition(float dt)
 	{
+		ProcessSideMove(dt);
 		int dx = (int)MovementSpeed * Direction;
 		if (dx == 0)
 			return;
@@ -265,5 +270,33 @@ public partial class Entity : Node2D
 		Weapon.Position = shordPosition;
 	}
 
-	public void ProcessSideMove() { }
+	(float, float) GetOffset()
+	{
+		float y = Position.Y;
+		const float a = 2f / Constants.GridTicks;
+		const float b = 10;
+		float d = Direction * (float)Math.Sin(a * Y + b * Id);
+		return (10 * d, 0.1f * d);
+	}
+
+	public void ProcessSideMove(double dt)
+	{
+		(float dx, float rotation) = GetOffset();
+		const float vx = 1;
+		const float vr = 1;
+
+		dx = dx + positionX - Position.X;
+		if (dx != 0)
+		{
+			float px = (float)Math.Min(1, vx * dt / Math.Abs(dx));
+			Position = Position with { X = Position.X + dx * px };
+		}
+
+		rotation = rotation - Rotation;
+		if (rotation != 0)
+		{
+			float pr = (float)Math.Min(1, vr * dt / Math.Abs(rotation));
+			Rotation += rotation * pr;
+		}
+	}
 }
