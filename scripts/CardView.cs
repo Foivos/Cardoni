@@ -17,8 +17,6 @@ public partial class CardView : Node2D
 	Card[] Cards = new Card[4];
 	CardArea[] CardAreas = new CardArea[4];
 
-
-
 	[Export] public CardData[] deck;// GREGORY
 
 	[Export]
@@ -47,7 +45,6 @@ public partial class CardView : Node2D
 	}
 	public void CardPlayed(Card card)
 	{
-
 		return;// FOR EDIT TO REPLAY SAME CARD
 
 		Cards[card.Index] = null;
@@ -57,7 +54,6 @@ public partial class CardView : Node2D
 		//drawCard();
 
 	}
-
 
 	bool handFull()
 	{
@@ -89,16 +85,6 @@ public partial class CardView : Node2D
 
 		}
 		else { drawCard(); lastCardDrawTime = Time.GetTicksMsec(); }
-
-
-
-
-
-
-
-
-
-
 	}
 	void drawCard()
 	{
