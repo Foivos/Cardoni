@@ -54,10 +54,15 @@ public partial class GameState : Node
 		set { Instance.CardState.Selected = value; }
 	}
 
+	int mana;
 	public int Mana
 	{
-		get { return (int)(manaStacks / StacksPerMana); }
-		set { manaStacks = (int)(manaStacks % StacksPerMana + (value * StacksPerMana)); }
+		get => mana;
+		set { 
+			mana = value;
+
+			GameView.Instance.ManaLabel.Text = mana.ToString();
+		}
 	}
 
 	public int manaStacks = 0;
@@ -73,6 +78,11 @@ public partial class GameState : Node
 		AddTicked(() =>
 		{
 			manaStacks += StacksPerTick;
+			if (manaStacks > StacksPerMana) {
+				Mana += (int) (manaStacks / StacksPerMana);
+				manaStacks %= (int) StacksPerMana;
+			}
+
 		});
 	}
 

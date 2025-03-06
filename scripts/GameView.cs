@@ -7,6 +7,8 @@ public partial class GameView : Area2D
 {
 	public static GameView Instance { get; set; }
 
+	[Export] public Label ManaLabel;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -14,41 +16,6 @@ public partial class GameView : Area2D
 		InputEvent += _Input;
 		MouseExited += _MouseExited;
 		MouseEntered += _MouseEntered;
-
-		Mana = 4;
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta) { processMana(delta); }
-
-	[Export] Label manaLabel;
-	int mana = 4;
-	public int Mana
-	{
-		get => mana;
-		set
-		{
-			if (value > 8) value = 8;
-
-			mana = value;
-			manaLabel.Text = mana.ToString();
-		}
-	}
-	[Export] double manaRegen = 1;
-	double manaTimer;
-	void processMana(double delta)
-	{
-
-
-		manaTimer += delta;
-		if (manaTimer < 1 / manaRegen) return;
-
-		manaTimer = 0;
-		Mana++;
-		manaLabel.Text = mana.ToString();
-
-
-
 	}
 
 	public void _Input(Node viewport, InputEvent @event, long shapeIdx)
@@ -63,9 +30,9 @@ public partial class GameView : Area2D
 				return;
 
 
-			if (GameView.Instance.Mana >= GameState.SelectedCard.ManaCost)
+			if (GameState.Instance.Mana >= GameState.SelectedCard.ManaCost)
 			{
-				GameView.Instance.Mana -= GameState.SelectedCard.ManaCost;
+				GameState.Instance.Mana -= GameState.SelectedCard.ManaCost;
 				GameState.SelectedCard.CardResult.Activate();
 				CardView.Instance.CardPlayed(GameState.SelectedCard);
 			}

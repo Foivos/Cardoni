@@ -47,12 +47,11 @@ scale = Vector2(0.51, 0.51)
 texture = ExtResource("2_g0wjl")
 stretch_mode = 1
 
-[node name="GameView" type="Area2D" parent="." node_paths=PackedStringArray("manaLabel")]
+[node name="GameView" type="Area2D" parent="." node_paths=PackedStringArray("ManaLabel")]
 position = Vector2(200, 300)
 collision_mask = 0
 script = ExtResource("2_kstpq")
-manaLabel = NodePath("mana label")
-manaRegen = 4.0
+ManaLabel = NodePath("mana label")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GameView"]
 shape = SubResource("RectangleShape2D_edew2")
