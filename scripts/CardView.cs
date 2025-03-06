@@ -17,8 +17,6 @@ public partial class CardView : Node2D
 	Card[] Cards = new Card[4];
 	CardArea[] CardAreas = new CardArea[4];
 
-
-
 	[Export] public CardData[] deck;// GREGORY
 
 	[Export]
@@ -57,7 +55,6 @@ public partial class CardView : Node2D
 		//drawCard();
 
 	}
-
 
 	bool handFull()
 	{
@@ -98,31 +95,23 @@ public partial class CardView : Node2D
 
 		if (handFull()) return;
 
-		long minDrawTimeDistance = 250;
+		long minDrawTimeDistance = 180;
 		long now = (long)Time.GetTicksMsec();
 		if (now < lastCardDrawTime + minDrawTimeDistance)
 		{
 
-			GD.Print("DRAW REQUESTED");
+		
 			float diff = (lastCardDrawTime + minDrawTimeDistance - now) / 1000f;
 			new ProcessExpiring(  diff, () =>
 				{
-					GD.Print("after expire draw");
+				
 					drawCard();
 				}, 1);
 
 			lastCardDrawTime = lastCardDrawTime + minDrawTimeDistance;
 
 		}
-		else { GD.Print("DRAW NOW"); drawCard(); lastCardDrawTime = now; }
-
-
-
-
-
-
-
-
+		else {  drawCard(); lastCardDrawTime = now; }
 
 
 	}

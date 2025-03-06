@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 
 public class PriorityQueue<T>
-	where T : IComparable, IEquatable<T>
+	where T : IComparable<T>, IEquatable<T>
 {
 	readonly List<T> elements = new();
 
@@ -41,9 +41,59 @@ public class PriorityQueue<T>
 			return item;
 		}
 
-		T least = elements[0];
-		int i = 0;
+		T least = elements[0];	
+		int i = SortUp(0);
 
+		elements[i] = item;
+		SortDown(i);
+
+		return least;
+	}
+
+	public bool Remove(T item)
+	{
+		int index = elements.FindIndex((a) => a.Equals(item));
+		if (index == -1)
+			return false;
+		if (index == elements.Count - 1)
+		{
+			elements.RemoveAt(index);
+			return true;
+		}
+
+		int last = elements.Count - 1;
+		item = elements[last];
+		elements.RemoveAt(last--);
+
+		int i = SortUp(index);
+		elements[i] = item;
+		SortDown(i);
+
+		return true;
+	}
+
+	private void SortDown(int i)
+	{
+		while (i > 0)
+		{
+			int j = (i + 1) / 2 - 1;
+			if (LessThan(elements[i], elements[j]))
+			{
+				T temp = elements[i];
+				elements[i] = elements[j];
+				elements[j] = temp;
+			}
+			else
+			{
+				break;
+			}
+			i = j;
+		}
+	}
+
+	private int SortUp(int i)
+	{
+		int last = elements.Count - 1;
 		while (true)
 		{
 			int j = (i + 1) * 2 - 1;
@@ -69,54 +119,11 @@ public class PriorityQueue<T>
 				i = j + 1;
 			}
 		}
-		elements[i] = item;
-		SortDown(i);
-
-		return least;
-	}
-
-	public bool Remove(T item)
-	{
-		int index = elements.FindIndex((a) => a.Equals(item));
-		if (index == -1)
-			return false;
-		if (index == elements.Count - 1)
-		{
-			elements.RemoveAt(index);
-			return true;
-		}
-
-		int last = elements.Count - 1;
-		item = elements[last];
-		elements.RemoveAt(last--);
-
-		elements[index] = item;
-		SortDown(index);
-
-		return true;
-	}
-
-	private void SortDown(int i)
-	{
-		while (i > 0)
-		{
-			int j = (i + 1) / 2 - 1;
-			if (LessThan(elements[i], elements[j]))
-			{
-				T temp = elements[i];
-				elements[i] = elements[j];
-				elements[j] = temp;
-			}
-			else
-			{
-				break;
-			}
-			i = j;
-		}
+		return i;
 	}
 
 	private bool LessThan(T a, T b)
 	{
-		return (a as IComparable).CompareTo(b) < 0;
+		return a.CompareTo(b) < 0;
 	}
 }
