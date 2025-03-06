@@ -47,9 +47,8 @@ public partial class TargetView : Node2D
 		ProcessTargets();
 	}
 
-
-
 	List<Entity> markedTargets = new();
+
 	void markTargetEntity(Entity entity)
 	{
 		//if (markedTargets.Contains(entity)) return;
@@ -61,22 +60,24 @@ public partial class TargetView : Node2D
 		//entity.Sprite.SelfModulate = new Color(0.1f, 0.1f, 0.1f, 1);
 		markedTargets.Add(entity);
 	}
+
 	void unMarkTargetEntity(Entity entity)
 	{
-		if (!IsInstanceValid(entity)) return;
+		if (!IsInstanceValid(entity))
+			return;
 
-
-		if (markedTargets.Contains(entity) == false) return;
+		if (markedTargets.Contains(entity) == false)
+			return;
 		markedTargets.Remove(entity);
 
 		entity.Sprite.Material = shaderHolder.enemyShader;
 		entity.Sprite.SelfModulate = Colors.White;
-
 	}
 
 	void clearAllMarkedTargets()
 	{
-		if (markedTargets == null) return;
+		if (markedTargets == null)
+			return;
 
 		for (int i = markedTargets.Count - 1; i >= 0; i--)
 		{
@@ -85,38 +86,28 @@ public partial class TargetView : Node2D
 
 		foreach (Entity entity in markedTargets)
 		{
-			if (entity == null || !IsInstanceValid(entity)) continue;
+			if (entity == null || !IsInstanceValid(entity))
+				continue;
 			unMarkTargetEntity(entity);
 		}
 		markedTargets.Clear();
-
 	}
+
 	void clearOldMarkedTargets(List<Entity> targetsNow)
 	{
 		for (int i = markedTargets.Count - 1; i >= 0; i--)
 		{
-			if (!targetsNow.Contains(markedTargets[i])) unMarkTargetEntity(markedTargets[i]);
+			if (!targetsNow.Contains(markedTargets[i]))
+				unMarkTargetEntity(markedTargets[i]);
 		}
-
-
-
 	}
-
-
-
 
 	private void ProcessTargets()
 	{
-
-
-
 		CardResult result = GameState.SelectedCard.CardResult;
-
-
 
 		if (result is EffectResult effectResult)
 		{
-
 			//GD.Print("Processing targets " + effectResult.EntityTarget.Targets().Count);
 
 
@@ -124,7 +115,6 @@ public partial class TargetView : Node2D
 			{
 				// You can do something to each target here.
 				markTargetEntity(entity);
-
 
 				// 2  thinking of an arrow above them pointing down for a start
 			}

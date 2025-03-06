@@ -103,6 +103,7 @@ public partial class Attack : TickedCharacteristic<AttackData>
 	}
 
 	public static Entity EntityAttackingNow;
+
 	protected virtual void ContinueAttack()
 	{
 		AttackStacks += Entity.AttackSpeed;

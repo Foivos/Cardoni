@@ -40,19 +40,20 @@ public partial class Entity : Node2D
 	public float AttackSpeedModifier { get; set; } = 1;
 	public uint AttackSpeed => (uint)Math.Max(0, Math.Floor(BaseAttackSpeed * AttackSpeedModifier));
 
-	int _FacingDirection;// it was possible to have 0 .. .
-						 // for example in new enemies that were not moving it was 0
+	int _FacingDirection; // it was possible to have 0 .. .
+
+	// for example in new enemies that were not moving it was 0
 	public int FacingDirection
 	{
 		get
 		{
-			if (_FacingDirection != 0) return _FacingDirection;
+			if (_FacingDirection != 0)
+				return _FacingDirection;
 
-			if (Mask.Matches(new EntityMask() { EntityMasks.Enemy })) return 1;
-			else return -1;
-
-
-
+			if (Mask.Matches(new EntityMask() { EntityMasks.Enemy }))
+				return 1;
+			else
+				return -1;
 		}
 		set { _FacingDirection = value; }
 	} //? never zero .. even when not moving
@@ -138,7 +139,8 @@ public partial class Entity : Node2D
 		Y = y;
 		Mask = data.Mask;
 
-		if (data.Sprite != null) data.Sprite.setUp(Sprite); // GREGORY
+		if (data.Sprite != null)
+			data.Sprite.setUp(Sprite); // GREGORY
 
 		// if (data.Sprite != null)
 		// {

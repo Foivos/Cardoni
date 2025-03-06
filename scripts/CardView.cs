@@ -3,6 +3,7 @@ namespace Cardoni;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using Godot.Collections;
 
 public partial class CardView : Node2D
 {
@@ -17,65 +18,51 @@ public partial class CardView : Node2D
 	Card[] Cards = new Card[4];
 	CardArea[] CardAreas = new CardArea[4];
 
-	[Export] public CardData[] deck;// GREGORY
-
 	[Export]
-	public Godot.Collections.Array<int> drawPile;
-	//List<int> drawPile;
+	public Array<CardData> DeckData;
+
+	public List<Card> Deck { get; set; } = new();
+
+	public List<Card> DrawPile { get; set; } = new();
+
+	long lastCardDrawTime = -2000;
+
 	void StartSetDeck()
 	{
-		drawPile = new();
-		for (int i = 4; i < deck.Length; i++)
+		for (int i = 0; i < DeckData.Count(); i++)
 		{
-			drawPile.Add(i);
+			Card card = CardsScene.Instantiate<Card>();
+			card.Data = DeckData[i];
+			Deck.Add(card);
 		}
-		GD.Print("drawPile.Count: " + drawPile.Count);
+
+		ResetDrawPile();
 
 		for (int i = 0; i < 4; i++)
 		{
-			requestDrawCard();
-			//drawCard(deck[i], i);
+			RequestDrawCard(i);
 		}
-
-
-
-		suffleDrawPile();
-
-
 	}
+
 	public void CardPlayed(Card card)
 	{
+		CardAreas[card.Index].RemoveChild(card);
 
-		//return;// FOR EDIT TO REPLAY SAME CARD
+		int index = card.Index;
+		card.Index = -1;
+		Cards[index] = null;
 
-		Cards[card.Index] = null;
-		card.QueueFree();
-
-		requestDrawCard();
-		//drawCard();
-
+		RequestDrawCard(index);
 	}
 
-	bool handFull()
+	bool HandFull()
 	{
-		if (Cards[0] != null &&
-					Cards[1] != null &&
-					Cards[2] != null &&
-					Cards[3] != null) return true;
-		return false;
-
-	}
-	bool handEmpty()
-	{
-
-		if (Cards[0] == null &&
-			Cards[1] == null &&
-			Cards[2] == null &&
-			Cards[3] == null) return true;
+		if (Cards[0] != null && Cards[1] != null && Cards[2] != null && Cards[3] != null)
+			return true;
 		return false;
 	}
 
-	int firstEmptyCard()
+	int FirstEmptyCard()
 	{
 		for (int i = 0; i < 4; i++)
 		{
@@ -83,83 +70,55 @@ public partial class CardView : Node2D
 				return i;
 		}
 
-		GD.PushError("didnt find first empty");
-		return 0;
-
-
+		return -1;
 	}
 
-	long lastCardDrawTime = -2000;
-	void requestDrawCard()
+	void RequestDrawCard(int drawTo)
 	{
-
-		if (handFull()) return;
-
 		long minDrawTimeDistance = 180;
 		long now = (long)Time.GetTicksMsec();
 		if (now < lastCardDrawTime + minDrawTimeDistance)
 		{
-
-		
 			float diff = (lastCardDrawTime + minDrawTimeDistance - now) / 1000f;
-			new ProcessExpiring(  diff, () =>
+			new ProcessExpiring(
+				diff,
+				() =>
 				{
-				
-					drawCard();
-				}, 1);
+					DrawCard(drawTo);
+				},
+				1
+			);
 
 			lastCardDrawTime = lastCardDrawTime + minDrawTimeDistance;
-
 		}
-		else {  drawCard(); lastCardDrawTime = now; }
-
-
-	}
-	void drawCard()
-	{
-
-		GD.Print("CARD 0 ");
-		if (handFull()) return;
-
-		if (drawPile.Count == 0) resetDrawPile();
-		// {
-		// 	if (handEmpty())
-
-		// 		// requestDrawCard();
-		// 		// requestDrawCard();
-		// 		// requestDrawCard();
-		// 		// requestDrawCard();
-
-		// 		return;
-		// }
-
-		GD.Print("CARD 1 ");
-
-		drawCard(deck[drawPile[0]], firstEmptyCard());
-		drawPile.RemoveAt(0);
-
-
-
-
+		else
+		{
+			DrawCard(drawTo);
+			lastCardDrawTime = now;
+		}
 	}
 
-	void drawCard(CardData data, int index)
+	void DrawCard(int drawTo)
 	{
-		GD.Print("CARD 2  " + index);
+		if (Cards[drawTo] != null)
+			return;
 
+		if (DrawPile.Count == 0)
+			ResetDrawPile();
 
-		Card card = CardsScene.Instantiate<Card>();
-		card.Index = index;
+		Card card = DrawPile[0];
+		DrawPile.RemoveAt(0);
+		DrawCard(card, drawTo);
+	}
 
-		card.Data = data;
-
+	void DrawCard(Card card, int index)
+	{
 		Cards[index] = card;
 		CardAreas[index].AddChild(card);
+		card.Index = index;
 
 		drawCardEffect(card);
-
 	}
-
 
 	void drawCardEffect(Card card)
 	{
@@ -173,95 +132,58 @@ public partial class CardView : Node2D
 		card.Sprite.Offset = offset;
 		card.RotationDegrees = rotation;
 
+		new ProcessExpiring(
+			delay,
+			() =>
+			{
+				if (!IsInstanceValid(card))
+					return;
 
-		new ProcessExpiring(delay, () =>
-					{
-						if (!IsInstanceValid(card)) return;
-
-						card.Modulate = Colors.White;
-						card.Sprite.Offset = Vector2.Zero;
-						card.RotationDegrees = 0;
-					}, 1);
-
-
-
+				card.Modulate = Colors.White;
+				card.Sprite.Offset = Vector2.Zero;
+				card.RotationDegrees = 0;
+			},
+			1
+		);
 	}
 
-
-	void resetDrawPile()
+	void ResetDrawPile()
 	{
+		DrawPile = Deck.Where((card) => card.Index == -1).ToList();
 
-		drawPile.Clear();
-
-		for (int i = 0; i < deck.Length; i++)
-		{
-			drawPile.Add(i);
-		}
-
-		suffleDrawPile();
-
-
-
-
+		ShuffleDrawPile();
 	}
-	void suffleDrawPile()
+
+	void ShuffleDrawPile()
 	{
-		int a, b, holder;
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < DrawPile.Count; i++)
 		{
-			a = (int)GD.RandRange(0, drawPile.Count - 1);
-			b = (int)GD.RandRange(0, drawPile.Count - 1);
-			holder = drawPile[a];
-			drawPile[a] = drawPile[b];
-			drawPile[b] = holder;
+			int j = i + (int)(GD.Randi() % (DrawPile.Count - i));
+			if (j == i)
+				continue;
+			Card temp = DrawPile[i];
+			DrawPile[i] = DrawPile[j];
+			DrawPile[j] = temp;
 		}
-
 	}
-
-
-
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-
-		// "arrow_turret", //net
-		//greg/spawnWarrior
-
-
-
 		Instance = this;
 
-
-
-		//string[] names = new string[] { "greg/pushCard", "earthquake", "toxic_fumes", "slowing_field" };
 		for (int i = 0; i < 4; i++)
 		{
-
-
-			//Card card = CardsScene.Instantiate<Card>();
-			//card.Index = i;
-
-			//card.Data = GD.Load<CardData>("res://resources/cards/" + names[i] + ".tres");
-			//card.Data = deck[i];
-
-			//Cards[i] = card;
-
 			CardArea cardArea = CardAreaScene.Instantiate<CardArea>();
 			cardArea.CardView = this;
 			cardArea.Index = i;
 			cardArea.Position = new Vector2(100 * i - 150, 0);
 
-			//cardArea.AddChild(card);
-
 			CardAreas[i] = cardArea;
 			AddChild(cardArea);
-
-
 		}
 
 		StartSetDeck();
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

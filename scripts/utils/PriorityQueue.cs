@@ -41,7 +41,7 @@ public class PriorityQueue<T>
 			return item;
 		}
 
-		T least = elements[0];	
+		T least = elements[0];
 		int i = SortUp(0);
 
 		elements[i] = item;

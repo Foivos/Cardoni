@@ -1,11 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw54ppij0q66r"]
+[gd_scene load_steps=12 format=3 uid="uid://bw54ppij0q66r"]
 
 [ext_resource type="Script" path="res://scripts/CardView.cs" id="1_qg2kn"]
 [ext_resource type="PackedScene" uid="uid://ixpayohnt6iw" path="res://scenes/card.tscn" id="2_t578a"]
 [ext_resource type="PackedScene" uid="uid://b4hdniqnhjhyt" path="res://scenes/cardArea.tscn" id="3_ff0i2"]
+[ext_resource type="Resource" uid="uid://4rpoyq4rckdn" path="res://resources/cards/greg/pushCard.tres" id="4_5rin6"]
+[ext_resource type="Resource" uid="uid://bb6wsonyqnnw6" path="res://resources/cards/earthquake.tres" id="4_uccl4"]
+[ext_resource type="Resource" uid="uid://ct837g8d32ksx" path="res://resources/cards/greg/testCard.tres" id="5_5ty0p"]
+[ext_resource type="Resource" uid="uid://bmkw08xg8cn10" path="res://resources/cards/greg/spawnWarrior.tres" id="6_gst3q"]
+[ext_resource type="Resource" uid="uid://b117wbqlb5cgm" path="res://resources/cards/fireball.tres" id="8_hjime"]
+[ext_resource type="Resource" uid="uid://133u5v4h18wv" path="res://resources/cards/arrow_turret.tres" id="9_fxatk"]
+[ext_resource type="Resource" uid="uid://ct06qb70q7b50" path="res://resources/cards/firebolt.tres" id="10_phlmn"]
+[ext_resource type="Resource" uid="uid://bf7feo1lcpbyd" path="res://resources/cards/toxic_fumes.tres" id="11_3asfj"]
 
 [node name="CardView" type="Node2D"]
 position = Vector2(200, 700)
 script = ExtResource("1_qg2kn")
 CardAreaScene = ExtResource("3_ff0i2")
 CardsScene = ExtResource("2_t578a")
+DeckData = Array[Object]([ExtResource("4_5rin6"), ExtResource("5_5ty0p"), ExtResource("6_gst3q"), ExtResource("4_uccl4"), ExtResource("8_hjime"), ExtResource("9_fxatk"), ExtResource("10_phlmn"), ExtResource("11_3asfj")])

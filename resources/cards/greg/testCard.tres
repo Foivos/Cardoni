@@ -1,8 +1,14 @@
-[gd_resource type="Resource" script_class="CardData" load_steps=6 format=3 uid="uid://ct837g8d32ksx"]
+[gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://ct837g8d32ksx"]
 
+[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_4647r"]
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_ai23q"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_bfm8a"]
 [ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="2_rffd0"]
+
+[sub_resource type="Resource" id="Resource_osxdg"]
+script = ExtResource("1_4647r")
+Damage = 0
+DamageType = 0
 
 [sub_resource type="Resource" id="Resource_eesc1"]
 script = ExtResource("1_bfm8a")
@@ -14,10 +20,11 @@ MovementSpeed = -60
 ProjectileMask = SubResource("Resource_eesc1")
 Piercing = 1
 Y = 7200
+Active = SubResource("Resource_osxdg")
 
 [resource]
 script = ExtResource("1_ai23q")
-Name = ""
+Name = "test card"
 Description = ""
 ManaCost = 0
 CardResult = SubResource("Resource_lb0dt")

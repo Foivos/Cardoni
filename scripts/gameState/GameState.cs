@@ -58,7 +58,8 @@ public partial class GameState : Node
 	public int Mana
 	{
 		get => mana;
-		set { 
+		set
+		{
 			mana = value;
 
 			GameView.Instance.ManaLabel.Text = mana.ToString();
@@ -78,11 +79,11 @@ public partial class GameState : Node
 		AddTicked(() =>
 		{
 			manaStacks += StacksPerTick;
-			if (manaStacks > StacksPerMana) {
-				Mana += (int) (manaStacks / StacksPerMana);
-				manaStacks %= (int) StacksPerMana;
+			if (manaStacks > StacksPerMana)
+			{
+				Mana += (int)(manaStacks / StacksPerMana);
+				manaStacks %= (int)StacksPerMana;
 			}
-
 		});
 	}
 

@@ -5,7 +5,6 @@ using Godot;
 
 public partial class GravityBodyView : Node
 {
-
 	static GravityBodyView inst;
 
 	public override void _Ready()
@@ -13,11 +12,9 @@ public partial class GravityBodyView : Node
 		inst = this;
 	}
 
-
 	public static void returnBody(GravityBody body)
 	{
 		inst.GravityBodyPool.Remove(body);
-
 	}
 
 	public static GravityBody getGravityBody()
@@ -25,34 +22,33 @@ public partial class GravityBodyView : Node
 		return inst.GravityBodyPool.Get();
 	}
 
-	NodePool<GravityBody> GravityBodyPool
-	{ get; set; } =
-		   new()
-		   {
-			   Instantiate = () =>
-			   {
-				   GravityBody body = new GravityBody();
-				   inst.AddChild(body);
-				   return body;
-			   },
-			   Initialize = body =>
-			   {
-				   body.Visible = true;
-				   body.SetProcess(true);
-			   },
-			   Deactivate = body =>
-			   {
-				   body.Visible = false;
-				   body.SetProcess(false);
-			   },
-		   };
-
-
+	NodePool<GravityBody> GravityBodyPool { get; set; } =
+		new()
+		{
+			Instantiate = () =>
+			{
+				GravityBody body = new GravityBody();
+				inst.AddChild(body);
+				return body;
+			},
+			Initialize = body =>
+			{
+				body.Visible = true;
+				body.SetProcess(true);
+			},
+			Deactivate = body =>
+			{
+				body.Visible = false;
+				body.SetProcess(false);
+			},
+		};
 
 	public static void throwItem(Sprite2D thatOne)
 	{
-		if (inst == null) { return; }//GD.Print("null throwItem");
-
+		if (inst == null)
+		{
+			return;
+		} //GD.Print("null throwItem");
 
 		Color color = new Color(0.8f, 0.8f, 0.8f);
 		const int gravity = 900; //10000
@@ -109,9 +105,6 @@ public partial class GravityBodyView : Node
 		item.useMe(pos, size, inst.strikeTexture, _degrees: degrees, _speed: speed, _color: color);
 
 		//new battleEffectsC.invisibleLater(item, lifeTime);
-		SpecialState.closeGravityBody(item , lifeTime);
+		SpecialState.closeGravityBody(item, lifeTime);
 	}
-
-
-
 }

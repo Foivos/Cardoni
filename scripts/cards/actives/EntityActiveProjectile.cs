@@ -1,16 +1,13 @@
+using System;
 using Cardoni;
 using Godot;
-using System;
 
 [GlobalClass]
 public partial class EntityActiveProjectile : EntityActive
 {
-
-
-
-
 	[Export]
 	public int MovementSpeed { get; set; } = -60;
+
 	[Export]
 	public EntityMask ProjectileMask { get; set; } = new EntityMask() { EntityMasks.Enemy };
 
@@ -18,8 +15,7 @@ public partial class EntityActiveProjectile : EntityActive
 	public int Piercing { get; set; } = 1;
 
 	[Export]
-	public int Y { get; set; } = 0;// Constants.TicksPerLane;
-
+	public int Y { get; set; } = 0; // Constants.TicksPerLane;
 
 	[Export]
 	EntityActive Active { get; set; }
@@ -28,10 +24,9 @@ public partial class EntityActiveProjectile : EntityActive
 
 	public override void Activate(Entity entity)
 	{
-
 		// if entity is not oving from birth facing direction == 0   FIX THIS
 		//GD.Print("projectile Dir : " + Attack.EntityAttackingNow.FacingDirection);
-		
+
 		int direction = Attack.EntityAttackingNow.FacingDirection;
 		if (direction == 0)
 		{
@@ -41,7 +36,6 @@ public partial class EntityActiveProjectile : EntityActive
 
 		var projectile = new Projectile()
 		{
-
 			Y = Attack.EntityAttackingNow.Y + direction * Y,
 			MovementSpeed = MovementSpeed * direction,
 			Active = Active,
@@ -54,10 +48,5 @@ public partial class EntityActiveProjectile : EntityActive
 		projectile.Sprite.Scale = new Vector2(1, 1);
 
 		projectile.Sprite.RotationDegrees = MovementSpeed < 0 ? 180 : 0;
-
-
 	}
-
-
-
 }

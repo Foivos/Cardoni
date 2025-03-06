@@ -65,12 +65,10 @@ public partial class SpecialState : Node
 
 	public override void _Process(double delta)
 	{
-		
 		base._Process(delta);
 		float t = CurrentTime;
 		while (Expiring.Count > 0 && Expiring.Top.End <= t)
 		{
-
 			ProcessExpiring expiring = Expiring.Pop();
 
 			expiring.OnExpire();
@@ -84,8 +82,6 @@ public partial class SpecialState : Node
 				AddExpiring(expiring);
 			}
 		}
-
-		
 	}
 
 	public static void AddExpiring(ProcessExpiring expiring)
@@ -102,8 +98,6 @@ public partial class SpecialState : Node
 	{
 		return Instance.Animations.Get();
 	}
-
-
 
 	public static ProcessExpiring RemoveLater(Node2D node, float duration)
 	{
@@ -157,8 +151,8 @@ public partial class SpecialState : Node
 			duration,
 			() =>
 			{
-
-				if (!IsInstanceValid(node)) return;
+				if (!IsInstanceValid(node))
+					return;
 
 				visible = !visible;
 				node.Visible = visible;
@@ -174,7 +168,8 @@ public partial class SpecialState : Node
 			duration,
 			() =>
 			{
-				if (!IsInstanceValid(label)) return;
+				if (!IsInstanceValid(label))
+					return;
 
 				visible = !visible;
 				label.Visible = visible;
@@ -185,21 +180,18 @@ public partial class SpecialState : Node
 
 	public static ProcessExpiring closeGravityBody(GravityBody item, float duration)
 	{
-
 		return new ProcessExpiring(
 			duration,
 			() =>
 			{
-				if (!IsInstanceValid(item)) return;
+				if (!IsInstanceValid(item))
+					return;
 
 				GravityBodyView.returnBody(item);
 			},
 			2
 		);
 	}
-
-
-
 
 	public static ProcessExpiring HitDamage(
 		Sprite2D sprite,
@@ -211,14 +203,17 @@ public partial class SpecialState : Node
 		uint counter = 0;
 		void onExpire()
 		{
-			if (counter == 100 || !IsInstanceValid(sprite)) { counter = 100; return; }
-
+			if (counter == 100 || !IsInstanceValid(sprite))
+			{
+				counter = 100;
+				return;
+			}
 
 			counter++;
 			//GD.Print(counter);
 			if (counter == 1)
 			{
-				sprite.Material = null;// for now material doest get affectd by Modulate selfModulate
+				sprite.Material = null; // for now material doest get affectd by Modulate selfModulate
 				sprite.Modulate = new Color(blackColor, blackColor, blackColor);
 			}
 			else if (counter == 2)
@@ -238,31 +233,29 @@ public partial class SpecialState : Node
 	}
 
 	public static ProcessExpiring pushShadowTrail(
-			Entity entity //, int pushDistance
-		)
+		Entity entity //, int pushDistance
+	)
 	{
 		//int distanceForOneShadow = 300;
 		int shadowStep = 45;
-		float delay = 0.04f;// 0.04f;
-		float aStep = 0.3f;//0.2f;
+		float delay = 0.04f; // 0.04f;
+		float aStep = 0.3f; //0.2f;
 		float aStart = 0.9f;
 		List<Sprite2D> shadows = new();
 
-		int shadowCount = 2;// (int)((float)pushDistance / shadowStep);
-							//if (shadowCount < 1) shadowCount = 1;
-							//GD.Print("shadowCount: " + shadowCount + " pushDistance: " + pushDistance);
+		int shadowCount = 2; // (int)((float)pushDistance / shadowStep);
+		//if (shadowCount < 1) shadowCount = 1;
+		//GD.Print("shadowCount: " + shadowCount + " pushDistance: " + pushDistance);
 
 		for (int i = 0; i < shadowCount; i++)
 		{
 			var s = new Sprite2D();
 
 			s.Texture = entity.Sprite.Texture;
-			s.Modulate = new Color(1, 1, 1, aStart - i * aStep);//(shadowCount - i - 1)
+			s.Modulate = new Color(1, 1, 1, aStart - i * aStep); //(shadowCount - i - 1)
 
 			s.Scale = entity.Sprite.Scale;
-			s.GlobalPosition = entity.GlobalPosition + entity.FacingDirection
-			* new Vector2(0, shadowStep * (i + 1));  //pushDistance 
-
+			s.GlobalPosition = entity.GlobalPosition + entity.FacingDirection * new Vector2(0, shadowStep * (i + 1)); //pushDistance
 
 			//GD.Print("ENTITY: " + entity.GlobalPosition);
 			//GD.Print("POS: " + s.GlobalPosition);
@@ -270,19 +263,15 @@ public partial class SpecialState : Node
 
 			Instance.AddChild(s);
 			shadows.Add(s);
-
 		}
-
-
 
 		void onExpire()
 		{
-
-
 			//counter++;uint counter = 0;
 			//GD.Print("push shadow " +counter);
 
-			if (shadows.Count == 0) return;
+			if (shadows.Count == 0)
+				return;
 
 			bool done = true;
 
@@ -294,9 +283,8 @@ public partial class SpecialState : Node
 				shadows[i].Modulate = new Color(1, 1, 1, shadows[i].Modulate.A - aStep);
 				//GD.Print("A ==  " + shadows[i].Modulate.A);
 
-				if (shadows[i].Modulate.A > 0.1f) done = false;
-
-
+				if (shadows[i].Modulate.A > 0.1f)
+					done = false;
 			}
 
 			if (done)
@@ -306,16 +294,11 @@ public partial class SpecialState : Node
 					shadows[i].QueueFree();
 				}
 				shadows.Clear();
-
 			}
-
-
 		}
 
 		return new ProcessExpiring(delay, onExpire, 5);
 	}
-
-
 
 	public static ProcessExpiring BackgroundFlash(Color flashColor, float duration)
 	{
@@ -344,34 +327,27 @@ public partial class SpecialState : Node
 		bool dead = !entity.IsAlive;
 		int direction = entity.FacingDirection;
 
-
 		const int offsetY = -50;
 		const int offsetX = -6;
 		const int randomX = 3;
 		const int randomRotation = 5;
 
-		const float scale = 2.5f, scaleDead = 3.5f;
+		const float scale = 2.5f,
+			scaleDead = 3.5f;
 
-
-		float XXX = offsetX * direction
-		+ (float)gregF.r((float)randomX) * gregF.rDir();
+		float XXX = offsetX * direction + (float)gregF.r((float)randomX) * gregF.rDir();
 
 		Animation animation = GetAnimation();
 		animation.Position = entity.GlobalPosition + new Vector2(XXX, direction * offsetY);
-		animation.RotationDegrees = (direction == 1 ? 180 : 0)
-		 + randomRotation.rDir();
+		animation.RotationDegrees = (direction == 1 ? 180 : 0) + randomRotation.rDir();
 		animation.Scale = Vector2.One * (dead ? scaleDead : scale);
 		animation.ZIndex = -5;
 
 		(float, int)[] frames = new (float, int)[7];
-		for (int i = 0; i < 7; i++) { frames[i] = (0.02f, i); }
+		for (int i = 0; i < 7; i++)
+		{
+			frames[i] = (0.02f, i);
+		}
 		animation.Play(GD.Load<Texture2D>("res://gregFolder/images/testBlood.png"), 3, 3, frames, 1);
 	}
-
-
-
-
-
-
-
 }

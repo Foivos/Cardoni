@@ -53,8 +53,6 @@ public partial class GravityBody : Sprite2D
 		SetProcess(true);
 	}
 
-
-
 	float gravity = 900;
 	Vector2 speed;
 	float rotationSpeed;
@@ -71,7 +69,6 @@ public partial class GravityBody : Sprite2D
 		// {
 
 		float _delta = (float)delta;
-
 
 		if (rotationSpeed > 0)
 			rotationSpeed -= rotationBreak * _delta;

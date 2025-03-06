@@ -7,7 +7,8 @@ public partial class GameView : Area2D
 {
 	public static GameView Instance { get; set; }
 
-	[Export] public Label ManaLabel;
+	[Export]
+	public Label ManaLabel;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -29,15 +30,14 @@ public partial class GameView : Area2D
 			)
 				return;
 
-
 			if (GameState.Instance.Mana >= GameState.SelectedCard.ManaCost)
 			{
 				GameState.Instance.Mana -= GameState.SelectedCard.ManaCost;
 				GameState.SelectedCard.CardResult.Activate();
 				CardView.Instance.CardPlayed(GameState.SelectedCard);
 			}
-			else GD.Print("Not enough mana");
-
+			else
+				GD.Print("Not enough mana");
 
 			TargetView.EndTargeting();
 			GameState.SelectedCard = null;
