@@ -177,6 +177,8 @@ public partial class Entity : Node2D
 			fallingShords.testStrikeThere(this);
 
 			SpecialState.HitDamage(Sprite);
+			SpecialState.flashLabelInvissible(HealthLabel, 0.02f);
+
 			textEffects.displayDmgText(this, damage);
 		}
 	}

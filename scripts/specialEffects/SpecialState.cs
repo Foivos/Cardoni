@@ -143,7 +143,7 @@ public partial class SpecialState : Node
 		);
 	}
 
-	public static ProcessExpiring HitEffect(Node2D node, float duration)
+	public static ProcessExpiring flashInvissible(Node2D node, float duration)
 	{
 		bool visible = true;
 		return new ProcessExpiring(
@@ -157,11 +157,24 @@ public partial class SpecialState : Node
 		);
 	}
 
+	public static ProcessExpiring flashLabelInvissible(Label label, float duration)
+	{
+		bool visible = true;
+		return new ProcessExpiring(
+			duration,
+			() =>
+			{
+				visible = !visible;
+				label.Visible = visible;
+			},
+			2
+		);
+	}
+
 	public static ProcessExpiring HitDamage(
 		Sprite2D sprite,
 		float duration = 0.02f,
 		float blackColor = 0.1f,
-		float hitDmgDelay = 0.03f,
 		int possitionOffset = -20
 	)
 	{
@@ -175,6 +188,7 @@ public partial class SpecialState : Node
 			//GD.Print(counter);
 			if (counter == 1)
 			{
+				sprite.Material = null;// for now material doest get affectd by Modulate selfModulate
 				sprite.Modulate = new Color(blackColor, blackColor, blackColor);
 			}
 			else if (counter == 2)
@@ -184,6 +198,7 @@ public partial class SpecialState : Node
 			}
 			else
 			{
+				sprite.Material = shaderHolder.enemyShader;
 				sprite.Modulate = Colors.White;
 				sprite.Offset = Vector2.Zero;
 			}
