@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EntityData" load_steps=19 format=3 uid="uid://bess3x87l60gi"]
 
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="1_dawy5"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_l8m5u"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_l8m5u"]
 [ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_12c2w"]
 [ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="2_lu5cg"]
 [ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="3_s3mdt"]

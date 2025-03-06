@@ -10,4 +10,6 @@ public abstract partial class CardResult : Resource
 	public CardResult() { }
 
 	public abstract void Activate();
+
+	
 }

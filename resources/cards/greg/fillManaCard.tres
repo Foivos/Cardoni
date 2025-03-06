@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="CardData" load_steps=9 format=3 uid="uid://nnw1comad88a"]
+
+[ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_ft5ti"]
+[ext_resource type="Script" path="res://scripts/cards/generalActivs/ManaChangeActive.cs" id="1_ikjqq"]
+[ext_resource type="Script" path="res://scripts/cards/generalActivs/MultiGeneralActive.cs" id="2_rwppd"]
+[ext_resource type="Script" path="res://scripts/cards/ActionCardResult.cs" id="3_d64ub"]
+
+[sub_resource type="Resource" id="Resource_ydpdq"]
+script = ExtResource("1_ikjqq")
+manaChange = 3
+
+[sub_resource type="Resource" id="Resource_blw7x"]
+script = ExtResource("1_ikjqq")
+manaChange = 3
+
+[sub_resource type="Resource" id="Resource_xe0g8"]
+script = ExtResource("2_rwppd")
+actions = [SubResource("Resource_ydpdq"), SubResource("Resource_blw7x")]
+
+[sub_resource type="Resource" id="Resource_1hb6e"]
+script = ExtResource("3_d64ub")
+active = SubResource("Resource_xe0g8")
+
+[resource]
+script = ExtResource("1_ft5ti")
+Name = "FILL MANA"
+Description = "fill mana
+"
+ManaCost = 0
+CardResult = SubResource("Resource_1hb6e")

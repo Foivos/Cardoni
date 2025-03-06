@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_6kuxi"]
 [ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_61tvb"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveCondition.cs" id="1_mqbh3"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveCondition.cs" id="1_mqbh3"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_pgwth"]
 [ext_resource type="Script" path="res://scripts/targetting/PatternTarget.cs" id="3_acysv"]
 [ext_resource type="Script" path="res://scripts/cards/EffectResult.cs" id="4_qxeeu"]

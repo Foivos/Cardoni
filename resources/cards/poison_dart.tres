@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/gameState/conditions/ConditionData.cs" id="1_ognu7"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_si177"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveCondition.cs" id="2_un154"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveCondition.cs" id="2_un154"]
 [ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_gaee4"]
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="5_npvq4"]
 

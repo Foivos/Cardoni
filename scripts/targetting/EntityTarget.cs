@@ -10,4 +10,6 @@ public abstract partial class EntityTarget : CardTarget
 	public EntityMask EntityMask { get; set; } = new();
 
 	public abstract List<Entity> Targets();
+
+	
 }

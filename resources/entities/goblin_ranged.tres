@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="EntityData" load_steps=19 format=3 uid="uid://ckwui711frbda"]
 
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_xd5xa"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_xd5xa"]
 [ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_hhuiy"]
 [ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="3_rxcnv"]
 [ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="4_6m8m5"]
 [ext_resource type="Script" path="res://scripts/characteristics/AttackData.cs" id="4_40xl8"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="5_g2lp0"]
 [ext_resource type="Script" path="res://scripts/filters/AndFilter.cs" id="5_u8hrh"]
-[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/EnemySpriteSheet1.png" id="6_fucug"]
+[ext_resource type="Texture2D" uid="uid://dh6lq15ucm7eo" path="res://resources/enemies/EnemySpriteSheet1.png" id="6_fucug"]
 [ext_resource type="Script" path="res://scripts/utils/SpriteData.cs" id="7_1koaj"]
 [ext_resource type="Script" path="res://scripts/entities/EntityData.cs" id="8_g47n3"]
 

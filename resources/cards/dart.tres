@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=8 format=3 uid="uid://c2lrd20l3xo4x"]
 
 [ext_resource type="Script" path="res://scripts/cards/CardData.cs" id="1_73nk7"]
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_apxmm"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_apxmm"]
 [ext_resource type="Script" path="res://scripts/utils/EntityMask.cs" id="2_yl5hi"]
 [ext_resource type="Script" path="res://scripts/cards/BaseProjectileResult.cs" id="4_ddmrc"]
 

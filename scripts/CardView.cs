@@ -25,21 +25,21 @@ public partial class CardView : Node2D
 	void StartSetDeck()
 	{
 		drawPile = new();
-		for (int i = 4; i < deck.Length; i++)
+
+
+		for (int i = 0; i < deck.Length; i++)
 		{
 			drawPile.Add(i);
+
 		}
-		GD.Print("drawPile.Count: " + drawPile.Count);
+		//suffleDrawPile();
+		//GD.Print("drawPile.Count: " + drawPile.Count);
 
-		for (int i = 0; i < 4; i++)
-		{
-			requestDrawCard();
-			//drawCard(deck[i], i);
-		}
+		requestDrawCard();
+		requestDrawCard();
+		requestDrawCard();
+		requestDrawCard();
 
-
-
-		suffleDrawPile();
 
 
 	}
@@ -95,23 +95,23 @@ public partial class CardView : Node2D
 
 		if (handFull()) return;
 
-		long minDrawTimeDistance = 180;
+		long minDrawTimeDistance = 90;
 		long now = (long)Time.GetTicksMsec();
 		if (now < lastCardDrawTime + minDrawTimeDistance)
 		{
 
-		
+
 			float diff = (lastCardDrawTime + minDrawTimeDistance - now) / 1000f;
-			new ProcessExpiring(  diff, () =>
+			new ProcessExpiring(diff, () =>
 				{
-				
+
 					drawCard();
 				}, 1);
 
 			lastCardDrawTime = lastCardDrawTime + minDrawTimeDistance;
 
 		}
-		else {  drawCard(); lastCardDrawTime = now; }
+		else { drawCard(); lastCardDrawTime = now; }
 
 
 	}

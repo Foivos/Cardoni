@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://qtgg1a57jfes"]
+[gd_scene load_steps=29 format=3 uid="uid://qtgg1a57jfes"]
 
 [ext_resource type="Texture2D" uid="uid://cjgafn504suim" path="res://resources/grid.png" id="2_g0wjl"]
 [ext_resource type="Script" path="res://scripts/GameView.cs" id="2_kstpq"]
@@ -24,6 +24,8 @@
 [ext_resource type="Script" path="res://gregFolder/gregC/GravityBodyView.cs" id="12_c64uc"]
 [ext_resource type="Resource" uid="uid://bb6wsonyqnnw6" path="res://resources/cards/earthquake.tres" id="13_rqc40"]
 [ext_resource type="Resource" uid="uid://b117wbqlb5cgm" path="res://resources/cards/fireball.tres" id="14_uor0q"]
+[ext_resource type="Resource" uid="uid://nnw1comad88a" path="res://resources/cards/greg/fillManaCard.tres" id="16_j8675"]
+[ext_resource type="Resource" uid="uid://rq8nygay2i53" path="res://resources/cards/greg/pushAll.tres" id="16_put63"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_edew2"]
 size = Vector2(400, 600)
@@ -95,7 +97,7 @@ wordDelay = 0.03
 panelPositions = Vector2(10, 210)
 
 [node name="CardView" parent="." instance=ExtResource("5_hkg8d")]
-deck = Array[Object]([ExtResource("9_o3m6r"), ExtResource("13_rqc40"), ExtResource("14_uor0q"), ExtResource("12_bpmkx"), ExtResource("10_0j7rj"), ExtResource("11_fyg5a"), ExtResource("12_8f72x")])
+deck = Array[Object]([ExtResource("10_0j7rj"), ExtResource("16_j8675"), ExtResource("16_put63"), ExtResource("9_o3m6r"), ExtResource("13_rqc40"), ExtResource("14_uor0q"), ExtResource("12_bpmkx"), ExtResource("11_fyg5a"), ExtResource("12_8f72x")])
 drawPile = Array[int]([])
 
 [node name="greg tests" type="Node" parent="."]

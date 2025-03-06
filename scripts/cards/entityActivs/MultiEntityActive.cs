@@ -13,9 +13,14 @@ public partial class MultiEntityActive : EntityActive
 
 	public override void Activate(Entity entity)
 	{
+		GD.Print("Activate START");
+
 		foreach (EntityActive active in Actives)
 		{
 			active.Activate(entity);
 		}
+		
+
+		GD.Print("Activate AFTER");
 	}
 }

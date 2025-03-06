@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CardData" load_steps=20 format=3 uid="uid://133u5v4h18wv"]
 
-[ext_resource type="Script" path="res://scripts/cards/actives/EntityActiveDamage.cs" id="1_ae5sl"]
+[ext_resource type="Script" path="res://scripts/cards/entityActivs/EntityActiveDamage.cs" id="1_ae5sl"]
 [ext_resource type="Script" path="res://scripts/filters/VerticalDistanceFilter.cs" id="2_5eby3"]
 [ext_resource type="Script" path="res://scripts/filters/LaneFilter.cs" id="2_jp7rw"]
 [ext_resource type="Script" path="res://scripts/filters/EnemiesFilter.cs" id="3_x4gb2"]

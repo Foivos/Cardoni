@@ -54,7 +54,7 @@ public partial class GameState : Node
 		set { Instance.CardState.Selected = value; }
 	}
 
-	int mana;
+	int mana = 4;
 	public int Mana
 	{
 		get => mana;
