@@ -293,10 +293,10 @@ public partial class Entity : Node2D
 	(float, float) GetOffset()
 	{
 		float y = Position.Y;
-		const float a = 2f / Constants.GridTicks;
+		const float a = 10f / Constants.GridTicks;
 		const float b = 10;
 		float d = Direction * (float)Math.Sin(a * Y + b * Id);
-		return (10 * d, 0.1f * d);
+		return (7 * d, 0.1f * d);
 	}
 
 	public void ProcessSideMove(double dt)
